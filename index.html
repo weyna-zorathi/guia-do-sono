@@ -263,10 +263,57 @@ body{font-family:var(--font-sans);background:var(--cream);color:var(--brown);min
 function goTo(s){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById('screen-'+s).classList.add('active');document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));document.getElementById('nav-'+s).classList.add('active');window.scrollTo(0,0)}
 const chatHistory=[];
 const SYSTEM_PROMPT=`Você é a Guia do Sono, especialista em sono infantil (0 a 5 anos). Voz acolhedora, empática, rústica e suave. Sem julgamentos. Valide SEMPRE o cansaço da mãe antes de qualquer instrução técnica. JAMAIS sugira métodos de deixar chorar. Foque em métodos gentis, higiene do sono e conexão. Respostas concisas: 3-5 parágrafos curtos.`;
-async function sendMessage(){const input=document.getElementById('chatInput');const text=input.value.trim();if(!text)return;input.value='';input.style.height='auto';document.getElementById('chatSuggestions').style.display='none';addMessage('user',text);chatHistory.push({role:'user',content:text});const typingRow=addTyping();document.getElementById('sendBtn').disabled=true;try{const response=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYSTEM_PROMPT,messages:chatHistory})});const data=await response.json();const assistantText=data.content?.[0]?.text||'Desculpe, tive um problema. Pode tentar novamente? 🌿';typingRow.remove();addMessage('assistant',assistantText);chatHistory.push({role:'assistant',content:assistantText})}catch(err){typingRow.remove();addMessage('assistant','Hmm, probleminha de conexão. Pode tentar novamente? 🌿')}document.getElementById('sendBtn').disabled=false;scrollChat()}
+async function sendMessage(){
+  const input=document.getElementById('chatInput');
+  const text=input.value.trim();
+  if(!text)return;
+  input.value='';input.style.height='auto';
+  document.getElementById('chatSuggestions').style.display='none';
+  addMessage('user',text);
+  chatHistory.push({role:'user',content:text});
+  const typingRow=addTyping();
+  document.getElementById('sendBtn').disabled=true;
+  try{
+    const response=await fetch('/api/chat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({system:SYSTEM_PROMPT,messages:chatHistory})
+    });
+    const data=await response.json();
+    const assistantText=data.content?.[0]?.text||'Desculpe, tive um problema. Pode tentar novamente? 🌿';
+    typingRow.remove();
+    addMessage('assistant',assistantText);
+    chatHistory.push({role:'assistant',content:assistantText});
+  }catch(err){
+    typingRow.remove();
+    addMessage('assistant','Hmm, probleminha de conexão. Pode tentar novamente? 🌿');
+  }
+  document.getElementById('sendBtn').disabled=false;
+  scrollChat();
+}
 function sendSuggestion(text){document.getElementById('chatInput').value=text;sendMessage()}
-function addMessage(role,text){const container=document.getElementById('chatMessages');const row=document.createElement('div');row.className='msg-row'+(role==='user'?' user':'');const avatar=document.createElement('div');avatar.className='msg-bubble-avatar';avatar.textContent=role==='user'?'👤':'🌿';const bubble=document.createElement('div');bubble.className='msg-bubble';bubble.innerHTML=text.split('\n\n').filter(p=>p.trim()).map(p=>`<p style="margin-bottom:6px">${p.replace(/\n/g,'<br>')}</p>`).join('');row.appendChild(avatar);row.appendChild(bubble);container.appendChild(row);scrollChat()}
-function addTyping(){const container=document.getElementById('chatMessages');const row=document.createElement('div');row.className='msg-row';const avatar=document.createElement('div');avatar.className='msg-bubble-avatar';avatar.textContent='🌿';const indicator=document.createElement('div');indicator.className='typing-indicator visible';indicator.innerHTML='<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';row.appendChild(avatar);row.appendChild(indicator);container.appendChild(row);scrollChat();return row}
+function addMessage(role,text){
+  const container=document.getElementById('chatMessages');
+  const row=document.createElement('div');
+  row.className='msg-row'+(role==='user'?' user':'');
+  const avatar=document.createElement('div');
+  avatar.className='msg-bubble-avatar';
+  avatar.textContent=role==='user'?'👤':'🌿';
+  const bubble=document.createElement('div');
+  bubble.className='msg-bubble';
+  bubble.innerHTML=text.split('\n\n').filter(p=>p.trim()).map(p=>`<p style="margin-bottom:6px">${p.replace(/\n/g,'<br>')}</p>`).join('');
+  row.appendChild(avatar);row.appendChild(bubble);
+  container.appendChild(row);scrollChat();
+}
+function addTyping(){
+  const container=document.getElementById('chatMessages');
+  const row=document.createElement('div');row.className='msg-row';
+  const avatar=document.createElement('div');avatar.className='msg-bubble-avatar';avatar.textContent='🌿';
+  const indicator=document.createElement('div');indicator.className='typing-indicator visible';
+  indicator.innerHTML='<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
+  row.appendChild(avatar);row.appendChild(indicator);
+  container.appendChild(row);scrollChat();return row;
+}
 function scrollChat(){const c=document.getElementById('chatMessages');c.scrollTop=c.scrollHeight}
 function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage()}}
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px'}
