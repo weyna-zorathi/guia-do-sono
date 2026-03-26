@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia do Sono — Sono gentil para famílias reais</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:#faf6ef;--warm-white:#fff9f2;--sage:#8a9e7f;--sage-light:#b5c9a8;--sage-pale:#edf3ea;
+  --terra:#c47a52;--terra-light:#e8a97e;--terra-pale:#f5e0d0;--brown:#7a5c3e;--brown-light:#a07850;
+  --linen:#ede5d8;--linen-dark:#d8ccb8;--night:#2c3e2d;--gold:#c9a84c;--gold-pale:#faf3df;--lavender:#9b8eb5;
+  --font-serif:'Playfair Display',Georgia,serif;--font-body:'Lora',Georgia,serif;--font-sans:'DM Sans',sans-serif;
+  --radius-sm:10px;--radius-md:16px;--radius-lg:24px;--shadow:0 2px 20px rgba(44,62,45,0.08);--shadow-lg:0 8px 40px rgba(44,62,45,0.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font-sans);background:var(--cream);color:var(--brown);min-height:100vh;overflow-x:hidden;background-image:radial-gradient(circle at 15% 10%,rgba(196,122,82,0.05) 0%,transparent 45%),radial-gradient(circle at 85% 90%,rgba(138,158,127,0.06) 0%,transparent 45%)}
+.screen{display:none;min-height:100vh}
+.screen.active{display:flex;flex-direction:column}
+.nav-bar{position:fixed;bottom:0;left:0;right:0;background:rgba(250,246,239,0.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--linen-dark);display:flex;align-items:center;justify-content:space-around;padding:8px 0 max(8px,env(safe-area-inset-bottom));z-index:100;box-shadow:0 -4px 24px rgba(44,62,45,0.06)}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 16px;border:none;background:none;color:var(--linen-dark);font-family:var(--font-sans);font-size:10px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;transition:color .2s;-webkit-tap-highlight-color:transparent}
+.nav-item .nav-icon{font-size:20px;line-height:1}
+.nav-item.active{color:var(--terra)}
+#screen-home{padding-bottom:80px}
+.home-hero{background:var(--night);padding:56px 24px 48px;text-align:center;position:relative;overflow:hidden}
+.home-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 50%,rgba(196,122,82,0.18) 0%,transparent 55%),radial-gradient(circle at 80% 20%,rgba(138,158,127,0.12) 0%,transparent 50%)}
+.home-hero *{position:relative;z-index:1}
+.hero-badge{display:inline-block;background:rgba(201,168,76,0.2);color:var(--gold);font-size:10px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;padding:5px 16px;border-radius:20px;border:1px solid rgba(201,168,76,0.3);margin-bottom:16px}
+.hero-logo{font-size:28px;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:8px}
+.hero-title{font-family:var(--font-serif);font-size:clamp(1.6rem,5vw,2.2rem);color:var(--cream);font-weight:400;line-height:1.25;margin-bottom:10px}
+.hero-title em{color:var(--terra-light);font-style:italic}
+.hero-sub{font-family:var(--font-body);font-style:italic;font-size:.9rem;color:rgba(250,246,239,0.6);line-height:1.7;max-width:320px;margin:0 auto 24px}
+.hero-cta{display:inline-flex;align-items:center;gap:8px;background:var(--terra);color:#fff;border:none;cursor:pointer;font-family:var(--font-sans);font-size:.88rem;font-weight:500;padding:12px 28px;border-radius:50px;box-shadow:0 4px 20px rgba(196,122,82,0.4);transition:transform .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent}
+.home-section{padding:28px 20px 0}
+.section-label{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--sage);margin-bottom:14px}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
+.quick-card{background:#fff;border:1.5px solid var(--linen-dark);border-radius:var(--radius-md);padding:18px 16px;cursor:pointer;transition:transform .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent;text-decoration:none;display:block}
+.qc-icon{font-size:24px;margin-bottom:8px;display:block}
+.qc-title{font-family:var(--font-serif);font-size:.88rem;font-weight:600;color:var(--night);line-height:1.3;margin-bottom:4px}
+.qc-desc{font-size:.73rem;color:var(--brown-light);line-height:1.5}
+.chat-promo{background:var(--night);border-radius:var(--radius-lg);padding:22px 20px;margin-bottom:28px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:transform .15s;-webkit-tap-highlight-color:transparent;position:relative;overflow:hidden}
+.chat-promo::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 50%,rgba(196,122,82,0.2) 0%,transparent 60%)}
+.chat-promo *{position:relative;z-index:1}
+.cp-icon{width:48px;height:48px;flex-shrink:0;background:rgba(196,122,82,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px}
+.cp-text{flex:1}
+.cp-title{font-family:var(--font-serif);font-size:1rem;color:var(--cream);font-weight:600;margin-bottom:3px}
+.cp-sub{font-size:.75rem;color:rgba(250,246,239,0.55);font-family:var(--font-body);font-style:italic;line-height:1.5}
+.cp-arrow{color:var(--terra-light);font-size:18px;flex-shrink:0}
+.quote-card{background:var(--sage-pale);border:1px solid var(--sage-light);border-radius:var(--radius-md);padding:20px;margin-bottom:12px;text-align:center}
+.quote-text{font-family:var(--font-body);font-style:italic;font-size:.88rem;color:var(--night);line-height:1.8;margin-bottom:8px}
+.quote-author{font-size:.72rem;color:var(--sage);letter-spacing:.5px}
+#screen-chat{padding-bottom:80px}
+.chat-header{background:var(--night);padding:20px 20px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:10}
+.chat-avatar{width:40px;height:40px;border-radius:50%;background:rgba(196,122,82,0.25);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;border:1.5px solid rgba(196,122,82,0.4)}
+.chat-header-text{flex:1}
+.chat-header-name{font-family:var(--font-serif);font-size:.95rem;color:var(--cream);font-weight:600}
+.chat-header-status{display:flex;align-items:center;gap:5px;font-size:.72rem;color:rgba(250,246,239,0.5)}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--sage-light);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.chat-messages{flex:1;padding:20px 16px;display:flex;flex-direction:column;gap:16px;overflow-y:auto}
+.msg-welcome{background:var(--terra-pale);border:1px solid rgba(196,122,82,0.2);border-radius:var(--radius-md);padding:18px;margin-bottom:4px}
+.msg-welcome-title{font-family:var(--font-serif);font-size:.95rem;font-weight:600;color:var(--night);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.msg-welcome-text{font-size:.84rem;color:var(--brown);line-height:1.75;font-family:var(--font-body)}
+.msg-row{display:flex;gap:8px;align-items:flex-end}
+.msg-row.user{flex-direction:row-reverse}
+.msg-bubble-avatar{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px}
+.msg-row:not(.user) .msg-bubble-avatar{background:rgba(196,122,82,0.15)}
+.msg-row.user .msg-bubble-avatar{background:var(--sage-pale)}
+.msg-bubble{max-width:78%;padding:12px 16px;border-radius:18px;font-size:.85rem;line-height:1.7;font-family:var(--font-body)}
+.msg-row:not(.user) .msg-bubble{background:#fff;border:1px solid var(--linen-dark);border-bottom-left-radius:6px;color:var(--brown)}
+.msg-row.user .msg-bubble{background:var(--terra);color:#fff;border-bottom-right-radius:6px}
+.chat-suggestions{padding:0 16px 12px;display:flex;gap:8px;flex-wrap:wrap}
+.suggestion-btn{background:#fff;border:1.5px solid var(--linen-dark);border-radius:20px;padding:7px 14px;font-family:var(--font-sans);font-size:.78rem;color:var(--brown);cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.chat-input-area{padding:12px 16px;background:rgba(250,246,239,0.95);backdrop-filter:blur(8px);border-top:1px solid var(--linen-dark);display:flex;gap:10px;align-items:flex-end;position:sticky;bottom:80px}
+.chat-textarea{flex:1;background:#fff;border:1.5px solid var(--linen-dark);border-radius:var(--radius-md);padding:10px 14px;font-family:var(--font-body);font-size:.88rem;color:var(--brown);resize:none;outline:none;min-height:44px;max-height:120px;line-height:1.5;transition:border-color .2s}
+.chat-textarea::placeholder{color:var(--linen-dark)}
+.chat-textarea:focus{border-color:var(--terra-light)}
+.chat-send-btn{width:44px;height:44px;background:var(--terra);border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:18px;box-shadow:0 2px 12px rgba(196,122,82,0.35);transition:transform .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent}
+.chat-send-btn:disabled{background:var(--linen-dark);box-shadow:none;cursor:not-allowed}
+.typing-indicator{display:none;align-items:center;gap:4px;padding:10px 16px;background:#fff;border:1px solid var(--linen-dark);border-radius:18px;border-bottom-left-radius:6px;width:fit-content}
+.typing-indicator.visible{display:flex}
+.typing-dot{width:6px;height:6px;border-radius:50%;background:var(--terra-light);animation:typing 1.2s infinite}
+.typing-dot:nth-child(2){animation-delay:.2s}
+.typing-dot:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-4px);opacity:1}}
+#screen-library{padding-bottom:80px}
+.library-header{background:var(--night);padding:28px 20px 24px;text-align:center}
+.library-title{font-family:var(--font-serif);font-size:1.4rem;color:var(--cream);font-weight:400;margin-bottom:6px}
+.library-sub{font-family:var(--font-body);font-style:italic;font-size:.82rem;color:rgba(250,246,239,0.55);line-height:1.6}
+.library-grid{padding:20px 16px;display:flex;flex-direction:column;gap:14px}
+.lib-card{background:#fff;border:1.5px solid var(--linen-dark);border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent;text-decoration:none;display:block}
+.lib-card-color{height:6px}
+.lib-card-body{padding:18px 20px;display:flex;align-items:center;gap:14px}
+.lib-card-icon{width:44px;height:44px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.lib-card-text{flex:1}
+.lib-card-label{font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.lib-card-title{font-family:var(--font-serif);font-size:.95rem;font-weight:600;color:var(--night);line-height:1.3;margin-bottom:3px}
+.lib-card-desc{font-size:.76rem;color:var(--brown-light);line-height:1.5}
+.lib-card-arrow{font-size:16px;color:var(--linen-dark);flex-shrink:0}
+#screen-plans{padding-bottom:80px}
+.plans-header{background:var(--night);padding:32px 20px 28px;text-align:center}
+.plans-title{font-family:var(--font-serif);font-size:1.5rem;color:var(--cream);font-weight:400;margin-bottom:8px}
+.plans-title em{color:var(--terra-light);font-style:italic}
+.plans-sub{font-family:var(--font-body);font-style:italic;font-size:.82rem;color:rgba(250,246,239,0.55);line-height:1.6}
+.plans-content{padding:20px 16px;display:flex;flex-direction:column;gap:14px}
+.plan-card{background:#fff;border:1.5px solid var(--linen-dark);border-radius:var(--radius-lg);overflow:hidden}
+.plan-card.featured{border-color:var(--terra);position:relative}
+.plan-card.premium-card{background:var(--night);border-color:var(--gold)}
+.plan-top-tag{position:absolute;top:0;right:20px;background:var(--terra);color:#fff;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;padding:4px 12px;border-radius:0 0 10px 10px}
+.plan-head{padding:22px 22px 14px;border-bottom:1px solid var(--linen)}
+.plan-card.premium-card .plan-head{border-bottom-color:rgba(255,255,255,0.07)}
+.plan-badge{display:inline-block;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:500;padding:3px 10px;border-radius:20px;margin-bottom:8px}
+.badge-free{background:var(--sage-pale);color:var(--sage)}
+.badge-plus{background:var(--terra-pale);color:var(--terra)}
+.badge-premium{background:rgba(201,168,76,0.15);color:#b89020}
+.plan-name{font-family:var(--font-serif);font-size:1.2rem;font-weight:700;color:var(--night);margin-bottom:2px}
+.plan-card.premium-card .plan-name{color:var(--cream)}
+.plan-tagline{font-family:var(--font-body);font-style:italic;font-size:.78rem;color:var(--brown-light);line-height:1.5}
+.plan-card.premium-card .plan-tagline{color:rgba(250,246,239,0.5)}
+.plan-price{margin-top:10px;font-family:var(--font-serif);font-size:1.6rem;font-weight:700;color:var(--night);line-height:1}
+.plan-card.premium-card .plan-price{color:var(--gold)}
+.plan-price span{font-size:.8rem;font-weight:400;color:var(--brown-light);font-family:var(--font-sans)}
+.plan-body{padding:18px 22px 20px}
+.plan-feat{display:flex;align-items:flex-start;gap:10px;font-size:.82rem;color:var(--brown);line-height:1.5;margin-bottom:10px}
+.plan-feat-icon{width:20px;height:20px;border-radius:50%;background:var(--sage-pale);display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;margin-top:1px}
+.plan-card.premium-card .plan-feat{color:rgba(250,246,239,0.75)}
+.plan-btn{display:block;width:100%;text-align:center;padding:13px;border-radius:var(--radius-md);font-family:var(--font-sans);font-size:.88rem;font-weight:500;cursor:pointer;border:none;margin-top:16px;transition:all .15s}
+.plan-btn-free{background:var(--sage-pale);color:var(--sage);border:1.5px solid var(--sage-light)}
+.plan-btn-plus{background:var(--terra);color:#fff;box-shadow:0 4px 16px rgba(196,122,82,0.3)}
+.plan-btn-premium{background:var(--gold);color:var(--night)}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.screen.active>*{animation:fadeSlideUp .3s ease both}
+@media(min-width:600px){.quick-grid{grid-template-columns:repeat(4,1fr)}.plans-content{display:grid;grid-template-columns:repeat(3,1fr);align-items:start}}
+</style>
+</head>
+<body>
+<div id="screen-home" class="screen active">
+  <div class="home-hero">
+    <div class="hero-badge">✦ sono gentil para famílias reais</div>
+    <div class="hero-logo">🌿</div>
+    <h1 class="hero-title">Guia do<br><em>Sono</em></h1>
+    <p class="hero-sub">Um lugar de calma onde você encontra respostas,<br>sem julgamentos e sem deixar chorar.</p>
+    <button class="hero-cta" onclick="goTo('chat')">🌙 Falar com a Guia</button>
+  </div>
+  <div class="home-section">
+    <p class="section-label">✦ Sua assistente</p>
+    <div class="chat-promo" onclick="goTo('chat')">
+      <div class="cp-icon">🌙</div>
+      <div class="cp-text">
+        <div class="cp-title">Guia do Sono</div>
+        <div class="cp-sub">Pergunte sobre rotinas, janelas de sono, choro noturno…</div>
+      </div>
+      <div class="cp-arrow">›</div>
+    </div>
+  </div>
+  <div class="home-section">
+    <p class="section-label">✦ Acesso rápido</p>
+    <div class="quick-grid">
+      <a href="tabela-mestra-sono.html" class="quick-card"><span class="qc-icon">🗓️</span><div class="qc-title">Tabela de Janelas</div><div class="qc-desc">Horários por faixa etária</div></a>
+      <a href="ritual-de-ouro-ebook.html" class="quick-card"><span class="qc-icon">📖</span><div class="qc-title">Ritual de Ouro</div><div class="qc-desc">O e-book completo</div></a>
+      <a href="dicionario-sensorial-bebe.html" class="quick-card"><span class="qc-icon">👁️</span><div class="qc-title">Dicionário Sensorial</div><div class="qc-desc">Sinais e pistas do bebê</div></a>
+      <a href="autonomia-com-afeto.html" class="quick-card"><span class="qc-icon">🌱</span><div class="qc-title">Autonomia com Afeto</div><div class="qc-desc">Caminho para o berço</div></a>
+    </div>
+  </div>
+  <div class="home-section">
+    <div class="quote-card">
+      <p class="quote-text">"Você não precisa ser perfeita para ser uma boa mãe.<br>Precisa estar presente — e você já está."</p>
+      <p class="quote-author">— Guia do Sono</p>
+    </div>
+  </div>
+</div>
+
+<div id="screen-chat" class="screen">
+  <div class="chat-header">
+    <div class="chat-avatar">🌿</div>
+    <div class="chat-header-text">
+      <div class="chat-header-name">Guia do Sono</div>
+      <div class="chat-header-status"><span class="status-dot"></span>especialista em sono 0–5 anos</div>
+    </div>
+  </div>
+  <div class="chat-messages" id="chatMessages">
+    <div class="msg-welcome">
+      <div class="msg-welcome-title">🌿 Olá, mamãe</div>
+      <div class="msg-welcome-text">Que bom que você chegou até aqui. Sei que noites difíceis pesam muito — e eu estou aqui para caminhar com você, sem pressa e sem julgamentos.<br><br>Me conta: o que está acontecendo com o sono do seu bebê?</div>
+    </div>
+  </div>
+  <div class="chat-suggestions" id="chatSuggestions">
+    <button class="suggestion-btn" onclick="sendSuggestion('Meu bebê tem 4 meses e acorda toda hora à noite 😩')">4 meses, acorda toda hora</button>
+    <button class="suggestion-btn" onclick="sendSuggestion('Qual a janela de sono ideal para 6 meses?')">Janela de sono por idade</button>
+    <button class="suggestion-btn" onclick="sendSuggestion('Como criar um ritual de sono gentil?')">Ritual de sono gentil</button>
+    <button class="suggestion-btn" onclick="sendSuggestion('Meu bebê só dorme no peito, o que faço?')">Só dorme no peito</button>
+  </div>
+  <div class="chat-input-area">
+    <textarea class="chat-textarea" id="chatInput" placeholder="Escreva sua pergunta aqui…" rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+    <button class="chat-send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
+  </div>
+</div>
+
+<div id="screen-library" class="screen">
+  <div class="library-header">
+    <h2 class="library-title">Biblioteca do Sono</h2>
+    <p class="library-sub">Guias e ferramentas para cada fase</p>
+  </div>
+  <div class="library-grid">
+    <a href="tabela-mestra-sono.html" class="lib-card"><div class="lib-card-color" style="background:var(--sage)"></div><div class="lib-card-body"><div class="lib-card-icon" style="background:var(--sage-pale)">🗓️</div><div class="lib-card-text"><div class="lib-card-label" style="color:var(--sage)">Referência</div><div class="lib-card-title">Tabela Mestra de Janelas de Sono</div><div class="lib-card-desc">Horários ideais por faixa etária</div></div><div class="lib-card-arrow">›</div></div></a>
+    <a href="ritual-de-ouro-ebook.html" class="lib-card"><div class="lib-card-color" style="background:var(--gold)"></div><div class="lib-card-body"><div class="lib-card-icon" style="background:var(--gold-pale)">📖</div><div class="lib-card-text"><div class="lib-card-label" style="color:var(--gold)">E-book</div><div class="lib-card-title">O Ritual de Ouro</div><div class="lib-card-desc">Rotina noturna gentil e eficaz</div></div><div class="lib-card-arrow">›</div></div></a>
+    <a href="dicionario-sensorial-bebe.html" class="lib-card"><div class="lib-card-color" style="background:var(--lavender)"></div><div class="lib-card-body"><div class="lib-card-icon" style="background:#f3f0f9">👁️</div><div class="lib-card-text"><div class="lib-card-label" style="color:var(--lavender)">Guia Sensorial</div><div class="lib-card-title">Dicionário Sensorial do Bebê</div><div class="lib-card-desc">Leia os sinais do seu bebê</div></div><div class="lib-card-arrow">›</div></div></a>
+    <a href="autonomia-com-afeto.html" class="lib-card"><div class="lib-card-color" style="background:var(--terra)"></div><div class="lib-card-body"><div class="lib-card-icon" style="background:var(--terra-pale)">🌱</div><div class="lib-card-text"><div class="lib-card-label" style="color:var(--terra)">Método</div><div class="lib-card-title">Autonomia com Afeto</div><div class="lib-card-desc">Caminho gentil para o berço</div></div><div class="lib-card-arrow">›</div></div></a>
+  </div>
+</div>
+
+<div id="screen-plans" class="screen">
+  <div class="plans-header">
+    <h2 class="plans-title">Escolha seu <em>plano</em></h2>
+    <p class="plans-sub">Comece grátis. Evolua quando precisar.</p>
+  </div>
+  <div class="plans-content">
+    <div class="plan-card">
+      <div class="plan-head"><span class="plan-badge badge-free">Grátis</span><div class="plan-name">Básico</div><div class="plan-tagline">Para começar com tranquilidade</div><div class="plan-price">R$0 <span>/ sempre</span></div></div>
+      <div class="plan-body">
+        <div class="plan-feat"><div class="plan-feat-icon">✓</div>Tabela de janelas de sono por idade</div>
+        <div class="plan-feat"><div class="plan-feat-icon">✓</div>Dicionário sensorial do bebê</div>
+        <div class="plan-feat"><div class="plan-feat-icon">✓</div>5 perguntas por dia à Guia do Sono</div>
+        <div class="plan-feat"><div class="plan-feat-icon">✓</div>E-book Ritual de Ouro (parcial)</div>
+        <button class="plan-btn plan-btn-free">Plano atual</button>
+      </div>
+    </div>
+    <div class="plan-card featured">
+      <div class="plan-top-tag">✦ Mais popular</div>
+      <div class="plan-head"><span class="plan-badge badge-plus">Plus</span><div class="plan-name">Plus</div><div class="plan-tagline">Para noites que precisam de atenção</div><div class="plan-price">R$27 <span>/ mês</span></div></div>
+      <div class="plan-body">
+        <div class="plan-feat"><div class="plan-feat-icon">✦</div>Chat ilimitado com a Guia do Sono</div>
+        <div class="plan-feat"><div class="plan-feat-icon">✦</div>Plano de sono personalizado por IA</div>
+        <div class="plan-feat"><div class="plan-feat-icon">✦</div>E-book Ritual de Ouro completo</div>
+        <div class="plan-feat"><div class="plan-feat-icon">✦</div>Autonomia com Afeto — método completo</div>
+        <div class="plan-feat"><div class="plan-feat-icon">✦</div>Histórico de conversa salvo</div>
+        <button class="plan-btn plan-btn-plus" onclick="alert('Em breve! 🌿')">Quero o Plus</button>
+      </div>
+    </div>
+    <div class="plan-card premium-card">
+      <div class="plan-head"><span class="plan-badge badge-premium">Premium</span><div class="plan-name">Premium</div><div class="plan-tagline">Para quando você precisa de tudo</div><div class="plan-price" style="color:var(--gold)">R$67 <span style="color:rgba(250,246,239,0.4)">/ mês</span></div></div>
+      <div class="plan-body">
+        <div class="plan-feat"><div class="plan-feat-icon" style="background:rgba(201,168,76,0.15)">🌟</div>Tudo do Plus incluído</div>
+        <div class="plan-feat"><div class="plan-feat-icon" style="background:rgba(201,168,76,0.15)">🌟</div>Sessão ao vivo com consultora de sono</div>
+        <div class="plan-feat"><div class="plan-feat-icon" style="background:rgba(201,168,76,0.15)">🌟</div>Plano semanal atualizado com IA</div>
+        <div class="plan-feat"><div class="plan-feat-icon" style="background:rgba(201,168,76,0.15)">🌟</div>Grupo privado no WhatsApp</div>
+        <button class="plan-btn plan-btn-premium" onclick="alert('Em breve! 🌿')">Quero o Premium</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="nav-bar">
+  <button class="nav-item active" id="nav-home" onclick="goTo('home')"><span class="nav-icon">🏡</span>Início</button>
+  <button class="nav-item" id="nav-chat" onclick="goTo('chat')"><span class="nav-icon">🌙</span>Guia</button>
+  <button class="nav-item" id="nav-library" onclick="goTo('library')"><span class="nav-icon">📚</span>Biblioteca</button>
+  <button class="nav-item" id="nav-plans" onclick="goTo('plans')"><span class="nav-icon">🌿</span>Planos</button>
+</nav>
+
+<script>
+function goTo(s){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById('screen-'+s).classList.add('active');document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));document.getElementById('nav-'+s).classList.add('active');window.scrollTo(0,0)}
+const chatHistory=[];
+const SYSTEM_PROMPT=`Você é a Guia do Sono, especialista em sono infantil (0 a 5 anos). Voz acolhedora, empática, rústica e suave. Sem julgamentos. Valide SEMPRE o cansaço da mãe antes de qualquer instrução técnica. JAMAIS sugira métodos de deixar chorar. Foque em métodos gentis, higiene do sono e conexão. Respostas concisas: 3-5 parágrafos curtos.`;
+async function sendMessage(){const input=document.getElementById('chatInput');const text=input.value.trim();if(!text)return;input.value='';input.style.height='auto';document.getElementById('chatSuggestions').style.display='none';addMessage('user',text);chatHistory.push({role:'user',content:text});const typingRow=addTyping();document.getElementById('sendBtn').disabled=true;try{const response=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYSTEM_PROMPT,messages:chatHistory})});const data=await response.json();const assistantText=data.content?.[0]?.text||'Desculpe, tive um problema. Pode tentar novamente? 🌿';typingRow.remove();addMessage('assistant',assistantText);chatHistory.push({role:'assistant',content:assistantText})}catch(err){typingRow.remove();addMessage('assistant','Hmm, probleminha de conexão. Pode tentar novamente? 🌿')}document.getElementById('sendBtn').disabled=false;scrollChat()}
+function sendSuggestion(text){document.getElementById('chatInput').value=text;sendMessage()}
+function addMessage(role,text){const container=document.getElementById('chatMessages');const row=document.createElement('div');row.className='msg-row'+(role==='user'?' user':'');const avatar=document.createElement('div');avatar.className='msg-bubble-avatar';avatar.textContent=role==='user'?'👤':'🌿';const bubble=document.createElement('div');bubble.className='msg-bubble';bubble.innerHTML=text.split('\n\n').filter(p=>p.trim()).map(p=>`<p style="margin-bottom:6px">${p.replace(/\n/g,'<br>')}</p>`).join('');row.appendChild(avatar);row.appendChild(bubble);container.appendChild(row);scrollChat()}
+function addTyping(){const container=document.getElementById('chatMessages');const row=document.createElement('div');row.className='msg-row';const avatar=document.createElement('div');avatar.className='msg-bubble-avatar';avatar.textContent='🌿';const indicator=document.createElement('div');indicator.className='typing-indicator visible';indicator.innerHTML='<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';row.appendChild(avatar);row.appendChild(indicator);container.appendChild(row);scrollChat();return row}
+function scrollChat(){const c=document.getElementById('chatMessages');c.scrollTop=c.scrollHeight}
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage()}}
+function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px'}
+</script>
+</body>
+</html>
