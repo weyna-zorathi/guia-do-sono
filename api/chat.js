@@ -1,5 +1,6 @@
-// api/chat.js - Versão com Google Gemini (gratuita)
+// api/chat.js - Google Gemini (gratuito)
 export default async function handler(req, res) {
+  // CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -19,43 +20,51 @@ export default async function handler(req, res) {
   }
 
   if (!process.env.GEMINI_API_KEY) {
+    console.error("GEMINI_API_KEY não configurada no Vercel");
     return res.status(500).json({ 
-      reply: "Desculpe mamãe, a chave da API não está configurada ainda. Vamos resolver isso agora ❤️" 
+      reply: "A chave da API ainda não foi configurada no Vercel. Verifique as Environment Variables." 
     });
   }
 
   try {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{
-          role: "user",
-          parts: [{ text: system + "\n\nHistórico da conversa:\n" + messages.map(m => `${m.role}: ${m.content}`).join("\n") }]
-        }],
-        generationConfig: {
-          temperature: 0.75,
-          maxOutputTokens: 900,
-        }
-      })
-    });
+    // Monta o prompt completo
+    const fullPrompt = `${system}\n\nHistórico da conversa:\n${messages.map(m => 
+      `${m.role === 'user' ? 'Mãe' : 'Guia'}: ${m.content}`
+    ).join('\n\n')}\n\nResponda como a Guia do Sono, com carinho e empatia:`;
+
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{ text: fullPrompt }]
+          }],
+          generationConfig: {
+            temperature: 0.78,
+            maxOutputTokens: 1000,
+          }
+        })
+      }
+    );
 
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("Gemini Error:", data);
+      console.error("Gemini API Error:", data);
       return res.status(500).json({ 
-        reply: "Desculpe, tive um probleminha técnico agora. Pode tentar enviar novamente? 🌿" 
+        reply: "Desculpe mamãe, tive um probleminha técnico agora. Pode tentar enviar novamente? 🌿" 
       });
     }
 
     const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 
-                  "Estou aqui com você. Pode me contar mais sobre como está o sono do bebê?";
+                  "Estou aqui com você. Pode me contar mais sobre o sono do seu bebê?";
 
     return res.status(200).json({ reply });
 
   } catch (err) {
-    console.error("Erro no chat:", err);
+    console.error("Erro no chat handler:", err);
     return res.status(500).json({ 
       reply: "Ops... Tive um erro de conexão. Pode tentar novamente em alguns segundos? ❤️" 
     });
