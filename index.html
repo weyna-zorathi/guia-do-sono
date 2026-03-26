@@ -3,41 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guia do Sono | Sleepy</title>
+    <title>A Guia do Sono | Casulo de Paz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #fdfaf6; color: #4a4a4a; font-family: 'Georgia', serif; margin: 0; padding: 20px; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 25px; border-radius: 15px; border: 1px solid #e0d7c6; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        h1 { color: #5b6b50; text-align: center; font-size: 24px; }
-        .card { background: #f9f6f2; border-left: 5px solid #8a9e7f; padding: 15px; margin: 15px 0; border-radius: 5px; }
-        .btn { display: block; width: 100%; padding: 15px; background: #8a9e7f; color: white; text-align: center; text-decoration: none; border-radius: 8px; font-weight: bold; margin-top: 20px; }
-        .footer { text-align: center; font-size: 12px; color: #999; margin-top: 30px; }
+        body { background-color: #F5F1EA; color: #4A3F35; font-family: 'Crimson Text', serif; margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 500px; margin: auto; background: #FFF; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #E0D7C6; }
+        h1 { color: #717F66; text-align: center; font-size: 26px; margin-bottom: 5px; }
+        .intro { text-align: center; font-style: italic; color: #8A8076; margin-bottom: 30px; font-size: 17px; }
+        
+        /* Estilo dos Botões de Conteúdo (Acordeão) */
+        details { background: #FAF7F2; border-radius: 12px; margin-bottom: 15px; border: 1px solid #E0D7C6; overflow: hidden; }
+        summary { padding: 15px; font-weight: bold; cursor: pointer; color: #717F66; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '＋'; font-size: 18px; }
+        details[open] summary::after { content: '－'; }
+        
+        .content { padding: 0 15px 15px 15px; font-size: 16px; border-top: 1px solid #E0D7C6; padding-top: 15px; }
+        .highlight { color: #717F66; font-weight: bold; }
+        
+        .footer { text-align: center; font-size: 13px; color: #AFA69D; margin-top: 40px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🌿 Guia do Sono</h1>
-        <p style="text-align: center; font-style: italic;">O acolhimento que você e seu bebê precisam.</p>
-        
-        <div class="card">
-            <strong>🌙 Tabela de Janelas</strong>
-            <p>Descubra o tempo ideal de acordado para cada idade.</p>
-        </div>
 
-        <div class="card">
-            <strong>✨ Ritual de Ouro</strong>
-            <p>O passo a passo para uma noite tranquila e sem choro.</p>
-        </div>
+<div class="container">
+    <h1>🌿 A Guia do Sono</h1>
+    <p class="intro">Um espaço seguro para mães encontrarem o descanso.</p>
 
-        <div class="card">
-            <strong>💬 Chat da Guia (Plus)</strong>
-            <p>Tire suas dúvidas agora com nossa inteligência exclusiva.</p>
+    <details>
+        <summary>🌙 Tabela de Janelas de Sono</summary>
+        <div class="content">
+            <p><span class="highlight">0-3 meses:</span> 45 a 90 min acordado.</p>
+            <p><span class="highlight">4-6 meses:</span> 1h30 a 2h30 acordado.</p>
+            <p><span class="highlight">7-12 meses:</span> 2h a 3h30 acordado.</p>
+            <p><span class="highlight">1-2 anos:</span> 3h a 6h acordado.</p>
+            <p><i>Dica: Comece o ritual 15 min antes da janela fechar.</i></p>
         </div>
+    </details>
 
-        <a href="#" class="btn">ACESSAR MEU CONTEÚDO</a>
-        
-        <div class="footer">
-            &copy; 2026 Sleepy - Consultoria de Sono Infantil
+    <details>
+        <summary>✨ O Dicionário do Choro</summary>
+        <div class="content">
+            <p><span class="highlight">Choro "Né":</span> Fome. O bebê encosta a língua no céu da boca.</p>
+            <p><span class="highlight">Choro "Owh":</span> Sono. Som de bocejo, boca em formato oval.</p>
+            <p><span class="highlight">Choro "Eh":</span> Arroto. Tensão no peito e abdómen.</p>
+            <p><span class="highlight">Choro "Eairh":</span> Gases/Cólicas. Som agudo, pernas encolhidas.</p>
         </div>
+    </details>
+
+    <details>
+        <summary>🕊️ O Ritual de Ouro</summary>
+        <div class="content">
+            <p>1. <b>Baixe as luzes:</b> Inicie o "modo caverna" 30 min antes.</p>
+            <p>2. <b>Banho morno:</b> Use movimentos lentos, sem agitação.</p>
+            <p>3. <b>Voz de mel:</b> Fale sussurrando, conte como foi o dia.</p>
+            <p>4. <b>Ruído Branco:</b> Ligue o som de chuva para isolar o barulho da casa.</p>
+        </div>
+    </details>
+
+    <div class="footer">
+        Este guia é um abraço. Siga o seu instinto.<br>
+        &copy; 2026 Sleepy
     </div>
+</div>
+
 </body>
 </html>
