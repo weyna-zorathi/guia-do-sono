@@ -1,4 +1,4 @@
-// api/chat.js
+// api/chat.js - Versão com Google Gemini (gratuita)
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -18,45 +18,44 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Mensagens inválidas' });
   }
 
-  if (!process.env.ANTHROPIC_API_KEY) {
+  if (!process.env.GEMINI_API_KEY) {
     return res.status(500).json({ 
-      reply: "Desculpe mamãe, a chave da API não está configurada corretamente. Verifique no Vercel." 
+      reply: "Desculpe mamãe, a chave da API não está configurada ainda. Vamos resolver isso agora ❤️" 
     });
   }
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'anthropic-version': '2023-06-01',
-        'x-api-key': process.env.ANTHROPIC_API_KEY,
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: "claude-sonnet-4-6",        // Modelo oficial atual (2026)
-        max_tokens: 950,
-        temperature: 0.75,
-        system: system,
-        messages: messages
+        contents: [{
+          role: "user",
+          parts: [{ text: system + "\n\nHistórico da conversa:\n" + messages.map(m => `${m.role}: ${m.content}`).join("\n") }]
+        }],
+        generationConfig: {
+          temperature: 0.75,
+          maxOutputTokens: 900,
+        }
       })
     });
 
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("Claude Error:", data);
+      console.error("Gemini Error:", data);
       return res.status(500).json({ 
         reply: "Desculpe, tive um probleminha técnico agora. Pode tentar enviar novamente? 🌿" 
       });
     }
 
-    const reply = data.content?.[0]?.text || 
-                  "Estou aqui com você. Pode me contar mais sobre o sono do bebê?";
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 
+                  "Estou aqui com você. Pode me contar mais sobre como está o sono do bebê?";
 
     return res.status(200).json({ reply });
 
   } catch (err) {
-    console.error("Erro no chat handler:", err);
+    console.error("Erro no chat:", err);
     return res.status(500).json({ 
       reply: "Ops... Tive um erro de conexão. Pode tentar novamente em alguns segundos? ❤️" 
     });
