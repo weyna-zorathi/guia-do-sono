@@ -1,71 +1,167 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Guia do Sono | Casulo de Paz</title>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <style>
-        body { background-color: #F5F1EA; color: #4A3F35; font-family: 'Crimson Text', serif; margin: 0; padding: 20px; line-height: 1.6; }
-        .container { max-width: 500px; margin: auto; background: #FFF; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #E0D7C6; }
-        h1 { color: #717F66; text-align: center; font-size: 26px; margin-bottom: 5px; }
-        .intro { text-align: center; font-style: italic; color: #8A8076; margin-bottom: 30px; font-size: 17px; }
-        
-        /* Estilo dos Botões de Conteúdo (Acordeão) */
-        details { background: #FAF7F2; border-radius: 12px; margin-bottom: 15px; border: 1px solid #E0D7C6; overflow: hidden; }
-        summary { padding: 15px; font-weight: bold; cursor: pointer; color: #717F66; list-style: none; display: flex; justify-content: space-between; align-items: center; }
-        summary::-webkit-details-marker { display: none; }
-        summary::after { content: '＋'; font-size: 18px; }
-        details[open] summary::after { content: '－'; }
-        
-        .content { padding: 0 15px 15px 15px; font-size: 16px; border-top: 1px solid #E0D7C6; padding-top: 15px; }
-        .highlight { color: #717F66; font-weight: bold; }
-        
-        .footer { text-align: center; font-size: 13px; color: #AFA69D; margin-top: 40px; }
-    </style>
-</head>
-<body>
+import Link from "next/link";
 
-<div class="container">
-    <h1>🌿 A Guia do Sono</h1>
-    <p class="intro">Um espaço seguro para mães encontrarem o descanso.</p>
-
-    <details>
-        <summary>🌙 Tabela de Janelas de Sono</summary>
-        <div class="content">
-            <p><span class="highlight">0-3 meses:</span> 45 a 90 min acordado.</p>
-            <p><span class="highlight">4-6 meses:</span> 1h30 a 2h30 acordado.</p>
-            <p><span class="highlight">7-12 meses:</span> 2h a 3h30 acordado.</p>
-            <p><span class="highlight">1-2 anos:</span> 3h a 6h acordado.</p>
-            <p><i>Dica: Comece o ritual 15 min antes da janela fechar.</i></p>
+export default function Home() {
+  return (
+    <div className="min-h-screen bg-[#f8f1eb] font-sans">
+      {/* Navbar simples */}
+      <nav className="bg-white shadow-sm sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <span className="text-3xl">🌿</span>
+            <h1 className="text-2xl font-semibold text-[#5a4a7a]">Guia do Sono</h1>
+          </div>
+          <Link
+            href="#chat"
+            className="bg-[#8a9cff] hover:bg-[#6f85ff] text-white px-6 py-3 rounded-2xl font-medium flex items-center gap-2 transition"
+          >
+            💬 Falar com a Guia agora
+          </Link>
         </div>
-    </details>
+      </nav>
 
-    <details>
-        <summary>✨ O Dicionário do Choro</summary>
-        <div class="content">
-            <p><span class="highlight">Choro "Né":</span> Fome. O bebê encosta a língua no céu da boca.</p>
-            <p><span class="highlight">Choro "Owh":</span> Sono. Som de bocejo, boca em formato oval.</p>
-            <p><span class="highlight">Choro "Eh":</span> Arroto. Tensão no peito e abdómen.</p>
-            <p><span class="highlight">Choro "Eairh":</span> Gases/Cólicas. Som agudo, pernas encolhidas.</p>
+      {/* HERO */}
+      <header className="bg-gradient-to-br from-[#e8d8f0] to-[#c8e6e0] pt-20 pb-16">
+        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="inline-block bg-white/70 text-[#5a4a7a] text-sm font-medium px-4 py-2 rounded-3xl mb-6">
+              ✨ Casulo de Paz para sua família
+            </p>
+            <h1 className="text-6xl md:text-7xl font-bold leading-tight text-[#3f2e5e] mb-6">
+              O sono do seu bebê,<br />
+              <span className="text-[#8a9cff]">o descanso que você merece</span>
+            </h1>
+            <p className="text-xl text-gray-700 mb-8 max-w-lg">
+              Guia prático + inteligência artificial feita para mães. 
+              Descubra janelas de sono, entenda o choro e crie o ritual perfeito.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href="#chat"
+                className="bg-[#5a4a7a] hover:bg-[#3f2e5e] text-white text-lg px-10 py-5 rounded-3xl font-semibold flex items-center gap-3 transition shadow-lg"
+              >
+                💬 Conversar com a Guia Inteligente
+              </Link>
+              <Link
+                href="#guia"
+                className="border-2 border-[#5a4a7a] text-[#5a4a7a] hover:bg-white text-lg px-8 py-5 rounded-3xl font-semibold transition"
+              >
+                Ver o guia completo
+              </Link>
+            </div>
+            <p className="text-sm text-gray-500 mt-6">+12.487 mães já dormiram melhor com a gente ❤️</p>
+          </div>
+
+          {/* Ilustração */}
+          <div className="hidden md:flex justify-center">
+            <div className="relative">
+              <div className="w-80 h-80 bg-white rounded-[4rem] shadow-2xl flex items-center justify-center text-[180px] rotate-12">
+                🍼
+              </div>
+              <div className="absolute -bottom-6 -right-6 bg-white rounded-3xl shadow-xl p-5 text-center">
+                <p className="text-4xl">🌙</p>
+                <p className="text-sm font-medium text-[#5a4a7a]">Bebê dormindo em 18 min</p>
+              </div>
+            </div>
+          </div>
         </div>
-    </details>
+      </header>
 
-    <details>
-        <summary>🕊️ O Ritual de Ouro</summary>
-        <div class="content">
-            <p>1. <b>Baixe as luzes:</b> Inicie o "modo caverna" 30 min antes.</p>
-            <p>2. <b>Banho morno:</b> Use movimentos lentos, sem agitação.</p>
-            <p>3. <b>Voz de mel:</b> Fale sussurrando, conte como foi o dia.</p>
-            <p>4. <b>Ruído Branco:</b> Ligue o som de chuva para isolar o barulho da casa.</p>
-        </div>
-    </details>
+      {/* CONTEÚDO PRINCIPAL */}
+      <main id="guia" className="max-w-6xl mx-auto px-6 py-16 space-y-20">
+        
+        {/* Janelas de Sono */}
+        <section>
+          <h2 className="text-4xl font-semibold text-center text-[#3f2e5e] mb-12 flex items-center justify-center gap-3">
+            🌙 Tabela de Janelas de Sono
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { idade: "0-3 meses", tempo: "45 a 90 min" },
+              { idade: "4-6 meses", tempo: "1h30 a 2h30" },
+              { idade: "7-12 meses", tempo: "2h a 3h30" },
+              { idade: "1-2 anos", tempo: "3h a 6h" },
+            ].map((item) => (
+              <div key={item.idade} className="bg-white rounded-3xl p-8 shadow hover:shadow-xl transition text-center">
+                <p className="text-[#8a9cff] font-bold mb-1">{item.idade}</p>
+                <p className="text-3xl font-semibold text-[#3f2e5e]">{item.tempo}</p>
+                <p className="text-sm text-gray-500 mt-4">máximo acordado</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-sm text-gray-500 mt-6">*Dica: Comece o ritual 15 min antes da janela fechar.</p>
+        </section>
 
-    <div class="footer">
-        Este guia é um abraço. Siga o seu instinto.<br>
-        &copy; 2026 Sleepy
+        {/* Dicionário do Choro */}
+        <section className="bg-white rounded-3xl p-10 shadow">
+          <h2 className="text-4xl font-semibold text-center text-[#3f2e5e] mb-10">✨ O Dicionário do Choro</h2>
+          <div className="grid md:grid-cols-2 gap-x-12 gap-y-8">
+            <div className="flex gap-4">
+              <span className="text-4xl">😣</span>
+              <div>
+                <p className="font-semibold">Choro “Né”</p>
+                <p className="text-gray-600">Fome. O bebê encosta a língua no céu da boca.</p>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <span className="text-4xl">🥱</span>
+              <div>
+                <p className="font-semibold">Choro “Owh”</p>
+                <p className="text-gray-600">Sono. Som de bocejo, boca em formato oval.</p>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <span className="text-4xl">🤢</span>
+              <div>
+                <p className="font-semibold">Choro “Eh”</p>
+                <p className="text-gray-600">Arroto. Tensão no peito e abdômen.</p>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <span className="text-4xl">😫</span>
+              <div>
+                <p className="font-semibold">Choro “Eairh”</p>
+                <p className="text-gray-600">Gases/Cólicas. Som agudo, pernas encolhidas.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Ritual de Ouro */}
+        <section>
+          <h2 className="text-4xl font-semibold text-center text-[#3f2e5e] mb-12">🕊️ O Ritual de Ouro</h2>
+          <div className="grid md:grid-cols-4 gap-6">
+            {[
+              { num: "01", title: "Baixe as luzes", desc: "Inicie o “modo caverna” 30 min antes" },
+              { num: "02", title: "Banho morno", desc: "Movimentos lentos, sem agitação" },
+              { num: "03", title: "Voz de mel", desc: "Fale sussurrando, conte como foi o dia" },
+              { num: "04", title: "Ruído Branco", desc: "Som de chuva para isolar o barulho" },
+            ].map((step) => (
+              <div key={step.num} className="bg-gradient-to-b from-[#f0e6ff] to-white p-8 rounded-3xl text-center">
+                <div className="text-5xl font-bold text-[#8a9cff] mb-4">{step.num}</div>
+                <h3 className="font-semibold text-xl mb-2">{step.title}</h3>
+                <p className="text-gray-600">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-center mt-10 text-[#5a4a7a] italic">
+            Este guia é um abraço. Siga o seu instinto.
+          </p>
+        </section>
+      </main>
+
+      {/* BOTÃO FLUTUANTE DE CHAT */}
+      <Link
+        href="#chat"
+        className="fixed bottom-8 right-8 bg-[#8a9cff] text-white w-16 h-16 rounded-3xl shadow-2xl flex items-center justify-center text-4xl hover:scale-110 transition z-50"
+      >
+        💬
+      </Link>
+
+      {/* Footer */}
+      <footer className="bg-[#3f2e5e] text-white py-12 text-center">
+        <p className="text-sm">Feito com muito carinho para as mães que merecem dormir 🌙</p>
+        <p className="text-xs mt-4 opacity-70">Guia do Sono • Casulo de Paz © 2026</p>
+      </footer>
     </div>
-</div>
-
-</body>
-</html>
+  );
+}
