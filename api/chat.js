@@ -1,6 +1,5 @@
 // api/chat.js
 export default async function handler(req, res) {
-  // CORS básico para Vercel
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -20,9 +19,8 @@ export default async function handler(req, res) {
   }
 
   if (!process.env.ANTHROPIC_API_KEY) {
-    console.error('ANTHROPIC_API_KEY não configurada');
     return res.status(500).json({ 
-      reply: "Desculpe, estou com dificuldade técnica no momento. Tente novamente em alguns segundos ❤️" 
+      reply: "Desculpe mamãe, estou com dificuldade técnica no momento ❤️ Tente novamente em alguns segundos." 
     });
   }
 
@@ -35,10 +33,10 @@ export default async function handler(req, res) {
         'x-api-key': process.env.ANTHROPIC_API_KEY,
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-6",        // Modelo atual e estável (2026)
-        max_tokens: 900,
-        temperature: 0.75,                 // Bom equilíbrio entre criatividade e consistência
-        system: system || "Você é um assistente útil e acolhedor.",
+        model: "claude-sonnet-4-6",   // ← Modelo correto em 2026
+        max_tokens: 950,
+        temperature: 0.72,
+        system: system,
         messages: messages
       })
     });
@@ -46,22 +44,20 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error('Claude API Error:', data);
+      console.error("Claude Error:", data);
       return res.status(500).json({ 
-        reply: "Desculpe mamãe, estou com um probleminha técnico agora. Pode tentar enviar novamente? 🌿" 
+        reply: "Desculpe, tive um probleminha técnico agora. Pode tentar enviar novamente? 🌿" 
       });
     }
 
-    const reply = data.content?.[0]?.text || 
-                  "Não consegui gerar uma resposta agora. Pode me contar mais detalhes?";
+    const reply = data.content?.[0]?.text || "Estou aqui com você. Pode me contar mais detalhes?";
 
-    // Retorna no formato que o frontend espera
     return res.status(200).json({ reply });
 
   } catch (err) {
-    console.error('Erro no handler do chat:', err);
+    console.error("Erro no chat:", err);
     return res.status(500).json({ 
-      reply: "Ops... Tive um erro de conexão. Pode tentar novamente em alguns segundos? Estou aqui com você ❤️" 
+      reply: "Ops... Tive um erro de conexão. Pode tentar novamente em alguns segundos? ❤️" 
     });
   }
 }
