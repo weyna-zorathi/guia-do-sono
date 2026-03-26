@@ -5,21 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guia do Sono • Casulo de Paz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700&family=Inter:wght@400;500;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
   --cream: #faf6ef;
   --sage: #8a9e7f;
-  --sage-light: #b5c9a8;
   --terra: #c47a52;
-  --terra-light: #e8a97e;
   --night: #2c3e2d;
-  --gold: #c9a84c;
   --brown: #7a5c3e;
-  --linen: #ede5d8;
   --radius: 28px;
-  --shadow: 0 10px 40px rgba(44, 62, 45, 0.12);
-  --shadow-sm: 0 4px 20px rgba(44, 62, 45, 0.08);
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -29,18 +23,12 @@ body {
   color: var(--brown);
   min-height: 100vh;
   overflow-x: hidden;
-  background-image: 
-    radial-gradient(circle at 15% 20%, rgba(138,158,127,0.08) 0%, transparent 50%),
-    radial-gradient(circle at 85% 80%, rgba(196,122,82,0.06) 0%, transparent 50%);
 }
 
 .screen { display: none; min-height: 100vh; }
-.screen.active { display: flex; flex-direction: column; animation: fadeIn 0.4s ease; }
+.screen.active { display: flex; flex-direction: column; }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes gentleFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-
-/* ==================== NAVBAR INFERIOR ==================== */
+/* Navbar inferior */
 .nav-bar {
   position: fixed;
   bottom: 0; left: 0; right: 0;
@@ -51,7 +39,7 @@ body {
   justify-content: space-around;
   padding: 12px 0 max(12px, env(safe-area-inset-bottom));
   z-index: 100;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
 }
 .nav-item {
   display: flex;
@@ -63,7 +51,7 @@ body {
   font-weight: 500;
   padding: 6px 12px;
   border-radius: 16px;
-  transition: all 0.3s ease;
+  transition: all 0.3s;
 }
 .nav-item.active {
   color: var(--terra);
@@ -71,175 +59,39 @@ body {
 }
 .nav-item .nav-icon { font-size: 26px; }
 
-/* ==================== HERO ==================== */
-.home-hero {
-  background: linear-gradient(135deg, #2c3e2d 0%, #1f2a22 100%);
-  padding: 70px 24px 60px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+/* Chat Screen */
+#screen-chat {
+  background: #f8f4eb;
+  padding-bottom: 90px;
 }
-.home-hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 30% 40%, rgba(232,169,126,0.25) 0%, transparent 60%);
-  pointer-events: none;
-}
-.hero-content { position: relative; z-index: 2; }
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(201,168,76,0.25);
-  color: var(--gold);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  padding: 8px 22px;
-  border-radius: 40px;
-  border: 1px solid rgba(201,168,76,0.4);
-  margin-bottom: 20px;
-}
-.hero-logo {
-  font-size: 58px;
-  margin-bottom: 16px;
-  animation: gentleFloat 6s ease-in-out infinite;
-}
-.hero-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.2rem, 8vw, 3.2rem);
-  font-weight: 500;
-  color: #fff;
-  line-height: 1.1;
-  margin-bottom: 16px;
-}
-.hero-title span { color: var(--terra-light); }
-.hero-subtitle {
-  font-size: 1.05rem;
-  color: rgba(255,255,255,0.8);
-  max-width: 340px;
-  margin: 0 auto 32px;
-  line-height: 1.6;
-}
-.hero-cta {
-  background: var(--terra);
-  color: white;
-  border: none;
-  padding: 18px 40px;
-  font-size: 1.05rem;
-  font-weight: 600;
-  border-radius: 50px;
-  box-shadow: 0 10px 35px rgba(196,122,82,0.45);
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-}
-.hero-cta:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 15px 45px rgba(196,122,82,0.55);
-}
-
-/* ==================== SEÇÕES ==================== */
-.home-section {
-  padding: 32px 24px;
-}
-.section-title {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--sage);
-  margin-bottom: 18px;
-}
-.quick-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.quick-card {
-  background: white;
-  border: 1.5px solid var(--linen);
-  border-radius: var(--radius);
-  padding: 24px 20px;
-  text-align: center;
-  transition: all 0.35s ease;
-  text-decoration: none;
-  color: inherit;
-}
-.quick-card:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow);
-  border-color: var(--terra-light);
-}
-.qc-icon { font-size: 42px; margin-bottom: 14px; display: block; }
-.qc-title { 
-  font-family: 'Playfair Display', serif;
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--night);
-  margin-bottom: 6px;
-}
-.qc-desc { font-size: 0.85rem; color: var(--brown-light); line-height: 1.5; }
-
-/* Chat Promo */
-.chat-promo {
-  background: var(--night);
-  border-radius: var(--radius);
-  padding: 28px 24px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin: 20px 24px;
-}
-.chat-promo:hover { transform: scale(1.02); }
-.cp-icon {
-  width: 68px;
-  height: 68px;
-  background: rgba(232,169,126,0.25);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32px;
-  flex-shrink: 0;
-}
-
-/* ==================== CHAT ==================== */
-#screen-chat { padding-bottom: 90px; }
 .chat-header {
-  background: var(--night);
-  padding: 20px 24px;
+  background: #1f2c21;
+  padding: 18px 20px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   position: sticky;
   top: 0;
   z-index: 20;
 }
 .chat-avatar {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
+  width: 52px; height: 52px;
   background: rgba(232,169,126,0.3);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 28px;
-  border: 3px solid rgba(232,169,126,0.4);
+  border: 3px solid rgba(232,169,126,0.5);
 }
 .chat-messages {
   flex: 1;
   padding: 24px 20px;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 18px;
-  overflow-y: auto;
-  background: var(--cream);
+  background: #f8f4eb;
 }
 .msg-row { display: flex; gap: 12px; align-items: flex-end; }
 .msg-row.user { flex-direction: row-reverse; }
@@ -252,7 +104,7 @@ body {
 }
 .msg-row:not(.user) .msg-bubble {
   background: white;
-  border: 1px solid var(--linen);
+  border: 1px solid #e5d9c8;
   border-bottom-left-radius: 8px;
 }
 .msg-row.user .msg-bubble {
@@ -261,8 +113,7 @@ body {
   border-bottom-right-radius: 8px;
 }
 .msg-bubble-avatar {
-  width: 34px;
-  height: 34px;
+  width: 34px; height: 34px;
   border-radius: 50%;
   flex-shrink: 0;
   display: flex;
@@ -274,229 +125,102 @@ body {
 
 .chat-input-area {
   padding: 16px 20px;
-  background: rgba(250,246,239,0.97);
-  backdrop-filter: blur(16px);
-  border-top: 1px solid var(--linen);
+  background: rgba(248,244,235,0.97);
+  border-top: 1px solid #d8ccb8;
   position: sticky;
   bottom: 80px;
-  z-index: 10;
+}
+.chat-input-area .input-wrapper {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  max-width: 720px;
+  margin: 0 auto;
 }
 .chat-textarea {
   flex: 1;
   background: white;
-  border: 1.5px solid var(--linen);
-  border-radius: 24px;
-  padding: 16px 20px;
-  font-size: 1rem;
+  border: 2px solid #d8ccb8;
+  border-radius: 30px;
+  padding: 16px 22px;
+  font-size: 1.02rem;
   resize: none;
-  min-height: 54px;
-  max-height: 140px;
+  min-height: 56px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 .chat-send-btn {
-  width: 54px;
-  height: 54px;
-  background: var(--terra);
+  width: 56px; height: 56px;
+  background: #c47a52;
   color: white;
   border: none;
   border-radius: 50%;
-  font-size: 22px;
-  box-shadow: 0 8px 25px rgba(196,122,82,0.4);
-}
-
-/* Typing */
-.typing-indicator {
-  display: none;
-  align-items: center;
-  gap: 6px;
-  padding: 14px 20px;
-  background: white;
-  border: 1px solid var(--linen);
-  border-radius: 24px;
-  border-bottom-left-radius: 8px;
-  width: fit-content;
-}
-.typing-indicator.visible { display: flex; }
-.typing-dot {
-  width: 8px;
-  height: 8px;
-  background: var(--terra-light);
-  border-radius: 50%;
-  animation: typing 1.4s infinite;
-}
-.typing-dot:nth-child(2) { animation-delay: 0.2s; }
-.typing-dot:nth-child(3) { animation-delay: 0.4s; }
-@keyframes typing { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-
-/* Footer */
-footer {
-  text-align: center;
-  padding: 20px;
-  color: #a07850;
-  font-size: 0.8rem;
+  font-size: 24px;
+  box-shadow: 0 8px 25px rgba(196,122,82,0.45);
 }
 </style>
 </head>
 <body>
 
-<!-- ==================== TELA INICIAL ==================== -->
-<div id="screen-home" class="screen active">
-  <div class="home-hero">
-    <div class="hero-content">
-      <div class="hero-badge">🌿 Casulo de Paz para sua família</div>
-      <div class="hero-logo">🌙</div>
-      <h1 class="hero-title">Guia do <span>Sono</span></h1>
-      <p class="hero-subtitle">
-        Um espaço gentil onde você encontra respostas reais,<br>
-        sem julgamentos e com muito carinho.
-      </p>
-      <button class="hero-cta" onclick="goTo('chat')">
-        🌙 Conversar com a Guia agora
-      </button>
-    </div>
-  </div>
-
-  <div class="home-section">
-    <div class="section-title">✦ Acesso rápido</div>
-    <div class="quick-grid">
-      <a href="tabela-mestra-sono.html" class="quick-card">
-        <span class="qc-icon">🗓️</span>
-        <div class="qc-title">Janelas de Sono</div>
-        <div class="qc-desc">Tabela completa por idade</div>
-      </a>
-      <a href="ritual-de-ouro-ebook.html" class="quick-card">
-        <span class="qc-icon">📖</span>
-        <div class="qc-title">Ritual de Ouro</div>
-        <div class="qc-desc">Rotina noturna gentil</div>
-      </a>
-      <a href="dicionario-sensorial-bebe.html" class="quick-card">
-        <span class="qc-icon">👁️</span>
-        <div class="qc-title">Dicionário do Choro</div>
-        <div class="qc-desc">Entenda seu bebê</div>
-      </a>
-      <a href="autonomia-com-afeto.html" class="quick-card">
-        <span class="qc-icon">🌱</span>
-        <div class="qc-title">Autonomia com Afeto</div>
-        <div class="qc-desc">Do colo ao berço</div>
-      </a>
-    </div>
-  </div>
-
-  <div class="chat-promo" onclick="goTo('chat')">
-    <div class="cp-icon">🌿</div>
-    <div>
-      <div style="font-size:1.2rem; font-weight:600; margin-bottom:4px;">Guia Inteligente</div>
-      <div style="opacity:0.85; font-size:0.95rem;">Estou aqui para te ajudar com o sono do seu bebê, no seu tempo.</div>
-    </div>
-  </div>
-</div>
-
-<!-- ==================== TELA DO CHAT ==================== -->
-<div id="screen-chat" class="screen">
+<!-- TELA DO CHAT -->
+<div id="screen-chat" class="screen active">
   <div class="chat-header">
     <div class="chat-avatar">🌿</div>
     <div>
-      <div style="color:white; font-weight:600; font-size:1.1rem;">Guia do Sono</div>
-      <div style="color:rgba(255,255,255,0.7); font-size:0.85rem;">Especialista em sono gentil • 0 a 5 anos</div>
+      <div style="color:white; font-weight:600; font-size:1.15rem;">Guia do Sono</div>
+      <div style="color:rgba(255,255,255,0.75); font-size:0.85rem;">Especialista em sono gentil • 0 a 5 anos</div>
     </div>
   </div>
 
-  <div class="chat-messages" id="chatMessages">
-    <!-- Mensagens aparecem aqui -->
+  <div id="chatMessages" class="chat-messages">
+    <!-- Mensagem inicial -->
     <div class="msg-row">
       <div class="msg-bubble-avatar">🌿</div>
       <div class="msg-bubble">
         Olá, mamãe ❤️<br><br>
         Que bom que você está aqui. Sei como as noites podem ser exaustivas.<br>
-        Me conta como está o sono do seu bebê hoje? Estou aqui para te ajudar com calma e carinho.
+        Me conta: como está o sono do seu bebê hoje? Estou aqui para te ajudar com calma e carinho.
       </div>
     </div>
   </div>
 
   <div class="chat-input-area">
-    <textarea id="chatInput" class="chat-textarea" placeholder="Como está o sono do seu bebê hoje?" rows="1"
-              onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault(); sendMessage()}"></textarea>
-    <button class="chat-send-btn" onclick="sendMessage()">↑</button>
+    <div class="input-wrapper">
+      <textarea id="chatInput" class="chat-textarea" 
+        placeholder="Como está o sono do seu bebê hoje?" 
+        rows="1"
+        onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault(); sendMessage()}"></textarea>
+      <button class="chat-send-btn" onclick="sendMessage()">↑</button>
+    </div>
   </div>
 </div>
 
 <!-- Navegação inferior -->
 <nav class="nav-bar">
-  <button class="nav-item active" id="nav-home" onclick="goTo('home')"><span class="nav-icon">🏠</span><div>Início</div></button>
-  <button class="nav-item" id="nav-chat" onclick="goTo('chat')"><span class="nav-icon">🌙</span><div>Guia</div></button>
-  <button class="nav-item" id="nav-library" onclick="goTo('library')"><span class="nav-icon">📚</span><div>Biblioteca</div></button>
-  <button class="nav-item" id="nav-plans" onclick="goTo('plans')"><span class="nav-icon">🌟</span><div>Planos</div></button>
+  <button class="nav-item" onclick="goTo('home')"><span class="nav-icon">🏠</span><div>Início</div></button>
+  <button class="nav-item active" onclick="goTo('chat')"><span class="nav-icon">🌙</span><div>Guia</div></button>
+  <button class="nav-item" onclick="goTo('library')"><span class="nav-icon">📚</span><div>Biblioteca</div></button>
+  <button class="nav-item" onclick="goTo('plans')"><span class="nav-icon">🌟</span><div>Planos</div></button>
 </nav>
 
-<footer>
-  Feito com muito carinho para as mamães brasileiras • 2026
-</footer>
-
 <script>
-// Navegação entre telas
-function goTo(screen) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screen-' + screen).classList.add('active');
-  
-  document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-  document.getElementById('nav-' + screen).classList.add('active');
-}
+// ==================== CONFIGURAÇÃO DO CHAT ====================
+const SYSTEM_PROMPT = `Você é a Guia do Sono, uma especialista acolhedora e maternal em sono infantil de 0 a 5 anos. 
+Sua voz é calma, empática, suave e sem julgamentos. 
+Sempre valide primeiro o cansaço da mãe ("Sei como é difícil...", "Você está fazendo um ótimo trabalho...").
+Nunca sugira deixar o bebê chorar. 
+Foques em métodos gentis, conexão emocional e rotinas previsíveis. 
+Responda em português brasileiro, com linguagem simples, carinho e no máximo 4-5 parágrafos curtos. Use emojis com moderação.`;
 
-// Funções do Chat (mantidas e melhoradas)
-const chatHistory = [];
-const SYSTEM_PROMPT = `Você é a Guia do Sono, uma especialista gentil e acolhedora em sono infantil de 0 a 5 anos. 
-Sua voz é calma, empática e maternal. Sempre valide o cansaço da mãe primeiro. 
-Nunca sugira métodos de deixar chorar. Foque em abordagens gentis, conexão e higiene do sono. 
-Responda de forma clara, em parágrafos curtos e com muito carinho.`;
-
-async function sendMessage() {
-  const input = document.getElementById('chatInput');
-  const text = input.value.trim();
-  if (!text) return;
-
-  // Adiciona mensagem do usuário
-  addMessage('user', text);
-  chatHistory.push({ role: 'user', content: text });
-  input.value = '';
-
-  // Mostra indicador de digitação
-  const typing = addTypingIndicator();
-
-  try {
-    const res = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        system: SYSTEM_PROMPT, 
-        messages: chatHistory 
-      })
-    });
-
-    const data = await res.json();
-    const reply = data.content?.[0]?.text || data.reply || "Estou aqui com você. Pode me contar mais detalhes?";
-
-    typing.remove();
-    addMessage('assistant', reply);
-    chatHistory.push({ role: 'assistant', content: reply });
-  } catch (e) {
-    typing.remove();
-    addMessage('assistant', "Desculpe, tive um probleminha técnico. Pode tentar novamente? Estou aqui.");
-  }
-}
+let chatHistory = [];
 
 function addMessage(role, content) {
   const container = document.getElementById('chatMessages');
   const row = document.createElement('div');
   row.className = `msg-row ${role === 'user' ? 'user' : ''}`;
-
-  const avatar = document.createElement('div');
-  avatar.className = 'msg-bubble-avatar';
-  avatar.textContent = role === 'user' ? '👤' : '🌿';
-
-  const bubble = document.createElement('div');
-  bubble.className = 'msg-bubble';
-  bubble.innerHTML = content.replace(/\n/g, '<br>');
-
-  row.append(avatar, bubble);
+  row.innerHTML = `
+    <div class="msg-bubble-avatar">${role === 'user' ? '👤' : '🌿'}</div>
+    <div class="msg-bubble">${content.replace(/\n/g, '<br>')}</div>
+  `;
   container.appendChild(row);
   container.scrollTop = container.scrollHeight;
 }
@@ -507,16 +231,66 @@ function addTypingIndicator() {
   row.className = 'msg-row';
   row.innerHTML = `
     <div class="msg-bubble-avatar">🌿</div>
-    <div class="typing-indicator visible">
-      <div class="typing-dot"></div>
-      <div class="typing-dot"></div>
-      <div class="typing-dot"></div>
+    <div style="padding:14px 20px; background:white; border:1px solid #e5d9c8; border-radius:24px; border-bottom-left-radius:8px; display:flex; gap:6px;">
+      <div style="width:8px;height:8px;background:#e8a97e;border-radius:50%;animation:typing 1.4s infinite;"></div>
+      <div style="width:8px;height:8px;background:#e8a97e;border-radius:50%;animation:typing 1.4s infinite; animation-delay:0.2s"></div>
+      <div style="width:8px;height:8px;background:#e8a97e;border-radius:50%;animation:typing 1.4s infinite; animation-delay:0.4s"></div>
     </div>
   `;
   container.appendChild(row);
   container.scrollTop = container.scrollHeight;
   return row;
 }
+
+async function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  addMessage('user', text);
+  chatHistory.push({ role: 'user', content: text });
+  input.value = '';
+
+  const typing = addTypingIndicator();
+
+  try {
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        system: SYSTEM_PROMPT,
+        messages: chatHistory
+      })
+    });
+
+    const data = await response.json();
+    const reply = data.reply || "Desculpe, não consegui responder agora. Pode tentar novamente?";
+
+    typing.remove();
+    addMessage('assistant', reply);
+    chatHistory.push({ role: 'assistant', content: reply });
+  } catch (err) {
+    typing.remove();
+    addMessage('assistant', "Ops... Tive um erro de conexão. Pode tentar novamente? ❤️");
+  }
+}
+
+// Navegação simples (para outras telas)
+function goTo(screen) {
+  alert(`Você clicou em ${screen}. Esta tela ainda está em desenvolvimento.`);
+}
+
+// Inicialização
+document.addEventListener('DOMContentLoaded', () => {
+  console.log("Guia do Sono carregado - Chat com Gemini pronto");
+});
 </script>
+
+<style>
+@keyframes typing {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+</style>
 </body>
 </html>
