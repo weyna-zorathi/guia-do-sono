@@ -1,0 +1,265 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&display=swap');
+  :root {
+    --tc:#c4724a;--tc-light:#e8b99a;--tc-pale:#fdf0ea;
+    --sage:#7a9e6f;--sage-light:#b0c9a8;--sage-pale:#edf3ea;
+    --gold:#c9a84c;--gold-pale:#faf3df;
+    --night:#2a2018;--brown:#7a5c3e;--cream:#faf6ef;
+    --linen:#f0e8dc;--linen-dark:#ddd0be;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  .wrap{font-family:'DM Sans',sans-serif;background:var(--cream);padding:32px 24px 48px;color:var(--night);max-width:860px;margin:0 auto;}
+  .hero-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--tc);font-weight:500;text-align:center;margin-bottom:8px;}
+  .hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2rem);color:var(--night);text-align:center;font-weight:700;line-height:1.2;margin-bottom:6px;}
+  .hero-title em{color:var(--tc);font-style:italic;}
+  .hero-sub{font-family:'Lora',serif;font-style:italic;font-size:.88rem;color:var(--brown);text-align:center;margin-bottom:36px;opacity:.85;}
+  .divider{display:flex;align-items:center;gap:12px;margin:32px 0 24px;}
+  .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--linen-dark);}
+  .divider-icon{font-size:14px;color:var(--sage);}
+
+  .plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px;align-items:start;}
+  @media(max-width:640px){.plans-grid{grid-template-columns:1fr;}}
+
+  .plan-card{background:#fff;border-radius:20px;border:1.5px solid var(--linen-dark);overflow:hidden;transition:transform .2s;}
+  .plan-card:hover{transform:translateY(-3px);}
+  .plan-card.plus{border-color:var(--tc);position:relative;}
+  .plan-card.premium{border-color:var(--gold);background:var(--night);}
+
+  .plan-badge{display:inline-block;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:500;padding:3px 10px;border-radius:20px;margin-bottom:8px;}
+  .badge-free{background:var(--sage-pale);color:var(--sage);}
+  .badge-plus{background:var(--tc-pale);color:var(--tc);}
+  .badge-premium{background:rgba(201,168,76,.18);color:#b89020;}
+
+  .plan-header{padding:22px 22px 16px;border-bottom:1px solid var(--linen);}
+  .plan-card.premium .plan-header{border-bottom-color:rgba(255,255,255,.08);}
+  .plan-name{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--night);line-height:1.2;margin-bottom:4px;}
+  .plan-card.premium .plan-name{color:#faf6ef;}
+  .plan-tagline{font-family:'Lora',serif;font-style:italic;font-size:.76rem;color:var(--brown);line-height:1.5;opacity:.85;}
+  .plan-card.premium .plan-tagline{color:rgba(250,246,239,.6);}
+
+  .plan-body{padding:18px 22px 22px;}
+
+  /* FREE */
+  .feature-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .feature-item{display:flex;align-items:flex-start;gap:9px;font-size:.82rem;color:var(--brown);line-height:1.5;}
+  .feat-icon{flex-shrink:0;width:20px;height:20px;border-radius:50%;background:var(--sage-pale);display:flex;align-items:center;justify-content:center;font-size:10px;margin-top:1px;}
+
+  /* PLUS */
+  .popular-tag{position:absolute;top:-1px;right:20px;background:var(--tc);color:#fff;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:0 0 10px 10px;font-weight:500;}
+  .plus-feat{display:flex;align-items:flex-start;gap:10px;font-size:.82rem;color:var(--brown);line-height:1.5;margin-bottom:11px;}
+  .plus-feat:last-child{margin-bottom:0;}
+  .plus-icon-wrap{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:3px;}
+  .plus-icon{width:26px;height:26px;border-radius:8px;background:var(--tc-pale);border:1px solid var(--tc-light);display:flex;align-items:center;justify-content:center;font-size:12px;}
+  .live-dot{width:5px;height:5px;border-radius:50%;background:var(--tc);animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.65);}}
+  .plus-feat-title{font-weight:500;color:var(--night);font-size:.84rem;margin-bottom:1px;}
+  .plus-feat-desc{font-size:.78rem;color:var(--brown);line-height:1.5;opacity:.9;}
+  .tech-tag{display:inline-block;font-size:8px;letter-spacing:1.2px;text-transform:uppercase;font-weight:500;padding:2px 6px;border-radius:8px;background:var(--tc-pale);color:var(--tc);margin-left:5px;vertical-align:middle;}
+
+  /* PREMIUM — reajustado */
+  .prem-tagline-body{font-family:'Lora',serif;font-style:italic;font-size:.78rem;color:rgba(250,246,239,.6);line-height:1.55;margin-bottom:16px;}
+
+  .prem-items{display:flex;flex-direction:column;gap:9px;}
+  .prem-item{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.18);}
+  .prem-item-icon{font-size:14px;flex-shrink:0;width:26px;text-align:center;}
+  .prem-item-text{flex:1;min-width:0;}
+  .prem-item-name{font-size:.82rem;font-weight:500;color:#e8d49a;line-height:1.3;}
+  .prem-item-sub{font-size:.74rem;color:rgba(250,246,239,.5);line-height:1.35;margin-top:1px;}
+
+  .prem-includes{font-size:.74rem;color:rgba(250,246,239,.4);margin-bottom:12px;letter-spacing:.5px;}
+
+  /* HOOK */
+  .hook-section{background:#fff;border-radius:20px;border:1.5px solid var(--linen-dark);overflow:hidden;}
+  .hook-header{padding:20px 26px 14px;background:var(--night);display:flex;align-items:flex-start;gap:14px;}
+  .hook-icon-wrap{width:38px;height:38px;background:rgba(196,114,74,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;}
+  .hook-title{font-family:'Playfair Display',serif;font-size:1.05rem;color:#faf6ef;font-weight:700;margin-bottom:2px;}
+  .hook-sub{font-size:.78rem;color:rgba(250,246,239,.55);font-family:'Lora',serif;font-style:italic;line-height:1.5;}
+  .hook-body{padding:22px 26px;}
+  .hook-steps{display:flex;flex-direction:column;}
+  .hook-step{display:flex;gap:14px;padding-bottom:18px;}
+  .hook-step:last-child{padding-bottom:0;}
+  .hook-step-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:30px;}
+  .step-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;flex-shrink:0;}
+  .step-num.s1{background:var(--tc-pale);color:var(--tc);}
+  .step-num.s2{background:var(--sage-pale);color:var(--sage);}
+  .step-num.s3{background:var(--gold-pale);color:#9a7400;}
+  .step-num.s4{background:rgba(42,32,24,.06);color:var(--night);}
+  .step-line{flex:1;width:1px;background:var(--linen-dark);margin-top:4px;}
+  .hook-step:last-child .step-line{display:none;}
+  .step-content{padding-top:3px;flex:1;}
+  .step-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:500;margin-bottom:5px;}
+  .s1-lbl{color:var(--tc);}.s2-lbl{color:var(--sage);}.s3-lbl{color:#9a7400;}.s4-lbl{color:var(--brown);}
+  .step-title{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--night);font-weight:700;margin-bottom:5px;}
+  .step-text{font-size:.82rem;color:var(--brown);line-height:1.6;margin-bottom:9px;}
+  .chat-bubble{background:var(--linen);border-radius:12px 12px 12px 3px;padding:10px 13px;font-family:'Lora',serif;font-style:italic;font-size:.8rem;color:var(--brown);line-height:1.55;border-left:3px solid var(--tc-light);}
+  .chat-bubble.plus-msg{background:var(--tc-pale);border-left-color:var(--tc);border-radius:12px 12px 3px 12px;}
+  .bubble-tag{font-style:normal;font-family:'DM Sans',sans-serif;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;font-weight:500;margin-bottom:4px;display:block;}
+  .tag-mom{color:var(--sage);}.tag-ia{color:var(--tc);}
+</style>
+
+<div class="wrap">
+  <p class="hero-label">✦ Projeto SLEEPY · Versão Revisada ✦</p>
+  <h1 class="hero-title">Tabela de Diferenciação<br><em>de Planos</em></h1>
+  <p class="hero-sub">Do primeiro toque à experiência completa — cada família no seu tempo.</p>
+
+  <div class="plans-grid">
+
+    <!-- FREE -->
+    <div class="plan-card free">
+      <div class="plan-header">
+        <span class="plan-badge badge-free">Gratuito</span>
+        <div class="plan-name">Modo Gratuito</div>
+        <div class="plan-tagline">Primeiros passos no sono gentil — sem custo, com cuidado.</div>
+      </div>
+      <div class="plan-body">
+        <ul class="feature-list">
+          <li class="feature-item"><div class="feat-icon">🌿</div><span><strong>Tabela Mestra de Sono</strong> — Janelas por faixa etária e sinais de sono.</span></li>
+          <li class="feature-item"><div class="feat-icon">📔</div><span><strong>Diário manual</strong> — Até 7 dias de histórico de sono.</span></li>
+          <li class="feature-item"><div class="feat-icon">💬</div><span><strong>Chat com a Guia (3/dia)</strong> — Perguntas à assistente de sono.</span></li>
+          <li class="feature-item"><div class="feat-icon">📖</div><span><strong>Dicionário Sensorial</strong> — Choros, saltos e sinais por fase.</span></li>
+          <li class="feature-item"><div class="feat-icon">🌙</div><span><strong>Ritual de Ouro (eBook)</strong> — Rotina noturna e voz materna.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PLUS -->
+    <div class="plan-card plus">
+      <div class="popular-tag">Mais popular</div>
+      <div class="plan-header">
+        <span class="plan-badge badge-plus">Plus · Tempo Real</span>
+        <div class="plan-name">Plano Plus</div>
+        <div class="plan-tagline">O app aprende o seu bebê e age antes da crise chegar.</div>
+      </div>
+      <div class="plan-body">
+        <div class="plus-feat">
+          <div class="plus-icon-wrap"><div class="plus-icon">🧠</div><div class="live-dot"></div></div>
+          <div>
+            <div class="plus-feat-title">Consultoria IA 24h <span class="tech-tag">ao vivo</span></div>
+            <div class="plus-feat-desc">Respostas baseadas no histórico real do bebê — nunca genéricas.</div>
+          </div>
+        </div>
+        <div class="plus-feat">
+          <div class="plus-icon-wrap"><div class="plus-icon">⏱️</div><div class="live-dot"></div></div>
+          <div>
+            <div class="plus-feat-title">Janelas Dinâmicas <span class="tech-tag">inteligente</span></div>
+            <div class="plus-feat-desc">Avisa: "Iniciar o ritual em 20 min" — calculado pela última soneca.</div>
+          </div>
+        </div>
+        <div class="plus-feat">
+          <div class="plus-icon-wrap"><div class="plus-icon">📡</div><div class="live-dot"></div></div>
+          <div>
+            <div class="plus-feat-title">Análise de Padrões <span class="tech-tag">dados reais</span></div>
+            <div class="plus-feat-desc">"Sonecas curtas à tarde geram 3+ despertares no seu bebê."</div>
+          </div>
+        </div>
+        <div class="plus-feat">
+          <div class="plus-icon-wrap"><div class="plus-icon">🎧</div><div class="live-dot"></div></div>
+          <div>
+            <div class="plus-feat-title">Áudios Premium <span class="tech-tag">streaming</span></div>
+            <div class="plus-feat-desc">Ruído branco infinito e meditações guiadas para a mãe.</div>
+          </div>
+        </div>
+        <div class="plus-feat">
+          <div class="plus-icon-wrap"><div class="plus-icon">📊</div><div class="live-dot"></div></div>
+          <div>
+            <div class="plus-feat-title">Relatório Semanal <span class="tech-tag">automático</span></div>
+            <div class="plus-feat-desc">Resumo visual todo domingo — evolução, consistência e despertares.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PREMIUM — reajustado -->
+    <div class="plan-card premium">
+      <div class="plan-header">
+        <span class="plan-badge badge-premium">Premium · Box Física</span>
+        <div class="plan-name">Plano Premium</div>
+        <div class="plan-tagline">Tudo do Plus — mais o ritual nas mãos.</div>
+      </div>
+      <div class="plan-body">
+        <p class="prem-includes">✦ Caixa curada entregue mensalmente</p>
+        <div class="prem-items">
+          <div class="prem-item">
+            <div class="prem-item-icon">🌸</div>
+            <div class="prem-item-text">
+              <div class="prem-item-name">Aromaterapia Noturna</div>
+              <div class="prem-item-sub">Lavanda, camomila e cedro</div>
+            </div>
+          </div>
+          <div class="prem-item">
+            <div class="prem-item-icon">🃏</div>
+            <div class="prem-item-text">
+              <div class="prem-item-name">Cards do Ritual de Ouro</div>
+              <div class="prem-item-sub">Rotina impressa, passo a passo</div>
+            </div>
+          </div>
+          <div class="prem-item">
+            <div class="prem-item-icon">💧</div>
+            <div class="prem-item-text">
+              <div class="prem-item-name">Spray de Travesseiro</div>
+              <div class="prem-item-sub">Âncora olfativa para o sono</div>
+            </div>
+          </div>
+          <div class="prem-item">
+            <div class="prem-item-icon">🌿</div>
+            <div class="prem-item-text">
+              <div class="prem-item-name">Comunidade Exclusiva</div>
+              <div class="prem-item-sub">Especialistas + mães no mesmo ciclo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- HOOK -->
+  <div class="divider"><span class="divider-icon">🌸</span></div>
+  <div class="hook-section">
+    <div class="hook-header">
+      <div class="hook-icon-wrap">💡</div>
+      <div>
+        <div class="hook-title">Estratégia de Gancho — Upgrade Gentil</div>
+        <div class="hook-sub">Como o app convida para o Plus sem pressionar — e no momento certo.</div>
+      </div>
+    </div>
+    <div class="hook-body">
+      <div class="hook-steps">
+        <div class="hook-step">
+          <div class="hook-step-left"><div class="step-num s1">1</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <p class="step-label s1-lbl">Escuta Ativa</p>
+            <p class="step-title">Detectar o sinal de dificuldade</p>
+            <p class="step-text">A IA identifica palavras-gatilho: <em>"já tentei de tudo", "não aguento mais", "toda noite acorda".</em></p>
+            <div class="chat-bubble"><span class="bubble-tag tag-mom">Mãe</span>"Ele acorda umas 6 vezes por noite há 3 semanas. Já tentei de tudo. Estou exausta..."</div>
+          </div>
+        </div>
+        <div class="hook-step">
+          <div class="hook-step-left"><div class="step-num s2">2</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <p class="step-label s2-lbl">Validação Primeiro</p>
+            <p class="step-title">Nunca sugerir antes de acolher</p>
+            <div class="chat-bubble"><span class="bubble-tag tag-ia">Guia do Sono</span>"Três semanas assim é muito pesado. Você está carregando um peso real — e esse padrão tem caminho. Vamos olhar juntas."</div>
+          </div>
+        </div>
+        <div class="hook-step">
+          <div class="hook-step-left"><div class="step-num s3">3</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <p class="step-label s3-lbl">Convite Natural</p>
+            <p class="step-title">Revelar o possível — sem pressão</p>
+            <div class="chat-bubble plus-msg"><span class="bubble-tag tag-ia">Guia do Sono</span>"Com o Plus, eu analisaria os padrões reais do seu bebê e te avisaria exatamente quando agir. Quando fizer sentido para você — estou aqui. 🌿"</div>
+          </div>
+        </div>
+        <div class="hook-step">
+          <div class="hook-step-left"><div class="step-num s4">4</div></div>
+          <div class="step-content">
+            <p class="step-label s4-lbl">Princípios</p>
+            <p class="step-title">O que nunca fazer</p>
+            <p class="step-text">① Nunca antes de validar a dor · ② Sem urgência falsa · ③ Sem repetir o convite · ④ Sem interromper resposta técnica · ⑤ "Não agora" é resposta final.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

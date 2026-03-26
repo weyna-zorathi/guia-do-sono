@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autonomia com Afeto — O Caminho para o Berço | Guia do Sono</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf6ef;
+    --warm-white: #fff9f2;
+    --sage: #8a9e7f;
+    --sage-light: #b5c9a8;
+    --sage-dark: #5a7050;
+    --terracotta: #c47a52;
+    --terracotta-light: #e8a97e;
+    --terracotta-pale: #f5e0d0;
+    --brown: #7a5c3e;
+    --brown-light: #a07850;
+    --linen: #ede5d8;
+    --linen-dark: #d8ccb8;
+    --night: #2c3e2d;
+    --gold: #c9a84c;
+    --gold-light: #e8cc7e;
+    --lavender: #9b8eb5;
+    --lavender-light: #c8bfda;
+    --sky: #7a9eb5;
+    --dusty-rose: #c4857a;
+    --dusty-rose-light: #e8b8b0;
+    --dusty-rose-pale: #f7e8e5;
+
+    --ch1: #8a9e7f;
+    --ch2: #c9a84c;
+    --ch3: #c4857a;
+    --ch4: #9b8eb5;
+    --ch5: #7a9eb5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--brown);
+    line-height: 1.8;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 5% 10%, rgba(196,133,122,0.07) 0%, transparent 45%),
+      radial-gradient(ellipse at 95% 90%, rgba(138,158,127,0.09) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.03) 0%, transparent 65%),
+      url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23c47a52' fill-opacity='0.016'%3E%3Ccircle cx='40' cy='40' r='1.5'/%3E%3Ccircle cx='10' cy='10' r='1'/%3E%3Ccircle cx='70' cy='70' r='1'/%3E%3Ccircle cx='10' cy='70' r='1'/%3E%3Ccircle cx='70' cy='10' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  /* ═══════════════════════ COVER ═══════════════════════ */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 75% 55% at 50% 40%, rgba(196,133,122,0.1) 0%, transparent 70%),
+      radial-gradient(ellipse 45% 70% at 15% 85%, rgba(138,158,127,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 45% at 85% 15%, rgba(201,168,76,0.07) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .cover-moon {
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at 35% 35%, var(--gold-light), var(--gold));
+    box-shadow: 0 0 50px rgba(201,168,76,0.25), 0 0 100px rgba(201,168,76,0.1);
+    margin-bottom: 36px;
+    position: relative;
+    animation: moonGlow 4s ease-in-out infinite alternate;
+  }
+  .cover-moon::after {
+    content: '';
+    position: absolute;
+    top: 14px; left: 22px;
+    width: 65px; height: 65px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    filter: blur(8px);
+  }
+  @keyframes moonGlow {
+    from { box-shadow: 0 0 40px rgba(201,168,76,0.2), 0 0 80px rgba(201,168,76,0.08); }
+    to   { box-shadow: 0 0 65px rgba(201,168,76,0.35), 0 0 130px rgba(201,168,76,0.15); }
+  }
+
+  .cover-series {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 18px;
+    opacity: 0.85;
+  }
+
+  .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 700;
+    color: var(--night);
+    line-height: 1.15;
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+  .cover-title em {
+    font-style: italic;
+    color: var(--dusty-rose);
+  }
+
+  .cover-subtitle {
+    font-family: 'Lora', serif;
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    font-style: italic;
+    color: var(--brown-light);
+    margin-bottom: 40px;
+    max-width: 480px;
+  }
+
+  .cover-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+  .cover-divider span { width: 48px; height: 1px; background: var(--linen-dark); }
+  .cover-divider .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+
+  .cover-intro {
+    max-width: 520px;
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    color: var(--brown);
+    line-height: 1.9;
+    margin-bottom: 48px;
+    opacity: 0.9;
+  }
+
+  .cover-toc-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    max-width: 560px;
+  }
+  .toc-chip {
+    padding: 7px 16px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.6);
+    border: 1px solid var(--linen-dark);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--brown);
+    letter-spacing: 0.01em;
+  }
+
+  /* ═══════════════════════ CHAPTER HEADER ═══════════════════════ */
+  .chapter {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 80px 32px 60px;
+  }
+
+  .chapter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .chapter-tag .tag-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+  }
+
+  .chapter h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.7rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--night);
+    line-height: 1.2;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .chapter h2 em { font-style: italic; }
+
+  .chapter-lead {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--brown-light);
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+
+  .prose {
+    font-size: 1rem;
+    color: var(--brown);
+    line-height: 1.85;
+  }
+  .prose p { margin-bottom: 18px; }
+  .prose strong { font-weight: 600; color: var(--night); }
+  .prose em { font-style: italic; }
+
+  /* ═══════════════════════ DIVIDERS ═══════════════════════ */
+  .section-divider {
+    text-align: center;
+    padding: 24px 0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    max-width: 760px;
+    margin: 0 auto;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  .section-divider .line { flex: 1; height: 1px; background: var(--linen-dark); }
+  .section-divider .icon { font-size: 16px; opacity: 0.6; }
+
+  /* ═══════════════════════ CALLOUT BOXES ═══════════════════════ */
+  .callout {
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin: 32px 0;
+    position: relative;
+  }
+  .callout-mama {
+    background: linear-gradient(135deg, rgba(196,133,122,0.1), rgba(196,133,122,0.05));
+    border-left: 3px solid var(--dusty-rose);
+  }
+  .callout-safety {
+    background: linear-gradient(135deg, rgba(138,158,127,0.12), rgba(138,158,127,0.05));
+    border-left: 3px solid var(--sage);
+  }
+  .callout-tip {
+    background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(201,168,76,0.04));
+    border-left: 3px solid var(--gold);
+  }
+  .callout-night {
+    background: linear-gradient(135deg, rgba(44,62,45,0.08), rgba(44,62,45,0.03));
+    border-left: 3px solid var(--night);
+  }
+  .callout-lavender {
+    background: linear-gradient(135deg, rgba(155,142,181,0.12), rgba(155,142,181,0.05));
+    border-left: 3px solid var(--lavender);
+  }
+
+  .callout-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    opacity: 0.7;
+  }
+  .callout p, .callout li {
+    font-family: 'Lora', serif;
+    font-size: 0.97rem;
+    line-height: 1.85;
+    color: var(--brown);
+  }
+  .callout-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--night);
+    margin-bottom: 10px;
+  }
+
+  /* ═══════════════════════ STAIRCASE COMPONENT ═══════════════════════ */
+  .staircase {
+    margin: 36px 0;
+    position: relative;
+  }
+  .stair-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 6px;
+    position: relative;
+  }
+  .stair-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 22px;
+    top: 48px;
+    width: 1px;
+    height: calc(100% - 12px);
+    background: linear-gradient(to bottom, var(--linen-dark), transparent);
+  }
+  .stair-number {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .stair-content {
+    flex: 1;
+    padding-bottom: 28px;
+  }
+  .stair-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--night);
+    margin-bottom: 6px;
+  }
+  .stair-desc {
+    font-size: 0.95rem;
+    color: var(--brown);
+    line-height: 1.8;
+  }
+  .stair-tip {
+    margin-top: 8px;
+    font-family: 'Lora', serif;
+    font-size: 0.88rem;
+    font-style: italic;
+    color: var(--brown-light);
+    opacity: 0.85;
+  }
+
+  /* stair colors */
+  .stair-1 .stair-number { background: rgba(196,133,122,0.15); color: var(--dusty-rose); border: 1.5px solid rgba(196,133,122,0.3); }
+  .stair-2 .stair-number { background: rgba(196,133,122,0.12); color: var(--dusty-rose); border: 1.5px solid rgba(196,133,122,0.25); }
+  .stair-3 .stair-number { background: rgba(201,168,76,0.12); color: var(--gold); border: 1.5px solid rgba(201,168,76,0.25); }
+  .stair-4 .stair-number { background: rgba(201,168,76,0.1); color: var(--gold); border: 1.5px solid rgba(201,168,76,0.2); }
+  .stair-5 .stair-number { background: rgba(138,158,127,0.12); color: var(--sage-dark); border: 1.5px solid rgba(138,158,127,0.25); }
+  .stair-6 .stair-number { background: rgba(138,158,127,0.1); color: var(--sage-dark); border: 1.5px solid rgba(138,158,127,0.2); }
+  .stair-7 .stair-number { background: rgba(44,62,45,0.08); color: var(--night); border: 1.5px solid rgba(44,62,45,0.15); }
+
+  /* ═══════════════════════ SAFETY CHECKLIST ═══════════════════════ */
+  .safety-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .safety-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.95rem;
+    color: var(--brown);
+    line-height: 1.6;
+  }
+  .safety-list li .check {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: rgba(138,158,127,0.15);
+    border: 1.5px solid var(--sage);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--sage-dark);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ═══════════════════════ SIGNAL CARDS ═══════════════════════ */
+  .signal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .signal-card {
+    background: rgba(255,255,255,0.55);
+    border: 1px solid var(--linen-dark);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+  }
+  .signal-card .signal-icon { font-size: 26px; margin-bottom: 10px; }
+  .signal-card .signal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--night);
+    margin-bottom: 6px;
+  }
+  .signal-card .signal-desc {
+    font-size: 0.88rem;
+    color: var(--brown-light);
+    line-height: 1.6;
+  }
+
+  /* ═══════════════════════ SPECIAL SECTION 1-2 ANOS ═══════════════════════ */
+  .special-section {
+    background: linear-gradient(160deg, rgba(155,142,181,0.08) 0%, rgba(122,158,181,0.07) 50%, rgba(138,158,127,0.06) 100%);
+    border: 1px solid rgba(155,142,181,0.2);
+    border-radius: 24px;
+    padding: 48px 40px;
+    margin: 48px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .special-section::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(155,142,181,0.12), transparent 70%);
+    pointer-events: none;
+  }
+  .special-section::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; left: -30px;
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(122,158,181,0.1), transparent 70%);
+    pointer-events: none;
+  }
+  .special-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(155,142,181,0.15);
+    border: 1px solid rgba(155,142,181,0.3);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--lavender);
+    margin-bottom: 20px;
+  }
+
+  /* ═══════════════════════ STRATEGY CARDS ═══════════════════════ */
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin: 28px 0;
+  }
+  .strategy-card {
+    background: rgba(255,255,255,0.5);
+    border: 1px solid var(--linen-dark);
+    border-radius: 16px;
+    padding: 24px 20px;
+    position: relative;
+  }
+  .strategy-card .card-accent {
+    width: 32px; height: 3px;
+    border-radius: 2px;
+    margin-bottom: 14px;
+  }
+  .strategy-card .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--night);
+    margin-bottom: 8px;
+  }
+  .strategy-card .card-desc {
+    font-size: 0.9rem;
+    color: var(--brown);
+    line-height: 1.75;
+  }
+
+  /* ═══════════════════════ AFFIRMATION BLOCK ═══════════════════════ */
+  .affirmation {
+    text-align: center;
+    padding: 52px 32px;
+    position: relative;
+  }
+  .affirmation::before {
+    content: '\201C';
+    position: absolute;
+    top: 20px; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    color: var(--linen-dark);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .affirmation-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.2rem, 3vw, 1.65rem);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--night);
+    line-height: 1.6;
+    max-width: 580px;
+    margin: 0 auto 18px;
+    position: relative;
+  }
+  .affirmation-source {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    color: var(--brown-light);
+    opacity: 0.75;
+  }
+
+  /* ═══════════════════════ TIMELINE BAR ═══════════════════════ */
+  .timeline {
+    margin: 32px 0;
+    position: relative;
+  }
+  .timeline-item {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+  }
+  .timeline-left {
+    width: 90px;
+    flex-shrink: 0;
+    text-align: right;
+    padding-right: 20px;
+    padding-top: 3px;
+  }
+  .timeline-time {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--terracotta);
+  }
+  .timeline-connector {
+    width: 20px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .timeline-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .timeline-line {
+    width: 1px;
+    flex: 1;
+    min-height: 20px;
+    background: linear-gradient(to bottom, var(--linen-dark), transparent);
+    margin-top: 4px;
+  }
+  .timeline-content {
+    flex: 1;
+    padding-left: 16px;
+    padding-bottom: 8px;
+  }
+  .timeline-content strong {
+    display: block;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--night);
+    margin-bottom: 3px;
+  }
+  .timeline-content span {
+    font-size: 0.88rem;
+    color: var(--brown-light);
+    line-height: 1.6;
+  }
+
+  /* ═══════════════════════ FOOTER ═══════════════════════ */
+  .guide-footer {
+    text-align: center;
+    padding: 60px 32px 80px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .footer-moon {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at 35% 35%, var(--gold-light), var(--gold));
+    margin: 0 auto 24px;
+    opacity: 0.6;
+  }
+  .footer-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--night);
+    margin-bottom: 14px;
+  }
+  .footer-text {
+    font-family: 'Lora', serif;
+    font-size: 0.95rem;
+    color: var(--brown-light);
+    line-height: 1.85;
+    margin-bottom: 28px;
+  }
+  .footer-brand {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    opacity: 0.7;
+  }
+
+  /* ═══════════════════════ PAGE BREAK ═══════════════════════ */
+  .page-break {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--linen-dark), transparent);
+    margin: 0 32px;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ═══════════════════════ RESPONSIVE ═══════════════════════ */
+  @media (max-width: 600px) {
+    .chapter { padding: 60px 20px 48px; }
+    .special-section { padding: 36px 24px; }
+    .strategy-grid { grid-template-columns: 1fr; }
+    .safety-list { grid-template-columns: 1fr; }
+    .signal-grid { grid-template-columns: 1fr 1fr; }
+    .callout { padding: 22px 20px; }
+  }
+
+  /* ═══════════════════════ SCROLL ANIMATION ═══════════════════════ */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     CAPA
+════════════════════════════════════════ -->
+<section class="cover">
+  <div class="cover-moon"></div>
+  <p class="cover-series">Guia do Sono · Série Autonomia</p>
+
+  <h1 class="cover-title">
+    Autonomia com <em>Afeto</em><br>
+    O Caminho para o Berço
+  </h1>
+
+  <p class="cover-subtitle">
+    Transferindo seu bebê com gentileza, presença e sem lágrimas
+  </p>
+
+  <div class="cover-divider">
+    <span></span>
+    <div class="dot"></div>
+    <span></span>
+  </div>
+
+  <p class="cover-intro">
+    Você não precisa escolher entre conexão e descanso. Este guia nasce da crença de que o bebê pode aprender a adormecer no berço — e que você pode estar ao lado dele em cada passo desse caminho, sem jamais precisar fechá-lo na escuridão com o choro como único caminho.
+  </p>
+
+  <div class="cover-toc-preview">
+    <span class="toc-chip">🌙 Por Que o Berço Assusta</span>
+    <span class="toc-chip">🌿 Sono Seguro</span>
+    <span class="toc-chip">🪜 Escada de Apoio</span>
+    <span class="toc-chip">✨ A Transição Passo a Passo</span>
+    <span class="toc-chip">🌸 1 a 2 Anos</span>
+    <span class="toc-chip">🌾 Você Também Importa</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     CAPÍTULO 0 · PARA A MÃE
+════════════════════════════════════════ -->
+<div class="page-break"></div>
+
+<section class="chapter fade-in">
+  <div class="chapter-tag" style="color: var(--dusty-rose);">
+    <div class="tag-dot" style="background: var(--dusty-rose);"></div>
+    Antes de Tudo
+  </div>
+
+  <h2>Uma Palavra para <em>Você</em>, Mamãe</h2>
+  <p class="chapter-lead">Porque antes de qualquer técnica, existe um coração exausto que merece ser visto.</p>
+
+  <div class="callout callout-mama">
+    <div class="callout-label" style="color: var(--dusty-rose);">🌸 Acolhimento</div>
+    <div class="callout-title">Você chegou ao lugar certo.</div>
+    <p>
+      Talvez você esteja lendo isto no escuro, com um bebê no colo, sentindo o peso de noites sem fim acumulando nos ombros. Talvez você já tenha tentado de tudo e ainda se pergunte se está fazendo errado — se existe algo errado <em>em você</em>.
+    </p>
+    <br>
+    <p>
+      Não existe. O cansaço que você sente não é fraqueza. É o sinal mais honesto de quanto você se importa. E o fato de você estar aqui, procurando uma forma gentil de ajudar seu filho, diz tudo sobre o tipo de mãe que você é.
+    </p>
+    <br>
+    <p>
+      Este guia não vai te pedir para ignorar o choro do seu bebê. Não vai te dizer que você precisa endurecer o coração. Vai, sim, te oferecer um caminho feito de presença, de ritmo e de confiança — no seu filho e em você mesma.
+    </p>
+  </div>
+
+  <div class="prose">
+    <p>
+      O sono infantil é um dos temas mais cheios de opiniões e de culpa. Existe um oceano de informações contraditórias lá fora, e navegar nele sozinha, exausta, é quase impossível. Respira fundo. Aqui, o ritmo é o seu ritmo.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     CAPÍTULO 1 · POR QUE O BERÇO ASSUSTA
+════════════════════════════════════════ -->
+<div class="page-break"></div>
+
+<section class="chapter fade-in">
+  <div class="chapter-tag" style="color: var(--ch1);">
+    <div class="tag-dot" style="background: var(--ch1);"></div>
+    Capítulo Um
+  </div>
+
+  <h2>Por Que o Berço <em>Assusta</em> (e Faz Todo Sentido)</h2>
+  <p class="chapter-lead">Para ajudar seu bebê a aceitar o berço, primeiro precisamos entender por que ele resiste.</p>
+
+  <div class="prose">
+    <p>
+      Bebês são, por natureza, criaturas de contato. Durante nove meses, seu filho viveu dentro de você — embalado pelo movimento do seu caminhar, aquecido pelo calor do seu corpo, acalentado pelo ritmo do seu coração. Para ele, <strong>o colo não é um capricho. É o habitat original.</strong>
+    </p>
+    <p>
+      O berço, por contraste, é imóvel, frio (em relação ao seu corpo) e silencioso. Do ponto de vista do sistema nervoso ainda imaturo do bebê, ser colocado nele pode sentir como uma mudança radical de ambiente — especialmente se acontece de forma abrupta.
+    </p>
+    <p>
+      Isso não significa que seu filho nunca vai aceitar o berço. Significa que ele precisa <em>construir uma memória positiva</em> daquele espaço — e que você pode ajudá-lo a construir essa memória, aos poucos, sem pressa e sem trauma.
+    </p>
+  </div>
+
+  <div class="signal-grid">
+    <div class="signal-card">
+      <div class="signal-icon">💓</div>
+      <div class="signal-title">Memória do Colo</div>
+      <div class="signal-desc">O bebê associa adormecer ao calor e à presença humana — essa associação é saudável e natural.</div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-icon">🌡️</div>
+      <div class="signal-title">Contraste Térmico</div>
+      <div class="signal-desc">O berço frio desperta o sistema de alerta. Aquecer levemente o colchão antes ajuda na transição.</div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-icon">🔄</div>
+      <div class="signal-title">Queda Sensorial</div>
+      <div class="signal-desc">O movimento do colo para o colchão ativa o reflexo de Moro — um susto involuntário que acorda.</div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-icon">👃</div>
+      <div class="signal-title">Odor Materno</div>
+      <div class="signal-desc">Seu cheiro é segurança. Uma peça de roupa usada sua perto (nunca dentro) do berço pode reconfortar.</div>
+    </div>
+  </div>
+
+  <div class="callout callout-tip">
+    <div class="callout-label" style="color: var(--gold);">💡 Entendimento Muda Tudo</div>
+    <p>Quando entendemos que a resistência do bebê ao berço não é birra, mas biologia, a frustração diminui e a paciência floresce. Você não está lutando contra seu filho — está caminhando junto com ele.</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     CAPÍTULO 2 · SONO SEGURO
+════════════════════════════════════════ -->
+<div class="page-break"></div>
+
+<section class="chapter fade-in">
+  <div class="chapter-tag" style="color: var(--ch1);">
+    <div class="tag-dot" style="background: var(--ch1);"></div>
+    Capítulo Dois
+  </div>
+
+  <h2>O Berço como <em>Lugar Seguro</em></h2>
+  <p class="chapter-lead">As regras de sono seguro não são obstáculos — são a fundação sobre a qual toda gentileza se apoia.</p>
+
+  <div class="callout callout-safety">
+    <div class="callout-label" style="color: var(--sage-dark);">🌿 Sono Seguro</div>
+    <div class="callout-title">Regras Essenciais para Dormir com Paz</div>
+    <ul class="safety-list" style="margin-top: 14px;">
+      <li>
+        <div class="check">✓</div>
+        <span><strong>De costas sempre</strong> — até 1 ano, o bebê deve dormir em decúbito dorsal (de barriga pra cima).</span>
+      </li>
+      <li>
+        <div class="check">✓</div>
+        <span><strong>Superfície firme e plana</strong> — colchão específico para berço, sem afundar. Nada de travesseiros, almofadas ou protetores acolchoados dentro do berço.</span>
+      </li>
+      <li>
+        <div class="check">✓</div>
+        <span><strong>Ambiente livre de objetos</strong> — sem brinquedos, pelúcias ou cobertores soltos no berço. Um saco de dormir (sleep sack) é uma alternativa segura a cobertores.</span>
+      </li>
+      <li>
+        <div class="check">✓</div>
+        <span><strong>Temperatura ambiente agradável</strong> — entre 20°C e 22°C idealmente. Bebê bem vestido, ambiente fresco.</span>
+      </li>
+      <li>
+        <div class="check">✓</div>
+        <span><strong>Berço no quarto dos pais</strong> — a Academia Americana de Pediatria recomenda compartilhar o quarto (não a cama) pelos primeiros 6 a 12 meses.</span>
+      </li>
+      <li>
+        <div class="check">✓</div>
+        <span><strong>Sem fumaça</strong> — o ambiente de sono deve ser livre de cigarro, incluindo a roupa dos cuidadores.</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="prose">
+    <p>
+      Uma peça de roupa <em>sua</em> — uma camiseta que você usou por um dia — pode ser colocada <strong>enrolada na grade lateral</strong> do berço, fora do alcance do bebê, apenas para que o cheiro familiar esteja presente. Esse detalhe simples pode fazer uma grande diferença nos primeiros dias da transição.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     CAPÍTULO 3 · LENDO OS SINAIS
+════════════════════════════════════════ -->
+<div class="page-break"></div>
+
+<section class="chapter fade-in">
+  <div class="chapter-tag" style="color: var(--ch2);">
+    <div class="tag-dot" style="background: var(--ch2);"></div>
+    Capítulo Três
+  </div>
+
+  <h2>Lendo os <em>Sinais</em> do Cansaço</h2>
+  <p class="chapter-lead">O momento certo de colocar o bebê para dormir é um segredo que ele mesmo te conta — se você souber ouvir.</p>
+
+  <div class="prose">
+    <p>
+      Um dos maiores sabotadores da hora de dormir é o <strong>cansaço excessivo</strong>. Quando perdemos a janela de sono do bebê e esperamos ele estar completamente exausto, seu cortisol (hormônio do estresse) sobe — e adormecer fica muito mais difícil. É o paradoxo do cansaço: quanto mais cansado, mais difícil de dormir.
+    </p>
+    <p>
+      Observar os sinais de sono <em>antes</em> do bebê entrar nessa espiral é a base de tudo.
+    </p>
+  </div>
+
+  <div class="signal-grid">
+    <div class="signal-card">
+      <div class="signal-icon">👁️</div>
+      <div class="signal-title">Olhos Pesados</div>
+      <div class="signal-desc">Piscadas lentas, olhar fixo ou "vidrado". Esse é o sinal mais suave — agir aqui é ideal.</div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-icon">🥱</div>
+      <div class="signal-title">Bocejo</div>
+      <div class="signal-desc">O primeiro bocejo é convite. O terceiro é urgência. Não deixe passar o segundo.</div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-icon">👂</div>
+      <div class="signal-title">Mexendo na Orelha</div>
+      <div class="signal-desc">Bebês costumam puxar ou friccionar a orelha quando cansados (na ausência de dor).</div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-icon">🔄</div>
+      <div class="signal-title">Desvio de Contato</div>
+      <div class="signal-desc">Para de se interessar por brinquedos. Desviar o olhar pode indicar sobrecarga sensorial.</div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-icon">😤</div>
+      <div class="signal-title">Irritabilidade Súbita</div>
+      <div class="signal-desc">Choro sem causa aparente, dificuldade de se contentar. O cansaço já passou do ponto ideal.</div>
+    </div>
+    <div class="signal-card">
+      <div class="signal-icon">🤲</div>
+      <div class="signal-title">Pedindo Colo</div>
+      <div class="signal-desc">Estica os braços ou se apoia em você. O colo como refúgio é sempre um sinal a ser respeitado.</div>
+    </div>
+  </div>
+
+  <div class="callout callout-tip">
+    <div class="callout-label" style="color: var(--gold);">🕰️ Janela de Sono</div>
+    <p>Cada bebê tem uma "janela de sono" — um período de tempo que consegue ficar acordado de forma confortável. Recém-nascidos: 45–60 min. Com 3 meses: 1h–1h30. Com 6 meses: 2–2h30. Com 9 meses: 2h30–3h. Com 1 ano: 3–4h. Conhecer a janela do seu filho é como ter o mapa do território.</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     CAPÍTULO 4 · A ESCADA DE APOIO
+════════════════════════════════════════ -->
+<div class="page-break"></div>
+
+<section class="chapter fade-in">
+  <div class="chapter-tag" style="color: var(--terracotta);">
+    <div class="tag-dot" style="background: var(--terracotta);"></div>
+    Capítulo Quatro — O Coração do Guia
+  </div>
+
+  <h2>A Escada de <em>Apoio</em></h2>
+  <p class="chapter-lead">Uma retirada gradual do toque que respeita o ritmo do bebê e nunca o deixa sozinho no processo.</p>
+
+  <div class="prose">
+    <p>
+      A Escada de Apoio não é uma técnica de treino de sono. É uma filosofia de transição. Em vez de cortar o suporte de forma abrupta, <strong>você o vai diminuindo aos poucos</strong>, degrau a degrau, enquanto o bebê desenvolve a confiança de que o berço é seguro.
+    </p>
+    <p>
+      O tempo em cada degrau varia de bebê para bebê. Não existe um prazo certo. Alguns bebês sobem a escada em semanas; outros precisam de meses. O que importa é que você sobe <strong>com ele</strong>, e não antes dele.
+    </p>
+  </div>
+
+  <div class="callout callout-mama" style="margin-bottom: 0;">
+    <div class="callout-label" style="color: var(--dusty-rose);">🌸 Para a Mamãe</div>
+    <p>Antes de começar: escolha um momento em que você está descansada o suficiente para ser consistente. Iniciar uma mudança de rotina de sono no dia mais exaustivo da semana raramente dá certo. Você precisa de reservas — mesmo que pequenas.</p>
+  </div>
+
+  <div style="height: 36px;"></div>
+
+  <div class="staircase">
+
+    <div class="stair-item stair-1">
+      <div class="stair-number">1</div>
+      <div class="stair-content">
+        <div class="stair-title">Adormecer no Colo — Com Consciência</div>
+        <div class="stair-desc">
+          O ponto de partida é onde vocês já estão. Continue acalentando no colo, mas comece a prestar atenção no momento em que o bebê está <em>sonolento mas ainda acordado</em>. Não é hora de colocar no berço ainda — é hora de observar.
+        </div>
+        <div class="stair-tip">🌿 Objetivo do degrau: conhecer o ritmo de sono do seu filho. Sem pressa.</div>
+      </div>
+    </div>
+
+    <div class="stair-item stair-2">
+      <div class="stair-number">2</div>
+      <div class="stair-content">
+        <div class="stair-title">Transferência no Sono Profundo</div>
+        <div class="stair-desc">
+          Quando o bebê estiver em sono profundo (corpo mole, respiração regular, não reage ao toque), faça a transferência com movimentos lentos e contínuos. Mantenha uma mão no peito ou na barriga por 2–3 minutos após pousar. Saia devagar, como quem sai de um lugar sagrado.
+        </div>
+        <div class="stair-tip">🌿 Dica do campo: aqueça o colchão do berço com uma bolsa de água morna (removida antes de colocar o bebê) para amenizar o contraste térmico.</div>
+      </div>
+    </div>
+
+    <div class="stair-item stair-3">
+      <div class="stair-number">3</div>
+      <div class="stair-content">
+        <div class="stair-title">Adormecer com Contato no Berço</div>
+        <div class="stair-desc">
+          Agora o bebê está no berço, mas ainda adormece com sua mão firme sobre ele — no peito, na barriga ou nas costas. Você está sentada ou de pé ao lado do berço. Sua presença é total. Apenas o suporte do seu corpo que diminuiu um degrau.
+        </div>
+        <div class="stair-tip">🌿 Muitas famílias ficam neste degrau por semanas — e está tudo bem. O degrau perfeito é o que funciona para vocês dois.</div>
+      </div>
+    </div>
+
+    <div class="stair-item stair-4">
+      <div class="stair-number">4</div>
+      <div class="stair-content">
+        <div class="stair-title">Toque Intermitente no Berço</div>
+        <div class="stair-desc">
+          Em vez de manter a mão constante, você começa a fazer pausas. Toca o bebê por alguns segundos, retira suavemente a mão, aguarda. Se ele se agitar, a mão volta. A presença continua total — o toque que vai e volta.
+        </div>
+        <div class="stair-tip">🌿 O silêncio também é linguagem. Sua respiração calma, sua presença quieta, já diz para o bebê: "Estou aqui."</div>
+      </div>
+    </div>
+
+    <div class="stair-item stair-5">
+      <div class="stair-number">5</div>
+      <div class="stair-content">
+        <div class="stair-title">Presença sem Toque</div>
+        <div class="stair-desc">
+          Você está ao lado do berço — visível, acessível — mas sem tocar. Pode cantarolar baixinho, pode colocar a mão na grade para que o bebê sinta sua presença. O toque acontece apenas se ele realmente precisar de regulação.
+        </div>
+        <div class="stair-tip">🌿 Nesse degrau, a voz é sua principal ferramenta. Sons rítmicos, suaves e repetitivos ("shhh", "hm hm hm") funcionam melhor do que palavras.</div>
+      </div>
+    </div>
+
+    <div class="stair-item stair-6">
+      <div class="stair-number">6</div>
+      <div class="stair-content">
+        <div class="stair-title">Presença Discreta no Quarto</div>
+        <div class="stair-desc">
+          Você ainda está no quarto, mas um pouco mais distante do berço. Talvez sentada numa cadeira. O bebê sabe que você está ali — pode te ver ou ouvir sua respiração. Ele adormece com a segurança da sua proximidade, não do seu toque.
+        </div>
+        <div class="stair-tip">🌿 Movimento lento ao se afastar é fundamental. Bebês são muito sensíveis à velocidade dos nossos movimentos.</div>
+      </div>
+    </div>
+
+    <div class="stair-item stair-7">
+      <div class="stair-number">7</div>
+      <div class="stair-content">
+        <div class="stair-title">Autonomia no Berço</div>
+        <div class="stair-desc">
+          O bebê adormece no berço enquanto você sai lentamente do quarto, com a porta entreaberta. Ele sabe, pela consistência dos dias anteriores, que mesmo que você não esteja visível, você existe e vai voltar. Essa certeza — construída degrau a degrau — é a autonomia real.
+        </div>
+        <div class="stair-tip">🌿 Autonomia não é abandono. É confiança. E confiança se constrói — nunca se impõe.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="callout callout-night">
+    <div class="callout-label" style="color: var(--night);">🌙 Regra de Ouro da Escada</div>
+    <p>Se em algum degrau o bebê demonstrar angústia real (não apenas protestos suaves), você <strong>volta um degrau</strong> sem culpa. Regressão não é fracasso — é o bebê te dizendo que precisava de mais tempo. Ouça. Ajuste. Continue.</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     CAPÍTULO 5 · RITUAL ANTES DO BERÇO
+════════════════════════════════════════ -->
+<div class="page-break"></div>
+
+<section class="chapter fade-in">
+  <div class="chapter-tag" style="color: var(--ch2);">
+    <div class="tag-dot" style="background: var(--ch2);"></div>
+    Capítulo Cinco
+  </div>
+
+  <h2>O Ritual que <em>Prepara o Caminho</em></h2>
+  <p class="chapter-lead">O berço não começa no momento em que você coloca o bebê nele. Começa 30 a 45 minutos antes.</p>
+
+  <div class="prose">
+    <p>
+      O sistema nervoso do bebê responde poderosamente à <strong>previsibilidade</strong>. Uma sequência consistente de eventos antes de dormir — sempre na mesma ordem, sempre com a mesma calma — funciona como um ímã para o sono. Com o tempo, o início do ritual já começa a desacelerar o bebê automaticamente.
+    </p>
+  </div>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-left"><span class="timeline-time">–45 min</span></div>
+      <div class="timeline-connector">
+        <div class="timeline-dot" style="background: var(--sage);"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <strong>Desaceleração do Ambiente</strong>
+        <span>Diminuir luzes, reduzir estímulos, pausar telas e brincadeiras agitadas. O quarto começa a virar noite.</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left"><span class="timeline-time">–35 min</span></div>
+      <div class="timeline-connector">
+        <div class="timeline-dot" style="background: var(--terracotta);"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <strong>Banho Morno (se fizer parte)</strong>
+        <span>Água morna baixa o cortisol e sinaliza ao corpo que o sono se aproxima. Não é obrigatório todo dia.</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left"><span class="timeline-time">–25 min</span></div>
+      <div class="timeline-connector">
+        <div class="timeline-dot" style="background: var(--gold);"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <strong>Massagem ou Troca de Roupa com Calma</strong>
+        <span>Toque gentil e intencional. Fale baixo, se falar. "Agora vamos dormir, tudo está bem."</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left"><span class="timeline-time">–15 min</span></div>
+      <div class="timeline-connector">
+        <div class="timeline-dot" style="background: var(--lavender);"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <strong>Amamentação ou Mamadeira</strong>
+        <span>Não como ferramenta para dormir, mas como parte do cuidado. O ideal é que o bebê não adormeça completamente na mamada — acorde suavemente antes de colocar no berço.</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left"><span class="timeline-time">–8 min</span></div>
+      <div class="timeline-connector">
+        <div class="timeline-dot" style="background: var(--sky);"></div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <strong>Canto ou Ruído Branco</strong>
+        <span>Uma canção de ninar consistente ou ruído branco suave cria uma âncora sonora poderosa para o sono.</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left"><span class="timeline-time">Berço</span></div>
+      <div class="timeline-connector">
+        <div class="timeline-dot" style="background: var(--night);"></div>
+      </div>
+      <div class="timeline-content">
+        <strong>Transição para o Berço</strong>
+        <span>Sonolento, mas consciente. Aqui começa a Escada de Apoio, no degrau em que vocês estão no momento.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="callout callout-tip">
+    <div class="callout-label" style="color: var(--gold);">🌾 Sobre a Mamada para Dormir</div>
+    <p>
+      A mamada antes de dormir é uma das associações de sono mais naturais que existem — e não há nada de errado com ela. Se funciona para vocês, continue. Se quiser reduzir essa associação, o caminho não é eliminar a mamada, mas apenas deslocar ela levemente no ritual, para que não seja o <em>último</em> estímulo antes do berço.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     CAPÍTULO 6 · 1 A 2 ANOS (ESPECIAL)
+════════════════════════════════════════ -->
+<div class="page-break"></div>
+
+<section class="chapter fade-in">
+  <div class="chapter-tag" style="color: var(--ch4);">
+    <div class="tag-dot" style="background: var(--ch4);"></div>
+    Capítulo Seis · Seção Especial
+  </div>
+
+  <h2>Entre 1 e 2 Anos:<br><em>Quando o Sono Vira Batalha</em></h2>
+  <p class="chapter-lead">Para as mães que chegam exaustas ao fim do dia — e encontram um pequeno ser que parece ter a energia de um relâmpago.</p>
+
+  <div class="special-section">
+    <div class="special-badge">
+      <span>🌙</span>
+      <span>Seção Especial · 1 a 2 Anos</span>
+    </div>
+
+    <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--night); margin-bottom: 12px; line-height: 1.3;">
+      O Paradoxo do Toddler que Não Quer Dormir
+    </h3>
+    <p style="font-family: 'Lora', serif; font-size: 1rem; color: var(--brown); line-height: 1.85; margin-bottom: 24px;">
+      Entre 1 e 2 anos, seu filho está passando por uma das maiores revoluções neurológicas da vida. Ele está desenvolvendo a consciência de si mesmo como um ser <em>separado</em> de você — e essa separação, ainda que natural, assusta. A luta contra o sono, muitas vezes, é a luta contra a separação.
+    </p>
+
+    <div class="callout callout-mama" style="margin: 0 0 24px;">
+      <div class="callout-label" style="color: var(--dusty-rose);">🌸 Para a Mamãe Exausta</div>
+      <p>Se você está chegando às lágrimas na hora de dormir — você e ele — saiba que isso é extremamente comum nessa fase. Não é que você errou algo. É que essa fase é genuinamente difícil. Você não precisa resolver tudo de uma vez.</p>
+    </div>
+
+    <h4 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: var(--night); margin-bottom: 16px;">
+      Por Que Ele Luta Contra o Sono?
+    </h4>
+
+    <div class="strategy-grid">
+      <div class="strategy-card">
+        <div class="card-accent" style="background: var(--lavender);"></div>
+        <div class="card-title">Ansiedade de Separação</div>
+        <div class="card-desc">Dormir significa ficar longe de você. Para um toddler, ainda não é óbvio que você vai continuar existindo quando ele fechar os olhos.</div>
+      </div>
+      <div class="strategy-card">
+        <div class="card-accent" style="background: var(--sky);"></div>
+        <div class="card-title">FOMO do Mundo</div>
+        <div class="card-desc">O mundo é incrível e novo e cheio de descobertas. Por que desperdiçar com o sono? Esse pensamento é completamente racional para um toddler.</div>
+      </div>
+      <div class="strategy-card">
+        <div class="card-accent" style="background: var(--sage);"></div>
+        <div class="card-title">Necessidade de Controle</div>
+        <div class="card-desc">Essa fase marca o despertar da autonomia. O "não" é um instrumento de identidade — e a hora de dormir é um terreno fértil para exercê-lo.</div>
+      </div>
+      <div class="strategy-card">
+        <div class="card-accent" style="background: var(--gold);"></div>
+        <div class="card-title">Regressão de Sono</div>
+        <div class="card-desc">As transições de desenvolvimento (fala, marcha, cognição) frequentemente desorganizam o sono. Uma semana difícil pode ter uma razão neurológica.</div>
+      </div>
+    </div>
+
+    <h4 style="font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: var(--night); margin: 28px 0 16px;">
+      🧭 Os Pilares da Segurança Emocional para Dormir
+    </h4>
+
+    <div class="prose">
+      <p>
+        Para o toddler entre 1 e 2 anos, a resistência ao sono diminui quando o ambiente emocional do dia inteiro é de segurança e conexão. O sono é apenas a ponta do iceberg — embaixo estão as horas de interação, os limites com amor e os momentos de reconhecimento.
+      </p>
+    </div>
+
+    <div style="margin: 20px 0;">
+
+      <div class="stair-item" style="margin-bottom: 20px;">
+        <div class="stair-number" style="background: rgba(155,142,181,0.15); color: var(--lavender); border: 1.5px solid rgba(155,142,181,0.3);">🌙</div>
+        <div class="stair-content" style="padding-bottom: 0;">
+          <div class="stair-title">Previsibilidade é Segurança</div>
+          <div class="stair-desc">O toddler precisa saber o que vem a seguir. Um ritual de sono consistente — <em>sempre</em> na mesma ordem — reduz a ansiedade antecipatória. Você pode até criar um "quadro do ritual" com ilustrações simples para que ele veja e antecipe cada etapa.</div>
+        </div>
+      </div>
+
+      <div class="stair-item" style="margin-bottom: 20px;">
+        <div class="stair-number" style="background: rgba(155,142,181,0.15); color: var(--lavender); border: 1.5px solid rgba(155,142,181,0.3);">💬</div>
+        <div class="stair-content" style="padding-bottom: 0;">
+          <div class="stair-title">Linguagem Antecipada</div>
+          <div class="stair-desc">Anuncie a hora de dormir com antecedência. "Em 10 minutinhos, vamos começar a hora do sono." Isso dá ao toddler um senso de controle — ele sabe o que está vindo. Surpresas são indesejadas para quem ainda não tem pleno controle do tempo.</div>
+        </div>
+      </div>
+
+      <div class="stair-item" style="margin-bottom: 20px;">
+        <div class="stair-number" style="background: rgba(155,142,181,0.15); color: var(--lavender); border: 1.5px solid rgba(155,142,181,0.3);">🪴</div>
+        <div class="stair-content" style="padding-bottom: 0;">
+          <div class="stair-title">Escolhas Dentro dos Limites</div>
+          <div class="stair-desc">Ofereça micro-escolhas dentro do ritual: "Você quer o pijama azul ou o verde?" "Quer uma história ou duas músicas?" Isso satisfaz a necessidade de autonomia sem abrir mão da estrutura. A hora de dormir acontece — o <em>como</em> tem espaço para ele.</div>
+        </div>
+      </div>
+
+      <div class="stair-item" style="margin-bottom: 20px;">
+        <div class="stair-number" style="background: rgba(155,142,181,0.15); color: var(--lavender); border: 1.5px solid rgba(155,142,181,0.3);">🌟</div>
+        <div class="stair-content" style="padding-bottom: 0;">
+          <div class="stair-title">Objeto Transicional</div>
+          <div class="stair-desc">Um boneco, uma fralda de pano, um bichinho de pelúcia específico pode ser o "guardião do sono" — um objeto que representa sua presença mesmo quando você não está. Introduza esse objeto no ritual gradualmente, com carinho.</div>
+        </div>
+      </div>
+
+      <div class="stair-item" style="margin-bottom: 20px;">
+        <div class="stair-number" style="background: rgba(155,142,181,0.15); color: var(--lavender); border: 1.5px solid rgba(155,142,181,0.3);">🌈</div>
+        <div class="stair-content" style="padding-bottom: 0;">
+          <div class="stair-title">A Despedida com Promessa</div>
+          <div class="stair-desc">Crie um ritual de saída do quarto consistente e cheio de amor: um beijo na testa, uma frase de carinho que sempre se repete ("Boa noite, te amo até as estrelas"), e uma promessa clara — "Mamãe está bem pertinho." E então saia. Com calma. Sem hesitar.</div>
+        </div>
+      </div>
+
+      <div class="stair-item">
+        <div class="stair-number" style="background: rgba(155,142,181,0.15); color: var(--lavender); border: 1.5px solid rgba(155,142,181,0.3);">🌊</div>
+        <div class="stair-content" style="padding-bottom: 0;">
+          <div class="stair-title">Validar sem Ceder à Resistência</div>
+          <div class="stair-desc">Se ele chorar ao se despedir, você pode voltar — uma vez — para um abraço curto e tranquilizador. Mas a segunda saída é firme e amorosa. "Eu ouvi você. Eu sei que é difícil. Boa noite, amor." Validar o sentimento não é o mesmo que negociar o limite.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout callout-lavender" style="margin-top: 28px;">
+      <div class="callout-label" style="color: var(--lavender);">🌙 Sobre as Noites Difíceis</div>
+      <p>Quando um toddler desperta às 2h da manhã chamando por você, ele não está "manipulando". Ele está assustado. Responder com presença calma e breve — sem tirar da cama, sem grande alvoroço, sem irritação — é o que mais rapidamente reconstrói a segurança para ele voltar a dormir.</p>
+    </div>
+
+    <div class="callout callout-safety" style="margin-top: 20px;">
+      <div class="callout-label" style="color: var(--sage-dark);">🌿 Sono Seguro para Toddlers (1–2 Anos)</div>
+      <ul class="safety-list">
+        <li>
+          <div class="check">✓</div>
+          <span>A partir de 1 ano, o risco de SMSL diminui significativamente. Um travesseiro fino e firme já pode ser usado — mas apenas se recomendado pelo pediatra.</span>
+        </li>
+        <li>
+          <div class="check">✓</div>
+          <span>Se ele rolar durante a noite, não é necessário reposicioná-lo. Toddlers com mobilidade geralmente encontram sua posição confortável.</span>
+        </li>
+        <li>
+          <div class="check">✓</div>
+          <span>O objeto transicional é seguro — de preferência sem partes pequenas ou cordas.</span>
+        </li>
+        <li>
+          <div class="check">✓</div>
+          <span>Luzes de baixa intensidade no quarto (uma luzinha noturna âmbar) são seguras e podem reduzir o medo do escuro que começa a aparecer nessa fase.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     CAPÍTULO 7 · QUANDO AS COISAS DÃO ERRADO
+════════════════════════════════════════ -->
+<div class="page-break"></div>
+
+<section class="chapter fade-in">
+  <div class="chapter-tag" style="color: var(--ch5);">
+    <div class="tag-dot" style="background: var(--ch5);"></div>
+    Capítulo Sete
+  </div>
+
+  <h2>Quando as <em>Coisas Não Saem</em> como Planejado</h2>
+  <p class="chapter-lead">Porque elas não vão sair — e está tudo bem assim.</p>
+
+  <div class="prose">
+    <p>
+      Não existe uma semana de sono sem um dia difícil. Dentição, doenças, viagens, mudanças na rotina, saltos de desenvolvimento — a vida interrompe qualquer sequência perfeita. A consistência que importa não é a perfeição de cada noite, mas o <strong>padrão geral ao longo das semanas</strong>.
+    </p>
+  </div>
+
+  <div class="strategy-grid">
+    <div class="strategy-card">
+      <div class="card-accent" style="background: var(--terracotta);"></div>
+      <div class="card-title">Dentição</div>
+      <div class="card-desc">O desconforto é real. Nesses momentos, acolha mais. A rotina pode ser ajustada temporariamente — depois da fase aguda, ela é retomada com suavidade.</div>
+    </div>
+    <div class="strategy-card">
+      <div class="card-accent" style="background: var(--sky);"></div>
+      <div class="card-title">Viagens e Mudanças</div>
+      <div class="card-desc">Leve o objeto transicional, mantenha o ritual na medida do possível. O ambiente muda — o ritual é a âncora. Dois ou três dias após voltar, a rotina se reorganiza.</div>
+    </div>
+    <div class="strategy-card">
+      <div class="card-accent" style="background: var(--sage);"></div>
+      <div class="card-title">Doenças</div>
+      <div class="card-desc">Esqueça qualquer "treino de sono" enquanto o bebê está doente. Colo extra, presença extra. Quando ele se recuperar, você retoma — sempre voltando um degrau na escada.</div>
+    </div>
+    <div class="strategy-card">
+      <div class="card-accent" style="background: var(--gold);"></div>
+      <div class="card-title">Saltos de Desenvolvimento</div>
+      <div class="card-desc">Novas habilidades (engatinhar, andar, falar) podem desorganizar o sono por dias. É temporário. A neurologia do bebê está em obras — tenha paciência com o canteiro.</div>
+    </div>
+  </div>
+
+  <div class="callout callout-mama">
+    <div class="callout-label" style="color: var(--dusty-rose);">🌸 Permissão</div>
+    <p>Você tem permissão para ceder nas noites difíceis sem sentir que destruiu tudo. Uma noite de colo extra não apaga semanas de trabalho. O vínculo que você constrói nos momentos de cuidado é a base mais sólida que existe para o sono independente. Confie no processo.</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     AFFIRMATION
+════════════════════════════════════════ -->
+<div class="affirmation fade-in">
+  <p class="affirmation-text">
+    Seu bebê não precisa de uma mãe perfeita. Ele precisa de uma mãe presente — e você é exatamente isso.
+  </p>
+  <p class="affirmation-source">— Guia do Sono</p>
+</div>
+
+<!-- ════════════════════════════════════════
+     CAPÍTULO 8 · VOCÊ TAMBÉM IMPORTA
+════════════════════════════════════════ -->
+<div class="page-break"></div>
+
+<section class="chapter fade-in">
+  <div class="chapter-tag" style="color: var(--dusty-rose);">
+    <div class="tag-dot" style="background: var(--dusty-rose);"></div>
+    Capítulo Final
+  </div>
+
+  <h2>Você Também <em>Importa</em></h2>
+  <p class="chapter-lead">Porque nenhuma técnica de sono vai funcionar se a pessoa que a aplica estiver se desintegrando.</p>
+
+  <div class="callout callout-mama">
+    <div class="callout-label" style="color: var(--dusty-rose);">🌸 Um Momento Só para Você</div>
+    <div class="callout-title">Sobre o Cansaço que Ninguém Vê</div>
+    <p>
+      O cansaço de uma mãe é invisível de um jeito muito específico. Ele não para nenhuma reunião, não justifica nenhuma falta. Você acorda quando precisa, funciona quando precisa, e sorri quando é necessário — mesmo por dentro estando completamente vazia.
+    </p>
+    <br>
+    <p>
+      Este capítulo existe para dizer, sem rodeios: <strong>o seu sono também importa.</strong> Não apenas como um meio para ser uma mãe melhor (embora isso também seja verdade), mas porque <em>você</em> importa. Como pessoa. Como mulher. Como ser humano que tem necessidades.
+    </p>
+  </div>
+
+  <div class="prose">
+    <p>
+      Se você está chegando ao limite do esgotamento, é hora de pedir ajuda — do parceiro, de um familiar, de alguém de confiança. Algumas noites, "fazer certo" é deixar outra pessoa cuidar para que você durma algumas horas seguidas. Isso não é fraqueza nem abandono. É sobrevivência inteligente.
+    </p>
+    <p>
+      E se você estiver experienciando sinais de depressão pós-parto ou ansiedade intensa, procure apoio profissional. O bem-estar emocional da mãe é parte essencial do bem-estar do bebê — e você merece cuidado tanto quanto ele.
+    </p>
+  </div>
+
+  <div class="strategy-grid">
+    <div class="strategy-card">
+      <div class="card-accent" style="background: var(--dusty-rose);"></div>
+      <div class="card-title">Durma quando Puder</div>
+      <div class="card-desc">A louça pode esperar. A roupa pode esperar. As mensagens podem esperar. Seu sono não pode.</div>
+    </div>
+    <div class="strategy-card">
+      <div class="card-accent" style="background: var(--sage);"></div>
+      <div class="card-title">Peça Ajuda</div>
+      <div class="card-desc">Compartilhe o ritual de sono com o parceiro. Altere turnos. Nenhum ser humano foi feito para isso sozinho.</div>
+    </div>
+    <div class="strategy-card">
+      <div class="card-accent" style="background: var(--gold);"></div>
+      <div class="card-title">Diminua a Barra</div>
+      <div class="card-desc">Você não precisa aplicar todas as técnicas ao mesmo tempo. Escolha uma. Faça bem uma coisa. O resto vem depois.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<div class="page-break"></div>
+
+<footer class="guide-footer fade-in">
+  <div class="footer-moon"></div>
+  <div class="footer-title">O Caminho é Feito de Passos Pequenos</div>
+  <p class="footer-text">
+    Esta noite pode ser difícil. A próxima pode ser diferente. E a que vier depois pode surpreender você. O sono infantil não é uma linha reta — é uma estrada de terra que às vezes ondula, que tem barro nos dias de chuva e que é mais bonita ao anoitecer do que parece.<br><br>
+    Confie no processo. Confie no seu filho. E, acima de tudo, confie em você.
+  </p>
+  <div class="cover-divider" style="justify-content: center; margin-bottom: 24px;">
+    <span></span>
+    <div class="dot"></div>
+    <span></span>
+  </div>
+  <p class="footer-brand">Guia do Sono · Autonomia com Afeto</p>
+</footer>
+
+<script>
+  // Intersection Observer for fade-in animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

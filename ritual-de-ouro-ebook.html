@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O Ritual de Ouro — Guia do Sono</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf6ef;
+    --warm-white: #fff9f2;
+    --sage: #8a9e7f;
+    --sage-light: #b5c9a8;
+    --sage-dark: #5a7050;
+    --terracotta: #c47a52;
+    --terracotta-light: #e8a97e;
+    --terracotta-pale: #f5e0d0;
+    --brown: #7a5c3e;
+    --brown-light: #a07850;
+    --linen: #ede5d8;
+    --linen-dark: #d8ccb8;
+    --night: #2c3e2d;
+    --gold: #c9a84c;
+    --gold-light: #e8cc7e;
+    --lavender: #9b8eb5;
+    --lavender-light: #c8bfda;
+    --sky: #7a9eb5;
+
+    /* Chapter accent colors */
+    --ch1: #8a9e7f;   /* sage — desaceleração */
+    --ch2: #c9a84c;   /* gold — penumbra */
+    --ch3: #c47a52;   /* terracotta — banho/massagem */
+    --ch4: #7a9eb5;   /* sky — ruídos */
+    --ch5: #9b8eb5;   /* lavender — voz */
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--brown);
+    line-height: 1.75;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 8% 12%, rgba(196,122,82,0.07) 0%, transparent 48%),
+      radial-gradient(ellipse at 92% 88%, rgba(138,158,127,0.09) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.04) 0%, transparent 65%),
+      url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c47a52' fill-opacity='0.018'%3E%3Cpath d='M50 50v-6h-2v6h-6v2h6v6h2v-6h6v-2h-6zm0-40V4h-2v6h-6v2h6v6h2v-6h6V4h-6zM10 50v-6H8v6H2v2h6v6h2v-6h6v-2h-6zM10 10V4H8v6H2v2h6v6h2v-6h6V4h-6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  /* ═══════════════════════════════════════
+     COVER PAGE
+  ═══════════════════════════════════════ */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 80% at 20% 80%, rgba(138,158,127,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(196,122,82,0.07) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .cover-ornament {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.07;
+    font-size: 220px;
+    top: -30px;
+    right: -20px;
+    line-height: 1;
+    transform: rotate(15deg);
+    filter: blur(2px);
+  }
+  .cover-ornament-2 {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.05;
+    font-size: 160px;
+    bottom: 20px;
+    left: -10px;
+    line-height: 1;
+    transform: rotate(-10deg);
+    filter: blur(1px);
+  }
+  .cover-line-top {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--gold));
+    margin: 0 auto 32px;
+    animation: growLine 1.2s ease 0.3s both;
+  }
+  @keyframes growLine {
+    from { height: 0; opacity: 0; }
+    to { height: 60px; opacity: 1; }
+  }
+  .cover-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.35);
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2.8px;
+    text-transform: uppercase;
+    padding: 7px 20px;
+    border-radius: 30px;
+    margin-bottom: 36px;
+    animation: fadeUp 0.8s ease 0.5s both;
+  }
+  .cover-eyebrow {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--brown-light);
+    margin-bottom: 16px;
+    animation: fadeUp 0.8s ease 0.6s both;
+  }
+  .cover h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    color: var(--night);
+    line-height: 1.08;
+    font-weight: 700;
+    margin-bottom: 20px;
+    animation: fadeUp 0.9s ease 0.7s both;
+  }
+  .cover h1 em {
+    color: var(--terracotta);
+    font-style: italic;
+    display: block;
+  }
+  .cover h1 .gold {
+    color: var(--gold);
+    font-style: normal;
+  }
+  .cover-subtitle {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--brown-light);
+    max-width: 520px;
+    margin: 0 auto 44px;
+    line-height: 1.9;
+    animation: fadeUp 0.9s ease 0.8s both;
+  }
+  .cover-chapters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    max-width: 560px;
+    margin: 0 auto 52px;
+    animation: fadeUp 0.9s ease 1s both;
+  }
+  .cover-ch-tag {
+    background: var(--warm-white);
+    border: 1.5px solid var(--linen-dark);
+    border-radius: 30px;
+    padding: 7px 16px;
+    font-size: 0.8rem;
+    color: var(--brown-light);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .cover-ch-tag .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .cover-from {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--sage-dark);
+    animation: fadeUp 0.9s ease 1.1s both;
+  }
+  .cover-line-bottom {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    margin: 24px auto 0;
+    animation: growLineReverse 1.2s ease 1.3s both;
+  }
+  @keyframes growLineReverse {
+    from { height: 0; opacity: 0; }
+    to { height: 50px; opacity: 1; }
+  }
+
+  /* ═══════════════════════════════════════
+     WRAPPER & LAYOUT
+  ═══════════════════════════════════════ */
+  .wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 28px 100px;
+  }
+
+  /* ═══════════════════════════════════════
+     DEDICATORIA / INTRO LETTER
+  ═══════════════════════════════════════ */
+  .letter {
+    background: var(--night);
+    border-radius: 24px;
+    padding: 56px 52px;
+    margin: 0 0 80px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+  .letter::before {
+    content: '"';
+    position: absolute;
+    top: -10px; left: 32px;
+    font-family: 'Playfair Display', serif;
+    font-size: 160px;
+    color: rgba(201,168,76,0.12);
+    line-height: 1;
+  }
+  .letter::after {
+    content: '';
+    position: absolute;
+    bottom: -50px; right: -50px;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(138,158,127,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .letter-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--gold-light);
+    margin-bottom: 28px;
+    font-style: italic;
+    padding-top: 12px;
+  }
+  .letter p {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1.02rem;
+    color: rgba(250,246,239,0.85);
+    line-height: 1.95;
+    margin-bottom: 18px;
+    max-width: 640px;
+  }
+  .letter p:last-of-type { margin-bottom: 0; }
+  .letter .signature {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 26px;
+    display: block;
+  }
+  @media(max-width: 600px) {
+    .letter { padding: 40px 28px; }
+  }
+
+  /* ═══════════════════════════════════════
+     CHAPTER STRUCTURE
+  ═══════════════════════════════════════ */
+  .chapter {
+    margin-bottom: 80px;
+    animation: fadeUp 0.7s ease both;
+  }
+  .chapter:nth-child(1) { animation-delay: 0.1s; }
+  .chapter:nth-child(2) { animation-delay: 0.15s; }
+  .chapter:nth-child(3) { animation-delay: 0.2s; }
+  .chapter:nth-child(4) { animation-delay: 0.25s; }
+  .chapter:nth-child(5) { animation-delay: 0.3s; }
+
+  .chapter-number-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  .chapter-number {
+    flex-shrink: 0;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid;
+    position: relative;
+  }
+  .chapter-number .ch-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .chapter-number .ch-label {
+    font-size: 7px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    opacity: 0.7;
+    margin-top: 1px;
+  }
+  .chapter-rule {
+    flex: 1;
+    height: 1px;
+  }
+  .chapter-emoji-badge {
+    flex-shrink: 0;
+    font-size: 1.4rem;
+    width: 44px; height: 44px;
+    background: var(--warm-white);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 1.5px solid var(--linen-dark);
+  }
+
+  /* Per-chapter color theming */
+  .chapter-1 .chapter-number { border-color: var(--ch1); background: rgba(138,158,127,0.1); }
+  .chapter-1 .chapter-number .ch-num { color: var(--ch1); }
+  .chapter-1 .chapter-number .ch-label { color: var(--ch1); }
+  .chapter-1 .chapter-rule { background: linear-gradient(to right, var(--ch1), transparent); }
+
+  .chapter-2 .chapter-number { border-color: var(--ch2); background: rgba(201,168,76,0.1); }
+  .chapter-2 .chapter-number .ch-num { color: var(--ch2); }
+  .chapter-2 .chapter-number .ch-label { color: var(--ch2); }
+  .chapter-2 .chapter-rule { background: linear-gradient(to right, var(--ch2), transparent); }
+
+  .chapter-3 .chapter-number { border-color: var(--ch3); background: rgba(196,122,82,0.1); }
+  .chapter-3 .chapter-number .ch-num { color: var(--ch3); }
+  .chapter-3 .chapter-number .ch-label { color: var(--ch3); }
+  .chapter-3 .chapter-rule { background: linear-gradient(to right, var(--ch3), transparent); }
+
+  .chapter-4 .chapter-number { border-color: var(--ch4); background: rgba(122,158,181,0.1); }
+  .chapter-4 .chapter-number .ch-num { color: var(--ch4); }
+  .chapter-4 .chapter-number .ch-label { color: var(--ch4); }
+  .chapter-4 .chapter-rule { background: linear-gradient(to right, var(--ch4), transparent); }
+
+  .chapter-5 .chapter-number { border-color: var(--ch5); background: rgba(155,142,181,0.1); }
+  .chapter-5 .chapter-number .ch-num { color: var(--ch5); }
+  .chapter-5 .chapter-number .ch-label { color: var(--ch5); }
+  .chapter-5 .chapter-rule { background: linear-gradient(to right, var(--ch5), transparent); }
+
+  /* Chapter heading block */
+  .chapter-heading {
+    margin-bottom: 36px;
+  }
+  .chapter-heading .eyebrow {
+    font-size: 9.5px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .chapter-heading .eyebrow::before {
+    content: '';
+    width: 18px; height: 2px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+  .chapter-1 .chapter-heading .eyebrow { color: var(--ch1); }
+  .chapter-1 .chapter-heading .eyebrow::before { background: var(--ch1); }
+  .chapter-2 .chapter-heading .eyebrow { color: var(--ch2); }
+  .chapter-2 .chapter-heading .eyebrow::before { background: var(--ch2); }
+  .chapter-3 .chapter-heading .eyebrow { color: var(--ch3); }
+  .chapter-3 .chapter-heading .eyebrow::before { background: var(--ch3); }
+  .chapter-4 .chapter-heading .eyebrow { color: var(--ch4); }
+  .chapter-4 .chapter-heading .eyebrow::before { background: var(--ch4); }
+  .chapter-5 .chapter-heading .eyebrow { color: var(--ch5); }
+  .chapter-5 .chapter-heading .eyebrow::before { background: var(--ch5); }
+
+  .chapter-heading h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    color: var(--night);
+    line-height: 1.15;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .chapter-heading h2 em {
+    font-style: italic;
+  }
+  .chapter-1 .chapter-heading h2 em { color: var(--ch1); }
+  .chapter-2 .chapter-heading h2 em { color: var(--ch2); }
+  .chapter-3 .chapter-heading h2 em { color: var(--ch3); }
+  .chapter-4 .chapter-heading h2 em { color: var(--ch4); }
+  .chapter-5 .chapter-heading h2 em { color: var(--ch5); }
+
+  .chapter-heading .tagline {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--brown-light);
+    line-height: 1.8;
+  }
+
+  /* Chapter body text */
+  .chapter-body {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .chapter-body p {
+    font-family: 'Lora', serif;
+    font-size: 1.02rem;
+    color: var(--brown);
+    line-height: 1.95;
+  }
+  .chapter-body p strong {
+    font-weight: 600;
+    color: var(--night);
+    font-style: normal;
+  }
+
+  /* ═══════════════════════════════════════
+     CALLOUT / PULL QUOTE
+  ═══════════════════════════════════════ */
+  .pull-quote {
+    border-radius: 16px;
+    padding: 28px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .pull-quote::before {
+    content: '"';
+    position: absolute;
+    top: -8px; left: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    line-height: 1;
+    opacity: 0.2;
+  }
+  .pull-quote p {
+    font-family: 'Playfair Display', serif !important;
+    font-style: italic !important;
+    font-size: 1.15rem !important;
+    line-height: 1.75 !important;
+    padding-left: 10px;
+  }
+  .chapter-1 .pull-quote { background: rgba(138,158,127,0.1); border-left: 4px solid var(--ch1); }
+  .chapter-1 .pull-quote::before { color: var(--ch1); }
+  .chapter-1 .pull-quote p { color: var(--sage-dark) !important; }
+  .chapter-2 .pull-quote { background: rgba(201,168,76,0.1); border-left: 4px solid var(--ch2); }
+  .chapter-2 .pull-quote::before { color: var(--ch2); }
+  .chapter-2 .pull-quote p { color: var(--brown) !important; }
+  .chapter-3 .pull-quote { background: var(--terracotta-pale); border-left: 4px solid var(--ch3); }
+  .chapter-3 .pull-quote::before { color: var(--ch3); }
+  .chapter-3 .pull-quote p { color: var(--brown) !important; }
+  .chapter-4 .pull-quote { background: rgba(122,158,181,0.1); border-left: 4px solid var(--ch4); }
+  .chapter-4 .pull-quote::before { color: var(--ch4); }
+  .chapter-4 .pull-quote p { color: var(--brown) !important; }
+  .chapter-5 .pull-quote { background: rgba(155,142,181,0.1); border-left: 4px solid var(--ch5); }
+  .chapter-5 .pull-quote::before { color: var(--ch5); }
+  .chapter-5 .pull-quote p { color: var(--brown) !important; }
+
+  /* ═══════════════════════════════════════
+     TIPS / PRACTICE BOXES
+  ═══════════════════════════════════════ */
+  .practice-box {
+    background: var(--warm-white);
+    border: 1.5px solid var(--linen-dark);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  .practice-header {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--linen);
+  }
+  .practice-header .ph-icon {
+    font-size: 1.2rem;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .chapter-1 .practice-header { background: rgba(138,158,127,0.08); }
+  .chapter-1 .practice-header .ph-icon { background: rgba(138,158,127,0.2); }
+  .chapter-2 .practice-header { background: rgba(201,168,76,0.08); }
+  .chapter-2 .practice-header .ph-icon { background: rgba(201,168,76,0.2); }
+  .chapter-3 .practice-header { background: rgba(196,122,82,0.08); }
+  .chapter-3 .practice-header .ph-icon { background: rgba(196,122,82,0.2); }
+  .chapter-4 .practice-header { background: rgba(122,158,181,0.08); }
+  .chapter-4 .practice-header .ph-icon { background: rgba(122,158,181,0.2); }
+  .chapter-5 .practice-header { background: rgba(155,142,181,0.08); }
+  .chapter-5 .practice-header .ph-icon { background: rgba(155,142,181,0.2); }
+  .practice-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.98rem;
+    color: var(--night);
+    font-weight: 600;
+  }
+  .practice-header .ph-sub {
+    font-size: 0.78rem;
+    color: var(--brown-light);
+    font-style: italic;
+    font-family: 'Lora', serif;
+  }
+  .practice-body {
+    padding: 22px 24px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .practice-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 0.9rem;
+    color: var(--brown);
+    line-height: 1.65;
+  }
+  .pi-num {
+    flex-shrink: 0;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .chapter-1 .pi-num { background: rgba(138,158,127,0.18); color: var(--sage-dark); }
+  .chapter-2 .pi-num { background: rgba(201,168,76,0.18); color: #8a6e1e; }
+  .chapter-3 .pi-num { background: rgba(196,122,82,0.18); color: var(--terracotta); }
+  .chapter-4 .pi-num { background: rgba(122,158,181,0.18); color: #3d6e8a; }
+  .chapter-5 .pi-num { background: rgba(155,142,181,0.18); color: var(--lavender); }
+  .pi-text { font-family: 'Lora', serif; }
+  .pi-text strong { font-weight: 600; color: var(--night); font-family: 'DM Sans', sans-serif; font-size: 0.88rem; }
+
+  /* ═══════════════════════════════════════
+     INFO / SCIENCE PANELS
+  ═══════════════════════════════════════ */
+  .science-panel {
+    border-radius: 16px;
+    padding: 26px 28px;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .science-icon {
+    flex-shrink: 0;
+    font-size: 1.6rem;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .science-panel .sp-content h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.98rem;
+    color: var(--night);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .science-panel .sp-content p {
+    font-family: 'Lora', serif !important;
+    font-size: 0.88rem !important;
+    color: var(--brown-light) !important;
+    line-height: 1.75 !important;
+  }
+  .chapter-1 .science-panel { background: var(--linen); }
+  .chapter-1 .science-panel .science-icon { background: rgba(138,158,127,0.2); }
+  .chapter-2 .science-panel { background: rgba(201,168,76,0.07); border: 1px solid rgba(201,168,76,0.2); }
+  .chapter-2 .science-panel .science-icon { background: rgba(201,168,76,0.2); }
+  .chapter-3 .science-panel { background: var(--terracotta-pale); border: 1px solid rgba(196,122,82,0.2); }
+  .chapter-3 .science-panel .science-icon { background: rgba(196,122,82,0.2); }
+  .chapter-4 .science-panel { background: rgba(122,158,181,0.08); border: 1px solid rgba(122,158,181,0.2); }
+  .chapter-4 .science-panel .science-icon { background: rgba(122,158,181,0.2); }
+  .chapter-5 .science-panel { background: rgba(155,142,181,0.08); border: 1px solid rgba(155,142,181,0.2); }
+  .chapter-5 .science-panel .science-icon { background: rgba(155,142,181,0.2); }
+
+  /* ═══════════════════════════════════════
+     COMPARISON TABLE (ch4 ruídos)
+  ═══════════════════════════════════════ */
+  .compare-table {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1.5px solid var(--linen-dark);
+  }
+  .compare-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--night);
+  }
+  .compare-header div {
+    padding: 14px 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: center;
+  }
+  .compare-header div:first-child { color: var(--sky-light, #b0ccd8); border-right: 1px solid rgba(255,255,255,0.1); }
+  .compare-header div:last-child { color: var(--sage-light); }
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--linen);
+    background: var(--warm-white);
+    transition: background 0.2s;
+  }
+  .compare-row:last-child { border-bottom: none; }
+  .compare-row:hover { background: var(--linen); }
+  .compare-row div {
+    padding: 14px 20px;
+    font-size: 0.86rem;
+    color: var(--brown);
+    font-family: 'Lora', serif;
+    line-height: 1.65;
+  }
+  .compare-row div:first-child {
+    border-right: 1px solid var(--linen);
+    color: var(--sky);
+  }
+  .compare-row div:last-child { color: var(--sage-dark); }
+  .compare-row div strong {
+    font-weight: 600;
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    margin-bottom: 3px;
+    color: var(--night);
+  }
+
+  /* ═══════════════════════════════════════
+     MASSAGE SEQUENCE (ch3)
+  ═══════════════════════════════════════ */
+  .massage-steps {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  @media(max-width: 560px) { .massage-steps { grid-template-columns: 1fr; } }
+  .massage-step {
+    background: var(--warm-white);
+    border: 1.5px solid var(--linen-dark);
+    border-radius: 14px;
+    padding: 18px 18px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    position: relative;
+    overflow: hidden;
+  }
+  .massage-step::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--terracotta-light);
+  }
+  .ms-num {
+    flex-shrink: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: rgba(196,122,82,0.2);
+    line-height: 1;
+    margin-top: -2px;
+  }
+  .ms-content h5 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--night);
+    margin-bottom: 5px;
+  }
+  .ms-content p {
+    font-family: 'Lora', serif !important;
+    font-size: 0.82rem !important;
+    color: var(--brown-light) !important;
+    line-height: 1.65 !important;
+  }
+
+  /* ═══════════════════════════════════════
+     VOICE SPECTRUM (ch5)
+  ═══════════════════════════════════════ */
+  .voice-spectrum {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .voice-item {
+    background: var(--warm-white);
+    border: 1.5px solid var(--linen-dark);
+    border-radius: 14px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .voice-icon {
+    font-size: 1.6rem;
+    flex-shrink: 0;
+    width: 48px; height: 48px;
+    background: rgba(155,142,181,0.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .voice-content h5 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.96rem;
+    color: var(--night);
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+  .voice-content p {
+    font-family: 'Lora', serif !important;
+    font-size: 0.85rem !important;
+    color: var(--brown-light) !important;
+    line-height: 1.65 !important;
+  }
+  .voice-wave {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 2.5px;
+    opacity: 0.45;
+  }
+  .vw-bar {
+    width: 3px;
+    background: var(--lavender);
+    border-radius: 2px;
+    animation: wavePulse 1.6s ease-in-out infinite;
+  }
+  .vw-bar:nth-child(1) { height: 6px; animation-delay: 0s; }
+  .vw-bar:nth-child(2) { height: 12px; animation-delay: 0.12s; }
+  .vw-bar:nth-child(3) { height: 18px; animation-delay: 0.24s; }
+  .vw-bar:nth-child(4) { height: 10px; animation-delay: 0.36s; }
+  .vw-bar:nth-child(5) { height: 16px; animation-delay: 0.48s; }
+  .vw-bar:nth-child(6) { height: 8px; animation-delay: 0.6s; }
+  @keyframes wavePulse {
+    0%, 100% { opacity: 0.35; transform: scaleY(0.65); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  /* ═══════════════════════════════════════
+     CHAPTER DIVIDERS
+  ═══════════════════════════════════════ */
+  .ch-divider {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 72px 0;
+  }
+  .ch-divider::before, .ch-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--linen-dark));
+  }
+  .ch-divider::after { background: linear-gradient(to left, transparent, var(--linen-dark)); }
+  .ch-divider-icon {
+    font-size: 1rem;
+    color: var(--sage);
+    opacity: 0.7;
+  }
+
+  /* ═══════════════════════════════════════
+     CLOSING / FINAL NOTE
+  ═══════════════════════════════════════ */
+  .closing {
+    background: var(--night);
+    border-radius: 24px;
+    padding: 56px 52px;
+    margin-top: 60px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.8s ease both;
+    text-align: center;
+  }
+  .closing::before {
+    content: '🌙';
+    position: absolute;
+    right: 32px; top: 28px;
+    font-size: 80px;
+    opacity: 0.08;
+    filter: blur(2px);
+  }
+  .closing::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .closing .star-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .closing .star-dot {
+    width: 5px; height: 5px;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+  .closing .star-dot.big { width: 8px; height: 8px; opacity: 0.9; }
+  .closing h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    color: var(--gold-light);
+    margin-bottom: 24px;
+    line-height: 1.3;
+    font-weight: 700;
+  }
+  .closing p {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(250,246,239,0.83);
+    line-height: 1.95;
+    max-width: 580px;
+    margin: 0 auto 16px;
+  }
+  .closing .sign {
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-size: 0.79rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 24px;
+    display: block;
+  }
+  @media(max-width: 600px) {
+    .closing { padding: 40px 28px; }
+  }
+
+  /* ═══════════════════════════════════════
+     FOOTER
+  ═══════════════════════════════════════ */
+  footer {
+    text-align: center;
+    padding: 48px 0 0;
+    border-top: 1px solid var(--linen-dark);
+    margin-top: 0;
+  }
+  footer .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--night);
+    font-weight: 700;
+    font-style: italic;
+  }
+  footer .logo span { color: var(--terracotta); }
+  footer p {
+    font-size: 0.8rem;
+    color: var(--brown-light);
+    margin-top: 8px;
+    font-family: 'Lora', serif;
+    font-style: italic;
+  }
+
+  /* ═══════════════════════════════════════
+     UTILITIES
+  ═══════════════════════════════════════ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media(max-width: 540px) {
+    .wrapper { padding: 0 18px 80px; }
+    .chapter-heading h2 { font-size: 1.7rem; }
+  }
+
+  /* Scent strip — decorative horizontal rule with icons */
+  .scent-strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 18px 0;
+    color: var(--brown-light);
+    opacity: 0.45;
+    font-size: 13px;
+  }
+  .scent-strip span { display: inline-block; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     CAPA
+══════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-ornament">🌿</div>
+  <div class="cover-ornament-2">🌙</div>
+  <div class="cover-line-top"></div>
+  <div class="cover-badge">✦ Guia do Sono · E-book ✦</div>
+  <p class="cover-eyebrow">Um guia para noites mais suaves</p>
+  <h1>
+    O Ritual de<br>
+    <em>Ouro</em>
+  </h1>
+  <p class="cover-subtitle">Criando um Casulo de Paz para o seu bebê adormecer — com suavidade, com presença, sem lutas.</p>
+  <div class="cover-chapters">
+    <div class="cover-ch-tag"><div class="dot" style="background:var(--ch1)"></div>A Desaceleração</div>
+    <div class="cover-ch-tag"><div class="dot" style="background:var(--ch2)"></div>A Penumbra</div>
+    <div class="cover-ch-tag"><div class="dot" style="background:var(--ch3)"></div>Banho & Massagem</div>
+    <div class="cover-ch-tag"><div class="dot" style="background:var(--ch4)"></div>Sons & Ruídos</div>
+    <div class="cover-ch-tag"><div class="dot" style="background:var(--ch5)"></div>A Voz da Mãe</div>
+  </div>
+  <div class="cover-from">Guia do Sono · Sono gentil para famílias reais</div>
+  <div class="cover-line-bottom"></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     WRAPPER
+══════════════════════════════════════════ -->
+<div class="wrapper">
+
+  <!-- CARTA INICIAL -->
+  <div class="letter">
+    <div class="letter-heading">Para você, que está lendo isso com olheiras e coração cheio.</div>
+    <p>Você chegou até esse e-book porque ama o seu filho de um jeito que dói. Porque as noites estão pesadas e você está carregando tudo — a exaustão, a incerteza, a culpa de não saber se está fazendo certo.</p>
+    <p>Eu preciso te dizer uma coisa antes de qualquer técnica, qualquer passo, qualquer dica: o que você está vivendo é real, é difícil, e você não está sozinha. Cada mãe que já segurou seu bebê às 3h da manhã — tentando de todas as formas — está aqui com você nesse momento.</p>
+    <p>O Ritual de Ouro não é um método rígido. É um convite. Um conjunto de ferramentas gentis que você pode adaptar, reorganizar e chamar de seu. Não existe certo ou errado aqui. Existe o que funciona para a sua família, nessa noite, com esse bebê.</p>
+    <p>Respira fundo. Você está pronta. E o seu filho tem a melhor mãe que poderia ter — essa aqui, que parou tudo para aprender mais uma forma de cuidar.</p>
+    <span class="signature">— Com muito carinho, Guia do Sono 🌙</span>
+  </div>
+
+  <!-- ══ CAPÍTULO 1 ══ -->
+  <div class="chapter chapter-1">
+    <div class="chapter-number-row">
+      <div class="chapter-number">
+        <span class="ch-num">1</span>
+        <span class="ch-label">cap.</span>
+      </div>
+      <div class="chapter-rule"></div>
+      <div class="chapter-emoji-badge">🌿</div>
+    </div>
+
+    <div class="chapter-heading">
+      <div class="eyebrow">Antes de Dormir</div>
+      <h2>A Arte da<br><em>Desaceleração</em></h2>
+      <p class="tagline">As duas horas antes de dormir são mais importantes do que o momento de deitar. É aqui que o sono começa, muito antes de os olhinhos fecharem.</p>
+    </div>
+
+    <div class="chapter-body">
+      <p>Imagine que o sistema nervoso do seu bebê é como um trem em alta velocidade. Você não pode freá-lo de repente — precisa reduzir a velocidade aos poucos, estação por estação. Tentar colocar uma criança para dormir logo depois de brincadeiras intensas, visitas animadas ou telas é como tentar parar esse trem em um centímetro. O corpo simplesmente não consegue.</p>
+
+      <div class="pull-quote">
+        <p>O sono não começa na hora em que você deita o bebê. Ele começa duas horas antes, quando você começa a desacelerar o mundo ao redor dele.</p>
+      </div>
+
+      <p>A janela de desaceleração de <strong>2 horas antes do sono</strong> é um conceito que vem da neurociência do sono infantil: o cortisol — hormônio do estresse e da vigília — precisa de tempo para ser metabolizado. Se esse tempo não é dado, o bebê chega à hora de dormir com o sistema nervoso ainda em modo "alerta", o que resulta em resistência, choro e sono fragmentado.</p>
+
+      <p>Não existe rotina de sono que funcione sem esse preparo. Ele é a fundação de tudo que vem depois.</p>
+
+      <div class="science-panel">
+        <div class="science-icon">🧠</div>
+        <div class="sp-content">
+          <h4>O que acontece no cérebro nessa janela</h4>
+          <p>A melatonina — hormônio do sono — começa a ser produzida naturalmente quando o ambiente escurece e os estímulos diminuem. Ela compete diretamente com o cortisol. Quanto mais quieto, escuro e previsível for o ambiente nessas duas horas, mais a melatonina ganha terreno — e mais fácil e profundo será o sono.</p>
+        </div>
+      </div>
+
+      <div class="practice-box">
+        <div class="practice-header">
+          <div class="ph-icon">🌱</div>
+          <div>
+            <h3>O Protocolo das 2 Horas</h3>
+            <p class="ph-sub">Aplique com calma — não precisa ser perfeito, só consistente</p>
+          </div>
+        </div>
+        <div class="practice-body">
+          <div class="practice-item">
+            <div class="pi-num">1</div>
+            <div class="pi-text"><strong>Encerre os estímulos externos.</strong> Visitas, brincadeiras agitadas, correrias pela casa. O mundo começa a ficar menor e mais quieto.</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">2</div>
+            <div class="pi-text"><strong>Telas desligadas com 90 minutos de antecedência.</strong> A luz azul suprime ativamente a melatonina. Não é exagero — é biologia.</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">3</div>
+            <div class="pi-text"><strong>Tom de voz mais suave.</strong> A sua voz é o metrônomo do ambiente. Quando você fala mais devagar e mais baixo, o sistema nervoso do bebê responde — quase automaticamente.</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">4</div>
+            <div class="pi-text"><strong>Brinquedos que acalmam, não estimulam.</strong> Livros, bonecas, músicas suaves. Nada de montar, empilhar, tentar superar desafios.</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">5</div>
+            <div class="pi-text"><strong>Repita a mesma sequência todo dia.</strong> A previsibilidade é, por si só, um sinal de sono para o sistema nervoso. O bebê começa a antecipar o sono antes mesmo de você iniciar a rotina.</div>
+          </div>
+        </div>
+      </div>
+
+      <p>Uma última coisa, mãe: você também desacelera junto. Se você entra na hora do sono já esgotada, com o coração acelerado, o bebê vai sentir. O corpo dele lê o seu. Respira três vezes antes de começar a rotina. Esse é o seu ritual também.</p>
+    </div>
+  </div>
+
+  <div class="ch-divider"><span class="ch-divider-icon">🌾</span></div>
+
+  <!-- ══ CAPÍTULO 2 ══ -->
+  <div class="chapter chapter-2">
+    <div class="chapter-number-row">
+      <div class="chapter-number">
+        <span class="ch-num">2</span>
+        <span class="ch-label">cap.</span>
+      </div>
+      <div class="chapter-rule"></div>
+      <div class="chapter-emoji-badge">🕯️</div>
+    </div>
+
+    <div class="chapter-heading">
+      <div class="eyebrow">A Linguagem da Luz</div>
+      <h2>O Poder da<br><em>Penumbra</em></h2>
+      <p class="tagline">A luz é o sinal mais poderoso que existe para regular o relógio biológico. Aprender a usá-la é como ter um interruptor direto para o sono do seu bebê.</p>
+    </div>
+
+    <div class="chapter-body">
+      <p>Por milhares de anos, os bebês humanos foram embalados para dormir ao entardecer, quando a luz do sol se tornava dourada e depois desaparecia. O cérebro evoluiu esperando exatamente esse sinal: quando a luz muda, é hora de dormir. A modernidade nos deu a habilidade de fingir que é meio-dia às 20h — e pagamos o preço toda noite.</p>
+
+      <div class="pull-quote">
+        <p>Uma vela acesa no quarto faz mais pelo sono do seu bebê do que qualquer aplicativo. A luz quente, baixa, rústica — ela fala a língua que o cérebro já nasceu sabendo.</p>
+      </div>
+
+      <p>A retina do bebê é <strong>três vezes mais sensível à luz azul</strong> do que a de um adulto. Lâmpadas fluorescentes, telas e até a luz branca fria do teto são suficientes para suprimir completamente a melatonina — mesmo com os olhos semiabertos. A penumbra quente não é estética. É ciência.</p>
+
+      <div class="science-panel">
+        <div class="science-icon">🌅</div>
+        <div class="sp-content">
+          <h4>Luz quente × Luz fria: o que acontece no olho do bebê</h4>
+          <p>As células ganglionares da retina — responsáveis por detectar luz para regular o relógio biológico — respondem principalmente ao comprimento de onda azul (450–490nm). Lâmpadas LED brancas e telas emitem exatamente esse comprimento. Lâmpadas amareladas, abajures com dimmer e velas emitem comprimentos vermelhos e laranja, que praticamente não suprimem a melatonina. A troca mais simples que você pode fazer: trocar a lâmpada do quarto por uma com tom 2700K ou menos.</p>
+        </div>
+      </div>
+
+      <div class="practice-box">
+        <div class="practice-header">
+          <div class="ph-icon">🕯️</div>
+          <div>
+            <h3>Criando a Atmosfera de Penumbra</h3>
+            <p class="ph-sub">Do jantar até o sono — uma transição de luz intencional</p>
+          </div>
+        </div>
+        <div class="practice-body">
+          <div class="practice-item">
+            <div class="pi-num">1</div>
+            <div class="pi-text"><strong>Ao entardecer:</strong> Abaixe todas as luzes da casa. Idealmente, use abajures com luz amarela em vez de luminárias no teto. O ambiente todo deve "murchar" junto com o sol.</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">2</div>
+            <div class="pi-text"><strong>Na rotina pré-sono:</strong> Apenas uma fonte de luz suave no quarto — um abajur de sal-gema, uma luz de presença amarela, uma vela (em segurança, longe do bebê) para o ritual de massagem.</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">3</div>
+            <div class="pi-text"><strong>Na hora de deitar:</strong> Escuridão total, ou o mais próximo disso. Cortinas blackout são um investimento que vale mais do que qualquer babá eletrônica sofisticada.</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">4</div>
+            <div class="pi-text"><strong>Na madrugada:</strong> Se precisar entrar no quarto, nunca acenda luz branca. Tenha uma lanterna com luz vermelha ou use o modo noturno mais escuro do celular voltado para longe do bebê.</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">5</div>
+            <div class="pi-text"><strong>De manhã:</strong> A contraparte é igualmente importante. Abra as cortinas logo ao acordar. A luz natural da manhã ancora o relógio biológico e ajuda o bebê a dormir melhor na noite seguinte.</div>
+          </div>
+        </div>
+      </div>
+
+      <p>Há algo profundamente bonito nesse ritual de abaixar as luzes. É como dizer ao seu bebê, sem palavras: <em>o dia terminou, você está seguro, é hora de descansar.</em> Ele entende essa linguagem melhor do que qualquer outra.</p>
+    </div>
+  </div>
+
+  <div class="ch-divider"><span class="ch-divider-icon">🌸</span></div>
+
+  <!-- ══ CAPÍTULO 3 ══ -->
+  <div class="chapter chapter-3">
+    <div class="chapter-number-row">
+      <div class="chapter-number">
+        <span class="ch-num">3</span>
+        <span class="ch-label">cap.</span>
+      </div>
+      <div class="chapter-rule"></div>
+      <div class="chapter-emoji-badge">🛁</div>
+    </div>
+
+    <div class="chapter-heading">
+      <div class="eyebrow">Toque & Presença</div>
+      <h2>Banho e Massagem<br><em>como Ancoragem</em></h2>
+      <p class="tagline">O toque é o primeiro idioma que o ser humano aprende. Muito antes das palavras, muito antes dos olhares — foi o toque que disse "você está seguro, eu estou aqui".</p>
+    </div>
+
+    <div class="chapter-body">
+      <p>O banho morno antes de dormir não é um hábito de higiene — é uma ferramenta neurológica. Quando o bebê sai da água quente e a temperatura do seu corpo começa a cair levemente, isso sinaliza ao cérebro que é hora de dormir. É o mesmo mecanismo que faz com que adultos adormeçam mais facilmente depois de um banho morno à noite.</p>
+
+      <p>E a massagem que vem depois? É a combinação mais poderosa que existe. Em estudos com bebês prematuros, a massagem regular reduziu o tempo para adormecer, aumentou o tempo de sono profundo e diminuiu o cortisol — tudo ao mesmo tempo.</p>
+
+      <div class="pull-quote">
+        <p>Cada vez que você massageia o bebê, você não está apenas relaxando o corpinho dele. Você está construindo, tijolo por tijolo, uma memória de segurança que ele vai carregar para a vida toda.</p>
+      </div>
+
+      <div class="science-panel">
+        <div class="science-icon">💆</div>
+        <div class="sp-content">
+          <h4>Massagem e o Nervo Vago</h4>
+          <p>O toque suave e rítmico estimula o nervo vago — o principal responsável pelo estado de "descanso e digestão" do sistema nervoso autônomo. Quando o nervo vago é ativado, o coração desacelera, a respiração se aprofunda, o cortisol cai. Para bebês cujo sistema nervoso ainda está em formação, esse estímulo externo via toque é literalmente ensiná-los a se auto-regular.</p>
+        </div>
+      </div>
+
+      <div class="massage-steps">
+        <div class="massage-step">
+          <div class="ms-num">01</div>
+          <div class="ms-content">
+            <h5>Pezinhos e tornozelos</h5>
+            <p>Comece aqui. Círculos suaves nos pés, seguidos por uma pressão gentil na planta. Os pés têm alta concentração de terminações nervosas e respondem rapidamente ao toque.</p>
+          </div>
+        </div>
+        <div class="massage-step">
+          <div class="ms-num">02</div>
+          <div class="ms-content">
+            <h5>Pernas — movimentos longos</h5>
+            <p>Deslize as mãos das coxas para os pés em movimentos longos e firmes. Rítmico, como uma canção de ninar com as mãos.</p>
+          </div>
+        </div>
+        <div class="massage-step">
+          <div class="ms-num">03</div>
+          <div class="ms-content">
+            <h5>Barriga — o relógio</h5>
+            <p>Círculos suaves no sentido horário ao redor do umbigo. Ajuda a liberar gases e estimula o sistema digestivo — reduzindo o desconforto que frequentemente perturba o sono.</p>
+          </div>
+        </div>
+        <div class="massage-step">
+          <div class="ms-num">04</div>
+          <div class="ms-content">
+            <h5>Peito — o coração</h5>
+            <p>Mãos abertas descendo do centro para as laterais, como páginas de um livro se abrindo. Aqui o bebê mais respira fundo e os olhos começam a ficar pesados.</p>
+          </div>
+        </div>
+        <div class="massage-step">
+          <div class="ms-num">05</div>
+          <div class="ms-content">
+            <h5>Bracinhos e mãos</h5>
+            <p>Do ombro até os dedinhos, movimentos longos. Finaliza abrindo suavemente as mãozinhas fechadas — gesto que libera tensão acumulada.</p>
+          </div>
+        </div>
+        <div class="massage-step">
+          <div class="ms-num">06</div>
+          <div class="ms-content">
+            <h5>Rosto e couro cabeludo</h5>
+            <p>Suavíssimo. Polegares descendo da testa para as bochechas, orelhas, nuca. Muitos bebês adormecem aqui. Se adormecer, sucesso completo.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="practice-box">
+        <div class="practice-header">
+          <div class="ph-icon">🌺</div>
+          <div>
+            <h3>O Banho como Ritual</h3>
+            <p class="ph-sub">Não é sobre limpar — é sobre desacelerar junto</p>
+          </div>
+        </div>
+        <div class="practice-body">
+          <div class="practice-item">
+            <div class="pi-num">✓</div>
+            <div class="pi-text"><strong>Temperatura:</strong> Morna, não quente. Entre 36–37°C. Você pode testar com o cotovelo — deve sentir agradável, não quente.</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">✓</div>
+            <div class="pi-text"><strong>Duração:</strong> 10–15 minutos. Suficiente para a queda de temperatura corporal acontecer. Banho rápido demais não tem o mesmo efeito.</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">✓</div>
+            <div class="pi-text"><strong>Voz:</strong> Baixa, suave, cadenciada. Cantarole qualquer coisa — a letra não importa, o ritmo sim. (Mais sobre isso no capítulo 5.)</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">✓</div>
+            <div class="pi-text"><strong>Perfume:</strong> Uma gota de lavanda no azeite da massagem, se o bebê não for sensível. O olfato é o sentido mais direto ao sistema límbico — a memória olfativa do sono é poderosa e dura a vida toda.</div>
+          </div>
+        </div>
+      </div>
+
+      <p>Se o bebê chorar durante a massagem, não force. Ofereça o seio, acalme, tente novamente amanhã. Com o tempo, o corpinho aprende o código: toque suave = descanso. Paciência é o ingrediente secreto de toda rotina.</p>
+    </div>
+  </div>
+
+  <div class="ch-divider"><span class="ch-divider-icon">🌊</span></div>
+
+  <!-- ══ CAPÍTULO 4 ══ -->
+  <div class="chapter chapter-4">
+    <div class="chapter-number-row">
+      <div class="chapter-number">
+        <span class="ch-num">4</span>
+        <span class="ch-label">cap.</span>
+      </div>
+      <div class="chapter-rule"></div>
+      <div class="chapter-emoji-badge">🎵</div>
+    </div>
+
+    <div class="chapter-heading">
+      <div class="eyebrow">A Paisagem Sonora do Sono</div>
+      <h2>Ruídos Brancos <em>versus</em><br><em>Sons da Natureza</em></h2>
+      <p class="tagline">O silêncio absoluto não existe — e não é o que o bebê precisa. O que ele precisa é de um som que diga: "aqui é seguro. Aqui você pode descansar."</p>
+    </div>
+
+    <div class="chapter-body">
+      <p>Dentro do útero, o bebê ouvia um ruído constante de aproximadamente 70–80 decibéis — o som do fluxo sanguíneo, dos órgãos, das batidas do coração amplificadas pelo líquido amniótico. O silêncio do quarto moderno é, para um recém-nascido, uma novidade estranhíssima e até perturbadora. Não é por acaso que tantos bebês adormecem imediatamente no carro ou com o barulho do aspirador de pó.</p>
+
+      <div class="pull-quote">
+        <p>O ruído branco não adormece o bebê — ele remove os obstáculos para que o sono que já estava vindo possa chegar. É a diferença entre empurrar uma porta e simplesmente deixá-la abrir.</p>
+      </div>
+
+      <div class="compare-table">
+        <div class="compare-header">
+          <div>🌊 Ruído Branco / Rosa</div>
+          <div>🌿 Sons da Natureza</div>
+        </div>
+        <div class="compare-row">
+          <div>
+            <strong>O que é</strong>
+            Som constante com todas as frequências em igual intensidade (branco) ou com mais graves (rosa — mais suave ao ouvido).
+          </div>
+          <div>
+            <strong>O que é</strong>
+            Chuva, cachoeira, oceano, floresta à noite, vento entre folhas. Sons biológicos com variação natural.
+          </div>
+        </div>
+        <div class="compare-row">
+          <div>
+            <strong>Melhor para</strong>
+            Recém-nascidos e bebês até 6 meses. Também excelente em dias de salto de desenvolvimento e em ambientes barulhentos.
+          </div>
+          <div>
+            <strong>Melhor para</strong>
+            Bebês maiores, crianças de 1–3 anos. A variação natural é mais próxima do ritmo cerebral em relaxamento (ondas alfa).
+          </div>
+        </div>
+        <div class="compare-row">
+          <div>
+            <strong>Volume ideal</strong>
+            60–65dB — equivalente a um chuveiro ligado. Abaixo disso perde eficácia para mascarar ruídos externos.
+          </div>
+          <div>
+            <strong>Volume ideal</strong>
+            50–60dB. Sons da natureza toleram volume ligeiramente mais baixo porque o ouvido os processa como "benignos".
+          </div>
+        </div>
+        <div class="compare-row">
+          <div>
+            <strong>Cuidado</strong>
+            Nunca coloque alto-falante dentro do berço. Distância mínima de 1 metro. E sempre use em volume confortável para um adulto.
+          </div>
+          <div>
+            <strong>Cuidado</strong>
+            Evite sons com variações bruscas (trovões, pássaros que gritam). O ideal é fluxo contínuo e gradual.
+          </div>
+        </div>
+        <div class="compare-row">
+          <div>
+            <strong>Como usar</strong>
+            Deixe ligado durante todo o sono — não apenas para adormecer. Ele mascara os micro-ruídos que causam os micro-acordares.
+          </div>
+          <div>
+            <strong>Como usar</strong>
+            Pode ser desligado depois que a criança adormece profundamente, se preferir. Mas muitas crianças dormem melhor com ele a noite toda.
+          </div>
+        </div>
+      </div>
+
+      <div class="science-panel">
+        <div class="science-icon">🎶</div>
+        <div class="sp-content">
+          <h4>Sons e o cérebro em transição para o sono</h4>
+          <p>Durante a transição vigília-sono, o cérebro passa por uma fase chamada "sono N1" onde qualquer estímulo externo novo pode acordá-lo — é como um alarme de intrusão ativo. O ruído branco e os sons da natureza funcionam como um "fundo neutro" que impede que ruídos pontuais (um carro, uma porta batendo, você andando pelo corredor) sejam interpretados como novidades pelo cérebro. É camuflagem sonora — e funciona extraordinariamente bem.</p>
+        </div>
+      </div>
+
+      <div class="practice-box">
+        <div class="practice-header">
+          <div class="ph-icon">🌊</div>
+          <div>
+            <h3>Montando sua Paisagem Sonora</h3>
+            <p class="ph-sub">Simples, eficaz, e completamente grátis para começar</p>
+          </div>
+        </div>
+        <div class="practice-body">
+          <div class="practice-item">
+            <div class="pi-num">1</div>
+            <div class="pi-text"><strong>Para recém-nascidos:</strong> Pesquise "pink noise baby sleep" em qualquer plataforma de streaming. O ruído rosa é preferível ao branco — soa mais suave e é melhor tolerado por ouvidos sensíveis.</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">2</div>
+            <div class="pi-text"><strong>Para bebês de 6+ meses:</strong> Chuva suave, córrego ou oceano com ondas lentas. Evite som de floresta com pássaros tropicais — são muito variáveis e estimulantes.</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">3</div>
+            <div class="pi-text"><strong>Para crianças de 1–3 anos:</strong> "Rain on leaves" (chuva em folhas) ou "gentle stream" são os queridinhos. A variação natural mantém o cérebro em estado de relaxamento sem estimular.</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">4</div>
+            <div class="pi-text"><strong>A regra de ouro:</strong> O som que você escolhe deve ser o mesmo todo dia. A consistência é o que transforma um som qualquer em um âncora de sono poderosa ao longo do tempo.</div>
+          </div>
+        </div>
+      </div>
+
+      <p>Você não precisa de um aparelho caro. Um celular em modo avião com um aplicativo gratuito já funciona. Comece com o que tem, com o que é possível. Perfeição não é o objetivo — consistência é.</p>
+    </div>
+  </div>
+
+  <div class="ch-divider"><span class="ch-divider-icon">🌙</span></div>
+
+  <!-- ══ CAPÍTULO 5 ══ -->
+  <div class="chapter chapter-5">
+    <div class="chapter-number-row">
+      <div class="chapter-number">
+        <span class="ch-num">5</span>
+        <span class="ch-label">cap.</span>
+      </div>
+      <div class="chapter-rule"></div>
+      <div class="chapter-emoji-badge">🫶</div>
+    </div>
+
+    <div class="chapter-heading">
+      <div class="eyebrow">O Instrumento Mais Antigo do Mundo</div>
+      <h2>O Poder da<br><em>Voz da Mãe</em></h2>
+      <p class="tagline">Antes de tudo — antes de qualquer técnica, qualquer rotina, qualquer ferramenta — existe a sua voz. E ela é o recurso mais poderoso que você já teve.</p>
+    </div>
+
+    <div class="chapter-body">
+      <p>O bebê começa a ouvir a sua voz no terceiro trimestre de gestação. Ela já estava lá antes de qualquer rosto, antes de qualquer cheiro. É a primeira âncora de segurança que ele conheceu no mundo. E ela nunca perde esse poder — mesmo quando tudo mais parece ter falhado, a sua voz ainda é capaz de criar um porto seguro em segundos.</p>
+
+      <div class="pull-quote">
+        <p>Você não precisa ter uma voz bonita. Você não precisa saber cantar. O que o bebê ouve não é a melodia perfeita — é o timbre que diz "você está com ela. Está tudo bem."</p>
+      </div>
+
+      <p>Estudos de neuroimagem mostram que <strong>o cérebro do bebê responde de forma diferente à voz da mãe</strong> versus outras vozes — ativando áreas relacionadas ao processamento de emoções e recompensa de forma mais intensa. Isso não muda com os anos: a voz materna continua sendo um regulador neurológico único mesmo na infância tardia.</p>
+
+      <div class="science-panel">
+        <div class="science-icon">🎵</div>
+        <div class="sp-content">
+          <h4>O "Infantês" — a linguagem universal das mães</h4>
+          <p>Em todas as culturas do mundo, mães espontaneamente elevam o tom de voz, alongam as vogais e desaceleram o ritmo ao falar com bebês. Esse padrão — chamado de "fala dirigida ao bebê" — não é afetação. É um sinal evolutivo que o sistema nervoso infantil reconhece como "seguro e gentil". Você já faz isso instintivamente. Confie nesse instinto.</p>
+        </div>
+      </div>
+
+      <div class="voice-spectrum">
+        <div class="voice-item">
+          <div class="voice-icon">🎶</div>
+          <div class="voice-content">
+            <h5>A Canção de Ninar — Qualquer Uma</h5>
+            <p>A letra não importa. O ritmo sim. Canções de ninar têm andamento próximo de 60–70 BPM — o ritmo cardíaco em repouso. O cérebro do bebê sincroniza com esse ritmo e começa a desacelerar. Você pode cantar "Brilha, Brilha, Estrelinha" ou a música que está na sua cabeça agora — ambas funcionam igualmente.</p>
+          </div>
+          <div class="voice-wave">
+            <div class="vw-bar"></div><div class="vw-bar"></div><div class="vw-bar"></div>
+            <div class="vw-bar"></div><div class="vw-bar"></div><div class="vw-bar"></div>
+          </div>
+        </div>
+        <div class="voice-item">
+          <div class="voice-icon">🤫</div>
+          <div class="voice-content">
+            <h5>O Sussurro que Aterra</h5>
+            <p>Para bebês em sobre-estimulação ou no meio de uma crise de sono, o sussurro rítmico — um "shhhhh" suave, cadenciado, próximo ao ouvido — imita o som de sangue fluindo em veias. É o som mais antigo que ele conhece. Muitas vezes funciona quando tudo mais falhou.</p>
+          </div>
+          <div class="voice-wave">
+            <div class="vw-bar"></div><div class="vw-bar"></div><div class="vw-bar"></div>
+            <div class="vw-bar"></div><div class="vw-bar"></div><div class="vw-bar"></div>
+          </div>
+        </div>
+        <div class="voice-item">
+          <div class="voice-icon">📖</div>
+          <div class="voice-content">
+            <h5>A História antes de Dormir</h5>
+            <p>A partir dos 9–10 meses, uma história curta com voz suave e ritmo cadenciado começa a ter poder de âncora. Não precisa ser um livro — pode ser uma história improvisada, sempre a mesma. O familiar é reconfortante. A previsibilidade é segura.</p>
+          </div>
+          <div class="voice-wave">
+            <div class="vw-bar"></div><div class="vw-bar"></div><div class="vw-bar"></div>
+            <div class="vw-bar"></div><div class="vw-bar"></div><div class="vw-bar"></div>
+          </div>
+        </div>
+        <div class="voice-item">
+          <div class="voice-icon">💬</div>
+          <div class="voice-content">
+            <h5>A Frase de Fechamento</h5>
+            <p>Uma frase curta e sempre igual para encerrar a rotina. "Boa noite, eu te amo, estou aqui." Ou qualquer coisa que seja sua. Com o tempo, essa frase se torna um sinal pavloviano de sono — o bebê aprende que depois dela, o sono começa. É uma âncora que você cria com duas semanas de consistência.</p>
+          </div>
+          <div class="voice-wave">
+            <div class="vw-bar"></div><div class="vw-bar"></div><div class="vw-bar"></div>
+            <div class="vw-bar"></div><div class="vw-bar"></div><div class="vw-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="practice-box">
+        <div class="practice-header">
+          <div class="ph-icon">🎤</div>
+          <div>
+            <h3>A Voz nos Momentos Difíceis</h3>
+            <p class="ph-sub">Para quando tudo parece não estar funcionando</p>
+          </div>
+        </div>
+        <div class="practice-body">
+          <div class="practice-item">
+            <div class="pi-num">1</div>
+            <div class="pi-text"><strong>Desacelere sua própria voz antes de tudo.</strong> Se você está ansiosa, a sua voz vai carregar isso. Três respirações profundas antes de falar. Você regula ele regulando você mesma.</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">2</div>
+            <div class="pi-text"><strong>Nomeie o que ele está sentindo.</strong> "Eu sei que você está cansado. Eu sei que está difícil." Bebês maiores de 9 meses entendem mais do que parecem — e serem compreendidos acalma.</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">3</div>
+            <div class="pi-text"><strong>Não mude a música quando ele chora.</strong> Se estava cantando, continue cantando. A consistência na voz é mais calmante do que a tentativa de adaptar tudo ao choro.</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">4</div>
+            <div class="pi-text"><strong>Você pode estar em silêncio e isso também é presença.</strong> Às vezes a voz mais poderosa é a que apenas respira junto, no escuro, sem precisar resolver nada.</div>
+          </div>
+        </div>
+      </div>
+
+      <p>Mãe, você tem algo que nenhum aplicativo, nenhum aparelho, nenhum método vai jamais replicar. Você tem a voz que ele aprendeu a amar antes de nascer. Use-a sem vergonha, sem perfeição, sem ensaio. Use-a como você é — cansada, real, e completamente amada por ele.</p>
+    </div>
+  </div>
+
+  <div class="ch-divider"><span class="ch-divider-icon">✦</span></div>
+
+  <!-- FECHAMENTO -->
+  <div class="closing">
+    <div class="star-row">
+      <div class="star-dot"></div>
+      <div class="star-dot big"></div>
+      <div class="star-dot"></div>
+    </div>
+    <h2>O Ritual é Seu.<br>Faça-o com Amor.</h2>
+    <p>O Ritual de Ouro não é uma receita. É um cardápio — e você escolhe o que cabe na sua noite, no seu filho, na sua família.</p>
+    <p>Talvez hoje você só consiga a penumbra e a canção. Isso já é o Ritual de Ouro. Talvez amanhã você adicione o banho e a massagem. Isso também é. O que faz um ritual ser de ouro não é a perfeição na execução — é a intenção que você coloca nele, noite após noite.</p>
+    <p>E nos dias em que tudo desmoronar, quando a rotina sair pelos ares e o bebê não quiser nada do que você oferece — respira. Amanhã é uma nova noite, uma nova chance de começar. E ele vai se lembrar, no fundo de onde a memória mora antes das palavras, que você estava lá. Todas as vezes.</p>
+    <p>Isso é amor. Isso é suficiente. Você é suficiente.</p>
+    <span class="sign">— Com todo o carinho do mundo · Guia do Sono 🌙</span>
+  </div>
+
+  <!-- SCENT STRIP -->
+  <div class="scent-strip">
+    <span>🌿</span><span>·</span><span>🌙</span><span>·</span><span>🌾</span><span>·</span><span>🌸</span><span>·</span><span>🌿</span>
+  </div>
+
+  <footer>
+    <div class="logo">Guia do <span>Sono</span></div>
+    <p>Sono gentil para famílias reais · Sem choro · Com conexão · Com presença</p>
+    <br>
+  </footer>
+
+</div><!-- end wrapper -->
+</body>
+</html>

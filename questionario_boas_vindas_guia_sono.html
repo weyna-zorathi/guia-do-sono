@@ -1,0 +1,515 @@
+
+<style>
+  :root {
+    --cream: #faf6ef;
+    --terracotta: #c47a52;
+    --terra-light: #e8a97e;
+    --terra-pale: #f5e0d0;
+    --sage: #8a9e7f;
+    --sage-light: #b5c9a8;
+    --sage-dark: #5a7050;
+    --brown: #7a5c3e;
+    --brown-light: #a07850;
+    --night: #2c3e2d;
+    --gold: #c9a84c;
+    --lavender: #9b8eb5;
+    --sky: #7a9eb5;
+    --linen: #ede5d8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body { font-family: var(--font-sans); }
+
+  .qs-wrap {
+    padding: 0 0 2rem;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .qs-header {
+    text-align: center;
+    padding: 1.5rem 1rem 1rem;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    margin-bottom: 1.5rem;
+  }
+  .qs-badge {
+    display: inline-block;
+    background: var(--terra-pale);
+    color: var(--terracotta);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  .qs-title {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--color-text-primary);
+    margin-bottom: 6px;
+  }
+  .qs-sub {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+
+  .q-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .q-card:hover {
+    border-color: var(--color-border-secondary);
+  }
+
+  .q-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 18px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .q-num-wrap {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 1px;
+  }
+
+  .q-main {
+    flex: 1;
+  }
+
+  .q-category {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .q-text {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    line-height: 1.45;
+  }
+
+  .q-toggle {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-background-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    transition: transform 0.2s, background 0.2s;
+    margin-top: 4px;
+  }
+
+  .q-card.open .q-toggle {
+    transform: rotate(180deg);
+  }
+
+  .q-body {
+    display: none;
+    padding: 0 18px 18px 64px;
+    border-top: 0.5px solid var(--color-border-tertiary);
+    margin-top: 0;
+  }
+  .q-body.open {
+    display: block;
+    padding-top: 14px;
+  }
+
+  .q-input-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-bottom: 8px;
+  }
+
+  .q-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .q-option {
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 0.5px solid var(--color-border-secondary);
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all 0.15s;
+    background: transparent;
+  }
+  .q-option:hover {
+    border-color: var(--terracotta);
+    color: var(--terracotta);
+    background: var(--terra-pale);
+  }
+
+  .trigger-box {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 12px 14px;
+    margin-top: 14px;
+  }
+
+  .trigger-head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-bottom: 8px;
+  }
+  .trigger-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .trigger-item {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+  }
+  .trigger-item:last-child { margin-bottom: 0; }
+  .trigger-condition {
+    font-weight: 500;
+    flex-shrink: 0;
+    color: var(--color-text-primary);
+  }
+
+  .source-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-right: 4px;
+    letter-spacing: 0.5px;
+  }
+  .src-tabela {
+    background: color-mix(in srgb, var(--terracotta) 12%, transparent);
+    color: var(--terracotta);
+    border: 0.5px solid color-mix(in srgb, var(--terracotta) 25%, transparent);
+  }
+  .src-dicio {
+    background: color-mix(in srgb, var(--sage) 15%, transparent);
+    color: var(--sage-dark);
+    border: 0.5px solid color-mix(in srgb, var(--sage) 30%, transparent);
+  }
+  .src-ritual {
+    background: color-mix(in srgb, var(--gold) 15%, transparent);
+    color: #8a6a1a;
+    border: 0.5px solid color-mix(in srgb, var(--gold) 30%, transparent);
+  }
+
+  .q-intent {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    font-style: italic;
+    margin-bottom: 12px;
+    padding-left: 10px;
+    border-left: 2px solid var(--color-border-secondary);
+  }
+
+  .expand-all-btn {
+    display: block;
+    margin: 0 auto 16px;
+    padding: 6px 18px;
+    font-size: 12px;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: 0.5px solid var(--color-border-secondary);
+    border-radius: 20px;
+    transition: all 0.15s;
+  }
+  .expand-all-btn:hover {
+    background: var(--color-background-secondary);
+    color: var(--color-text-primary);
+  }
+
+  .summary-bar {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .sum-chip {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    color: var(--color-text-secondary);
+    background: var(--color-background-secondary);
+    border: 0.5px solid var(--color-border-tertiary);
+  }
+  .sum-dot { width: 7px; height: 7px; border-radius: 50%; }
+</style>
+
+<div class="qs-wrap">
+  <div class="qs-header">
+    <div class="qs-badge">Guia do Sono · App</div>
+    <h1 class="qs-title">Questionário de Boas-Vindas</h1>
+    <p class="qs-sub">10 perguntas estratégicas · Gatilhos mapeados para Tabela, Dicionário e Ritual</p>
+  </div>
+
+  <div class="summary-bar">
+    <div class="sum-chip"><div class="sum-dot" style="background:#c47a52;"></div> 4 perguntas de perfil</div>
+    <div class="sum-chip"><div class="sum-dot" style="background:#8a9e7f;"></div> 3 perguntas de ambiente</div>
+    <div class="sum-chip"><div class="sum-dot" style="background:#9b8eb5;"></div> 2 perguntas de dificuldade</div>
+    <div class="sum-chip"><div class="sum-dot" style="background:#c9a84c;"></div> 1 pergunta emocional</div>
+  </div>
+
+  <button class="expand-all-btn" onclick="toggleAll()">Expandir todas as perguntas</button>
+
+  <div id="questions"></div>
+</div>
+
+<script>
+const questions = [
+  {
+    num: 1,
+    color: "#c47a52",
+    category: "Perfil do Bebê",
+    text: "Qual é a idade exata do seu bebê hoje?",
+    options: ["0–3 meses","4–6 meses","7–12 meses","1–2 anos","2–3 anos","3–5 anos"],
+    intent: "A faixa etária é a chave-mestra de todo o sistema. Ela determina janelas de sono, número de sonecas, sinais sutis de cansaço e quais saltos de desenvolvimento são esperados.",
+    triggers: [
+      { cond: "0–3 meses", action: 'Acionar "Quarto Trimestre": janela de 45–90 min, até 6 sonecas/dia. Normalizar colo sem culpa. Mensagem: "não existe vício em colo antes dos 4 meses".', sources: ["tabela"] },
+      { cond: "4–6 meses", action: 'Acionar protocolo Regressão dos 4 Meses: arquitetura de sono mudou para sempre. Apresentar conceito de Pressão de Sono e Cortisol da Tabela.', sources: ["tabela","dicio"] },
+      { cond: "7–12 meses", action: 'Acionar era das 2 sonecas + ansiedade de separação (Dicionário, Salto 8 meses). Janela de 2,5–3,5h.', sources: ["tabela","dicio"] },
+      { cond: "1–2 anos", action: 'Janela de 3–6h. Alertar sobre Transição 2→1 soneca. Reforçar ritual noturno (Ritual de Ouro).', sources: ["tabela","ritual"] },
+      { cond: "2–5 anos", action: 'Foco em higiene do sono, consistência do ritual. Janela máxima de 5–6h. Possível recusa de sono.', sources: ["tabela","ritual"] },
+    ]
+  },
+  {
+    num: 2,
+    color: "#c47a52",
+    category: "Perfil do Bebê",
+    text: "Qual é o peso aproximado do seu bebê?",
+    options: ["Menos de 3 kg","3–5 kg","5–8 kg","8–12 kg","Mais de 12 kg","Não sei exato"],
+    intent: "O peso cruza com a idade para validar se a faixa etária bate com o desenvolvimento esperado. Bebês prematuros ou com peso baixo têm janelas de sono menores.",
+    triggers: [
+      { cond: "Bebê prematuro / peso muito baixo para a idade", action: 'Acionar aviso de ajuste: "Calcule a idade corrigida para janelas de sono. Bebês prematuros precisam de janelas menores que a tabela padrão."', sources: ["tabela"] },
+      { cond: "Peso adequado para faixa etária", action: 'Confirmar uso das janelas padrão da Tabela Mestra. Não há ajuste necessário.', sources: ["tabela"] },
+      { cond: "Peso alto para a faixa (possível acelerado)", action: 'Sugerir observar sinais de sono da faixa etária seguinte. Bebês maiores podem ter janelas levemente mais longas.', sources: ["tabela"] },
+    ]
+  },
+  {
+    num: 3,
+    color: "#c47a52",
+    category: "Perfil do Bebê",
+    text: "Como está o sono noturno dele agora?",
+    options: ["Dorme esticado +6h","Acorda 1–2x por noite","Acorda 3–5x por noite","Acorda mais de 5x","Nunca dorme de jeito nenhum"],
+    intent: "Mapeia a gravidade da situação. Define o tom da resposta: validação leve vs. suporte intensivo. Ativa protocolo de exaustão materna quando necessário.",
+    triggers: [
+      { cond: "Acorda mais de 5x / Nunca dorme", action: 'Ativar protocolo de exaustão: validar emocionalmente antes de qualquer conselho técnico. Verificar se há salto de desenvolvimento ativo (Dicionário).', sources: ["dicio","tabela"] },
+      { cond: "Acorda 3–5x", action: 'Investigar causa: janela perdida? Associação de sono? Salto? Sugerir revisão da janela de acordado da Tabela.', sources: ["tabela","dicio"] },
+      { cond: "Acorda 1–2x", action: 'Dentro do esperado para a faixa etária. Focar em qualidade do ritual e ambiente. Indicar Ritual de Ouro.', sources: ["ritual"] },
+    ]
+  },
+  {
+    num: 4,
+    color: "#c47a52",
+    category: "Perfil do Bebê",
+    text: "Como ele normalmente adormece?",
+    options: ["No seio / mamadeira","No colo, embalado","Em movimento (carrinho/carro)","Sozinho no berço","Com apoio de chupeta","De formas variadas"],
+    intent: "Identifica as associações de sono. Crucial para entender por que o bebê acorda e precisa da mesma condição para voltar a dormir.",
+    triggers: [
+      { cond: "Seio / colo / movimento", action: 'Associação de sono ativa. Não julgar — é biológico e funcional. Educando sobre o conceito de "como dormiu = como precisa para continuar" (Dicionário, arquitetura do sono).', sources: ["dicio","tabela"] },
+      { cond: "Sozinho no berço", action: 'Associação independente já formada. Focar em janelas e ambiente. Pergunta 5 e 6 serão mais relevantes.', sources: ["tabela"] },
+      { cond: "Formas variadas / inconsistente", action: 'Sinal de rotina ainda em construção. Acionar Ritual de Ouro + consistência como principal alavanca.', sources: ["ritual"] },
+    ]
+  },
+  {
+    num: 5,
+    color: "#8a9e7f",
+    category: "Ambiente de Sono",
+    text: "Como é o quarto ou o local onde ele dorme?",
+    options: ["Quarto escuro com blackout","Alguma claridade entra","Bastante luz no ambiente","Quarto compartilhado","Dorme em outro cômodo","Muda muito, não é fixo"],
+    intent: "A escuridão é o sinal ambiental mais poderoso para a melatonina. Mapeia a qualidade do ambiente e ativa recomendações do Dicionário.",
+    triggers: [
+      { cond: "Bastante luz / sem blackout", action: 'Acionar protocolo de escuridão total do Dicionário: "nos dias de salto, o cérebro precisa de ausência completa de luz para deprimir o cortisol". Sugerir blackout ou lençol escuro.', sources: ["dicio"] },
+      { cond: "Quarto compartilhado / local variado", action: 'Normalizar. Sugerir cortina blackout portátil. Acionar protocolo de ruído branco como compensação e âncora de rotina.', sources: ["dicio"] },
+      { cond: "Quarto escuro com blackout", action: 'Parabéns! Ambiente ideal confirmado. Perguntar sobre temperatura e ruído para completar o diagnóstico.', sources: ["dicio"] },
+    ]
+  },
+  {
+    num: 6,
+    color: "#8a9e7f",
+    category: "Ambiente de Sono",
+    text: "Vocês usam algum tipo de ruído branco ou música?",
+    options: ["Sim, ruído branco","Sim, músicas suaves","Sim, de forma inconsistente","Não usamos nada","Já tentamos e não funcionou"],
+    intent: "Ruído branco mascara sons externos que disparam cortisol. É especialmente crítico em apartamentos ou casas com ruído externo.",
+    triggers: [
+      { cond: "Não usamos / Já tentamos e não funcionou", action: 'Acionar protocolo do Dicionário: ruído branco imita o útero. Em fases difíceis, elevar para 60–65dB. Sugerir apps gratuitos e testar consistência antes de descartar.', sources: ["dicio"] },
+      { cond: "Sim, de forma inconsistente", action: 'A inconsistência anula o efeito de âncora. Orientar: o ruído branco precisa estar presente desde o início do ritual até o acordar para funcionar como marcador de sono.', sources: ["dicio","ritual"] },
+      { cond: "Sim, ruído branco consistente", action: 'Ambiente sonoro adequado. Confirmar volume e consistência. Investigar outras variáveis.', sources: ["dicio"] },
+    ]
+  },
+  {
+    num: 7,
+    color: "#8a9e7f",
+    category: "Ambiente de Sono",
+    text: "Vocês têm algum ritual antes de dormir?",
+    options: ["Sim, sempre o mesmo","Às vezes temos uma sequência","Varia muito cada dia","Tentei criar mas não mantive","Não tenho nenhum ainda"],
+    intent: "A previsibilidade da rotina é, por si só, um sinal de sono para o sistema nervoso. Ativa o Protocolo das 2 Horas do Ritual de Ouro.",
+    triggers: [
+      { cond: "Varia muito / Não tenho / Não mantive", action: 'Acionar Ritual de Ouro completo: Protocolo das 2 Horas. Reforçar que "a previsibilidade é, por si só, um sinal de sono". Sugerir 3 passos mínimos para começar.', sources: ["ritual"] },
+      { cond: "Às vezes temos uma sequência", action: 'Base existe! Fortalecer a consistência. Apresentar o conceito de âncora: "o bebê começa a antecipar o sono antes mesmo de você iniciar a rotina".', sources: ["ritual"] },
+      { cond: "Sim, sempre o mesmo", action: 'Ritual consolidado. Investigar outros fatores: janela, ambiente, salto de desenvolvimento.', sources: ["ritual","tabela"] },
+    ]
+  },
+  {
+    num: 8,
+    color: "#9b8eb5",
+    category: "Principal Dificuldade",
+    text: "Qual é a maior dificuldade com o sono dele agora?",
+    options: ["Não pega no sono","Acorda muitas vezes","Sonecas muito curtas","Recusa o berço / local de sono","Horário muito bagunçado","Depende 100% de mim para dormir"],
+    intent: "Pergunta central de triagem. Define o conselho prioritário e qual material do sistema acionar primeiro.",
+    triggers: [
+      { cond: "Não pega no sono", action: 'Causa mais provável: janela perdida (cortisol alto) ou falta de ritual. Acionar a Balança do Cansaço Saudável da Tabela + Protocolo das 2h do Ritual.', sources: ["tabela","ritual"] },
+      { cond: "Acorda muitas vezes", action: 'Investigar: associação de sono + janela do próximo ciclo. Acionar decodificador de choros do Dicionário. Verificar salto de desenvolvimento ativo.', sources: ["dicio","tabela"] },
+      { cond: "Sonecas muito curtas", action: '"Soneca de 45 min" = fim de um ciclo. Acionar técnica de extensão gentil da janela + ambiente adequado para ciclos mais longos.', sources: ["tabela","dicio"] },
+      { cond: "Recusa o berço", action: 'Normalizar: é instintivo. Trabalhar transferência gradual com presença. Acionar "seu cheiro no berço" do Dicionário.', sources: ["dicio"] },
+      { cond: "Horário bagunçado", action: 'Acionar janelas de acordado da Tabela como âncora do dia. Não horários fixos, mas janelas flexíveis de observação.', sources: ["tabela"] },
+      { cond: "Depende 100% de mim", action: 'Associação de sono intensa. Não é problema — é fase. Trabalhar micro-passos de autonomia com presença constante. Acionar "Autonomia com Afeto".', sources: ["dicio","ritual"] },
+    ]
+  },
+  {
+    num: 9,
+    color: "#9b8eb5",
+    category: "Principal Dificuldade",
+    text: "Você percebeu algum desses sinais antes de ele chorar?",
+    options: ["Orelha ou bochecha rosada","Olhar perdido/fixo no vazio","Para de brincar de repente","Esfrega os olhos","Nunca consigo perceber","Ele vai de 0 a 100 sem aviso"],
+    intent: "Avalia a alfabetização sensorial da mãe. Ativa o Dicionário de sinais sutis e o decodificador de choros. Quanto menos ela reconhece, maior a prioridade de educação.",
+    triggers: [
+      { cond: "Nunca consigo perceber / Vai de 0 a 100", action: 'Acionar Dicionário Sensorial completo: sinais por faixa etária da Tabela + Choro de Sono (irregular, intercalado com bocejos). Oferecer "guia de leitura do bebê" como próximo passo.', sources: ["tabela","dicio"] },
+      { cond: "Reconhece 1–2 sinais", action: 'Base de leitura existe! Expandir vocabulário sensorial com os sinais específicos da faixa etária do bebê (Tabela, coluna "Sinais Sutis").', sources: ["tabela","dicio"] },
+      { cond: "Reconhece vários sinais", action: 'Boa leitura do bebê. A dificuldade provavelmente não é o reconhecimento do sinal, mas a janela ou o ambiente. Focar nas perguntas 5–7.', sources: ["tabela"] },
+    ]
+  },
+  {
+    num: 10,
+    color: "#c9a84c",
+    category: "Estado Emocional da Mãe",
+    text: "Como você está se sentindo com tudo isso?",
+    options: ["Exausta, precisando de ajuda urgente","Cansada mas conseguindo","Ansiosa e com dúvidas","Bem, só quero aprender mais","Com culpa por não ter conseguido antes"],
+    intent: "Pergunta mais importante do questionário. Calibra o tom de toda a interação futura. A validação emocional vem ANTES de qualquer conselho técnico.",
+    triggers: [
+      { cond: "Exausta / precisando de ajuda urgente", action: 'PRIORIDADE MÁXIMA: Acionar protocolo de acolhimento. Resposta começa com validação longa antes de qualquer conteúdo técnico. Citar: "cada olheira que você carrega — isso é amor em ação". Oferecer um passo concreto e pequeno, não um plano completo.', sources: ["dicio","ritual"] },
+      { cond: "Com culpa", action: 'Acionar mensagem de desconstrução da culpa: "você não sabia o que não te ensinaram". Normalizar e reposicionar: agora ela tem ferramentas.', sources: ["ritual"] },
+      { cond: "Ansiosa / com dúvidas", action: 'Tom educativo e tranquilizador. Oferecer estrutura clara. Acionar conceitos de Pressão de Sono e Janela de Ouro como âncoras cognitivas.', sources: ["tabela"] },
+      { cond: "Bem, quer aprender mais", action: 'Tom exploratório. Apresentar os materiais com profundidade. Ela está em modo de aprendizado ativo.', sources: ["tabela","dicio","ritual"] },
+    ]
+  },
+];
+
+function renderSourceTag(src) {
+  if (src === "tabela") return `<span class="source-tag src-tabela">Tabela Mestra</span>`;
+  if (src === "dicio") return `<span class="source-tag src-dicio">Dicionário Sensorial</span>`;
+  if (src === "ritual") return `<span class="source-tag src-ritual">Ritual de Ouro</span>`;
+  return "";
+}
+
+function renderCard(q) {
+  const triggersHtml = q.triggers.map(t => `
+    <div class="trigger-item">
+      <span class="trigger-condition">${t.cond}:</span>
+      <span>${t.action} ${t.sources.map(renderSourceTag).join("")}</span>
+    </div>
+  `).join("");
+
+  const optionsHtml = q.options.map(o => `<button class="q-option" onclick="return false;">${o}</button>`).join("");
+
+  return `
+    <div class="q-card" id="qcard-${q.num}">
+      <div class="q-header" onclick="toggleCard(${q.num})">
+        <div class="q-num-wrap" style="background:${q.color}22; color:${q.color}; border: 0.5px solid ${q.color}44;">
+          ${q.num}
+        </div>
+        <div class="q-main">
+          <div class="q-category" style="color:${q.color}">${q.category}</div>
+          <div class="q-text">${q.text}</div>
+        </div>
+        <div class="q-toggle">▾</div>
+      </div>
+      <div class="q-body" id="qbody-${q.num}">
+        <p class="q-intent">${q.intent}</p>
+        <div class="q-input-label">Formato de resposta sugerido</div>
+        <div class="q-options">${optionsHtml}</div>
+        <div class="trigger-box">
+          <div class="trigger-head">
+            <div class="trigger-dot" style="background:${q.color};"></div>
+            Gatilhos de conselho por resposta
+          </div>
+          ${triggersHtml}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+document.getElementById("questions").innerHTML = questions.map(renderCard).join("");
+
+function toggleCard(num) {
+  const card = document.getElementById(`qcard-${num}`);
+  const body = document.getElementById(`qbody-${num}`);
+  const isOpen = body.classList.contains("open");
+  body.classList.toggle("open", !isOpen);
+  card.classList.toggle("open", !isOpen);
+}
+
+let allOpen = false;
+function toggleAll() {
+  allOpen = !allOpen;
+  questions.forEach(q => {
+    const card = document.getElementById(`qcard-${q.num}`);
+    const body = document.getElementById(`qbody-${q.num}`);
+    body.classList.toggle("open", allOpen);
+    card.classList.toggle("open", allOpen);
+  });
+  document.querySelector(".expand-all-btn").textContent = allOpen ? "Recolher todas" : "Expandir todas as perguntas";
+}
+</script>

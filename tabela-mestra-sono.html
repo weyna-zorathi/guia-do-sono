@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tabela Mestra de Janelas de Sono — Guia do Sono</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf6ef;
+    --warm-white: #fff9f2;
+    --sage: #8a9e7f;
+    --sage-light: #b5c9a8;
+    --sage-dark: #5a7050;
+    --terracotta: #c47a52;
+    --terracotta-light: #e8a97e;
+    --terracotta-pale: #f5e0d0;
+    --brown: #7a5c3e;
+    --brown-light: #a07850;
+    --linen: #ede5d8;
+    --linen-dark: #d8ccb8;
+    --night: #2c3e2d;
+    --gold: #c9a84c;
+    --gold-light: #e8cc7e;
+    --lavender: #9b8eb5;
+    --sky: #7a9eb5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--brown);
+    line-height: 1.7;
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(196,122,82,0.06) 0%, transparent 50%),
+      radial-gradient(circle at 90% 80%, rgba(138,158,127,0.08) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c47a52' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    min-height: 100vh;
+  }
+
+  .wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* HEADER */
+  .hero {
+    text-align: center;
+    padding: 60px 20px 48px;
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--terracotta));
+  }
+  .badge {
+    display: inline-block;
+    background: var(--terracotta-pale);
+    color: var(--terracotta);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 20px;
+    border: 1px solid var(--terracotta-light);
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--night);
+    line-height: 1.2;
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+  .hero h1 em {
+    color: var(--terracotta);
+    font-style: italic;
+  }
+  .hero .subtitle {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    color: var(--brown-light);
+    max-width: 580px;
+    margin: 0 auto;
+    font-style: italic;
+    line-height: 1.8;
+  }
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 40px 0;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--linen-dark));
+  }
+  .divider::after {
+    background: linear-gradient(to left, transparent, var(--linen-dark));
+  }
+  .divider-leaf {
+    font-size: 18px;
+    color: var(--sage);
+  }
+
+  /* BATTERY CONCEPT */
+  .concept-box {
+    background: var(--night);
+    color: var(--cream);
+    border-radius: 20px;
+    padding: 44px 40px;
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .concept-box::before {
+    content: '🌙';
+    position: absolute;
+    right: 32px;
+    top: 32px;
+    font-size: 56px;
+    opacity: 0.15;
+  }
+  .concept-box::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: -30px;
+    width: 160px;
+    height: 160px;
+    background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .concept-box h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--gold-light);
+    margin-bottom: 24px;
+    font-weight: 600;
+  }
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-top: 28px;
+  }
+  @media(max-width: 600px) { .concept-grid { grid-template-columns: 1fr; } }
+  .concept-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 24px;
+    position: relative;
+  }
+  .concept-card .icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .concept-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--gold-light);
+    margin-bottom: 10px;
+  }
+  .concept-card p {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: rgba(250,246,239,0.82);
+  }
+  .battery-visual {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 14px 0 10px;
+  }
+  .batt-wrap {
+    position: relative;
+    width: 52px;
+    height: 24px;
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+  }
+  .batt-wrap::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 10px;
+    background: var(--gold);
+    border-radius: 0 2px 2px 0;
+  }
+  .batt-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.4s;
+  }
+  .batt-low .batt-fill { width: 20%; background: var(--terracotta); }
+  .batt-mid .batt-fill { width: 55%; background: var(--gold); }
+  .batt-full .batt-fill { width: 90%; background: var(--sage); }
+  .batt-label { font-size: 0.78rem; color: rgba(250,246,239,0.7); font-weight: 500; }
+
+  /* AGE CARDS */
+  .age-section {
+    margin-bottom: 36px;
+  }
+  .age-card {
+    background: var(--warm-white);
+    border-radius: 20px;
+    border: 1.5px solid var(--linen-dark);
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(122,92,62,0.07);
+    transition: box-shadow 0.3s;
+  }
+  .age-card:hover {
+    box-shadow: 0 8px 40px rgba(122,92,62,0.12);
+  }
+  .age-header {
+    padding: 28px 32px 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid var(--linen);
+  }
+  .age-emoji {
+    font-size: 2.6rem;
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    background: var(--linen);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .age-title h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--night);
+    font-weight: 700;
+  }
+  .age-title p {
+    font-size: 0.85rem;
+    color: var(--sage-dark);
+    font-family: 'Lora', serif;
+    font-style: italic;
+    margin-top: 2px;
+  }
+  .age-body {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+  @media(max-width: 640px) { .age-body { grid-template-columns: 1fr; } }
+  .age-col {
+    padding: 24px 26px;
+    border-right: 1px solid var(--linen);
+    position: relative;
+  }
+  .age-col:last-child { border-right: none; }
+  @media(max-width: 640px) {
+    .age-col { border-right: none; border-bottom: 1px solid var(--linen); }
+    .age-col:last-child { border-bottom: none; }
+  }
+  .col-label {
+    font-size: 9.5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--sage-dark);
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .col-label::before {
+    content: '';
+    width: 14px;
+    height: 2px;
+    background: var(--terracotta);
+    display: inline-block;
+    border-radius: 2px;
+  }
+  .main-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--terracotta);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .main-value span {
+    font-size: 0.9rem;
+    color: var(--brown-light);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+  }
+  .sub-value {
+    font-size: 0.85rem;
+    color: var(--brown-light);
+    line-height: 1.6;
+    margin-top: 8px;
+  }
+  .naps-list {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .nap-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.84rem;
+    color: var(--brown);
+  }
+  .nap-dot {
+    width: 7px; height: 7px;
+    background: var(--sage);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .signs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: 10px;
+  }
+  .sign-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.84rem;
+    color: var(--brown);
+    line-height: 1.5;
+  }
+  .sign-icon {
+    flex-shrink: 0;
+    font-size: 14px;
+    margin-top: 1px;
+  }
+  .tip-banner {
+    background: linear-gradient(135deg, var(--linen) 0%, var(--terracotta-pale) 100%);
+    border-top: 1px solid var(--linen-dark);
+    padding: 16px 26px;
+    font-size: 0.83rem;
+    color: var(--brown);
+    font-family: 'Lora', serif;
+    font-style: italic;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.65;
+  }
+  .tip-banner::before { content: '🌿'; font-style: normal; flex-shrink: 0; }
+
+  /* CORTISOL SECTION */
+  .cortisol-section {
+    background: linear-gradient(135deg, #3d2e1e 0%, #2c3e2d 100%);
+    border-radius: 20px;
+    padding: 44px 40px;
+    margin: 12px 0 48px;
+    color: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .cortisol-section::before {
+    content: '⚡';
+    position: absolute;
+    right: 36px;
+    top: 36px;
+    font-size: 64px;
+    opacity: 0.12;
+  }
+  .cortisol-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--terracotta-light);
+    margin-bottom: 16px;
+  }
+  .cortisol-section p {
+    font-size: 0.92rem;
+    line-height: 1.85;
+    color: rgba(250,246,239,0.85);
+    max-width: 700px;
+  }
+  .scale-bar {
+    display: flex;
+    margin: 28px 0 10px;
+    gap: 3px;
+    align-items: flex-end;
+  }
+  .scale-seg {
+    flex: 1;
+    border-radius: 4px 4px 0 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(0,0,0,0.5);
+  }
+  .scale-label-row {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 20px;
+  }
+  .scale-label-row span {
+    flex: 1;
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    color: rgba(250,246,239,0.5);
+    text-align: center;
+  }
+  .warning-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 28px;
+  }
+  @media(max-width: 540px) { .warning-cards { grid-template-columns: 1fr; } }
+  .warning-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .warning-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.98rem;
+    margin-bottom: 8px;
+  }
+  .warning-card p { font-size: 0.83rem; color: rgba(250,246,239,0.75); line-height: 1.7; }
+  .warning-card.danger h4 { color: var(--terracotta-light); }
+  .warning-card.good h4 { color: var(--sage-light); }
+
+  /* MOM SECTION */
+  .mom-note {
+    background: var(--terracotta-pale);
+    border: 2px solid var(--terracotta-light);
+    border-radius: 18px;
+    padding: 36px 38px;
+    margin-bottom: 48px;
+    position: relative;
+  }
+  .mom-note::before {
+    content: '"';
+    position: absolute;
+    top: 12px; left: 28px;
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    color: var(--terracotta-light);
+    line-height: 1;
+    opacity: 0.5;
+  }
+  .mom-note p {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    color: var(--brown);
+    line-height: 1.85;
+    font-style: italic;
+    padding-top: 20px;
+  }
+  .mom-note .author {
+    margin-top: 14px;
+    font-style: normal;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 40px 0 0;
+    border-top: 1px solid var(--linen-dark);
+  }
+  footer .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--night);
+    font-weight: 700;
+    font-style: italic;
+  }
+  footer .logo span { color: var(--terracotta); }
+  footer p {
+    font-size: 0.8rem;
+    color: var(--brown-light);
+    margin-top: 8px;
+    font-family: 'Lora', serif;
+    font-style: italic;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .age-card, .concept-box, .cortisol-section, .mom-note {
+    animation: fadeUp 0.6s ease both;
+  }
+  .age-card:nth-child(1) { animation-delay: 0.1s; }
+  .age-card:nth-child(2) { animation-delay: 0.2s; }
+  .age-card:nth-child(3) { animation-delay: 0.3s; }
+  .age-card:nth-child(4) { animation-delay: 0.4s; }
+  .age-card:nth-child(5) { animation-delay: 0.5s; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge">✦ Guia do Sono ✦</div>
+    <h1>Tabela Mestra de<br><em>Janelas de Sono</em></h1>
+    <p class="subtitle">Do nascimento aos 3 anos — tudo que você precisa saber para alinhar o ritmo do seu bebê com a natureza do sono dele.</p>
+  </div>
+
+  <div class="divider"><span class="divider-leaf">🌿</span></div>
+
+  <!-- MOM NOTE -->
+  <div class="mom-note">
+    <p>Antes de mergulhar nos números, quero te dizer uma coisa: você já está fazendo o suficiente. Cada noite que você se levanta, cada cochilo que você tenta encaixar, cada olheira que você carrega — isso é amor em ação. Essa tabela não é uma lista de cobranças. É uma lanterna gentil para iluminar o caminho.</p>
+    <div class="author">— Com carinho, Guia do Sono 🌙</div>
+  </div>
+
+  <!-- BATTERY CONCEPTS -->
+  <div class="concept-box">
+    <h2>🔋 Entendendo a Bateria do Sono</h2>
+    <p style="font-size:0.9rem; line-height:1.8; color:rgba(250,246,239,0.85); max-width:680px;">
+      Imagine que seu bebê tem uma bateria interna. Quando acorda, ela começa a esvaziar. O sono a recarrega.
+      A mágica do sono gentil está em encontrar o momento certo — nem antes demais, nem tarde demais.
+    </p>
+
+    <div class="concept-grid">
+      <div class="concept-card">
+        <span class="icon">📈</span>
+        <h3>Pressão de Sono</h3>
+        <div class="battery-visual">
+          <div class="batt-wrap batt-low"><div class="batt-fill"></div></div>
+          <div class="batt-label">acabou de acordar</div>
+        </div>
+        <div class="battery-visual">
+          <div class="batt-wrap batt-full"><div class="batt-fill"></div></div>
+          <div class="batt-label">pronto para dormir!</div>
+        </div>
+        <p>É como um cansaço saudável que se acumula enquanto o bebê fica acordado. Quanto mais tempo acordado (dentro da janela ideal), mais fácil é adormecer e mais profundo é o sono. É o aliado número um do sono!</p>
+      </div>
+      <div class="concept-card">
+        <span class="icon">⚡</span>
+        <h3>Cortisol — O Vilão Gentil</h3>
+        <div class="battery-visual">
+          <div class="batt-wrap batt-mid"><div class="batt-fill"></div></div>
+          <div class="batt-label">janela ideal → durma aqui!</div>
+        </div>
+        <div class="battery-visual">
+          <div class="batt-wrap batt-low"><div class="batt-fill"></div></div>
+          <div class="batt-label">passou da hora → cortisol!</div>
+        </div>
+        <p>Quando a janela de sono passa, o corpo do bebê libera cortisol (hormônio do estresse) para mantê-lo acordado. É como uma bateria que "superaquece". Resultado: bebê hiperativo, difícil de dormir, sono fragmentado.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCALE BAR for cortisol -->
+  <div class="cortisol-section">
+    <h2>⚖️ A Balança do Cansaço Saudável</h2>
+    <p>Existe uma janela de ouro entre o "cansaço de menos" e o "cansaço demais". É ali que a mágica acontece — o bebê adormece no colo do próprio sono, sem luta, sem choro.</p>
+
+    <div class="scale-bar">
+      <div class="scale-seg" style="background:#7a9eb5; height:30px;">😴</div>
+      <div class="scale-seg" style="background:#8aaf7a; height:45px;">🙂</div>
+      <div class="scale-seg" style="background:#a8c46a; height:62px;"></div>
+      <div class="scale-seg" style="background:#c9b84c; height:80px;">✨</div>
+      <div class="scale-seg" style="background:#c9a84c; height:80px;">✨</div>
+      <div class="scale-seg" style="background:#d4834c; height:62px;"></div>
+      <div class="scale-seg" style="background:#c4524c; height:45px;">⚠️</div>
+      <div class="scale-seg" style="background:#a43030; height:30px;">🔥</div>
+    </div>
+    <div class="scale-label-row">
+      <span>Cedo demais</span>
+      <span></span>
+      <span>Ideal</span>
+      <span>JANELA DE OURO</span>
+      <span></span>
+      <span></span>
+      <span>Passou</span>
+      <span>Cortisol alto</span>
+    </div>
+
+    <div class="warning-cards">
+      <div class="warning-card danger">
+        <h4>🔴 Sinais de Janela Perdida</h4>
+        <p>Bebê hiperestimulado, arqueando as costas, rindo sem razão, olheira escura, choro inconsolável, dificuldade de pegar no sono mesmo muito cansado.</p>
+      </div>
+      <div class="warning-card good">
+        <h4>🟢 Sinais da Janela Certa</h4>
+        <p>Olhar fixo no vazio, movimento de coçar o olho ou a orelha, bochecha ou orelha avermelhada, bocejos, movimento de sugar, quietude de repente.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><span class="divider-leaf">🌱</span></div>
+  <h2 style="font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--night); text-align:center; margin-bottom:32px;">As Faixas Etárias<br><em style="color:var(--terracotta); font-size:1.5rem;">Uma por uma, com carinho</em></h2>
+
+  <!-- AGE CARDS -->
+
+  <!-- 0–3 MESES -->
+  <div class="age-section">
+    <div class="age-card">
+      <div class="age-header">
+        <div class="age-emoji">🌸</div>
+        <div class="age-title">
+          <h2>0 a 3 Meses</h2>
+          <p>O tempo do quarto trimestre — ainda quase dentro de você</p>
+        </div>
+      </div>
+      <div class="age-body">
+        <div class="age-col">
+          <div class="col-label">Janela de Acordado</div>
+          <div class="main-value">45–90 <span>min</span></div>
+          <div class="sub-value">Comece com 45 min no 1º mês. Vai crescendo gradualmente até 90 min no 3º mês.</div>
+        </div>
+        <div class="age-col">
+          <div class="col-label">Sonecas por Dia</div>
+          <div class="main-value">4–6 <span>sonecas</span></div>
+          <div class="naps-list">
+            <div class="nap-item"><div class="nap-dot"></div>Sono muito fragmentado é normal</div>
+            <div class="nap-item"><div class="nap-dot"></div>Sem rotina fixa — siga os sinais</div>
+            <div class="nap-item"><div class="nap-dot"></div>Cochilo de 20 min a 2h+ é normal</div>
+          </div>
+        </div>
+        <div class="age-col">
+          <div class="col-label">Sinais de Sono Sutis</div>
+          <div class="signs-list">
+            <div class="sign-item"><span class="sign-icon">👀</span><span>Olhar fixo, desfocado, no vazio</span></div>
+            <div class="sign-item"><span class="sign-icon">🐛</span><span>Movimento de sucção sem fome</span></div>
+            <div class="sign-item"><span class="sign-icon">🤏</span><span>Mãozinhas fechando devagar</span></div>
+            <div class="sign-item"><span class="sign-icon">😣</span><span>Franzir de testa leve</span></div>
+            <div class="sign-item"><span class="sign-icon">🎵</span><span>Menos interesse em estímulos</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="tip-banner">Nessa fase, o colo é o berço mais perfeito do mundo. Não existe "vício" em colo com menos de 4 meses — existe necessidade biológica. Durma com o seu filho no colo sem culpa.</div>
+    </div>
+  </div>
+
+  <!-- 4–6 MESES -->
+  <div class="age-section">
+    <div class="age-card">
+      <div class="age-header">
+        <div class="age-emoji">🌼</div>
+        <div class="age-title">
+          <h2>4 a 6 Meses</h2>
+          <p>A grande regressão — e também o primeiro horizonte de rotina</p>
+        </div>
+      </div>
+      <div class="age-body">
+        <div class="age-col">
+          <div class="col-label">Janela de Acordado</div>
+          <div class="main-value">1,5–2,5 <span>horas</span></div>
+          <div class="sub-value">4 meses: ~1h30. 5 meses: ~2h. 6 meses: até 2h30. A janela vai abrindo devagar.</div>
+        </div>
+        <div class="age-col">
+          <div class="col-label">Sonecas por Dia</div>
+          <div class="main-value">3–4 <span>sonecas</span></div>
+          <div class="naps-list">
+            <div class="nap-item"><div class="nap-dot"></div>Manhã cedo (1ª janela curta)</div>
+            <div class="nap-item"><div class="nap-dot"></div>Soneca do meio-dia (mais longa)</div>
+            <div class="nap-item"><div class="nap-dot"></div>Tarde (pode ser 1 ou 2)</div>
+            <div class="nap-item"><div class="nap-dot"></div>Última soneca perto das 16–17h</div>
+          </div>
+        </div>
+        <div class="age-col">
+          <div class="col-label">Sinais de Sono Sutis</div>
+          <div class="signs-list">
+            <div class="sign-item"><span class="sign-icon">👂</span><span>Orelha avermelhada (sinal clássico!)</span></div>
+            <div class="sign-item"><span class="sign-icon">👁️</span><span>Piscadas lentas, olho vidrado</span></div>
+            <div class="sign-item"><span class="sign-icon">😮‍💨</span><span>Bocejo simples e suave</span></div>
+            <div class="sign-item"><span class="sign-icon">🤚</span><span>Coçar olho ou lado da cabeça</span></div>
+            <div class="sign-item"><span class="sign-icon">📉</span><span>Atenção caindo de repente</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="tip-banner">A regressão dos 4 meses não é uma fase — é uma mudança permanente na arquitetura do sono. Não passa, se adapta. E é totalmente normal que o que funcionava antes pare de funcionar.</div>
+    </div>
+  </div>
+
+  <!-- 7–12 MESES -->
+  <div class="age-section">
+    <div class="age-card">
+      <div class="age-header">
+        <div class="age-emoji">🌻</div>
+        <div class="age-title">
+          <h2>7 a 12 Meses</h2>
+          <p>A era de ouro da rotina — dois andares de sono</p>
+        </div>
+      </div>
+      <div class="age-body">
+        <div class="age-col">
+          <div class="col-label">Janela de Acordado</div>
+          <div class="main-value">2,5–3,5 <span>horas</span></div>
+          <div class="sub-value">7–9 meses: ~2,5–3h. 10–12 meses: até 3,5h. A última janela (após a 2ª soneca) tende a ser a mais longa.</div>
+        </div>
+        <div class="age-col">
+          <div class="col-label">Sonecas por Dia</div>
+          <div class="main-value">2 <span>sonecas</span></div>
+          <div class="naps-list">
+            <div class="nap-item"><div class="nap-dot"></div>Soneca da manhã (9–10h)</div>
+            <div class="nap-item"><div class="nap-dot"></div>Soneca da tarde (13–14h)</div>
+            <div class="nap-item"><div class="nap-dot"></div>Soneca deve terminar até ~16h</div>
+            <div class="nap-item"><div class="nap-dot"></div>Transição 3→2 pode ocorrer aos 7–8m</div>
+          </div>
+        </div>
+        <div class="age-col">
+          <div class="col-label">Sinais de Sono Sutis</div>
+          <div class="signs-list">
+            <div class="sign-item"><span class="sign-icon">😶</span><span>Olhar perdido, "apagando a luz"</span></div>
+            <div class="sign-item"><span class="sign-icon">👂</span><span>Orelha ou bochecha rosada</span></div>
+            <div class="sign-item"><span class="sign-icon">🛑</span><span>Para de brincar de repente</span></div>
+            <div class="sign-item"><span class="sign-icon">😩</span><span>Choro ou irritabilidade repentinos</span></div>
+            <div class="sign-item"><span class="sign-icon">🦴</span><span>Corpo "pesado", menos tônus</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="tip-banner">Atenção à "ansiedade de separação" que começa a florescer aqui. Não é manipulação — é um marco de desenvolvimento lindo que pede presença, não distância.</div>
+    </div>
+  </div>
+
+  <!-- 1–2 ANOS -->
+  <div class="age-section">
+    <div class="age-card">
+      <div class="age-header">
+        <div class="age-emoji">🌳</div>
+        <div class="age-title">
+          <h2>1 a 2 Anos</h2>
+          <p>O grande mundo por descobrir — e ainda muito sono pela frente</p>
+        </div>
+      </div>
+      <div class="age-body">
+        <div class="age-col">
+          <div class="col-label">Janela de Acordado</div>
+          <div class="main-value">3–6 <span>horas</span></div>
+          <div class="sub-value">1 ano: ~3–4h. 18 meses: ~4–5h. 2 anos: até 5–6h. A janela da manhã tende a ser mais longa.</div>
+        </div>
+        <div class="age-col">
+          <div class="col-label">Sonecas por Dia</div>
+          <div class="main-value">1–2 <span>sonecas</span></div>
+          <div class="naps-list">
+            <div class="nap-item"><div class="nap-dot"></div>Transição 2→1 soneca: 13–18 meses</div>
+            <div class="nap-item"><div class="nap-dot"></div>1 soneca: 12–14h (ideal após almoço)</div>
+            <div class="nap-item"><div class="nap-dot"></div>Duração: 1–2h</div>
+            <div class="nap-item"><div class="nap-dot"></div>Terminar antes das 15h30–16h</div>
+          </div>
+        </div>
+        <div class="age-col">
+          <div class="col-label">Sinais de Sono Sutis</div>
+          <div class="signs-list">
+            <div class="sign-item"><span class="sign-icon">😤</span><span>Impaciência e birra repentinas</span></div>
+            <div class="sign-item"><span class="sign-icon">🧸</span><span>Busca por objeto de conforto</span></div>
+            <div class="sign-item"><span class="sign-icon">🪑</span><span>Deita ou senta no chão sozinho</span></div>
+            <div class="sign-item"><span class="sign-icon">😮</span><span>Bocejos frequentes e profundos</span></div>
+            <div class="sign-item"><span class="sign-icon">🔁</span><span>Repete frases ou movimentos</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="tip-banner">A transição de 2 para 1 soneca pode durar 4–6 semanas de caos aparente — dias com 1, dias com 2. Respira. Isso é normal, não é regressão. Seu filho está se recalibrando.</div>
+    </div>
+  </div>
+
+  <!-- 2–3 ANOS -->
+  <div class="age-section">
+    <div class="age-card">
+      <div class="age-header">
+        <div class="age-emoji">🍂</div>
+        <div class="age-title">
+          <h2>2 a 3 Anos</h2>
+          <p>A última soneca — honre enquanto dura</p>
+        </div>
+      </div>
+      <div class="age-body">
+        <div class="age-col">
+          <div class="col-label">Janela de Acordado</div>
+          <div class="main-value">5–7 <span>horas</span></div>
+          <div class="sub-value">Janela única. Rotina previsível ajuda muito. Hora de dormir à noite: idealmente 18h30–20h.</div>
+        </div>
+        <div class="age-col">
+          <div class="col-label">Sonecas por Dia</div>
+          <div class="main-value">0–1 <span>soneca</span></div>
+          <div class="naps-list">
+            <div class="nap-item"><div class="nap-dot"></div>Maioria ainda dorme 1 soneca</div>
+            <div class="nap-item"><div class="nap-dot"></div>Terminar antes das 15h</div>
+            <div class="nap-item"><div class="nap-dot"></div>Se recusar soneca: ofereça "tempo quieto"</div>
+            <div class="nap-item"><div class="nap-dot"></div>Sem soneca → hora de dormir mais cedo!</div>
+          </div>
+        </div>
+        <div class="age-col">
+          <div class="col-label">Sinais de Sono Sutis</div>
+          <div class="signs-list">
+            <div class="sign-item"><span class="sign-icon">😰</span><span>Choro fácil, sensibilidade elevada</span></div>
+            <div class="sign-item"><span class="sign-icon">🤸</span><span>Agitação e hiperatividade de repente</span></div>
+            <div class="sign-item"><span class="sign-icon">🫦</span><span>Bocejos com olhos lacrimejando</span></div>
+            <div class="sign-item"><span class="sign-icon">🙅</span><span>"Não quero dormir!" — mas está exausto</span></div>
+            <div class="sign-item"><span class="sign-icon">👁️</span><span>Olheiras marcadas ao final do dia</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="tip-banner">Quando a soneca some, o mundo não acaba — mas a hora de dormir à noite precisa avançar. Uma criança sem soneca que dorme às 21h está cronicamente privada de sono. Avance para 18h30–19h com coragem.</div>
+    </div>
+  </div>
+
+  <div class="divider"><span class="divider-leaf">🌾</span></div>
+
+  <!-- FINAL NOTE -->
+  <div class="mom-note" style="background:linear-gradient(135deg, #e8f0e4, #eaf3f8); border-color: var(--sage-light);">
+    <p style="padding-top:30px;">Você não precisa acertar tudo todo dia. O sono do seu filho não é uma performance sua — é um processo de toda uma família. As janelas de sono são um mapa, não uma gaiola. Use como guia, não como julgamento. E nos dias em que tudo desmoronar, lembre-se: amanhã é uma nova janela de sono para abrir.</p>
+    <div class="author" style="color:var(--sage-dark);">— Com amor e muita calma ☁️</div>
+  </div>
+
+  <footer>
+    <div class="logo">Guia do <span>Sono</span></div>
+    <p>Sono gentil para famílias reais · Sem choro · Com conexão · Com presença</p>
+  </footer>
+
+</div>
+</body>
+</html>

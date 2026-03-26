@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dicionário Sensorial do Bebê — Guia do Sono</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf6ef;
+    --warm-white: #fff9f2;
+    --sage: #8a9e7f;
+    --sage-light: #b5c9a8;
+    --sage-dark: #5a7050;
+    --terracotta: #c47a52;
+    --terracotta-light: #e8a97e;
+    --terracotta-pale: #f5e0d0;
+    --brown: #7a5c3e;
+    --brown-light: #a07850;
+    --linen: #ede5d8;
+    --linen-dark: #d8ccb8;
+    --night: #2c3e2d;
+    --gold: #c9a84c;
+    --gold-light: #e8cc7e;
+    --lavender: #9b8eb5;
+    --lavender-light: #c8bfda;
+    --sky: #7a9eb5;
+    --sky-light: #b0ccd8;
+    --rose: #c47a8a;
+    --rose-light: #e8aab5;
+    --rose-pale: #f5dde2;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--brown);
+    line-height: 1.7;
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(155,142,181,0.07) 0%, transparent 45%),
+      radial-gradient(circle at 85% 85%, rgba(138,158,127,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(196,122,82,0.04) 0%, transparent 60%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c47a52' fill-opacity='0.022'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    min-height: 100vh;
+  }
+
+  .wrapper {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    text-align: center;
+    padding: 64px 20px 52px;
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 2px; height: 44px;
+    background: linear-gradient(to bottom, transparent, var(--lavender));
+  }
+  .badge {
+    display: inline-block;
+    background: rgba(155,142,181,0.15);
+    color: var(--lavender);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 10.5px;
+    letter-spacing: 2.8px;
+    text-transform: uppercase;
+    padding: 6px 20px;
+    border-radius: 20px;
+    border: 1px solid var(--lavender-light);
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.1rem, 5.5vw, 3.4rem);
+    color: var(--night);
+    line-height: 1.18;
+    margin-bottom: 18px;
+    font-weight: 700;
+  }
+  .hero h1 em {
+    color: var(--lavender);
+    font-style: italic;
+  }
+  .hero .subtitle {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    color: var(--brown-light);
+    max-width: 600px;
+    margin: 0 auto;
+    font-style: italic;
+    line-height: 1.85;
+  }
+
+  /* ─── DIVIDERS ─── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 44px 0;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--linen-dark));
+  }
+  .divider::after { background: linear-gradient(to left, transparent, var(--linen-dark)); }
+  .divider-icon { font-size: 18px; color: var(--sage); }
+
+  /* ─── MOM NOTE ─── */
+  .mom-note {
+    background: var(--terracotta-pale);
+    border: 2px solid var(--terracotta-light);
+    border-radius: 18px;
+    padding: 38px 40px 32px;
+    margin-bottom: 52px;
+    position: relative;
+  }
+  .mom-note::before {
+    content: '"';
+    position: absolute;
+    top: 8px; left: 26px;
+    font-family: 'Playfair Display', serif;
+    font-size: 88px;
+    color: var(--terracotta-light);
+    line-height: 1;
+    opacity: 0.45;
+  }
+  .mom-note p {
+    font-family: 'Lora', serif;
+    font-size: 1.06rem;
+    color: var(--brown);
+    line-height: 1.9;
+    font-style: italic;
+    padding-top: 22px;
+  }
+  .mom-note .author {
+    margin-top: 14px;
+    font-style: normal;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+  }
+
+  /* ─── SECTION TITLES ─── */
+  .section-title {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .section-title h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    color: var(--night);
+    line-height: 1.25;
+  }
+  .section-title h2 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+  .section-title p {
+    font-family: 'Lora', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--brown-light);
+    margin-top: 10px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ─── CRY DECODER GRID ─── */
+  .cry-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  @media(max-width: 640px) { .cry-grid { grid-template-columns: 1fr; } }
+
+  .cry-card {
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 28px rgba(122,92,62,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: fadeUp 0.6s ease both;
+  }
+  .cry-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 40px rgba(122,92,62,0.14);
+  }
+  .cry-card:nth-child(1) { animation-delay: 0.05s; }
+  .cry-card:nth-child(2) { animation-delay: 0.12s; }
+  .cry-card:nth-child(3) { animation-delay: 0.19s; }
+  .cry-card:nth-child(4) { animation-delay: 0.26s; }
+
+  .cry-header {
+    padding: 22px 26px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .cry-emoji {
+    font-size: 2rem;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(4px);
+  }
+  .cry-header-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .cry-header-text .cry-type {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    opacity: 0.75;
+    margin-top: 3px;
+  }
+
+  .cry-body {
+    background: var(--warm-white);
+    padding: 20px 26px 24px;
+  }
+  .cry-body .descriptor {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--brown-light);
+    margin-bottom: 16px;
+    line-height: 1.7;
+    padding: 10px 14px;
+    background: var(--linen);
+    border-radius: 8px;
+    border-left: 3px solid;
+  }
+  .cry-signals-title {
+    font-size: 9.5px;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    color: var(--sage-dark);
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .cry-signals-title::before {
+    content: '';
+    width: 14px; height: 2px;
+    background: var(--terracotta);
+    border-radius: 2px;
+  }
+  .signal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 16px;
+  }
+  .signal-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 0.84rem;
+    color: var(--brown);
+    line-height: 1.5;
+  }
+  .signal-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .response-box {
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 0.83rem;
+    line-height: 1.7;
+    font-family: 'Lora', serif;
+    font-style: italic;
+  }
+  .response-label {
+    font-style: normal;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  /* Card color themes */
+  .cry-card.fome .cry-header { background: linear-gradient(135deg, #c47a52, #d4924e); color: white; }
+  .cry-card.fome .cry-emoji { background: rgba(255,255,255,0.2); }
+  .cry-card.fome .descriptor { border-color: var(--terracotta-light); }
+  .cry-card.fome .signal-dot { background: var(--terracotta); }
+  .cry-card.fome .response-box { background: var(--terracotta-pale); color: var(--brown); }
+  .cry-card.fome .response-label { color: var(--terracotta); }
+
+  .cry-card.fralda .cry-header { background: linear-gradient(135deg, #7a9eb5, #5a8ca8); color: white; }
+  .cry-card.fralda .cry-emoji { background: rgba(255,255,255,0.2); }
+  .cry-card.fralda .descriptor { border-color: var(--sky-light); }
+  .cry-card.fralda .signal-dot { background: var(--sky); }
+  .cry-card.fralda .response-box { background: rgba(122,158,181,0.1); color: var(--brown); }
+  .cry-card.fralda .response-label { color: var(--sky); }
+
+  .cry-card.estimulo .cry-header { background: linear-gradient(135deg, #9b8eb5, #7a6eaa); color: white; }
+  .cry-card.estimulo .cry-emoji { background: rgba(255,255,255,0.2); }
+  .cry-card.estimulo .descriptor { border-color: var(--lavender-light); }
+  .cry-card.estimulo .signal-dot { background: var(--lavender); }
+  .cry-card.estimulo .response-box { background: rgba(155,142,181,0.1); color: var(--brown); }
+  .cry-card.estimulo .response-label { color: var(--lavender); }
+
+  .cry-card.briga .cry-header { background: linear-gradient(135deg, #8a9e7f, #6a8060); color: white; }
+  .cry-card.briga .cry-emoji { background: rgba(255,255,255,0.2); }
+  .cry-card.briga .descriptor { border-color: var(--sage-light); }
+  .cry-card.briga .signal-dot { background: var(--sage); }
+  .cry-card.briga .response-box { background: rgba(138,158,127,0.12); color: var(--brown); }
+  .cry-card.briga .response-label { color: var(--sage-dark); }
+
+  /* ─── SOUND WAVE VISUAL ─── */
+  .sound-visual {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin: 12px 0 8px;
+  }
+  .wave-bar {
+    width: 4px;
+    border-radius: 3px;
+    animation: wavePulse 1.4s ease-in-out infinite;
+  }
+  .wave-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+  .wave-bar:nth-child(2) { height: 16px; animation-delay: 0.1s; }
+  .wave-bar:nth-child(3) { height: 24px; animation-delay: 0.2s; }
+  .wave-bar:nth-child(4) { height: 18px; animation-delay: 0.3s; }
+  .wave-bar:nth-child(5) { height: 28px; animation-delay: 0.4s; }
+  .wave-bar:nth-child(6) { height: 20px; animation-delay: 0.5s; }
+  .wave-bar:nth-child(7) { height: 12px; animation-delay: 0.6s; }
+  .wave-bar:nth-child(8) { height: 22px; animation-delay: 0.7s; }
+  .wave-bar:nth-child(9) { height: 14px; animation-delay: 0.8s; }
+  .wave-bar:nth-child(10) { height: 8px; animation-delay: 0.9s; }
+  .wave-label { font-size: 0.78rem; color: rgba(122,92,62,0.6); margin-left: 8px; font-family: 'Lora', serif; font-style: italic; }
+  @keyframes wavePulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(0.7); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  /* ─── SALTOS DE DESENVOLVIMENTO ─── */
+  .saltos-section {
+    background: var(--night);
+    border-radius: 22px;
+    padding: 50px 44px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.7s ease 0.3s both;
+  }
+  .saltos-section::before {
+    content: '🌊';
+    position: absolute;
+    right: 36px; top: 32px;
+    font-size: 72px;
+    opacity: 0.1;
+  }
+  .saltos-section::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(155,142,181,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .saltos-section > h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.65rem;
+    color: var(--gold-light);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .saltos-section > p.intro {
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: rgba(250,246,239,0.82);
+    max-width: 700px;
+    margin-bottom: 36px;
+    font-family: 'Lora', serif;
+    font-style: italic;
+  }
+  .salto-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .salto-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .salto-top {
+    padding: 24px 28px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .salto-badge {
+    flex-shrink: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .salto-badge .months {
+    font-size: 0.65rem;
+    letter-spacing: 0.5px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    margin-top: 2px;
+    opacity: 0.9;
+  }
+  .salto-card.m4 .salto-badge { background: rgba(155,142,181,0.25); border: 1.5px solid var(--lavender); color: var(--lavender-light); }
+  .salto-card.m8 .salto-badge { background: rgba(196,122,82,0.2); border: 1.5px solid var(--terracotta-light); color: var(--terracotta-light); }
+  .salto-card.m18 .salto-badge { background: rgba(201,168,76,0.2); border: 1.5px solid var(--gold); color: var(--gold-light); }
+  .salto-title { flex: 1; }
+  .salto-title h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .salto-card.m4 .salto-title h3 { color: var(--lavender-light); }
+  .salto-card.m8 .salto-title h3 { color: var(--terracotta-light); }
+  .salto-card.m18 .salto-title h3 { color: var(--gold-light); }
+  .salto-title p {
+    font-size: 0.84rem;
+    color: rgba(250,246,239,0.65);
+    font-family: 'Lora', serif;
+    font-style: italic;
+    line-height: 1.6;
+  }
+  .salto-body {
+    padding: 22px 28px 26px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media(max-width: 600px) { .salto-body { grid-template-columns: 1fr; } }
+  .salto-col-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 12px;
+    opacity: 0.6;
+    color: var(--cream);
+  }
+  .salto-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .salto-list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    font-size: 0.84rem;
+    color: rgba(250,246,239,0.82);
+    line-height: 1.55;
+  }
+  .salto-list-item .si {
+    flex-shrink: 0;
+    font-size: 13px;
+    margin-top: 1px;
+  }
+  .salto-insight {
+    grid-column: 1 / -1;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.86rem;
+    color: rgba(250,246,239,0.75);
+    line-height: 1.75;
+    border-left: 3px solid;
+  }
+  .salto-card.m4 .salto-insight { border-color: var(--lavender); }
+  .salto-card.m8 .salto-insight { border-color: var(--terracotta); }
+  .salto-card.m18 .salto-insight { border-color: var(--gold); }
+
+  /* ─── ANGÚSTIA SECTION ─── */
+  .angustia-section {
+    background: linear-gradient(135deg, #3d2e1e 0%, #2c2240 100%);
+    border-radius: 22px;
+    padding: 50px 44px;
+    margin: 0 0 20px;
+    color: var(--cream);
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.7s ease 0.4s both;
+  }
+  .angustia-section::before {
+    content: '🫂';
+    position: absolute;
+    right: 36px; top: 32px;
+    font-size: 64px;
+    opacity: 0.12;
+  }
+  .angustia-section > h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--lavender-light);
+    margin-bottom: 12px;
+  }
+  .angustia-section > p.intro {
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: rgba(250,246,239,0.82);
+    max-width: 700px;
+    margin-bottom: 34px;
+    font-family: 'Lora', serif;
+    font-style: italic;
+  }
+  .angustia-timeline {
+    position: relative;
+    padding-left: 32px;
+  }
+  .angustia-timeline::before {
+    content: '';
+    position: absolute;
+    left: 11px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--lavender), var(--terracotta), var(--gold));
+    border-radius: 2px;
+    opacity: 0.4;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+  }
+  .timeline-item:last-child { margin-bottom: 0; }
+  .timeline-dot {
+    position: absolute;
+    left: -28px; top: 4px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    border: 2px solid;
+    background: var(--night);
+  }
+  .timeline-item:nth-child(1) .timeline-dot { border-color: var(--lavender); background: rgba(155,142,181,0.3); }
+  .timeline-item:nth-child(2) .timeline-dot { border-color: var(--terracotta); background: rgba(196,122,82,0.3); }
+  .timeline-item:nth-child(3) .timeline-dot { border-color: var(--gold); background: rgba(201,168,76,0.3); }
+  .timeline-age {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 7px;
+  }
+  .timeline-item:nth-child(1) .timeline-age { color: var(--lavender-light); }
+  .timeline-item:nth-child(2) .timeline-age { color: var(--terracotta-light); }
+  .timeline-item:nth-child(3) .timeline-age { color: var(--gold-light); }
+  .timeline-desc {
+    font-size: 0.87rem;
+    line-height: 1.8;
+    color: rgba(250,246,239,0.8);
+  }
+  .timeline-strategies {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .strategy-tag {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    color: rgba(250,246,239,0.78);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ─── PELE A PELE ─── */
+  .pele-section {
+    background: var(--warm-white);
+    border-radius: 22px;
+    border: 2px solid var(--sage-light);
+    padding: 46px 42px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.7s ease 0.5s both;
+  }
+  .pele-section::after {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(138,158,127,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .pele-section > h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--night);
+    margin-bottom: 10px;
+  }
+  .pele-section > p.intro {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.93rem;
+    color: var(--brown-light);
+    line-height: 1.85;
+    max-width: 680px;
+    margin-bottom: 34px;
+  }
+  .pele-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 30px;
+  }
+  @media(max-width: 700px) { .pele-grid { grid-template-columns: 1fr 1fr; } }
+  @media(max-width: 480px) { .pele-grid { grid-template-columns: 1fr; } }
+  .pele-card {
+    background: var(--linen);
+    border: 1px solid var(--linen-dark);
+    border-radius: 14px;
+    padding: 20px 18px;
+    position: relative;
+  }
+  .pele-card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    display: block;
+    width: 48px; height: 48px;
+    background: var(--warm-white);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+  }
+  .pele-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.98rem;
+    color: var(--night);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .pele-card p {
+    font-size: 0.83rem;
+    color: var(--brown-light);
+    line-height: 1.7;
+  }
+  .pele-card .step-badge {
+    position: absolute;
+    top: 14px; right: 14px;
+    width: 22px; height: 22px;
+    background: var(--sage-light);
+    border-radius: 50%;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--sage-dark);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .oxytocin-bar {
+    background: var(--linen);
+    border-radius: 14px;
+    padding: 22px 24px;
+    border: 1px solid var(--linen-dark);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .oxytocin-bar .oxy-text {
+    flex: 1;
+    min-width: 200px;
+  }
+  .oxytocin-bar .oxy-text h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--night);
+    margin-bottom: 6px;
+  }
+  .oxytocin-bar .oxy-text p {
+    font-size: 0.84rem;
+    color: var(--brown-light);
+    line-height: 1.7;
+    font-family: 'Lora', serif;
+    font-style: italic;
+  }
+  .molecule-visual {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .molecule-dot {
+    border-radius: 50%;
+    animation: breathe 3s ease-in-out infinite;
+  }
+  .molecule-dot:nth-child(1) { width: 14px; height: 14px; background: var(--sage-light); animation-delay: 0s; }
+  .molecule-dot:nth-child(2) { width: 22px; height: 22px; background: var(--sage); animation-delay: 0.4s; }
+  .molecule-dot:nth-child(3) { width: 10px; height: 10px; background: var(--sage-dark); animation-delay: 0.8s; }
+  .molecule-dot:nth-child(4) { width: 18px; height: 18px; background: var(--terracotta-light); animation-delay: 1.2s; }
+  .molecule-dot:nth-child(5) { width: 8px; height: 8px; background: var(--lavender); animation-delay: 1.6s; }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.2); opacity: 1; }
+  }
+
+  /* ─── AMBIENTE SECTION ─── */
+  .ambiente-section {
+    background: linear-gradient(135deg, var(--linen) 0%, var(--terracotta-pale) 100%);
+    border-radius: 22px;
+    padding: 46px 42px;
+    margin-bottom: 20px;
+    border: 1.5px solid var(--linen-dark);
+    animation: fadeUp 0.7s ease 0.6s both;
+  }
+  .ambiente-section > h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--night);
+    margin-bottom: 10px;
+  }
+  .ambiente-section > p.intro {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.93rem;
+    color: var(--brown);
+    line-height: 1.85;
+    max-width: 680px;
+    margin-bottom: 34px;
+  }
+  .ambiente-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  @media(max-width: 600px) { .ambiente-grid { grid-template-columns: 1fr; } }
+  .ambiente-card {
+    background: var(--warm-white);
+    border: 1px solid var(--linen-dark);
+    border-radius: 14px;
+    padding: 20px 20px;
+    display: flex;
+    gap: 14px;
+  }
+  .ambiente-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    background: var(--linen);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+  }
+  .ambiente-text h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.96rem;
+    color: var(--night);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .ambiente-text p {
+    font-size: 0.83rem;
+    color: var(--brown-light);
+    line-height: 1.7;
+  }
+
+  /* ─── CLOSING ─── */
+  .closing-note {
+    background: linear-gradient(135deg, #e8f0e4 0%, #eaf3f8 100%);
+    border: 2px solid var(--sage-light);
+    border-radius: 18px;
+    padding: 38px 40px 32px;
+    margin-bottom: 50px;
+    position: relative;
+  }
+  .closing-note::before {
+    content: '"';
+    position: absolute;
+    top: 8px; left: 26px;
+    font-family: 'Playfair Display', serif;
+    font-size: 88px;
+    color: var(--sage-light);
+    line-height: 1;
+    opacity: 0.5;
+  }
+  .closing-note p {
+    font-family: 'Lora', serif;
+    font-size: 1.05rem;
+    color: var(--brown);
+    line-height: 1.9;
+    font-style: italic;
+    padding-top: 22px;
+  }
+  .closing-note .author {
+    margin-top: 14px;
+    font-style: normal;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--sage-dark);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center;
+    padding: 40px 0 0;
+    border-top: 1px solid var(--linen-dark);
+  }
+  footer .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--night);
+    font-weight: 700;
+    font-style: italic;
+  }
+  footer .logo span { color: var(--terracotta); }
+  footer p {
+    font-size: 0.8rem;
+    color: var(--brown-light);
+    margin-top: 8px;
+    font-family: 'Lora', serif;
+    font-style: italic;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .cry-card, .mom-note, .closing-note {
+    animation: fadeUp 0.6s ease both;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge">✦ Guia do Sono · Dicionário Sensorial ✦</div>
+    <h1>Dicionário <em>Sensorial</em><br>do Bebê</h1>
+    <p class="subtitle">Aprenda a ler o seu filho como um livro — cada choro, cada sinal, cada fase difícil tem uma linguagem própria. E você já sabe mais do que imagina.</p>
+  </div>
+
+  <div class="divider"><span class="divider-icon">🌿</span></div>
+
+  <!-- MOM NOTE -->
+  <div class="mom-note">
+    <p>Eu sei como é estar no quarto às 2h da manhã, de joelhos, tentando adivinhar o que o seu bebê precisa enquanto o coração aperta de amor e de cansaço ao mesmo tempo. Esse guia foi feito para esses momentos. Não como mais uma cobrança, mas como um mapa — desenhado com carinho, para que você encontre o caminho de volta à calma.</p>
+    <div class="author">— Com ternura, Guia do Sono 🌙</div>
+  </div>
+
+  <!-- SECTION: DECODIFICADOR DE CHOROS -->
+  <div class="section-title">
+    <h2>O Decodificador<br><em>dos Choros</em></h2>
+    <p>Cada choro carrega uma mensagem. Com o tempo — e com esse guia — você vai reconhecer cada um deles antes mesmo de começar.</p>
+  </div>
+
+  <div class="cry-grid">
+
+    <!-- FOME -->
+    <div class="cry-card fome">
+      <div class="cry-header">
+        <div class="cry-emoji">🍼</div>
+        <div class="cry-header-text">
+          <h3>O Choro de Fome</h3>
+          <div class="cry-type">Necessidade Primária</div>
+        </div>
+      </div>
+      <div class="cry-body">
+        <div class="descriptor" style="border-color:#e8a97e;">
+          Começa baixinho, rítmico, quase como um chamado. Vai crescendo se não for atendido. É persistente, não histérico — ainda tem paciência.
+        </div>
+        <div class="cry-signals-title">Sinais que aparecem antes</div>
+        <div class="sound-visual">
+          <div class="wave-bar" style="background:#c47a52;"></div>
+          <div class="wave-bar" style="background:#c47a52;"></div>
+          <div class="wave-bar" style="background:#c47a52;"></div>
+          <div class="wave-bar" style="background:#c47a52;"></div>
+          <div class="wave-bar" style="background:#c47a52;"></div>
+          <div class="wave-bar" style="background:#c47a52;"></div>
+          <div class="wave-bar" style="background:#c47a52;"></div>
+          <div class="wave-bar" style="background:#c47a52;"></div>
+          <div class="wave-bar" style="background:#c47a52;"></div>
+          <div class="wave-bar" style="background:#c47a52;"></div>
+          <span class="wave-label">ritmo constante e crescente</span>
+        </div>
+        <div class="signal-list">
+          <div class="signal-item"><div class="signal-dot"></div><span>Reflexo de busca — vira a cabeça e abre a boca</span></div>
+          <div class="signal-item"><div class="signal-dot"></div><span>Chupa os próprios dedos ou punhos</span></div>
+          <div class="signal-item"><div class="signal-dot"></div><span>Barriga com barulho de "ronco" suave</span></div>
+          <div class="signal-item"><div class="signal-dot"></div><span>Lábios fazendo movimento de sucção</span></div>
+          <div class="signal-item"><div class="signal-dot"></div><span>Testa franzida, mãozinhas fechadas</span></div>
+        </div>
+        <div class="response-box">
+          <span class="response-label">Resposta gentil</span>
+          Ofereça o seio ou mamadeira. Se já foi alimentado há pouco, verifique o fraldão. Nessa fase, não existe mamar demais — existe necessidade legítima.
+        </div>
+      </div>
+    </div>
+
+    <!-- FRALDA -->
+    <div class="cry-card fralda">
+      <div class="cry-header">
+        <div class="cry-emoji">🌿</div>
+        <div class="cry-header-text">
+          <h3>O Choro do Desconforto</h3>
+          <div class="cry-type">Fralda · Temperatura · Roupa</div>
+        </div>
+      </div>
+      <div class="cry-body">
+        <div class="descriptor" style="border-color:#b0ccd8;">
+          Mais agudo, um pouco queixoso. Começa e para, recomeça. Como se o bebê estivesse reclamando em vez de urgindo. Tem "pausa" entre as ondas.
+        </div>
+        <div class="cry-signals-title">Sinais que aparecem antes</div>
+        <div class="sound-visual">
+          <div class="wave-bar" style="background:#7a9eb5;"></div>
+          <div class="wave-bar" style="background:#7a9eb5;"></div>
+          <div class="wave-bar" style="background:#7a9eb5;"></div>
+          <div class="wave-bar" style="background:#7a9eb5;"></div>
+          <div class="wave-bar" style="background:#7a9eb5;"></div>
+          <div class="wave-bar" style="background:#7a9eb5;"></div>
+          <div class="wave-bar" style="background:#7a9eb5;"></div>
+          <div class="wave-bar" style="background:#7a9eb5;"></div>
+          <div class="wave-bar" style="background:#7a9eb5;"></div>
+          <div class="wave-bar" style="background:#7a9eb5;"></div>
+          <span class="wave-label">ondas com pausas entre elas</span>
+        </div>
+        <div class="signal-list">
+          <div class="signal-item"><div class="signal-dot"></div><span>Agita as pernas em direção à barriga</span></div>
+          <div class="signal-item"><div class="signal-dot"></div><span>Recusa o seio mesmo com fome</span></div>
+          <div class="signal-item"><div class="signal-dot"></div><span>Pele avermelhada ou suada</span></div>
+          <div class="signal-item"><div class="signal-dot"></div><span>Arqueia as costas levemente</span></div>
+          <div class="signal-item"><div class="signal-dot"></div><span>Acalma brevemente quando pego no colo</span></div>
+        </div>
+        <div class="response-box">
+          <span class="response-label">Resposta gentil</span>
+          Revise fralda, temperatura da roupa, possível gás (massagem abdominal em O). Uma checagem calma e sistemática resolve — o bebê percebe a sua segurança.
+        </div>
+      </div>
+    </div>
+
+    <!-- EXCESSO DE ESTIMULO -->
+    <div class="cry-card estimulo">
+      <div class="cry-header">
+        <div class="cry-emoji">🌀</div>
+        <div class="cry-header-text">
+          <h3>O Choro da Sobrecarga</h3>
+          <div class="cry-type">Excesso de Estímulo Sensorial</div>
+        </div>
+      </div>
+      <div class="cry-body">
+        <div class="descriptor" style="border-color:#c8bfda;">
+          Agudo, inconsolável, às vezes em espiral. Piora quando você tenta distrair ou oferecer mais estímulo. É como um "sinal de emergência" do sistema nervoso.
+        </div>
+        <div class="cry-signals-title">Sinais que aparecem antes</div>
+        <div class="sound-visual">
+          <div class="wave-bar" style="background:#9b8eb5;"></div>
+          <div class="wave-bar" style="background:#9b8eb5;"></div>
+          <div class="wave-bar" style="background:#9b8eb5;"></div>
+          <div class="wave-bar" style="background:#9b8eb5;"></div>
+          <div class="wave-bar" style="background:#9b8eb5;"></div>
+          <div class="wave-bar" style="background:#9b8eb5;"></div>
+          <div class="wave-bar" style="background:#9b8eb5;"></div>
+          <div class="wave-bar" style="background:#9b8eb5;"></div>
+          <div class="wave-bar" style="background:#9b8eb5;"></div>
+          <div class="wave-bar" style="background:#9b8eb5;"></div>
+          <span class="wave-label">agudo e em espiral crescente</span>
+        </div>
+        <div class="signal-list">
+          <div class="signal-item"><div class="signal-dot"></div><span>Desvia o olhar de pessoas e brinquedos</span></div>
+          <div class="signal-item"><div class="signal-dot"></div><span>Costas arqueadas, corpo rígido</span></div>
+          <div class="signal-item"><div class="signal-dot"></div><span>Pior em ambientes barulhentos ou com muita gente</span></div>
+          <div class="signal-item"><div class="signal-dot"></div><span>Não se acalma com distração — piora</span></div>
+          <div class="signal-item"><div class="signal-dot"></div><span>Mãos abertas e tremendo levemente</span></div>
+        </div>
+        <div class="response-box">
+          <span class="response-label">Resposta gentil</span>
+          Menos é mais. Reduza luz, som, pessoas. Ambiente escuro e silencioso. Embale com movimento suave e constante. O silêncio é o remédio.
+        </div>
+      </div>
+    </div>
+
+    <!-- BRIGA CONTRA O SONO -->
+    <div class="cry-card briga">
+      <div class="cry-header">
+        <div class="cry-emoji">😤</div>
+        <div class="cry-header-text">
+          <h3>A Briga Contra o Sono</h3>
+          <div class="cry-type">Resistência ao Adormecimento</div>
+        </div>
+      </div>
+      <div class="cry-body">
+        <div class="descriptor" style="border-color:#b5c9a8;">
+          Irritado, reclamão, intercalado com bocejos. O bebê parece querer ficar acordado mas está claramente exausto. Tem um ritmo estranho — para, recomeça, para.
+        </div>
+        <div class="cry-signals-title">Sinais que aparecem antes</div>
+        <div class="sound-visual">
+          <div class="wave-bar" style="background:#8a9e7f;"></div>
+          <div class="wave-bar" style="background:#8a9e7f;"></div>
+          <div class="wave-bar" style="background:#8a9e7f;"></div>
+          <div class="wave-bar" style="background:#8a9e7f;"></div>
+          <div class="wave-bar" style="background:#8a9e7f;"></div>
+          <div class="wave-bar" style="background:#8a9e7f;"></div>
+          <div class="wave-bar" style="background:#8a9e7f;"></div>
+          <div class="wave-bar" style="background:#8a9e7f;"></div>
+          <div class="wave-bar" style="background:#8a9e7f;"></div>
+          <div class="wave-bar" style="background:#8a9e7f;"></div>
+          <span class="wave-label">irregular, intercalado com bocejos</span>
+        </div>
+        <div class="signal-list">
+          <div class="signal-item"><div class="signal-dot"></div><span>Olheira marcada, olho avermelhado</span></div>
+          <div class="signal-item"><div class="signal-dot"></div><span>Curva de interesse pelos brinquedos que cai de repente</span></div>
+          <div class="signal-item"><div class="signal-dot"></div><span>Pisca muito devagar, como em câmera lenta</span></div>
+          <div class="signal-item"><div class="signal-dot"></div><span>Boceja e imediatamente se irrita</span></div>
+          <div class="signal-item"><div class="signal-dot"></div><span>Faz força para não fechar os olhos</span></div>
+        </div>
+        <div class="response-box">
+          <span class="response-label">Resposta gentil</span>
+          Não insista nem force. Reduza estímulo. Leve para local familiar e calmo. Embale com ruído branco. Frequentemente é sinal de janela ligeiramente perdida — próxima vez, antecipe 15 minutos.
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end cry-grid -->
+
+  <div class="divider"><span class="divider-icon">🌱</span></div>
+
+  <!-- SALTOS DE DESENVOLVIMENTO -->
+  <div class="saltos-section">
+    <h2>🌊 Saltos de Desenvolvimento</h2>
+    <p class="intro">Saltos de desenvolvimento são períodos em que o cérebro do bebê cresce de forma explosiva. Nessas semanas, o sono fragmenta, a demanda aumenta, o choro fica incompreensível — e tudo isso é sinal de saúde, não de problema. É o seu filho ficando mais inteligente diante dos seus olhos.</p>
+
+    <div class="salto-cards">
+
+      <!-- 4 MESES -->
+      <div class="salto-card m4">
+        <div class="salto-top">
+          <div class="salto-badge">
+            4
+            <span class="months">meses</span>
+          </div>
+          <div class="salto-title">
+            <h3>O Grande Despertar</h3>
+            <p>O bebê descobre que existe um mundo além do colo. A arquitetura do sono muda para sempre. O que era "funcionando" pode parar — e não é culpa sua.</p>
+          </div>
+        </div>
+        <div class="salto-body">
+          <div>
+            <div class="salto-col-label">O que está acontecendo no cérebro</div>
+            <div class="salto-list">
+              <div class="salto-list-item"><span class="si">🧠</span><span>Ciclos de sono atingem estrutura de adulto — com mini-acordares entre ciclos</span></div>
+              <div class="salto-list-item"><span class="si">👁️</span><span>Visão expande — percebe profundidade, cores, rostos distintos</span></div>
+              <div class="salto-list-item"><span class="si">🗣️</span><span>Começa a entender cause-and-effect (eu choro → alguém vem)</span></div>
+              <div class="salto-list-item"><span class="si">🔊</span><span>Sons ganham significado — a sua voz se torna âncora de segurança</span></div>
+            </div>
+          </div>
+          <div>
+            <div class="salto-col-label">O que você vai observar</div>
+            <div class="salto-list">
+              <div class="salto-list-item"><span class="si">😴</span><span>Acordares noturnos frequentes que antes não existiam</span></div>
+              <div class="salto-list-item"><span class="si">🤱</span><span>Demanda de amamentação disparada (cluster feeding)</span></div>
+              <div class="salto-list-item"><span class="si">😤</span><span>Recusa de sono na cama — só dorme nos braços</span></div>
+              <div class="salto-list-item"><span class="si">📱</span><span>Hipersensibilidade a distrações durante as mamadas</span></div>
+            </div>
+          </div>
+          <div class="salto-insight">
+            Esta regressão não passa — o sono se reconfigura. A chave está em criar novas associações de adormecimento gentis, com presença. O bebê não regrediu; ele cresceu.
+          </div>
+        </div>
+      </div>
+
+      <!-- 8 MESES -->
+      <div class="salto-card m8">
+        <div class="salto-top">
+          <div class="salto-badge">
+            8
+            <span class="months">meses</span>
+          </div>
+          <div class="salto-title">
+            <h3>O Nascimento da Consciência</h3>
+            <p>O bebê descobre que você pode desaparecer. E que o desaparecimento dói. É assustador e é lindo — a ansiedade de separação é prova do vínculo que vocês construíram.</p>
+          </div>
+        </div>
+        <div class="salto-body">
+          <div>
+            <div class="salto-col-label">O que está acontecendo no cérebro</div>
+            <div class="salto-list">
+              <div class="salto-list-item"><span class="si">🧩</span><span>Permanência do objeto se consolida — sabe que você existe mesmo longe</span></div>
+              <div class="salto-list-item"><span class="si">🤔</span><span>Memória de trabalho aumenta — guarda rostos, vozes, rotinas</span></div>
+              <div class="salto-list-item"><span class="si">🚀</span><span>Mobilidade aumenta — engatinha, senta, explora — e precisa de âncora segura</span></div>
+              <div class="salto-list-item"><span class="si">💬</span><span>Comunicação pré-verbal explode — gestos, sons, intenção</span></div>
+            </div>
+          </div>
+          <div>
+            <div class="salto-col-label">O que você vai observar</div>
+            <div class="salto-list">
+              <div class="salto-list-item"><span class="si">😭</span><span>Choro intenso quando você sai do quarto — mesmo por segundos</span></div>
+              <div class="salto-list-item"><span class="si">🌙</span><span>Acordares noturnos pedindo presença física, não fome</span></div>
+              <div class="salto-list-item"><span class="si">😰</span><span>Medo de rostos desconhecidos — antes não existia</span></div>
+              <div class="salto-list-item"><span class="si">🛑</span><span>Resistência ao berço — quer o cheiro e o calor de você</span></div>
+            </div>
+          </div>
+          <div class="salto-insight">
+            Nunca foi tão difícil e nunca foi tão importante a sua presença. Responder ao chamado noturno nessa fase não cria dependência — cria neurônios de segurança que vão durar a vida toda.
+          </div>
+        </div>
+      </div>
+
+      <!-- 18 MESES -->
+      <div class="salto-card m18">
+        <div class="salto-top">
+          <div class="salto-badge">
+            18
+            <span class="months">meses</span>
+          </div>
+          <div class="salto-title">
+            <h3>A Tempestade da Autonomia</h3>
+            <p>Quer tudo ao mesmo tempo: independência e colo. Quer "eu mesmo" e mamãe. Essa contradição é o coração do desenvolvimento — e é completamente exaustiva para vocês dois.</p>
+          </div>
+        </div>
+        <div class="salto-body">
+          <div>
+            <div class="salto-col-label">O que está acontecendo no cérebro</div>
+            <div class="salto-list">
+              <div class="salto-list-item"><span class="si">🌪️</span><span>Explosão de linguagem — até 50 palavras, combinações de 2</span></div>
+              <div class="salto-list-item"><span class="si">🪞</span><span>Reconhece a si mesmo no espelho — "eu" começa a existir</span></div>
+              <div class="salto-list-item"><span class="si">🎭</span><span>Jogo simbólico nasce — imagina, representa, cria mundos</span></div>
+              <div class="salto-list-item"><span class="si">⚡</span><span>Córtex pré-frontal em desenvolvimento — regulação emocional = zero</span></div>
+            </div>
+          </div>
+          <div>
+            <div class="salto-col-label">O que você vai observar</div>
+            <div class="salto-list">
+              <div class="salto-list-item"><span class="si">🤯</span><span>Birras intensas na hora do sono — quer, não quer, quer</span></div>
+              <div class="salto-list-item"><span class="si">🔁</span><span>Pede a mesma rotina com precisão — qualquer mudança = colapso</span></div>
+              <div class="salto-list-item"><span class="si">🌙</span><span>Pesadelos e terror noturno podem começar aqui</span></div>
+              <div class="salto-list-item"><span class="si">👋</span><span>Separação na creche piora mesmo depois de superada</span></div>
+            </div>
+          </div>
+          <div class="salto-insight">
+            Aos 18 meses o seu filho não tem as ferramentas neurológicas para se regular. Ele não está manipulando — está sobrecarregado. A presença calma é o único regulador externo que ele tem.
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end salto-cards -->
+  </div><!-- end saltos-section -->
+
+  <!-- ANGÚSTIA DE SEPARAÇÃO -->
+  <div class="angustia-section">
+    <h2>🫂 Angústia de Separação</h2>
+    <p class="intro">A angústia de separação não é uma falha de apego — é o seu oposto. É porque o vínculo é forte que a separação dói. Entender isso muda tudo sobre como você responde.</p>
+
+    <div class="angustia-timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-age">Início: 6–8 meses — O Primeiro Pico</div>
+        <div class="timeline-desc">
+          O bebê descobriu a permanência do objeto mas ainda não domina o conceito de tempo. Não sabe que "5 minutos" é curto. Para ele, cada separação pode ser para sempre. Choro na saída da mãe do quarto é absolutamente esperado e saudável.
+        </div>
+        <div class="timeline-strategies">
+          <span class="strategy-tag">🔍 Peek-a-boo antes de sair</span>
+          <span class="strategy-tag">🗣️ Nomeie suas saídas "vou voltar logo"</span>
+          <span class="strategy-tag">🌀 Rotina de despedida previsível</span>
+          <span class="strategy-tag">👋 Sempre se despeça — nunca desapareça</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-age">Pico: 12–18 meses — A Grande Montanha</div>
+        <div class="timeline-desc">
+          Coincide com mobilidade máxima, autonomia nascente e ainda dependência total. A criança explora o mundo mas precisa verificar que a mãe está lá a cada 5 minutos. À noite, a separação do sono pode desencadear pânico real. Não é drama — é biologia.
+        </div>
+        <div class="timeline-strategies">
+          <span class="strategy-tag">🧸 Objeto de transição que cheira a você</span>
+          <span class="strategy-tag">🌙 Rotina noturna idêntica todo dia</span>
+          <span class="strategy-tag">📸 Foto sua no quarto dele</span>
+          <span class="strategy-tag">🤱 Mais colo durante o dia = menos noite difícil</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-age">Recaída: 24–30 meses — O Retorno Inesperado</div>
+        <div class="timeline-desc">
+          Quando você achava que tinha passado, ela volta — geralmente ligada a mudanças (nova escola, irmão, mudança de casa, viagem). O cérebro em desenvolvimento recalibra cada vez que o mundo muda. Não é regressão — é reorganização. Resista ao impulso de "resolver rápido".
+        </div>
+        <div class="timeline-strategies">
+          <span class="strategy-tag">🗓️ Antecipe mudanças com histórias simples</span>
+          <span class="strategy-tag">🫂 Aumente o contato físico preventivo</span>
+          <span class="strategy-tag">💬 Nomeie os sentimentos dela ("sei que sente saudade")</span>
+          <span class="strategy-tag">⏰ Não apresse a transição</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"><span class="divider-icon">🌾</span></div>
+
+  <!-- PELE A PELE -->
+  <div class="pele-section">
+    <h2>💛 Contato Pele a Pele</h2>
+    <p class="intro">Nos dias difíceis — saltos, angústia, doença, regressão — o pele a pele não é um "truque". É fisiologia pura. É o mais antigo e eficiente regulador do sistema nervoso humano que existe.</p>
+
+    <div class="pele-grid">
+      <div class="pele-card">
+        <div class="pele-card-icon">🌡️</div>
+        <h4>Termorregulação Mútua</h4>
+        <p>Seu peito regula a temperatura do bebê com precisão melhor que qualquer berço aquecido. O corpo da mãe sobe e desce temperatura para equilibrar o filho — é o termostato mais sofisticado da natureza.</p>
+        <span class="step-badge">1</span>
+      </div>
+      <div class="pele-card">
+        <div class="pele-card-icon">💓</div>
+        <h4>Sincronização Cardíaca</h4>
+        <p>Estudos mostram que a frequência cardíaca do bebê sincroniza com a da mãe em poucos minutos de pele a pele. O coração da mãe literalmente "ensina" o bebê a se regular.</p>
+        <span class="step-badge">2</span>
+      </div>
+      <div class="pele-card">
+        <div class="pele-card-icon">🧠</div>
+        <h4>Cortisol em Queda</h4>
+        <p>O cortisol (hormônio do estresse) cai em ambos — bebê e mãe — durante o contato pele a pele. É uma das poucas intervenções com evidência de redução rápida do estresse neonatal.</p>
+        <span class="step-badge">3</span>
+      </div>
+      <div class="pele-card">
+        <div class="pele-card-icon">🍼</div>
+        <h4>Prolactina e Leite</h4>
+        <p>O cheiro e o calor do bebê aumentam a prolactina na mãe. O pele a pele antes de mamar melhora o reflexo de saída do leite e a pega, especialmente nas noites de cluster feeding.</p>
+        <span class="step-badge">4</span>
+      </div>
+      <div class="pele-card">
+        <div class="pele-card-icon">😌</div>
+        <h4>Sono mais Profundo</h4>
+        <p>Bebês que têm pele a pele frequente durante os saltos tendem a ter sono mais profundo nas horas seguintes. O sistema nervoso descarrega e reinicia após o contato prolongado.</p>
+        <span class="step-badge">5</span>
+      </div>
+      <div class="pele-card">
+        <div class="pele-card-icon">🫶</div>
+        <h4>Ocitocina para Você</h4>
+        <p>A ocitocina liberada no pele a pele diminui a ansiedade e o esgotamento materno. Não é só para o bebê — é o seu reabastecimento emocional também. Você precisa tanto quanto ele.</p>
+        <span class="step-badge">6</span>
+      </div>
+    </div>
+
+    <div class="oxytocin-bar">
+      <div class="oxy-text">
+        <h4>🔬 O Circuito da Ocitocina</h4>
+        <p>Quando você toca o bebê, abraça, amamenta ou simplesmente o segura no peito, o seu cérebro libera ocitocina — o "hormônio do amor". Isso reduz o cortisol, aumenta a sensação de vínculo, e literalmente torna o choro menos angustiante para você. Nos dias mais pesados, lembre: seu corpo foi feito para isso, e o dele foi feito para o seu.</p>
+      </div>
+      <div class="molecule-visual">
+        <div class="molecule-dot"></div>
+        <div class="molecule-dot"></div>
+        <div class="molecule-dot"></div>
+        <div class="molecule-dot"></div>
+        <div class="molecule-dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETONIFICAR O AMBIENTE -->
+  <div class="ambiente-section">
+    <h2>🌿 Retonificando o Ambiente nos Dias Difíceis</h2>
+    <p class="intro">Salto de desenvolvimento, regressão, dentição — o ambiente em que o bebê dorme precisa ser ajustado nessas fases. Não é mimação. É neurociência ambiental.</p>
+
+    <div class="ambiente-grid">
+      <div class="ambiente-card">
+        <div class="ambiente-icon">🌑</div>
+        <div class="ambiente-text">
+          <h4>Escuridão Total</h4>
+          <p>Nos dias de salto, o cérebro superestimulado precisa de ausência completa de luz para deprimir o cortisol. Invista em cortinas blackout ou coloque um lençol escuro na janela. Diferença imediata.</p>
+        </div>
+      </div>
+      <div class="ambiente-card">
+        <div class="ambiente-icon">🌊</div>
+        <div class="ambiente-text">
+          <h4>Ruído Branco ou Rosa</h4>
+          <p>Imita o som do útero — onde o bebê passou 9 meses. Em fases difíceis, eleve o volume para 60–65dB (o de uma chuveiro próximo). O ruído branco "mascara" sons externos que disparam o cortisol.</p>
+        </div>
+      </div>
+      <div class="ambiente-card">
+        <div class="ambiente-icon">🌡️</div>
+        <div class="ambiente-text">
+          <h4>Temperatura Fresca</h4>
+          <p>Entre 20–22°C é o intervalo ideal para sono profundo. Ambientes quentes elevam o cortisol e fragmentam os ciclos. Se não tem ar-condicionado, um ventilador indiretamente circulando funciona.</p>
+        </div>
+      </div>
+      <div class="ambiente-card">
+        <div class="ambiente-icon">👕</div>
+        <div class="ambiente-text">
+          <h4>Seu Cheiro no Berço</h4>
+          <p>Deixe uma peça de roupa sua — usada, com o seu cheiro — próxima ao rosto do bebê no berço (nunca sob a cabeça). O olfato é o sentido mais antigo e o que mais acessa segurança primária.</p>
+        </div>
+      </div>
+      <div class="ambiente-card">
+        <div class="ambiente-icon">🕯️</div>
+        <div class="ambiente-text">
+          <h4>Ritual de Desaceleração</h4>
+          <p>Nos dias de salto, estenda a rotina pré-sono em 50%. Mais banho morno, mais massagem, mais amamentação. O corpo precisa de mais tempo para sair do modo "alerta" que o salto ativa.</p>
+        </div>
+      </div>
+      <div class="ambiente-card">
+        <div class="ambiente-icon">🤫</div>
+        <div class="ambiente-text">
+          <h4>Sua Calma é o Ambiente</h4>
+          <p>O bebê co-regula com o sistema nervoso da mãe. Se você entra no quarto em colapso de ansiedade, o cortisol dele dispara. Respire fundo três vezes antes de entrar. O seu estado interno é o ambiente mais poderoso.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLOSING NOTE -->
+  <div class="closing-note">
+    <p>Você não precisa entender tudo de uma vez. Não precisa aplicar tudo essa semana. Esse dicionário é uma referência — use um capítulo de cada vez, quando precisar. E nos dias em que o seu bebê não seguir nenhum padrão deste guia, lembre que ele não leu o livro, e tudo bem. Você está fazendo o suficiente. Vocês dois estão aprendendo juntos, em tempo real, e não existe nada mais lindo ou mais corajoso do que isso.</p>
+    <div class="author" style="color:var(--sage-dark);">— Com amor e muita calma ☁️ · Guia do Sono</div>
+  </div>
+
+  <footer>
+    <div class="logo">Guia do <span>Sono</span></div>
+    <p>Sono gentil para famílias reais · Sem choro · Com conexão · Com presença</p>
+  </footer>
+
+</div>
+</body>
+</html>
