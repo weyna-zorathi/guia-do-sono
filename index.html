@@ -3,248 +3,912 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guia do Sono • Casulo de Paz</title>
+<title>Guia do Sono</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --cream: #faf6ef;
-  --sage: #8a9e7f;
-  --terra: #c47a52;
-  --night: #2c3e2d;
-  --brown: #7a5c3e;
+  --cream:  #faf6ef;
+  --linen:  #ede5d8;
+  --linen2: #d8ccb8;
+  --sage:   #8a9e7f;
+  --sage-p: #edf3ea;
+  --terra:  #c47a52;
+  --terra-p:#fdf0ea;
+  --night:  #1f2c21;
+  --brown:  #7a5c3e;
+  --brown2: #a07850;
+  --gold:   #c9a84c;
+  --gold-p: #faf3df;
 }
-* { margin:0; padding:0; box-sizing:border-box; }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; overflow:hidden; }
 body {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  background: var(--cream);
-  color: var(--brown);
-  min-height: 100vh;
-  overflow-x: hidden;
+  font-family:'DM Sans', system-ui, sans-serif;
+  background:var(--cream); color:var(--brown);
 }
-.screen { display: none; min-height: 100vh; }
-.screen.active { display: flex; flex-direction: column; }
+
+/* ── SCREENS ── */
+.screen { display:none; flex-direction:column; height:100dvh; overflow:hidden; }
+.screen.active { display:flex; }
+.scroll-area { flex:1; overflow-y:auto; }
+.nav-offset { padding-bottom:calc(70px + env(safe-area-inset-bottom)); }
+
+/* ── NAV ── */
 .nav-bar {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  background: rgba(250,246,239,0.98);
-  backdrop-filter: blur(20px);
-  border-top: 1px solid #d8ccb8;
-  display: flex;
-  justify-content: space-around;
-  padding: 12px 0 max(12px, env(safe-area-inset-bottom));
-  z-index: 100;
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+  position:fixed; bottom:0; left:0; right:0; z-index:200;
+  background:rgba(250,246,239,0.97);
+  backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
+  border-top:1px solid var(--linen2);
+  display:flex; justify-content:space-around;
+  padding:10px 0 max(10px, env(safe-area-inset-bottom));
+  box-shadow:0 -2px 20px rgba(0,0,0,0.06);
 }
 .nav-item {
-  display: flex; flex-direction: column; align-items: center;
-  gap: 4px; color: #a07850; font-size: 10px; font-weight: 500;
-  padding: 6px 12px; border-radius: 16px; transition: all 0.3s;
-  background: none; border: none; cursor: pointer;
+  display:flex; flex-direction:column; align-items:center;
+  gap:3px; font-size:10px; font-weight:500; letter-spacing:0.2px;
+  color:var(--brown2); padding:6px 16px; border-radius:14px;
+  background:none; border:none; cursor:pointer; transition:all 0.22s;
 }
-.nav-item.active { color: var(--terra); background: rgba(196,122,82,0.08); }
-.nav-item .nav-icon { font-size: 26px; }
-#screen-chat { background: #f8f4eb; padding-bottom: 160px; }
+.nav-item .ni { font-size:22px; line-height:1.1; }
+.nav-item.active { color:var(--terra); background:rgba(196,122,82,0.09); }
+
+/* ═══════════════════════════════════
+   ① HOME
+═══════════════════════════════════ */
+#screen-home { background:var(--cream); }
+.home-header {
+  background:var(--night); padding:28px 22px 32px; flex-shrink:0;
+}
+.home-logo {
+  font-family:'Playfair Display',serif; font-size:1.6rem;
+  font-weight:700; color:#fff; letter-spacing:-0.3px;
+}
+.home-logo span { color:#a8c49c; font-style:italic; }
+.home-tagline { color:rgba(255,255,255,0.5); font-size:0.78rem; font-weight:300; margin-top:4px; }
+
+.home-body { padding:20px 18px 0; }
+
+.cta-card {
+  background:var(--terra); border-radius:18px; padding:20px 20px;
+  display:flex; align-items:center; gap:14px; cursor:pointer;
+  box-shadow:0 8px 28px rgba(196,122,82,0.3); transition:transform 0.18s;
+  margin-bottom:22px;
+}
+.cta-card:active { transform:scale(0.98); }
+.cta-icon {
+  width:50px; height:50px; background:rgba(255,255,255,0.18);
+  border-radius:50%; display:flex; align-items:center;
+  justify-content:center; font-size:24px; flex-shrink:0;
+}
+.cta-t { color:#fff; font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:600; margin-bottom:3px; }
+.cta-s { color:rgba(255,255,255,0.7); font-size:0.78rem; }
+.cta-arr { color:rgba(255,255,255,0.55); font-size:1.3rem; margin-left:auto; }
+
+.section-label {
+  font-size:9px; letter-spacing:2px; text-transform:uppercase;
+  font-weight:600; color:var(--brown2); margin-bottom:10px;
+}
+.mat-grid { display:grid; grid-template-columns:1fr 1fr; gap:11px; margin-bottom:20px; }
+.mat-card {
+  background:#fff; border:1px solid var(--linen2); border-radius:15px;
+  padding:16px 14px; cursor:pointer; transition:transform 0.18s, box-shadow 0.18s;
+}
+.mat-card:active { transform:scale(0.97); }
+.mat-card:hover  { box-shadow:0 5px 18px rgba(0,0,0,0.07); }
+.mat-card-icon { font-size:24px; margin-bottom:9px; }
+.mat-card-title { font-weight:600; font-size:0.83rem; color:var(--night); margin-bottom:3px; line-height:1.3; }
+.mat-card-desc  { font-size:0.74rem; color:var(--brown2); line-height:1.5; }
+
+.tip-banner {
+  background:var(--sage-p); border:1px solid rgba(138,158,127,0.28);
+  border-radius:13px; padding:14px 16px; display:flex; gap:11px;
+  align-items:flex-start; margin-bottom:20px;
+}
+.tip-icon { font-size:20px; flex-shrink:0; }
+.tip-text { font-size:0.8rem; color:var(--night); line-height:1.6; }
+.tip-text strong { color:var(--terra); }
+
+/* ═══════════════════════════════════
+   ② CHAT
+═══════════════════════════════════ */
+#screen-chat { background:#f5f0e8; }
+
 .chat-header {
-  background: #1f2c21; padding: 18px 20px;
-  display: flex; align-items: center; gap: 14px;
-  position: sticky; top: 0; z-index: 20;
+  background:var(--night); padding:13px 16px;
+  display:flex; align-items:center; gap:11px; flex-shrink:0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
 }
-.chat-avatar {
-  width: 52px; height: 52px; background: rgba(232,169,126,0.3);
-  border-radius: 50%; display: flex; align-items: center;
-  justify-content: center; font-size: 28px;
-  border: 3px solid rgba(232,169,126,0.5);
+.chat-av {
+  width:42px; height:42px; background:rgba(138,158,127,0.2);
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:19px; border:2px solid rgba(138,158,127,0.32); flex-shrink:0;
 }
+.chat-hdn { color:#fff; font-weight:600; font-size:0.95rem; }
+.chat-hds { color:rgba(255,255,255,0.48); font-size:0.74rem; font-weight:300; margin-top:1px; }
+.status-dot {
+  width:7px; height:7px; background:#6fcf8a; border-radius:50%;
+  box-shadow:0 0 5px #6fcf8a80; margin-left:auto;
+}
+
 .chat-messages {
-  flex: 1; padding: 24px 20px; overflow-y: auto;
-  display: flex; flex-direction: column; gap: 18px; background: #f8f4eb;
+  flex:1; overflow-y:auto; padding:18px 13px;
+  display:flex; flex-direction:column; gap:13px;
+  padding-bottom:calc(118px + env(safe-area-inset-bottom));
 }
-.msg-row { display: flex; gap: 12px; align-items: flex-end; }
-.msg-row.user { flex-direction: row-reverse; }
+
+.msg-row {
+  display:flex; gap:8px; align-items:flex-end;
+  max-width:700px; width:100%; margin:0 auto;
+  animation:fadeUp 0.27s ease both;
+}
+.msg-row.user { flex-direction:row-reverse; }
+.msg-av {
+  width:29px; height:29px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:13px;
+}
+.msg-row:not(.user) .msg-av { background:rgba(138,158,127,0.15); }
+.msg-row.user       .msg-av { background:rgba(196,122,82,0.13); }
 .msg-bubble {
-  max-width: 82%; padding: 15px 20px; border-radius: 24px;
-  font-size: 0.95rem; line-height: 1.65;
+  max-width:80%; padding:12px 15px; border-radius:19px;
+  font-size:0.88rem; line-height:1.68;
 }
 .msg-row:not(.user) .msg-bubble {
-  background: white; border: 1px solid #e5d9c8; border-bottom-left-radius: 8px;
+  background:#fff; border:1px solid #e8dfd0;
+  border-bottom-left-radius:4px; color:#3a2e22;
+  box-shadow:0 2px 8px rgba(0,0,0,0.04);
 }
 .msg-row.user .msg-bubble {
-  background: var(--terra); color: white; border-bottom-right-radius: 8px;
+  background:var(--terra); color:#fff;
+  border-bottom-right-radius:4px;
+  box-shadow:0 4px 14px rgba(196,122,82,0.27);
 }
-.msg-bubble-avatar {
-  width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; background: rgba(196,122,82,0.15);
+.msg-bubble strong { font-weight:600; }
+.msg-bubble ul { padding-left:15px; margin:5px 0; }
+.msg-bubble li { margin:3px 0; line-height:1.6; }
+.msg-bubble p + p { margin-top:6px; }
+
+.typing-bubble {
+  background:#fff; border:1px solid #e8dfd0;
+  border-radius:19px; border-bottom-left-radius:4px;
+  padding:12px 15px; display:flex; gap:5px; align-items:center;
 }
-.chat-input-area {
-  padding: 16px 20px; background: rgba(248,244,235,0.97);
-  border-top: 1px solid #d8ccb8;
-  position: fixed; bottom: 70px; left: 0; right: 0; z-index: 50;
+.t-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:var(--terra); opacity:0.4;
+  animation:tPulse 1.4s infinite ease-in-out;
 }
-.chat-input-area .input-wrapper {
-  display: flex; gap: 12px; align-items: flex-end;
-  max-width: 720px; margin: 0 auto;
+.t-dot:nth-child(2) { animation-delay:.2s; }
+.t-dot:nth-child(3) { animation-delay:.4s; }
+@keyframes tPulse {
+  0%,100% { transform:translateY(0); opacity:0.3; }
+  50%      { transform:translateY(-4px); opacity:1; }
 }
-.chat-textarea {
-  flex: 1; background: white; border: 2px solid #d8ccb8;
-  border-radius: 30px; padding: 16px 22px;
-  font-size: 1.02rem; font-family: 'DM Sans', system-ui, sans-serif;
-  resize: none; min-height: 56px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05); outline: none;
+
+.chat-input-wrap {
+  position:fixed;
+  bottom:calc(58px + env(safe-area-inset-bottom));
+  left:0; right:0; z-index:100;
+  background:rgba(245,240,232,0.97);
+  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  border-top:1px solid var(--linen2); padding:9px 13px;
 }
-.chat-textarea:focus { border-color: var(--terra); }
-.chat-send-btn {
-  width: 56px; height: 56px; background: #c47a52; color: white;
-  border: none; border-radius: 50%; font-size: 24px;
-  box-shadow: 0 8px 25px rgba(196,122,82,0.45);
-  cursor: pointer; flex-shrink: 0; transition: transform 0.15s;
+.chips-row {
+  display:flex; gap:7px; overflow-x:auto;
+  scrollbar-width:none; padding-bottom:9px;
+  max-width:700px; margin:0 auto;
 }
-.chat-send-btn:active { transform: scale(0.95); }
-.chat-send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-@keyframes typing {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+.chips-row::-webkit-scrollbar { display:none; }
+.chip {
+  flex-shrink:0; background:rgba(138,158,127,0.11);
+  border:1px solid rgba(138,158,127,0.26); color:var(--brown);
+  font-size:0.74rem; font-weight:500; padding:5px 11px;
+  border-radius:18px; cursor:pointer; white-space:nowrap;
+  transition:all 0.17s; font-family:'DM Sans',system-ui,sans-serif;
 }
+.chip:hover { background:rgba(196,122,82,0.09); border-color:rgba(196,122,82,0.28); color:var(--terra); }
+
+.input-row {
+  display:flex; gap:8px; align-items:flex-end;
+  max-width:700px; margin:0 auto;
+}
+.chat-ta {
+  flex:1; background:#fff; border:1.5px solid #d8ccb8;
+  border-radius:21px; padding:10px 15px;
+  font-size:0.9rem; font-family:'DM Sans',system-ui,sans-serif;
+  color:var(--brown); resize:none; min-height:44px; max-height:108px;
+  outline:none; line-height:1.5; transition:border-color 0.2s;
+}
+.chat-ta:focus { border-color:var(--terra); }
+.chat-ta::placeholder { color:#b8a898; }
+.send-btn {
+  width:44px; height:44px; background:var(--terra); color:#fff;
+  border:none; border-radius:50%; font-size:17px; cursor:pointer;
+  flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 5px 16px rgba(196,122,82,0.36);
+  transition:transform 0.15s, opacity 0.2s;
+}
+.send-btn:hover { transform:scale(1.06); }
+.send-btn:active { transform:scale(0.94); }
+.send-btn:disabled { opacity:0.42; cursor:not-allowed; transform:none; }
+
+/* ═══════════════════════════════════
+   ③ BIBLIOTECA
+═══════════════════════════════════ */
+#screen-library { background:var(--cream); }
+.lib-header { background:var(--night); padding:24px 20px 28px; flex-shrink:0; }
+.lib-h-title { font-family:'Playfair Display',serif; font-size:1.45rem; font-weight:700; color:#fff; margin-bottom:4px; }
+.lib-h-sub   { color:rgba(255,255,255,0.48); font-size:0.78rem; font-weight:300; }
+
+.lib-body { padding:18px 16px 0; }
+
+.lib-card {
+  background:#fff; border:1px solid var(--linen2);
+  border-radius:16px; overflow:hidden; margin-bottom:12px;
+  cursor:pointer; transition:transform 0.17s, box-shadow 0.17s;
+}
+.lib-card:active { transform:scale(0.98); }
+.lib-card:hover  { box-shadow:0 5px 20px rgba(0,0,0,0.07); }
+.lib-card-strip { height:4px; }
+.lib-card-body  { padding:16px 16px 14px; display:flex; gap:12px; align-items:flex-start; }
+.lib-card-icon  {
+  width:44px; height:44px; border-radius:13px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; flex-shrink:0;
+}
+.lib-card-info { flex:1; min-width:0; }
+.lib-card-title { font-weight:600; font-size:0.87rem; color:var(--night); margin-bottom:3px; }
+.lib-card-desc  { font-size:0.76rem; color:var(--brown2); line-height:1.52; }
+.lib-tags { display:flex; gap:5px; flex-wrap:wrap; margin-top:7px; }
+.lib-tag {
+  font-size:0.68rem; font-weight:500; padding:2px 8px;
+  border-radius:8px; letter-spacing:0.2px;
+}
+.lib-arr { font-size:1.1rem; color:var(--linen2); margin-top:1px; flex-shrink:0; }
+
+/* ═══════════════════════════════════
+   ④ PLANOS
+═══════════════════════════════════ */
+#screen-plans { background:var(--cream); }
+.plans-header {
+  background:var(--night); padding:24px 20px 28px;
+  text-align:center; flex-shrink:0;
+}
+.plans-h-label { font-size:9px; letter-spacing:2.5px; text-transform:uppercase; color:rgba(255,255,255,0.38); margin-bottom:7px; }
+.plans-h-title { font-family:'Playfair Display',serif; font-size:1.55rem; font-weight:700; color:#fff; line-height:1.2; margin-bottom:5px; }
+.plans-h-title em { color:#a8c49c; font-style:italic; }
+.plans-h-sub { color:rgba(255,255,255,0.48); font-size:0.78rem; font-weight:300; }
+
+.plans-body { padding:18px 16px 0; }
+
+.plan-card { background:#fff; border:1.5px solid var(--linen2); border-radius:18px; overflow:hidden; margin-bottom:14px; }
+.plan-card.plus    { border-color:var(--terra); }
+.plan-card.premium { border-color:var(--gold); background:var(--night); }
+
+.plan-head { padding:18px 18px 14px; border-bottom:1px solid var(--linen); }
+.plan-card.premium .plan-head { border-bottom-color:rgba(255,255,255,0.07); }
+.plan-badge {
+  display:inline-block; font-size:9px; letter-spacing:1.8px; text-transform:uppercase;
+  font-weight:600; padding:3px 9px; border-radius:18px; margin-bottom:7px;
+}
+.badge-free    { background:var(--sage-p); color:var(--sage); }
+.badge-plus    { background:var(--terra-p); color:var(--terra); }
+.badge-premium { background:rgba(201,168,76,0.15); color:#b89020; }
+.popular-pill {
+  display:inline-block; background:var(--terra); color:#fff;
+  font-size:8px; letter-spacing:1.5px; text-transform:uppercase;
+  font-weight:600; padding:3px 9px; border-radius:18px; margin-left:7px; vertical-align:middle;
+}
+.plan-name { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--night); margin-bottom:4px; }
+.plan-card.premium .plan-name { color:#faf6ef; }
+.plan-sub { font-size:0.77rem; color:var(--brown2); line-height:1.5; }
+.plan-card.premium .plan-sub { color:rgba(250,246,239,0.52); }
+
+.plan-body-s { padding:16px 18px 18px; }
+
+.feat-list { list-style:none; display:flex; flex-direction:column; gap:9px; }
+.feat-item { display:flex; align-items:flex-start; gap:9px; font-size:0.81rem; color:var(--brown); line-height:1.52; }
+.feat-dot {
+  width:21px; height:21px; border-radius:50%; background:var(--sage-p);
+  display:flex; align-items:center; justify-content:center;
+  font-size:10px; flex-shrink:0;
+}
+
+.plus-row { display:flex; align-items:flex-start; gap:11px; margin-bottom:12px; }
+.plus-row:last-of-type { margin-bottom:0; }
+.plus-icon-box {
+  width:32px; height:32px; border-radius:9px;
+  background:var(--terra-p); border:1px solid rgba(196,122,82,0.22);
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; flex-shrink:0;
+}
+.plus-row-title { font-weight:600; font-size:0.81rem; color:var(--night); margin-bottom:2px; }
+.plus-row-desc  { font-size:0.75rem; color:var(--brown2); line-height:1.5; }
+.tech-chip {
+  display:inline-block; font-size:7px; letter-spacing:1px; text-transform:uppercase;
+  font-weight:600; padding:2px 6px; border-radius:6px;
+  background:var(--terra-p); color:var(--terra); margin-left:4px; vertical-align:middle;
+}
+.live-dot {
+  display:inline-block; width:5px; height:5px; border-radius:50%;
+  background:var(--terra); margin-left:3px; vertical-align:middle;
+  animation:livePulse 1.8s infinite;
+}
+@keyframes livePulse { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
+
+.prem-items { display:flex; flex-direction:column; gap:8px; margin-bottom:4px; }
+.prem-label { font-size:0.72rem; color:rgba(250,246,239,0.38); margin-bottom:11px; letter-spacing:0.5px; }
+.prem-item {
+  display:flex; align-items:center; gap:9px; padding:9px 11px;
+  border-radius:11px; background:rgba(255,255,255,0.05);
+  border:1px solid rgba(201,168,76,0.17);
+}
+.prem-item-icon { font-size:14px; width:22px; text-align:center; flex-shrink:0; }
+.prem-item-name { font-size:0.81rem; font-weight:500; color:#e8d49a; margin-bottom:1px; }
+.prem-item-sub  { font-size:0.73rem; color:rgba(250,246,239,0.43); }
+
+.plan-cta {
+  display:block; width:100%; padding:13px;
+  border:none; border-radius:13px; font-size:0.88rem; font-weight:600;
+  cursor:pointer; text-align:center; margin-top:14px;
+  font-family:'DM Sans',system-ui,sans-serif;
+  transition:transform 0.14s, opacity 0.14s;
+}
+.plan-cta:active { transform:scale(0.98); }
+.cta-free    { background:var(--sage-p); color:var(--sage); }
+.cta-plus    { background:var(--terra); color:#fff; box-shadow:0 5px 18px rgba(196,122,82,0.3); }
+.cta-premium { background:rgba(201,168,76,0.18); color:var(--gold); border:1px solid rgba(201,168,76,0.28); }
+
+/* ═══════════════════════════════════
+   DOC VIEWER OVERLAY
+═══════════════════════════════════ */
+.doc-viewer {
+  display:none; position:fixed; inset:0; z-index:500;
+  flex-direction:column; background:#fff;
+}
+.doc-viewer.open { display:flex; }
+.doc-viewer-hd {
+  background:var(--night); padding:13px 16px;
+  display:flex; align-items:center; gap:11px; flex-shrink:0;
+}
+.doc-back {
+  background:rgba(255,255,255,0.1); border:none; color:#fff;
+  font-size:0.83rem; font-weight:500; padding:6px 13px;
+  border-radius:18px; cursor:pointer; display:flex; align-items:center; gap:5px;
+  transition:background 0.17s; font-family:'DM Sans',system-ui,sans-serif;
+}
+.doc-back:hover { background:rgba(255,255,255,0.17); }
+.doc-viewer-title {
+  color:#fff; font-weight:600; font-size:0.92rem;
+  flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.doc-frame { flex:1; border:none; width:100%; }
+
+/* ═══════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-thumb { background:var(--linen2); border-radius:3px; }
 </style>
 </head>
 <body>
 
-<div id="screen-chat" class="screen active">
-  <div class="chat-header">
-    <div class="chat-avatar">🌿</div>
-    <div>
-      <div style="color:white;font-weight:600;font-size:1.15rem;">Guia do Sono</div>
-      <div style="color:rgba(255,255,255,0.75);font-size:0.85rem;">Especialista em sono gentil • 0 a 5 anos</div>
-    </div>
+<!-- ══════════ ① HOME ══════════ -->
+<div id="screen-home" class="screen active">
+  <div class="home-header">
+    <div class="home-logo">Guia do <span>Sono</span></div>
+    <div class="home-tagline">Consultora técnica · sono gentil 0–5 anos</div>
   </div>
 
-  <div id="chatMessages" class="chat-messages">
-    <div class="msg-row">
-      <div class="msg-bubble-avatar">🌿</div>
-      <div class="msg-bubble">
-        Olá, mamãe ❤️<br><br>
-        Que bom que você está aqui. Sei como as noites podem ser exaustivas.<br>
-        Me conta: como está o sono do seu bebê hoje? Estou aqui para te ajudar com calma e carinho.
+  <div class="scroll-area nav-offset">
+    <div class="home-body">
+      <div style="height:18px;"></div>
+
+      <div class="cta-card" onclick="goTo('chat')">
+        <div class="cta-icon">🌙</div>
+        <div>
+          <div class="cta-t">Falar com a Guia</div>
+          <div class="cta-s">Diagnóstico técnico em tempo real</div>
+        </div>
+        <div class="cta-arr">›</div>
       </div>
-    </div>
-  </div>
 
-  <div class="chat-input-area">
-    <div class="input-wrapper">
-      <textarea id="chatInput" class="chat-textarea"
-        placeholder="Como está o sono do seu bebê hoje?"
-        rows="1"
-        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}"></textarea>
-      <button class="chat-send-btn" id="sendBtn" onclick="sendMessage()">↑</button>
+      <div class="section-label">Materiais de Referência</div>
+      <div class="mat-grid">
+        <div class="mat-card" onclick="openDoc('tabela-mestra-sono.html','📋 Tabela Mestra')">
+          <div class="mat-card-icon">📋</div>
+          <div class="mat-card-title">Tabela Mestra</div>
+          <div class="mat-card-desc">Janelas por faixa etária e sinais de sono</div>
+        </div>
+        <div class="mat-card" onclick="openDoc('dicionario-sensorial-bebe.html','📖 Dicionário Sensorial')">
+          <div class="mat-card-icon">📖</div>
+          <div class="mat-card-title">Dicionário Sensorial</div>
+          <div class="mat-card-desc">Choros, saltos e sinais por fase</div>
+        </div>
+        <div class="mat-card" onclick="openDoc('ritual-de-ouro-ebook.html','🌟 Ritual de Ouro')">
+          <div class="mat-card-icon">🌟</div>
+          <div class="mat-card-title">Ritual de Ouro</div>
+          <div class="mat-card-desc">Protocolo noturno passo a passo</div>
+        </div>
+        <div class="mat-card" onclick="openDoc('autonomia-com-afeto.html','🌱 Autonomia com Afeto')">
+          <div class="mat-card-icon">🌱</div>
+          <div class="mat-card-title">Autonomia com Afeto</div>
+          <div class="mat-card-desc">Independência gradual com presença</div>
+        </div>
+      </div>
+
+      <div class="tip-banner">
+        <div class="tip-icon">💡</div>
+        <div class="tip-text"><strong>Dica técnica:</strong> Janela perdida = antecipar <strong>15 min</strong> na próxima. Cortisol alto dificulta o sono mesmo quando o bebê está exausto.</div>
+      </div>
+
+      <div class="section-label">Plano</div>
+      <div class="lib-card" onclick="goTo('plans')" style="margin-bottom:0;">
+        <div class="lib-card-body">
+          <div class="lib-card-icon" style="background:var(--terra-p);">🌟</div>
+          <div class="lib-card-info">
+            <div class="lib-card-title">Planos Disponíveis</div>
+            <div class="lib-card-desc">Gratuito · Plus · Premium</div>
+          </div>
+          <div class="lib-arr">›</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- ══════════ ② CHAT ══════════ -->
+<div id="screen-chat" class="screen">
+  <div class="chat-header">
+    <div class="chat-av">🌿</div>
+    <div>
+      <div class="chat-hdn">Guia do Sono</div>
+      <div class="chat-hds">Consultora técnica · 0–5 anos</div>
+    </div>
+    <div class="status-dot"></div>
+  </div>
+
+  <div id="chatMessages" class="chat-messages">
+    <div class="msg-row">
+      <div class="msg-av">🌿</div>
+      <div class="msg-bubble">
+        Olá. Sou a Guia do Sono.<br><br>
+        Informe a <strong>idade do bebê</strong> e o <strong>problema principal</strong> — vou direto ao diagnóstico técnico.
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-input-wrap">
+    <div class="chips-row">
+      <div class="chip" onclick="useChip(this)">Bebê não pega no sono</div>
+      <div class="chip" onclick="useChip(this)">Acorda muitas vezes</div>
+      <div class="chip" onclick="useChip(this)">Sonecas curtas</div>
+      <div class="chip" onclick="useChip(this)">Recusa o berço</div>
+      <div class="chip" onclick="useChip(this)">Horário bagunçado</div>
+      <div class="chip" onclick="useChip(this)">Como ler o choro?</div>
+    </div>
+    <div class="input-row">
+      <textarea id="chatInput" class="chat-ta"
+        placeholder="Informe a idade e o problema…" rows="1"
+        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}"></textarea>
+      <button class="send-btn" id="sendBtn" onclick="sendMessage()">↑</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ ③ BIBLIOTECA ══════════ -->
+<div id="screen-library" class="screen">
+  <div class="lib-header">
+    <div class="lib-h-title">Biblioteca</div>
+    <div class="lib-h-sub">Todos os materiais técnicos em um lugar</div>
+  </div>
+
+  <div class="scroll-area nav-offset">
+    <div class="lib-body">
+      <div style="height:4px;"></div>
+      <div class="section-label">Referência Técnica</div>
+
+      <div class="lib-card" onclick="openDoc('tabela-mestra-sono.html','📋 Tabela Mestra de Sono')">
+        <div class="lib-card-strip" style="background:linear-gradient(90deg,#8a9e7f,#c47a52);"></div>
+        <div class="lib-card-body">
+          <div class="lib-card-icon" style="background:#edf3ea;">📋</div>
+          <div class="lib-card-info">
+            <div class="lib-card-title">Tabela Mestra de Sono</div>
+            <div class="lib-card-desc">Janelas de acordado, número de sonecas e sinais sutis por faixa etária. Referência central do sistema.</div>
+            <div class="lib-tags">
+              <span class="lib-tag" style="background:#edf3ea;color:#5a7050;">0–5 anos</span>
+              <span class="lib-tag" style="background:var(--terra-p);color:var(--terra);">Janelas</span>
+              <span class="lib-tag" style="background:#f5f0e8;color:var(--brown2);">Sinais</span>
+            </div>
+          </div>
+          <div class="lib-arr">›</div>
+        </div>
+      </div>
+
+      <div class="lib-card" onclick="openDoc('dicionario-sensorial-bebe.html','📖 Dicionário Sensorial')">
+        <div class="lib-card-strip" style="background:linear-gradient(90deg,#c47a52,#c9a84c);"></div>
+        <div class="lib-card-body">
+          <div class="lib-card-icon" style="background:var(--terra-p);">📖</div>
+          <div class="lib-card-info">
+            <div class="lib-card-title">Dicionário Sensorial do Bebê</div>
+            <div class="lib-card-desc">Decodificador de choros, sinais físicos e saltos de desenvolvimento por fase.</div>
+            <div class="lib-tags">
+              <span class="lib-tag" style="background:var(--terra-p);color:var(--terra);">Choros</span>
+              <span class="lib-tag" style="background:var(--gold-p);color:#9a7400;">Saltos</span>
+              <span class="lib-tag" style="background:#edf3ea;color:#5a7050;">Sinais</span>
+            </div>
+          </div>
+          <div class="lib-arr">›</div>
+        </div>
+      </div>
+
+      <div style="height:16px;"></div>
+      <div class="section-label">Guias Práticos</div>
+
+      <div class="lib-card" onclick="openDoc('ritual-de-ouro-ebook.html','🌟 Ritual de Ouro')">
+        <div class="lib-card-strip" style="background:linear-gradient(90deg,#c9a84c,#8a9e7f);"></div>
+        <div class="lib-card-body">
+          <div class="lib-card-icon" style="background:var(--gold-p);">🌟</div>
+          <div class="lib-card-info">
+            <div class="lib-card-title">Ritual de Ouro</div>
+            <div class="lib-card-desc">Protocolo noturno passo a passo. Rotina previsível como âncora do sono.</div>
+            <div class="lib-tags">
+              <span class="lib-tag" style="background:var(--gold-p);color:#9a7400;">Noturno</span>
+              <span class="lib-tag" style="background:#edf3ea;color:#5a7050;">Ritual</span>
+            </div>
+          </div>
+          <div class="lib-arr">›</div>
+        </div>
+      </div>
+
+      <div class="lib-card" onclick="openDoc('autonomia-com-afeto.html','🌱 Autonomia com Afeto')">
+        <div class="lib-card-strip" style="background:linear-gradient(90deg,#8a9e7f,#7a9eb5);"></div>
+        <div class="lib-card-body">
+          <div class="lib-card-icon" style="background:#edf3ea;">🌱</div>
+          <div class="lib-card-info">
+            <div class="lib-card-title">Autonomia com Afeto</div>
+            <div class="lib-card-desc">Método gentil de independência gradual com presença constante.</div>
+            <div class="lib-tags">
+              <span class="lib-tag" style="background:#edf3ea;color:#5a7050;">Autonomia</span>
+              <span class="lib-tag" style="background:var(--terra-p);color:var(--terra);">Método</span>
+            </div>
+          </div>
+          <div class="lib-arr">›</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ ④ PLANOS ══════════ -->
+<div id="screen-plans" class="screen">
+  <div class="plans-header">
+    <div class="plans-h-label">✦ Guia do Sono ✦</div>
+    <div class="plans-h-title">Escolha o seu<br><em>Plano</em></div>
+    <div class="plans-h-sub">Do primeiro toque à experiência completa</div>
+  </div>
+
+  <div class="scroll-area nav-offset">
+    <div class="plans-body">
+
+      <!-- FREE -->
+      <div class="plan-card free" style="margin-top:4px;">
+        <div class="plan-head">
+          <span class="plan-badge badge-free">Gratuito</span>
+          <div class="plan-name">Modo Gratuito</div>
+          <div class="plan-sub">Primeiros passos no sono gentil — sem custo, com cuidado.</div>
+        </div>
+        <div class="plan-body-s">
+          <ul class="feat-list">
+            <li class="feat-item"><div class="feat-dot">📋</div><span><strong>Tabela Mestra</strong> — janelas e sinais por faixa etária</span></li>
+            <li class="feat-item"><div class="feat-dot">📔</div><span><strong>Diário manual</strong> — até 7 dias de histórico</span></li>
+            <li class="feat-item"><div class="feat-dot">💬</div><span><strong>Chat com a Guia</strong> — 3 perguntas por dia</span></li>
+            <li class="feat-item"><div class="feat-dot">📖</div><span><strong>Dicionário Sensorial</strong> — choros e saltos</span></li>
+            <li class="feat-item"><div class="feat-dot">🌟</div><span><strong>Ritual de Ouro</strong> — eBook completo</span></li>
+          </ul>
+          <button class="plan-cta cta-free">Plano Atual ✓</button>
+        </div>
+      </div>
+
+      <!-- PLUS -->
+      <div class="plan-card plus">
+        <div class="plan-head">
+          <span class="plan-badge badge-plus">Plus · Tempo Real</span>
+          <span class="popular-pill">Mais popular</span>
+          <div class="plan-name">Plano Plus</div>
+          <div class="plan-sub">O app aprende o seu bebê e age antes da crise chegar.</div>
+        </div>
+        <div class="plan-body-s">
+          <div class="plus-row">
+            <div class="plus-icon-box">🧠</div>
+            <div>
+              <div class="plus-row-title">Consultoria IA 24h <span class="tech-chip">ao vivo</span><span class="live-dot"></span></div>
+              <div class="plus-row-desc">Respostas baseadas no histórico real do bebê — nunca genéricas.</div>
+            </div>
+          </div>
+          <div class="plus-row">
+            <div class="plus-icon-box">⏱️</div>
+            <div>
+              <div class="plus-row-title">Janelas Dinâmicas <span class="tech-chip">inteligente</span></div>
+              <div class="plus-row-desc">"Iniciar o ritual em 20 min" — calculado pela última soneca.</div>
+            </div>
+          </div>
+          <div class="plus-row">
+            <div class="plus-icon-box">📡</div>
+            <div>
+              <div class="plus-row-title">Análise de Padrões <span class="tech-chip">dados reais</span></div>
+              <div class="plus-row-desc">"Sonecas curtas à tarde geram 3+ despertares no seu bebê."</div>
+            </div>
+          </div>
+          <div class="plus-row">
+            <div class="plus-icon-box">🎧</div>
+            <div>
+              <div class="plus-row-title">Áudios Premium <span class="tech-chip">streaming</span></div>
+              <div class="plus-row-desc">Ruído branco infinito + meditações para a mãe.</div>
+            </div>
+          </div>
+          <div class="plus-row">
+            <div class="plus-icon-box">📊</div>
+            <div>
+              <div class="plus-row-title">Relatório Semanal <span class="tech-chip">automático</span></div>
+              <div class="plus-row-desc">Resumo visual todo domingo — evolução e consistência.</div>
+            </div>
+          </div>
+          <button class="plan-cta cta-plus" onclick="alert('Em breve! Lista de espera aberta. 🌿')">Quero o Plus — R$ 29,90/mês</button>
+        </div>
+      </div>
+
+      <!-- PREMIUM -->
+      <div class="plan-card premium">
+        <div class="plan-head">
+          <span class="plan-badge badge-premium">Premium · Box Física</span>
+          <div class="plan-name">Plano Premium</div>
+          <div class="plan-sub">Tudo do Plus — mais o ritual nas mãos.</div>
+        </div>
+        <div class="plan-body-s">
+          <div class="prem-label">✦ Caixa curada entregue mensalmente</div>
+          <div class="prem-items">
+            <div class="prem-item">
+              <div class="prem-item-icon">🌸</div>
+              <div><div class="prem-item-name">Aromaterapia Noturna</div><div class="prem-item-sub">Lavanda, camomila e cedro</div></div>
+            </div>
+            <div class="prem-item">
+              <div class="prem-item-icon">🃏</div>
+              <div><div class="prem-item-name">Cards do Ritual de Ouro</div><div class="prem-item-sub">Rotina impressa, passo a passo</div></div>
+            </div>
+            <div class="prem-item">
+              <div class="prem-item-icon">💧</div>
+              <div><div class="prem-item-name">Spray de Travesseiro</div><div class="prem-item-sub">Âncora olfativa para o sono</div></div>
+            </div>
+            <div class="prem-item">
+              <div class="prem-item-icon">🌿</div>
+              <div><div class="prem-item-name">Comunidade Exclusiva</div><div class="prem-item-sub">Especialistas + mães no mesmo ciclo</div></div>
+            </div>
+          </div>
+          <button class="plan-cta cta-premium" onclick="alert('Em breve! Lista de espera aberta. 🌿')">Quero o Premium — R$ 79,90/mês</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ DOC VIEWER ══════════ -->
+<div id="docViewer" class="doc-viewer">
+  <div class="doc-viewer-hd">
+    <button class="doc-back" onclick="closeDoc()">← Voltar</button>
+    <div class="doc-viewer-title" id="docViewerTitle"></div>
+  </div>
+  <iframe id="docFrame" class="doc-frame" src="" title="Documento"></iframe>
+</div>
+
+<!-- ══════════ BOTTOM NAV ══════════ -->
 <nav class="nav-bar">
-  <button class="nav-item" onclick="goTo('home')"><span class="nav-icon">🏠</span><div>Início</div></button>
-  <button class="nav-item active"><span class="nav-icon">🌙</span><div>Guia</div></button>
-  <button class="nav-item" onclick="goTo('library')"><span class="nav-icon">📚</span><div>Biblioteca</div></button>
-  <button class="nav-item" onclick="goTo('plans')"><span class="nav-icon">🌟</span><div>Planos</div></button>
+  <button class="nav-item active" id="nav-home"    onclick="goTo('home')">    <span class="ni">🏠</span><span>Início</span></button>
+  <button class="nav-item"        id="nav-chat"    onclick="goTo('chat')">    <span class="ni">🌙</span><span>Guia</span></button>
+  <button class="nav-item"        id="nav-library" onclick="goTo('library')"><span class="ni">📚</span><span>Biblioteca</span></button>
+  <button class="nav-item"        id="nav-plans"   onclick="goTo('plans')">  <span class="ni">🌟</span><span>Planos</span></button>
 </nav>
 
 <script>
-let chatHistory = [];
-let isLoading = false;
+/* ─── NAVIGATION ─── */
+const SCREENS = ['home','chat','library','plans'];
 
-const SYSTEM_PROMPT = `Você é a Guia do Sono, uma especialista acolhedora e maternal em sono infantil de 0 a 5 anos.
-Sua voz é calma, empática, suave, rústica e sem julgamentos.
-Sempre valide primeiro o cansaço da mãe antes de dar qualquer orientação técnica.
-Use frases como "Sei como é difícil..." ou "Você está fazendo um ótimo trabalho...".
-Nunca sugira deixar o bebê chorar. Foque em métodos gentis, conexão emocional e rotinas previsíveis.
-Reforce sempre o sono seguro quando relevante.
-Responda em português brasileiro, com linguagem simples, carinho e no máximo 4-5 parágrafos curtos.
-Use emojis com moderação (1-2 por resposta).`;
+function goTo(id) {
+  if (!SCREENS.includes(id)) return;
+  SCREENS.forEach(s => {
+    document.getElementById('screen-' + s).classList.toggle('active', s === id);
+    document.getElementById('nav-' + s).classList.toggle('active', s === id);
+  });
+}
+
+/* ─── DOC VIEWER ─── */
+function openDoc(file, title) {
+  document.getElementById('docViewerTitle').textContent = title;
+  document.getElementById('docFrame').src = file;
+  document.getElementById('docViewer').classList.add('open');
+}
+function closeDoc() {
+  document.getElementById('docViewer').classList.remove('open');
+  document.getElementById('docFrame').src = '';
+}
+
+/* ─── SYSTEM PROMPT ─── */
+const SYSTEM_PROMPT = `Você é a Guia do Sono — consultora técnica especializada em sono infantil de 0 a 5 anos.
+
+IDENTIDADE E TOM:
+- Direta, precisa e segura. Autoridade técnica com educação.
+- Elimine: frases motivacionais, metáforas poéticas, excesso de adjetivos, textos longos de acolhimento.
+- Mantenha: profissionalismo, respostas estruturadas, clareza visual.
+
+ESTRUTURA OBRIGATÓRIA DE CADA RESPOSTA:
+1. Abertura (máx. 1 frase): contextualize brevemente. Ex: "Entendido. Vamos aos ajustes." ou "Situação comum nessa faixa etária."
+2. Diagnóstico em bullet points (hífens): causa mais provável com base na idade informada.
+3. Orientação técnica em bullet points (hífens): dados da Tabela Mestra e Dicionário Sensorial.
+4. Ação imediata (1 frase final): próximo passo concreto. Sem despedidas.
+
+BASE TÉCNICA — TABELA MESTRA:
+- **0–3 meses**: janela **45–90 min** | **4–6 sonecas/dia** | sinais: bocejo suave, olho pesado, quietude repentina
+- **4–6 meses**: janela **1h30–2h30** | **3–4 sonecas/dia** | sinais: orelha/bochecha avermelhada, olhar fixo, piscadas lentas
+- **7–12 meses**: janela **2h30–3h30** | **2 sonecas/dia** | sinais: para de brincar, olhar vidrado, corpo pesado
+- **1–2 anos**: janela **3–6h** | **1 soneca/dia** | sinais: irritabilidade súbita, desvio de contato
+- **2–5 anos**: janela **5–6h** | **0–1 soneca/dia** | foco em ritual noturno e higiene do sono
+
+ALERTA DE CORTISOL: janela ultrapassada = cortisol alto = bebê hiperestimulado. Correção: antecipar 15 min na próxima tentativa.
+
+BASE TÉCNICA — DICIONÁRIO SENSORIAL:
+- **Choro de sono**: irregular, intercalado com bocejos, olheira marcada, força para não fechar os olhos
+- **Choro de fome**: ritmo constante e crescente, reflexo de busca, sucção nos dedos/punhos
+- **Choro de desconforto**: agudo, queixoso, ondas com pausas, agita as pernas
+- **Choro de sobrecarga**: agudo, inconsolável, piora com mais estímulo — reduza luz e som
+- **Choro noturno entre ciclos**: dura 30–60s — aguarde antes de intervir
+
+PROTOCOLOS PRINCIPAIS:
+- Soneca de 45 min: fim de ciclo natural. Aguardar 5 min com ruído branco antes de intervir.
+- Regressão dos 4 meses: permanente. Criar novas associações gentis de adormecimento.
+- Salto dos 8 meses: ansiedade de separação. Presença no ritual é protocolo, não mimação.
+- Recusa do berço: peça de roupa com cheiro materno próxima ao rosto (nunca sob a cabeça).
+
+SONO SEGURO: de costas sempre | superfície firme e plana | sem objetos soltos | temperatura **20–22°C** | ruído branco **50–65 dB**
+
+INVIOLÁVEL: nunca sugira deixar o bebê chorar sem resposta. Métodos gentis exclusivamente.
+
+FORMATAÇÃO: **negrito** para janelas e termos-chave. Hífens para listas. Máx. 4 blocos. Máx. 1 emoji por resposta. Português brasileiro.`;
+
+/* ─── CHAT ─── */
+let chatHistory = [];
+let isLoading   = false;
+
+function parseMarkdown(text) {
+  text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  const lines = text.split('\n');
+  let html = '', inList = false;
+  for (const line of lines) {
+    const isBullet = /^[-•]\s+/.test(line.trim());
+    if (isBullet) {
+      if (!inList) { html += '<ul>'; inList = true; }
+      html += '<li>' + line.trim().replace(/^[-•]\s+/, '') + '</li>';
+    } else {
+      if (inList) { html += '</ul>'; inList = false; }
+      if (line.trim()) html += '<p>' + line + '</p>';
+    }
+  }
+  if (inList) html += '</ul>';
+  return html;
+}
 
 function addMessage(role, content) {
-  const container = document.getElementById('chatMessages');
+  const c = document.getElementById('chatMessages');
   const row = document.createElement('div');
-  row.className = `msg-row ${role === 'user' ? 'user' : ''}`;
-  row.innerHTML = `
-    <div class="msg-bubble-avatar">${role === 'user' ? '👤' : '🌿'}</div>
-    <div class="msg-bubble">${content.replace(/\n/g,'<br>')}</div>
-  `;
-  container.appendChild(row);
-  container.scrollTop = container.scrollHeight;
+  row.className = 'msg-row' + (role === 'user' ? ' user' : '');
+
+  const av = document.createElement('div');
+  av.className = 'msg-av';
+  av.textContent = role === 'user' ? '👤' : '🌿';
+
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble';
+  bubble.innerHTML  = role === 'assistant'
+    ? parseMarkdown(content)
+    : content.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  row.appendChild(av);
+  row.appendChild(bubble);
+  c.appendChild(row);
+  c.scrollTop = c.scrollHeight;
 }
 
-function addTypingIndicator() {
-  const container = document.getElementById('chatMessages');
+function addTyping() {
+  const c = document.getElementById('chatMessages');
   const row = document.createElement('div');
-  row.id = 'typingIndicator';
-  row.className = 'msg-row';
-  row.innerHTML = `
-    <div class="msg-bubble-avatar">🌿</div>
-    <div style="padding:14px 20px;background:white;border:1px solid #e5d9c8;border-radius:24px;border-bottom-left-radius:8px;display:flex;gap:6px;align-items:center;">
-      <div style="width:8px;height:8px;background:#e8a97e;border-radius:50%;animation:typing 1.4s infinite;"></div>
-      <div style="width:8px;height:8px;background:#e8a97e;border-radius:50%;animation:typing 1.4s infinite;animation-delay:0.2s"></div>
-      <div style="width:8px;height:8px;background:#e8a97e;border-radius:50%;animation:typing 1.4s infinite;animation-delay:0.4s"></div>
-    </div>
-  `;
-  container.appendChild(row);
-  container.scrollTop = container.scrollHeight;
+  row.id = 'typingRow'; row.className = 'msg-row';
+  row.innerHTML = `<div class="msg-av">🌿</div>
+    <div class="typing-bubble">
+      <div class="t-dot"></div><div class="t-dot"></div><div class="t-dot"></div>
+    </div>`;
+  c.appendChild(row);
+  c.scrollTop = c.scrollHeight;
 }
-
-function removeTypingIndicator() {
-  const el = document.getElementById('typingIndicator');
-  if (el) el.remove();
-}
+function removeTyping() { const el = document.getElementById('typingRow'); if (el) el.remove(); }
 
 async function sendMessage() {
   if (isLoading) return;
   const input = document.getElementById('chatInput');
-  const text = input.value.trim();
+  const text  = input.value.trim();
   if (!text) return;
 
   isLoading = true;
   document.getElementById('sendBtn').disabled = true;
-
   addMessage('user', text);
-  chatHistory.push({ role: 'user', content: text });
+  chatHistory.push({ role:'user', content:text });
   input.value = '';
   input.style.height = 'auto';
-  addTypingIndicator();
+  addTyping();
 
+  let reply;
   try {
-    const response = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ system: SYSTEM_PROMPT, messages: chatHistory })
+    /* 1. Tenta proxy interno (backend próprio) */
+    const res = await fetch('/api/chat', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ system:SYSTEM_PROMPT, messages:chatHistory })
     });
-
-    const data = await response.json();
-    removeTypingIndicator();
-
-    const reply = data.reply || "Não consegui responder agora. Pode tentar novamente? 🌿";
-    addMessage('assistant', reply);
-    chatHistory.push({ role: 'assistant', content: reply });
-
-  } catch (err) {
-    removeTypingIndicator();
-    addMessage('assistant', "Tive um erro de conexão. Pode tentar novamente? ❤️");
+    if (!res.ok) throw new Error('proxy-fail');
+    const data = await res.json();
+    reply = data.reply;
+  } catch {
+    try {
+      /* 2. Fallback: API direta (requer window.ANTHROPIC_API_KEY) */
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'x-api-key': window.ANTHROPIC_API_KEY || '',
+          'anthropic-version':'2023-06-01',
+          'anthropic-dangerous-direct-browser-access':'true'
+        },
+        body:JSON.stringify({
+          model:'claude-sonnet-4-20250514',
+          max_tokens:1000,
+          system:SYSTEM_PROMPT,
+          messages:chatHistory
+        })
+      });
+      const data = await res.json();
+      reply = data?.content?.[0]?.text;
+    } catch {
+      reply = null;
+    }
   }
+
+  removeTyping();
+  reply = reply || 'Erro de conexão. Verifique a API e tente novamente.';
+  addMessage('assistant', reply);
+  chatHistory.push({ role:'assistant', content:reply });
 
   isLoading = false;
   document.getElementById('sendBtn').disabled = false;
   input.focus();
 }
 
+function useChip(el) {
+  goTo('chat');
+  const input = document.getElementById('chatInput');
+  input.value = el.textContent;
+  input.focus();
+  input.dispatchEvent(new Event('input'));
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  const textarea = document.getElementById('chatInput');
-  textarea.addEventListener('input', function() {
+  const ta = document.getElementById('chatInput');
+  ta.addEventListener('input', function() {
     this.style.height = 'auto';
-    this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+    this.style.height = Math.min(this.scrollHeight, 108) + 'px';
   });
 });
-
-function goTo(screen) {
-  alert(`A tela "${screen}" está em desenvolvimento. Em breve! 🌿`);
-}
 </script>
 </body>
 </html>
