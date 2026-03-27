@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Guia do Sono — Guias</title>
+<meta name="theme-color" content="#faf6ef">
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Lora:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:#faf6ef;--warm:#fff9f2;
+  --sage:#8a9e7f;--sage-l:#b5c9a8;--sage-d:#5a7050;--sage-p:#edf3e8;
+  --tc:#c47a52;--tc-l:#e8a97e;--tc-p:#f5e0d0;
+  --brown:#7a5c3e;--brown-l:#a07850;
+  --linen:#ede5d8;--linen-d:#d8ccb8;
+  --night:#2c3e2d;
+  --gold:#c9a84c;--gold-l:#e8cc7e;--gold-p:#faf3df;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;height:100dvh;overflow:hidden;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);display:flex;flex-direction:column;}
+
+.app-header{
+  padding:max(env(safe-area-inset-top,0px),52px) 20px 16px;
+  flex-shrink:0;background:var(--cream);
+}
+.header-label{font-size:11px;color:var(--brown-l);margin-bottom:2px;}
+.header-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--night);}
+.header-title em{color:var(--tc);font-style:italic;}
+
+.scroll-area{
+  flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;padding:0 16px calc(90px + env(safe-area-inset-bottom,0px));
+}
+.scroll-area::-webkit-scrollbar{display:none;}
+
+/* filtros */
+.filters{
+  display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;
+  padding-bottom:16px;
+}
+.filters::-webkit-scrollbar{display:none;}
+.filter-chip{
+  flex-shrink:0;padding:8px 16px;border-radius:20px;
+  font-size:12px;font-weight:500;cursor:pointer;
+  border:1.5px solid var(--linen-d);background:var(--warm);
+  color:var(--brown-l);transition:all .2s;
+}
+.filter-chip.active{background:var(--night);border-color:var(--night);color:#fff;}
+
+/* destaque */
+.featured-card{
+  background:var(--night);border-radius:22px;
+  padding:24px;margin-bottom:20px;
+  position:relative;overflow:hidden;cursor:pointer;
+  text-decoration:none;display:block;
+  transition:transform .2s;
+}
+.featured-card:hover{transform:translateY(-2px);}
+.featured-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 5% 80%,rgba(138,158,127,.22) 0%,transparent 60%);
+  pointer-events:none;
+}
+.fc-badge{
+  font-size:8px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;color:var(--gold-l);
+  background:rgba(201,168,76,.18);padding:4px 12px;
+  border-radius:20px;display:inline-block;margin-bottom:14px;
+  position:relative;z-index:1;
+}
+.fc-title{
+  font-family:'Playfair Display',serif;font-size:19px;
+  font-weight:700;color:#fff;line-height:1.25;margin-bottom:8px;
+  position:relative;z-index:1;
+}
+.fc-title em{color:var(--tc-l);font-style:italic;}
+.fc-sub{
+  font-family:'Lora',serif;font-style:italic;
+  font-size:12px;color:rgba(255,255,255,.45);
+  margin-bottom:18px;position:relative;z-index:1;line-height:1.6;
+}
+.fc-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--tc);color:#fff;
+  font-size:12px;font-weight:600;
+  padding:9px 18px;border-radius:100px;
+  position:relative;z-index:1;
+}
+
+/* guide cards */
+.sec-hdr{padding:8px 0 12px;display:flex;justify-content:space-between;align-items:center;}
+.sec-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--night);}
+
+.guide-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.guide-card{
+  background:var(--warm);border:1px solid var(--linen);
+  border-radius:18px;padding:16px 18px;
+  display:flex;gap:14px;align-items:flex-start;
+  text-decoration:none;cursor:pointer;
+  transition:border-color .2s,transform .15s;
+}
+.guide-card:hover{border-color:var(--linen-d);transform:translateY(-1px);}
+.guide-icon{
+  width:48px;height:48px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;flex-shrink:0;border:1px solid transparent;
+}
+.gi-sage{background:var(--sage-p);border-color:rgba(138,158,127,.2);}
+.gi-tc{background:var(--tc-p);border-color:rgba(196,122,82,.2);}
+.gi-gold{background:var(--gold-p);border-color:rgba(201,168,76,.2);}
+.gi-night{background:rgba(44,62,45,.06);border-color:rgba(44,62,45,.12);}
+
+.guide-info{flex:1;}
+.guide-title{font-weight:600;font-size:.9rem;color:var(--night);margin-bottom:4px;}
+.guide-sub{font-size:.8rem;color:var(--brown-l);line-height:1.55;}
+.guide-meta{
+  display:flex;align-items:center;gap:8px;margin-top:8px;
+}
+.guide-tag{
+  font-size:9px;font-weight:600;letter-spacing:1px;
+  text-transform:uppercase;padding:3px 8px;border-radius:10px;
+}
+.tag-novo{background:var(--sage-p);color:var(--sage-d);}
+.tag-pop{background:var(--tc-p);color:var(--tc);}
+.tag-min{background:var(--gold-p);color:#7a6010;}
+.guide-arrow{color:var(--linen-d);font-size:18px;align-self:center;}
+
+/* bottom nav */
+.bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;
+  background:rgba(250,246,239,.96);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-top:1px solid var(--linen);
+  display:flex;align-items:center;justify-content:space-around;
+  padding:8px 8px max(env(safe-area-inset-bottom,8px),8px);z-index:100;
+}
+.nav-item{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;gap:3px;padding:8px 4px;
+  border-radius:14px;cursor:pointer;text-decoration:none;transition:background .15s;
+}
+.nav-item:active{background:var(--linen);}
+.nav-item.active{background:var(--sage-p);}
+.nav-icon{font-size:20px;line-height:1;}
+.nav-lbl{font-size:10px;font-weight:500;color:var(--brown-l);}
+.nav-item.active .nav-lbl{color:var(--sage-d);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.fade-up{opacity:0;animation:fadeUp .5s ease forwards;}
+.d1{animation-delay:.05s}.d2{animation-delay:.12s}.d3{animation-delay:.2s}.d4{animation-delay:.28s}
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <div class="header-label">Biblioteca de conteúdo</div>
+  <div class="header-title">Guias & <em>Recursos</em></div>
+</div>
+
+<div class="scroll-area">
+
+  <!-- FILTROS -->
+  <div class="filters">
+    <div class="filter-chip active">Todos</div>
+    <div class="filter-chip">Recém-nascido</div>
+    <div class="filter-chip">1–3 meses</div>
+    <div class="filter-chip">4–6 meses</div>
+    <div class="filter-chip">7–12 meses</div>
+    <div class="filter-chip">Regressões</div>
+  </div>
+
+  <!-- DESTAQUE -->
+  <a class="featured-card fade-up d1" href="tabela-mestra-sono.html">
+    <div class="fc-badge">✦ Em destaque</div>
+    <div class="fc-title">Tabela Mestra<br>de <em>Janelas de Sono</em></div>
+    <div class="fc-sub">Referência completa de 0 a 3 anos — janelas de vigília, cochilos, sinais e muito mais.</div>
+    <div class="fc-cta">Acessar guia →</div>
+  </a>
+
+  <!-- GUIDES -->
+  <div class="sec-hdr fade-up d2">
+    <div class="sec-title">Guias para você</div>
+  </div>
+
+  <div class="guide-list">
+    <a class="guide-card fade-up d2" href="ritual-de-ouro-ebook.html">
+      <div class="guide-icon gi-gold">✨</div>
+      <div class="guide-info">
+        <div class="guide-title">O Ritual de Ouro do Sono</div>
+        <div class="guide-sub">Como criar uma rotina de sono que funcione — passo a passo, sem choro.</div>
+        <div class="guide-meta">
+          <div class="guide-tag tag-pop">Popular</div>
+          <span style="font-size:10px;color:var(--brown-l);">· 5 min leitura</span>
+        </div>
+      </div>
+      <div class="guide-arrow">›</div>
+    </a>
+
+    <a class="guide-card fade-up d3" href="dicionario-sensorial-bebe.html">
+      <div class="guide-icon gi-tc">📖</div>
+      <div class="guide-info">
+        <div class="guide-title">Dicionário Sensorial do Bebê</div>
+        <div class="guide-sub">O que cada tipo de choro e sinal quer dizer — e como responder.</div>
+        <div class="guide-meta">
+          <div class="guide-tag tag-novo">Novo</div>
+          <span style="font-size:10px;color:var(--brown-l);">· 8 min leitura</span>
+        </div>
+      </div>
+      <div class="guide-arrow">›</div>
+    </a>
+
+    <a class="guide-card fade-up d3" href="autonomia-com-afeto.html">
+      <div class="guide-icon gi-sage">🌱</div>
+      <div class="guide-info">
+        <div class="guide-title">Autonomia com Afeto</div>
+        <div class="guide-sub">Como ajudar seu bebê a desenvolver independência no sono de forma gentil.</div>
+        <div class="guide-meta">
+          <div class="guide-tag tag-min">10 min</div>
+        </div>
+      </div>
+      <div class="guide-arrow">›</div>
+    </a>
+
+    <a class="guide-card fade-up d4" href="ebook-isca-primeira-janela.html">
+      <div class="guide-icon gi-night">🌙</div>
+      <div class="guide-info">
+        <div class="guide-title">O Segredo da 1ª Janela de Sono</div>
+        <div class="guide-sub">Entenda a janela de sono e como acertá-la para transformar as noites.</div>
+        <div class="guide-meta">
+          <div class="guide-tag tag-pop">Grátis</div>
+          <span style="font-size:10px;color:var(--brown-l);">· 6 min leitura</span>
+        </div>
+      </div>
+      <div class="guide-arrow">›</div>
+    </a>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <a class="nav-item" href="dashboard.html"><span class="nav-icon">🏠</span><span class="nav-lbl">Início</span></a>
+  <a class="nav-item" href="progresso.html"><span class="nav-icon">📊</span><span class="nav-lbl">Progresso</span></a>
+  <a class="nav-item" href="chat.html"><span class="nav-icon">💬</span><span class="nav-lbl">Chat</span></a>
+  <a class="nav-item active" href="guias.html"><span class="nav-icon">📚</span><span class="nav-lbl">Guias</span></a>
+  <a class="nav-item" href="perfil.html"><span class="nav-icon">👤</span><span class="nav-lbl">Perfil</span></a>
+</div>
+
+<script>
+document.querySelectorAll('.filter-chip').forEach(c=>{
+  c.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-chip').forEach(x=>x.classList.remove('active'));
+    c.classList.add('active');
+  });
+});
+if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>

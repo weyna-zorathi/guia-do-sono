@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Guia do Sono — Progresso</title>
+<meta name="theme-color" content="#faf6ef">
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Lora:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:#faf6ef;--warm:#fff9f2;
+  --sage:#8a9e7f;--sage-l:#b5c9a8;--sage-d:#5a7050;--sage-p:#edf3e8;
+  --tc:#c47a52;--tc-l:#e8a97e;--tc-p:#f5e0d0;
+  --brown:#7a5c3e;--brown-l:#a07850;
+  --linen:#ede5d8;--linen-d:#d8ccb8;
+  --night:#2c3e2d;
+  --gold:#c9a84c;--gold-l:#e8cc7e;--gold-p:#faf3df;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;height:100dvh;overflow:hidden;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);display:flex;flex-direction:column;}
+
+.app-header{
+  padding:max(env(safe-area-inset-top,0px),52px) 20px 16px;
+  display:flex;justify-content:space-between;align-items:flex-end;
+  flex-shrink:0;background:var(--cream);
+}
+.header-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--night);}
+.header-title em{color:var(--tc);font-style:italic;}
+.period-btn{
+  font-size:12px;font-weight:600;color:var(--brown-l);
+  background:var(--warm);border:1px solid var(--linen-d);
+  border-radius:20px;padding:6px 14px;cursor:pointer;
+}
+
+.scroll-area{
+  flex:1;overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  padding:0 16px calc(90px + env(safe-area-inset-bottom,0px));
+}
+.scroll-area::-webkit-scrollbar{display:none;}
+
+/* summary cards */
+.summary-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.s-card{
+  background:var(--warm);border:1px solid var(--linen);
+  border-radius:18px;padding:16px;position:relative;overflow:hidden;
+}
+.s-card::before{
+  content:'';position:absolute;top:-16px;right:-16px;
+  width:60px;height:60px;border-radius:50%;opacity:.12;
+}
+.sc-sage::before{background:var(--sage);}
+.sc-tc::before{background:var(--tc);}
+.sc-gold::before{background:var(--gold);}
+.sc-night::before{background:var(--night);}
+.s-icon{font-size:20px;margin-bottom:8px;display:block;}
+.s-val{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--night);line-height:1;margin-bottom:3px;}
+.s-val span{font-size:12px;font-weight:400;color:var(--brown-l);}
+.s-lbl{font-size:11px;color:var(--brown-l);}
+.s-trend{
+  position:absolute;bottom:12px;right:12px;
+  font-size:9px;font-weight:600;padding:3px 8px;border-radius:20px;
+}
+.up{background:var(--sage-p);color:var(--sage-d);}
+.same{background:var(--gold-p);color:#7a6010;}
+
+/* section */
+.sec-hdr{padding:18px 0 10px;display:flex;justify-content:space-between;align-items:center;}
+.sec-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--night);}
+.sec-link{font-size:11px;color:var(--tc);font-weight:500;}
+
+/* gráfico semanal */
+.chart-card{
+  background:var(--warm);border:1px solid var(--linen);
+  border-radius:20px;padding:18px;margin-bottom:16px;
+}
+.chart-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;}
+.chart-val{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--night);line-height:1;}
+.chart-unit{font-size:12px;color:var(--brown-l);margin-left:4px;}
+.chart-sub{font-size:11px;color:var(--brown-l);margin-top:2px;font-family:'Lora',serif;font-style:italic;}
+.chart-legend{display:flex;flex-direction:column;gap:4px;align-items:flex-end;}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--brown-l);}
+.leg-dot{width:8px;height:8px;border-radius:2px;}
+
+.bars{display:flex;align-items:flex-end;gap:7px;height:90px;margin:14px 0 8px;}
+.bar-g{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end;}
+.bar-pct{font-size:9px;font-weight:600;color:var(--brown-l);opacity:0;transition:opacity .4s;line-height:1;}
+.bar-pct.v{opacity:1;}
+.bar-w{
+  width:100%;display:flex;flex-direction:column;
+  justify-content:flex-end;height:72px;border-radius:8px;
+  overflow:hidden;background:var(--linen);position:relative;cursor:pointer;
+}
+.bar-f{width:100%;border-radius:8px;height:0%;transition:height 1s cubic-bezier(.34,1.56,.64,1);position:relative;}
+.bf-sleep{background:linear-gradient(180deg,var(--sage-l) 0%,var(--sage) 100%);}
+.bf-nap{background:linear-gradient(180deg,var(--tc-l) 0%,var(--tc) 100%);}
+.bf-today{background:linear-gradient(180deg,var(--gold-l) 0%,var(--gold) 100%);box-shadow:0 0 12px rgba(201,168,76,.35);}
+.bar-day{font-size:10px;color:var(--brown-l);}
+.bar-day.act{font-weight:600;color:var(--night);}
+
+/* insights */
+.insight-card{
+  background:var(--warm);border:1px solid var(--linen);
+  border-radius:18px;padding:18px;margin-bottom:12px;
+  display:flex;gap:14px;align-items:flex-start;
+}
+.insight-icon{
+  width:42px;height:42px;border-radius:13px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;border:1px solid transparent;
+}
+.ii-sage{background:var(--sage-p);border-color:rgba(138,158,127,.2);}
+.ii-gold{background:var(--gold-p);border-color:rgba(201,168,76,.2);}
+.ii-tc{background:var(--tc-p);border-color:rgba(196,122,82,.2);}
+.insight-title{font-weight:600;font-size:.9rem;color:var(--night);margin-bottom:4px;}
+.insight-text{font-size:.82rem;color:var(--brown-l);line-height:1.65;}
+
+/* bottom nav */
+.bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;
+  background:rgba(250,246,239,.96);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-top:1px solid var(--linen);
+  display:flex;align-items:center;justify-content:space-around;
+  padding:8px 8px max(env(safe-area-inset-bottom,8px),8px);
+  z-index:100;
+}
+.nav-item{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;gap:3px;padding:8px 4px;
+  border-radius:14px;cursor:pointer;text-decoration:none;
+  transition:background .15s;
+}
+.nav-item:active{background:var(--linen);}
+.nav-item.active{background:var(--sage-p);}
+.nav-icon{font-size:20px;line-height:1;}
+.nav-lbl{font-size:10px;font-weight:500;color:var(--brown-l);}
+.nav-item.active .nav-lbl{color:var(--sage-d);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.fade-up{opacity:0;animation:fadeUp .5s ease forwards;}
+.d1{animation-delay:.05s}.d2{animation-delay:.12s}.d3{animation-delay:.2s}.d4{animation-delay:.28s}
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <div>
+    <div style="font-size:11px;color:var(--brown-l);margin-bottom:2px;">Acompanhamento</div>
+    <div class="header-title">Sono da <em>semana</em></div>
+  </div>
+  <div class="period-btn">Esta semana ▾</div>
+</div>
+
+<div class="scroll-area">
+
+  <!-- RESUMO -->
+  <div class="summary-row fade-up d1">
+    <div class="s-card sc-sage">
+      <span class="s-icon">🌙</span>
+      <div class="s-val">10 <span>h 20</span></div>
+      <div class="s-lbl">Sono hoje</div>
+      <div class="s-trend up">↑ +40min</div>
+    </div>
+    <div class="s-card sc-tc">
+      <span class="s-icon">☀️</span>
+      <div class="s-val">72 <span>h semana</span></div>
+      <div class="s-lbl">Total semanal</div>
+      <div class="s-trend up">↑ +3h</div>
+    </div>
+    <div class="s-card sc-gold">
+      <span class="s-icon">💤</span>
+      <div class="s-val">2 <span>cochilos</span></div>
+      <div class="s-lbl">Média diária</div>
+      <div class="s-trend same">= estável</div>
+    </div>
+    <div class="s-card sc-night">
+      <span class="s-icon">🌅</span>
+      <div class="s-val">06 <span>h14</span></div>
+      <div class="s-lbl">Hora habitual</div>
+      <div class="s-trend same">= regular</div>
+    </div>
+  </div>
+
+  <!-- GRÁFICO -->
+  <div class="sec-hdr fade-up d2">
+    <div class="sec-title">Sono por dia</div>
+    <div class="sec-link">Mês →</div>
+  </div>
+  <div class="chart-card fade-up d2">
+    <div class="chart-header">
+      <div>
+        <div class="chart-val">10<span class="chart-unit">h 20min</span></div>
+        <div class="chart-sub">hoje · meta: 14–16h para 4 meses</div>
+      </div>
+      <div class="chart-legend">
+        <div class="leg-item"><div class="leg-dot" style="background:var(--night)"></div>Noite</div>
+        <div class="leg-item"><div class="leg-dot" style="background:var(--sage)"></div>Cochilo</div>
+        <div class="leg-item"><div class="leg-dot" style="background:var(--gold)"></div>Hoje</div>
+      </div>
+    </div>
+    <div class="bars" id="barsContainer"></div>
+  </div>
+
+  <!-- INSIGHTS -->
+  <div class="sec-hdr fade-up d3">
+    <div class="sec-title">O que observamos</div>
+  </div>
+
+  <div class="insight-card fade-up d3">
+    <div class="insight-icon ii-sage">✦</div>
+    <div>
+      <div class="insight-title">Sono noturno melhorou esta semana</div>
+      <p class="insight-text">Sofia dormiu em média 40 minutos a mais por noite do que na semana passada. Continue mantendo o ritual de sono consistente.</p>
+    </div>
+  </div>
+
+  <div class="insight-card fade-up d4">
+    <div class="insight-icon ii-gold">⏱️</div>
+    <div>
+      <div class="insight-title">Janela de vigília está no ponto</div>
+      <p class="insight-text">As janelas de 85–95 minutos estão adequadas para 4 meses. A transição para janelas de 2h deve acontecer por volta dos 5–6 meses.</p>
+    </div>
+  </div>
+
+  <div class="insight-card fade-up d4">
+    <div class="insight-icon ii-tc">🌙</div>
+    <div>
+      <div class="insight-title">Atenção: cochilo da tarde encurtando</div>
+      <p class="insight-text">O cochilo da tarde está em média 20 minutos mais curto. Pode ser sinal de evolução — ou de janela levemente adiantada. Observe por mais 2 dias.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <a class="nav-item" href="dashboard.html"><span class="nav-icon">🏠</span><span class="nav-lbl">Início</span></a>
+  <a class="nav-item active" href="progresso.html"><span class="nav-icon">📊</span><span class="nav-lbl">Progresso</span></a>
+  <a class="nav-item" href="chat.html"><span class="nav-icon">💬</span><span class="nav-lbl">Chat</span></a>
+  <a class="nav-item" href="guias.html"><span class="nav-icon">📚</span><span class="nav-lbl">Guias</span></a>
+  <a class="nav-item" href="perfil.html"><span class="nav-icon">👤</span><span class="nav-lbl">Perfil</span></a>
+</div>
+
+<script>
+const data=[
+  {day:'Seg',pct:68,type:'sleep'},{day:'Ter',pct:72,type:'sleep'},
+  {day:'Qua',pct:55,type:'nap'},{day:'Qui',pct:80,type:'sleep'},
+  {day:'Sex',pct:65,type:'nap'},{day:'Sáb',pct:88,type:'sleep'},
+  {day:'Hoj',pct:73,type:'today'},
+];
+const container=document.getElementById('barsContainer');
+data.forEach((d,i)=>{
+  const isT=d.type==='today';
+  const g=document.createElement('div');g.className='bar-g';
+  const p=document.createElement('div');p.className='bar-pct';p.textContent=d.pct+'%';
+  const w=document.createElement('div');w.className=`bar-w${isT?' act':''}`;
+  const f=document.createElement('div');f.className=`bar-f bf-${d.type}`;f.style.height='0%';
+  w.appendChild(f);
+  const day=document.createElement('div');day.className=`bar-day${isT?' act':''}`;day.textContent=d.day;
+  g.appendChild(p);g.appendChild(w);g.appendChild(day);
+  container.appendChild(g);
+  setTimeout(()=>{f.style.height=d.pct+'%';setTimeout(()=>p.classList.add('v'),600);},200+i*80);
+});
+if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
