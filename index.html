@@ -13,9 +13,7 @@
   --terra: #c47a52;
   --night: #2c3e2d;
   --brown: #7a5c3e;
-  --radius: 28px;
 }
-
 * { margin:0; padding:0; box-sizing:border-box; }
 body {
   font-family: 'DM Sans', system-ui, sans-serif;
@@ -24,15 +22,12 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
-
 .screen { display: none; min-height: 100vh; }
 .screen.active { display: flex; flex-direction: column; }
-
-/* Navbar inferior */
 .nav-bar {
   position: fixed;
   bottom: 0; left: 0; right: 0;
-  background: rgba(250, 246, 239, 0.98);
+  background: rgba(250,246,239,0.98);
   backdrop-filter: blur(20px);
   border-top: 1px solid #d8ccb8;
   display: flex;
@@ -42,137 +37,89 @@ body {
   box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
 }
 .nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  color: #a07850;
-  font-size: 10px;
-  font-weight: 500;
-  padding: 6px 12px;
-  border-radius: 16px;
-  transition: all 0.3s;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 4px; color: #a07850; font-size: 10px; font-weight: 500;
+  padding: 6px 12px; border-radius: 16px; transition: all 0.3s;
+  background: none; border: none; cursor: pointer;
 }
-.nav-item.active {
-  color: var(--terra);
-  background: rgba(196,122,82,0.08);
-}
+.nav-item.active { color: var(--terra); background: rgba(196,122,82,0.08); }
 .nav-item .nav-icon { font-size: 26px; }
-
-/* Chat Screen */
-#screen-chat {
-  background: #f8f4eb;
-  padding-bottom: 90px;
-}
+#screen-chat { background: #f8f4eb; padding-bottom: 160px; }
 .chat-header {
-  background: #1f2c21;
-  padding: 18px 20px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  position: sticky;
-  top: 0;
-  z-index: 20;
+  background: #1f2c21; padding: 18px 20px;
+  display: flex; align-items: center; gap: 14px;
+  position: sticky; top: 0; z-index: 20;
 }
 .chat-avatar {
-  width: 52px; height: 52px;
-  background: rgba(232,169,126,0.3);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
+  width: 52px; height: 52px; background: rgba(232,169,126,0.3);
+  border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-size: 28px;
   border: 3px solid rgba(232,169,126,0.5);
 }
 .chat-messages {
-  flex: 1;
-  padding: 24px 20px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  background: #f8f4eb;
+  flex: 1; padding: 24px 20px; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 18px; background: #f8f4eb;
 }
 .msg-row { display: flex; gap: 12px; align-items: flex-end; }
 .msg-row.user { flex-direction: row-reverse; }
 .msg-bubble {
-  max-width: 82%;
-  padding: 15px 20px;
-  border-radius: 24px;
-  font-size: 0.95rem;
-  line-height: 1.65;
+  max-width: 82%; padding: 15px 20px; border-radius: 24px;
+  font-size: 0.95rem; line-height: 1.65;
 }
 .msg-row:not(.user) .msg-bubble {
-  background: white;
-  border: 1px solid #e5d9c8;
-  border-bottom-left-radius: 8px;
+  background: white; border: 1px solid #e5d9c8; border-bottom-left-radius: 8px;
 }
 .msg-row.user .msg-bubble {
-  background: var(--terra);
-  color: white;
-  border-bottom-right-radius: 8px;
+  background: var(--terra); color: white; border-bottom-right-radius: 8px;
 }
 .msg-bubble-avatar {
-  width: 34px; height: 34px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  background: rgba(196,122,82,0.15);
+  width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; background: rgba(196,122,82,0.15);
 }
-
 .chat-input-area {
-  padding: 16px 20px;
-  background: rgba(248,244,235,0.97);
+  padding: 16px 20px; background: rgba(248,244,235,0.97);
   border-top: 1px solid #d8ccb8;
-  position: sticky;
-  bottom: 80px;
+  position: fixed; bottom: 70px; left: 0; right: 0; z-index: 50;
 }
 .chat-input-area .input-wrapper {
-  display: flex;
-  gap: 12px;
-  align-items: flex-end;
-  max-width: 720px;
-  margin: 0 auto;
+  display: flex; gap: 12px; align-items: flex-end;
+  max-width: 720px; margin: 0 auto;
 }
 .chat-textarea {
-  flex: 1;
-  background: white;
-  border: 2px solid #d8ccb8;
-  border-radius: 30px;
-  padding: 16px 22px;
-  font-size: 1.02rem;
-  resize: none;
-  min-height: 56px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  flex: 1; background: white; border: 2px solid #d8ccb8;
+  border-radius: 30px; padding: 16px 22px;
+  font-size: 1.02rem; font-family: 'DM Sans', system-ui, sans-serif;
+  resize: none; min-height: 56px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05); outline: none;
 }
+.chat-textarea:focus { border-color: var(--terra); }
 .chat-send-btn {
-  width: 56px; height: 56px;
-  background: #c47a52;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  font-size: 24px;
+  width: 56px; height: 56px; background: #c47a52; color: white;
+  border: none; border-radius: 50%; font-size: 24px;
   box-shadow: 0 8px 25px rgba(196,122,82,0.45);
+  cursor: pointer; flex-shrink: 0; transition: transform 0.15s;
+}
+.chat-send-btn:active { transform: scale(0.95); }
+.chat-send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+@keyframes typing {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
 }
 </style>
 </head>
 <body>
 
-<!-- TELA DO CHAT -->
 <div id="screen-chat" class="screen active">
   <div class="chat-header">
     <div class="chat-avatar">🌿</div>
     <div>
-      <div style="color:white; font-weight:600; font-size:1.15rem;">Guia do Sono</div>
-      <div style="color:rgba(255,255,255,0.75); font-size:0.85rem;">Especialista em sono gentil • 0 a 5 anos</div>
+      <div style="color:white;font-weight:600;font-size:1.15rem;">Guia do Sono</div>
+      <div style="color:rgba(255,255,255,0.75);font-size:0.85rem;">Especialista em sono gentil • 0 a 5 anos</div>
     </div>
   </div>
 
   <div id="chatMessages" class="chat-messages">
-    <!-- Mensagem inicial -->
     <div class="msg-row">
       <div class="msg-bubble-avatar">🌿</div>
       <div class="msg-bubble">
@@ -185,33 +132,34 @@ body {
 
   <div class="chat-input-area">
     <div class="input-wrapper">
-      <textarea id="chatInput" class="chat-textarea" 
-        placeholder="Como está o sono do seu bebê hoje?" 
+      <textarea id="chatInput" class="chat-textarea"
+        placeholder="Como está o sono do seu bebê hoje?"
         rows="1"
-        onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault(); sendMessage()}"></textarea>
-      <button class="chat-send-btn" onclick="sendMessage()">↑</button>
+        onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}"></textarea>
+      <button class="chat-send-btn" id="sendBtn" onclick="sendMessage()">↑</button>
     </div>
   </div>
 </div>
 
-<!-- Navegação inferior -->
 <nav class="nav-bar">
   <button class="nav-item" onclick="goTo('home')"><span class="nav-icon">🏠</span><div>Início</div></button>
-  <button class="nav-item active" onclick="goTo('chat')"><span class="nav-icon">🌙</span><div>Guia</div></button>
+  <button class="nav-item active"><span class="nav-icon">🌙</span><div>Guia</div></button>
   <button class="nav-item" onclick="goTo('library')"><span class="nav-icon">📚</span><div>Biblioteca</div></button>
   <button class="nav-item" onclick="goTo('plans')"><span class="nav-icon">🌟</span><div>Planos</div></button>
 </nav>
 
 <script>
-// ==================== CONFIGURAÇÃO DO CHAT ====================
-const SYSTEM_PROMPT = `Você é a Guia do Sono, uma especialista acolhedora e maternal em sono infantil de 0 a 5 anos. 
-Sua voz é calma, empática, suave e sem julgamentos. 
-Sempre valide primeiro o cansaço da mãe ("Sei como é difícil...", "Você está fazendo um ótimo trabalho...").
-Nunca sugira deixar o bebê chorar. 
-Foques em métodos gentis, conexão emocional e rotinas previsíveis. 
-Responda em português brasileiro, com linguagem simples, carinho e no máximo 4-5 parágrafos curtos. Use emojis com moderação.`;
-
 let chatHistory = [];
+let isLoading = false;
+
+const SYSTEM_PROMPT = `Você é a Guia do Sono, uma especialista acolhedora e maternal em sono infantil de 0 a 5 anos.
+Sua voz é calma, empática, suave, rústica e sem julgamentos.
+Sempre valide primeiro o cansaço da mãe antes de dar qualquer orientação técnica.
+Use frases como "Sei como é difícil..." ou "Você está fazendo um ótimo trabalho...".
+Nunca sugira deixar o bebê chorar. Foque em métodos gentis, conexão emocional e rotinas previsíveis.
+Reforce sempre o sono seguro quando relevante.
+Responda em português brasileiro, com linguagem simples, carinho e no máximo 4-5 parágrafos curtos.
+Use emojis com moderação (1-2 por resposta).`;
 
 function addMessage(role, content) {
   const container = document.getElementById('chatMessages');
@@ -219,7 +167,7 @@ function addMessage(role, content) {
   row.className = `msg-row ${role === 'user' ? 'user' : ''}`;
   row.innerHTML = `
     <div class="msg-bubble-avatar">${role === 'user' ? '👤' : '🌿'}</div>
-    <div class="msg-bubble">${content.replace(/\n/g, '<br>')}</div>
+    <div class="msg-bubble">${content.replace(/\n/g,'<br>')}</div>
   `;
   container.appendChild(row);
   container.scrollTop = container.scrollHeight;
@@ -228,69 +176,75 @@ function addMessage(role, content) {
 function addTypingIndicator() {
   const container = document.getElementById('chatMessages');
   const row = document.createElement('div');
+  row.id = 'typingIndicator';
   row.className = 'msg-row';
   row.innerHTML = `
     <div class="msg-bubble-avatar">🌿</div>
-    <div style="padding:14px 20px; background:white; border:1px solid #e5d9c8; border-radius:24px; border-bottom-left-radius:8px; display:flex; gap:6px;">
+    <div style="padding:14px 20px;background:white;border:1px solid #e5d9c8;border-radius:24px;border-bottom-left-radius:8px;display:flex;gap:6px;align-items:center;">
       <div style="width:8px;height:8px;background:#e8a97e;border-radius:50%;animation:typing 1.4s infinite;"></div>
-      <div style="width:8px;height:8px;background:#e8a97e;border-radius:50%;animation:typing 1.4s infinite; animation-delay:0.2s"></div>
-      <div style="width:8px;height:8px;background:#e8a97e;border-radius:50%;animation:typing 1.4s infinite; animation-delay:0.4s"></div>
+      <div style="width:8px;height:8px;background:#e8a97e;border-radius:50%;animation:typing 1.4s infinite;animation-delay:0.2s"></div>
+      <div style="width:8px;height:8px;background:#e8a97e;border-radius:50%;animation:typing 1.4s infinite;animation-delay:0.4s"></div>
     </div>
   `;
   container.appendChild(row);
   container.scrollTop = container.scrollHeight;
-  return row;
+}
+
+function removeTypingIndicator() {
+  const el = document.getElementById('typingIndicator');
+  if (el) el.remove();
 }
 
 async function sendMessage() {
+  if (isLoading) return;
   const input = document.getElementById('chatInput');
   const text = input.value.trim();
   if (!text) return;
 
+  isLoading = true;
+  document.getElementById('sendBtn').disabled = true;
+
   addMessage('user', text);
   chatHistory.push({ role: 'user', content: text });
   input.value = '';
-
-  const typing = addTypingIndicator();
+  input.style.height = 'auto';
+  addTypingIndicator();
 
   try {
     const response = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        system: SYSTEM_PROMPT,
-        messages: chatHistory
-      })
+      body: JSON.stringify({ system: SYSTEM_PROMPT, messages: chatHistory })
     });
 
     const data = await response.json();
-    const reply = data.reply || "Desculpe, não consegui responder agora. Pode tentar novamente?";
+    removeTypingIndicator();
 
-    typing.remove();
+    const reply = data.reply || "Não consegui responder agora. Pode tentar novamente? 🌿";
     addMessage('assistant', reply);
     chatHistory.push({ role: 'assistant', content: reply });
+
   } catch (err) {
-    typing.remove();
-    addMessage('assistant', "Ops... Tive um erro de conexão. Pode tentar novamente? ❤️");
+    removeTypingIndicator();
+    addMessage('assistant', "Tive um erro de conexão. Pode tentar novamente? ❤️");
   }
+
+  isLoading = false;
+  document.getElementById('sendBtn').disabled = false;
+  input.focus();
 }
 
-// Navegação simples (para outras telas)
-function goTo(screen) {
-  alert(`Você clicou em ${screen}. Esta tela ainda está em desenvolvimento.`);
-}
-
-// Inicialização
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("Guia do Sono carregado - Chat com Gemini pronto");
+  const textarea = document.getElementById('chatInput');
+  textarea.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+  });
 });
-</script>
 
-<style>
-@keyframes typing {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+function goTo(screen) {
+  alert(`A tela "${screen}" está em desenvolvimento. Em breve! 🌿`);
 }
-</style>
+</script>
 </body>
 </html>
