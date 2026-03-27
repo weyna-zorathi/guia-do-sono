@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia do Sono — App</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:    #faf6ef;
+  --warm:     #fff9f2;
+  --sage:     #8a9e7f;
+  --sage-l:   #b5c9a8;
+  --sage-d:   #5a7050;
+  --sage-p:   #edf3e8;
+  --tc:       #c47a52;
+  --tc-l:     #e8a97e;
+  --tc-p:     #f5e0d0;
+  --brown:    #7a5c3e;
+  --brown-l:  #a07850;
+  --linen:    #ede5d8;
+  --linen-d:  #d8ccb8;
+  --night:    #2c3e2d;
+  --gold:     #c9a84c;
+  --gold-l:   #e8cc7e;
+  --gold-p:   #faf3df;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: #e8e0d5;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Sans', sans-serif;
+  padding: 32px 16px;
+  background-image:
+    radial-gradient(ellipse at 20% 20%, rgba(196,122,82,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(138,158,127,0.12) 0%, transparent 50%);
+}
+
+/* ── PHONE FRAME ── */
+.phone {
+  width: 390px;
+  height: 844px;
+  background: var(--cream);
+  border-radius: 48px;
+  box-shadow:
+    0 0 0 10px #1a1a1a,
+    0 0 0 12px #2a2a2a,
+    0 40px 100px rgba(0,0,0,0.35),
+    0 8px 24px rgba(0,0,0,0.2);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* notch */
+.phone::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 120px; height: 34px;
+  background: #1a1a1a;
+  border-radius: 0 0 22px 22px;
+  z-index: 100;
+}
+
+/* ── STATUS BAR ── */
+.status-bar {
+  padding: 12px 28px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+.status-time {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--night);
+}
+.status-icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--night);
+}
+
+/* ── SCROLL AREA ── */
+.scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 100px;
+}
+.scroll-area::-webkit-scrollbar { display: none; }
+
+/* ── HEADER ── */
+.app-header {
+  padding: 12px 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.header-greeting {
+  font-size: 11px;
+  color: var(--brown-l);
+  letter-spacing: 0.04em;
+  margin-bottom: 2px;
+}
+.header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--night);
+}
+.header-title em { color: var(--tc); font-style: italic; }
+.header-icons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 4px;
+}
+.icon-btn {
+  width: 36px; height: 36px;
+  border-radius: 12px;
+  background: var(--warm);
+  border: 1px solid var(--linen);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.icon-btn:hover { background: var(--linen); }
+
+/* ── PERFIL DO BEBÊ ── */
+.baby-card {
+  margin: 16px 20px 0;
+  background: var(--night);
+  border-radius: 24px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.baby-card:hover { transform: translateY(-1px); }
+.baby-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 5% 50%, rgba(138,158,127,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 100% 20%, rgba(201,168,76,0.14) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.baby-card-inner {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* avatar */
+.baby-avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+.baby-avatar {
+  width: 68px; height: 68px;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.08);
+  border: 2px solid rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.baby-avatar img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+.avatar-add-btn {
+  position: absolute;
+  bottom: -4px; right: -4px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--tc);
+  color: #fff;
+  font-size: 12px;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--night);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.baby-info { flex: 1; }
+.baby-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.baby-age {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 12px;
+  font-family: 'Lora', serif;
+  font-style: italic;
+}
+
+.baby-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.baby-stat {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 8px 10px;
+  text-align: center;
+}
+.baby-stat-val {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold-l);
+  line-height: 1;
+  margin-bottom: 3px;
+}
+.baby-stat-lbl {
+  font-size: 9px;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+}
+
+/* janela badge */
+.window-badge {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: rgba(201,168,76,0.2);
+  border: 1px solid rgba(201,168,76,0.35);
+  border-radius: 20px;
+  padding: 5px 12px;
+  z-index: 1;
+}
+.window-badge-val {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold-l);
+}
+.window-badge-lbl {
+  font-size: 9px;
+  color: rgba(255,255,255,0.4);
+}
+
+/* próxima janela progress */
+.baby-card-footer {
+  margin-top: 14px;
+  position: relative;
+  z-index: 1;
+}
+.progress-label-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.progress-lbl {
+  font-size: 10px;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.progress-time {
+  font-size: 10px;
+  color: var(--sage-l);
+  font-weight: 500;
+}
+.progress-track {
+  height: 6px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--sage), var(--gold));
+  width: 0%;
+  transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── SEÇÃO TÍTULO ── */
+.section-header {
+  padding: 20px 24px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--night);
+}
+.section-link {
+  font-size: 11px;
+  color: var(--tc);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* ── CHART DAS JANELAS ── */
+.chart-card {
+  margin: 0 20px;
+  background: var(--warm);
+  border: 1px solid var(--linen);
+  border-radius: 20px;
+  padding: 18px 20px;
+}
+
+.chart-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 6px;
+}
+.chart-big-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--night);
+  line-height: 1;
+}
+.chart-big-unit {
+  font-size: 12px;
+  color: var(--brown-l);
+  margin-left: 4px;
+  font-weight: 400;
+}
+.chart-big-sub {
+  font-size: 11px;
+  color: var(--brown-l);
+  margin-top: 2px;
+  font-family: 'Lora', serif;
+  font-style: italic;
+}
+.chart-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-end;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--brown-l);
+}
+.legend-dot {
+  width: 8px; height: 8px;
+  border-radius: 2px;
+}
+
+/* barras */
+.bars-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 90px;
+  margin: 14px 0 8px;
+}
+.bar-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  height: 100%;
+  justify-content: flex-end;
+}
+.bar-pct {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--brown-l);
+  opacity: 0;
+  transition: opacity 0.4s;
+  line-height: 1;
+}
+.bar-pct.visible { opacity: 1; }
+
+.bar-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 72px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--linen);
+  position: relative;
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+.bar-wrap:hover { filter: brightness(0.95); }
+.bar-wrap.active .bar-fill { filter: brightness(1.05); }
+
+.bar-fill {
+  width: 100%;
+  border-radius: 8px;
+  height: 0%;
+  transition: height 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+.bar-fill.sleep { background: linear-gradient(180deg, var(--sage-l) 0%, var(--sage) 100%); }
+.bar-fill.nap   { background: linear-gradient(180deg, var(--tc-l) 0%, var(--tc) 100%); }
+.bar-fill.today {
+  background: linear-gradient(180deg, var(--gold-l) 0%, var(--gold) 100%);
+  box-shadow: 0 0 12px rgba(201,168,76,0.4);
+}
+.bar-fill.today::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+  border-radius: 8px;
+}
+
+.bar-day {
+  font-size: 10px;
+  color: var(--brown-l);
+  font-weight: 400;
+  margin-top: 4px;
+}
+.bar-day.active {
+  font-weight: 600;
+  color: var(--night);
+}
+
+/* ── MINI STATS ── */
+.mini-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 0 20px;
+}
+.mini-stat-card {
+  background: var(--warm);
+  border: 1px solid var(--linen);
+  border-radius: 18px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s;
+}
+.mini-stat-card:hover { transform: translateY(-1px); border-color: var(--linen-d); }
+.mini-stat-card::before {
+  content: '';
+  position: absolute;
+  top: -16px; right: -16px;
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  opacity: 0.12;
+}
+.msc-sage::before   { background: var(--sage); }
+.msc-tc::before     { background: var(--tc); }
+.msc-gold::before   { background: var(--gold); }
+.msc-night::before  { background: var(--night); }
+
+.mini-stat-icon {
+  font-size: 20px;
+  margin-bottom: 8px;
+  display: block;
+}
+.mini-stat-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--night);
+  line-height: 1;
+  margin-bottom: 3px;
+}
+.mini-stat-val span {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--brown-l);
+}
+.mini-stat-lbl {
+  font-size: 11px;
+  color: var(--brown-l);
+  line-height: 1.4;
+}
+.mini-stat-trend {
+  position: absolute;
+  bottom: 14px; right: 14px;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+.trend-up   { background: var(--sage-p); color: var(--sage-d); }
+.trend-same { background: var(--gold-p); color: #7a6010; }
+.trend-down { background: var(--tc-p);  color: var(--tc); }
+
+/* ── TIMELINE COCHILOS ── */
+.timeline-card {
+  margin: 0 20px;
+  background: var(--warm);
+  border: 1px solid var(--linen);
+  border-radius: 20px;
+  padding: 16px 18px;
+}
+.timeline-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--brown-l);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.timeline-track-wrap {
+  position: relative;
+}
+.timeline-ruler {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.ruler-mark {
+  font-size: 9px;
+  color: var(--brown-l);
+  opacity: 0.5;
+}
+.timeline-bar-bg {
+  height: 36px;
+  background: var(--linen);
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.timeline-sleep-block {
+  position: absolute;
+  top: 4px; bottom: 4px;
+  border-radius: 6px;
+  opacity: 0;
+  transition: opacity 0.5s ease, width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.timeline-sleep-block.visible { opacity: 1; }
+.tsb-night { background: linear-gradient(90deg, var(--night), #3d5a3e); }
+.tsb-nap1  { background: linear-gradient(90deg, var(--sage-l), var(--sage)); }
+.tsb-nap2  { background: linear-gradient(90deg, var(--tc-l), var(--tc)); }
+.tsb-nap3  { background: linear-gradient(90deg, var(--gold-l), var(--gold)); }
+
+.timeline-legend {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.tl-leg-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--brown-l);
+}
+.tl-leg-dot {
+  width: 8px; height: 8px;
+  border-radius: 2px;
+}
+
+/* ── SINAL DE CANSAÇO ── */
+.sinal-row {
+  display: flex;
+  gap: 8px;
+  margin: 0 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+.sinal-row::-webkit-scrollbar { display: none; }
+.sinal-chip {
+  flex-shrink: 0;
+  background: var(--warm);
+  border: 1px solid var(--linen);
+  border-radius: 14px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.sinal-chip:hover { border-color: var(--sage-l); background: var(--sage-p); }
+.sinal-chip.active {
+  background: var(--sage-p);
+  border-color: var(--sage);
+}
+.sinal-chip-icon { font-size: 16px; }
+.sinal-chip-text {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--night);
+  white-space: nowrap;
+}
+
+/* ── CHAT QUICK ACCESS ── */
+.chat-card {
+  margin: 0 20px;
+  background: linear-gradient(135deg, var(--night) 0%, #3d5a3e 100%);
+  border-radius: 20px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s;
+}
+.chat-card:hover { transform: translateY(-1px); }
+.chat-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 5% 50%, rgba(138,158,127,0.2) 0%, transparent 60%);
+  pointer-events: none;
+}
+.chat-card-icon {
+  width: 44px; height: 44px;
+  border-radius: 14px;
+  background: rgba(138,158,127,0.25);
+  border: 1px solid rgba(138,158,127,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  position: relative; z-index: 1;
+}
+.chat-card-text { flex: 1; position: relative; z-index: 1; }
+.chat-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+}
+.chat-card-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  font-family: 'Lora', serif;
+  font-style: italic;
+}
+.chat-card-arrow {
+  font-size: 18px;
+  color: rgba(255,255,255,0.3);
+  position: relative; z-index: 1;
+}
+
+/* pulse dot */
+.pulse-dot {
+  position: absolute;
+  top: 14px; right: 18px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--sage-l);
+  z-index: 1;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(181,201,168,0.5); }
+  50% { box-shadow: 0 0 0 6px rgba(181,201,168,0); }
+}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 90px;
+  background: rgba(250,246,239,0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--linen);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 12px 16px;
+  z-index: 10;
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.nav-item:hover { background: var(--linen); }
+.nav-item.active { background: var(--sage-p); }
+.nav-icon { font-size: 20px; line-height: 1; }
+.nav-lbl {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--brown-l);
+}
+.nav-item.active .nav-lbl { color: var(--sage-d); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(12px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.fade-up {
+  opacity: 0;
+  animation: fadeUp 0.5s ease forwards;
+}
+.fade-up-1 { animation-delay: 0.05s; }
+.fade-up-2 { animation-delay: 0.12s; }
+.fade-up-3 { animation-delay: 0.20s; }
+.fade-up-4 { animation-delay: 0.28s; }
+.fade-up-5 { animation-delay: 0.36s; }
+.fade-up-6 { animation-delay: 0.44s; }
+.fade-up-7 { animation-delay: 0.52s; }
+
+/* tooltip on bar hover */
+.bar-tooltip {
+  position: absolute;
+  bottom: 105%; left: 50%;
+  transform: translateX(-50%);
+  background: var(--night);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 10;
+}
+.bar-wrap:hover .bar-tooltip { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <!-- STATUS BAR -->
+  <div class="status-bar">
+    <span class="status-time">9:41</span>
+    <div class="status-icons">
+      <span>▲▲▲</span>
+      <span>WiFi</span>
+      <span>🔋</span>
+    </div>
+  </div>
+
+  <!-- SCROLL AREA -->
+  <div class="scroll-area" id="scrollArea">
+
+    <!-- HEADER -->
+    <div class="app-header fade-up fade-up-1">
+      <div>
+        <div class="header-greeting">Bom dia, Luiza ✦</div>
+        <div class="header-title">Como dormiu a <em>pequena?</em></div>
+      </div>
+      <div class="header-icons">
+        <div class="icon-btn">🔔</div>
+        <div class="icon-btn">⚙️</div>
+      </div>
+    </div>
+
+    <!-- BABY PROFILE CARD -->
+    <div class="baby-card fade-up fade-up-2" id="babyCard">
+      <div class="window-badge">
+        <div class="window-badge-val">90 min</div>
+        <div class="window-badge-lbl">janela atual</div>
+      </div>
+
+      <div class="baby-card-inner">
+        <!-- avatar -->
+        <div class="baby-avatar-wrap">
+          <div class="baby-avatar" id="babyAvatar">
+            🌸
+          </div>
+          <label class="avatar-add-btn" for="avatarInput" title="Adicionar foto">+</label>
+          <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="loadAvatar(event)">
+        </div>
+
+        <!-- info + stats -->
+        <div class="baby-info">
+          <div class="baby-name">Sofia</div>
+          <div class="baby-age">4 meses e 12 dias</div>
+
+          <div class="baby-stats-row">
+            <div class="baby-stat">
+              <div class="baby-stat-val">2</div>
+              <div class="baby-stat-lbl">cochilos hoje</div>
+            </div>
+            <div class="baby-stat">
+              <div class="baby-stat-val">4h20</div>
+              <div class="baby-stat-lbl">sono total</div>
+            </div>
+            <div class="baby-stat">
+              <div class="baby-stat-val">10h</div>
+              <div class="baby-stat-lbl">noite</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- progress bar -->
+      <div class="baby-card-footer">
+        <div class="progress-label-row">
+          <span class="progress-lbl">Próxima janela de sono</span>
+          <span class="progress-time">~14h30</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHART JANELAS DA SEMANA -->
+    <div class="section-header fade-up fade-up-3">
+      <div class="section-title">Sono da semana</div>
+      <div class="section-link">Ver tudo →</div>
+    </div>
+
+    <div class="chart-card fade-up fade-up-3">
+      <div class="chart-top">
+        <div>
+          <div class="chart-big-val">10<span class="chart-big-unit">h 20min</span></div>
+          <div class="chart-big-sub">sono total hoje · meta: 14–16h</div>
+        </div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <div class="legend-dot" style="background:var(--night);"></div>
+            Noite
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:var(--sage);"></div>
+            Cochilo
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:var(--gold);"></div>
+            Hoje
+          </div>
+        </div>
+      </div>
+
+      <div class="bars-container" id="barsContainer">
+        <!-- gerado pelo JS -->
+      </div>
+
+      <!-- dia labels gerado junto -->
+    </div>
+
+    <!-- MINI STATS -->
+    <div class="section-header fade-up fade-up-4">
+      <div class="section-title">Resumo de hoje</div>
+    </div>
+
+    <div class="mini-stats fade-up fade-up-4">
+      <div class="mini-stat-card msc-sage">
+        <span class="mini-stat-icon">🌙</span>
+        <div class="mini-stat-val">10 <span>h 20 min</span></div>
+        <div class="mini-stat-lbl">Sono total</div>
+        <div class="mini-stat-trend trend-up">↑ +40min</div>
+      </div>
+      <div class="mini-stat-card msc-tc">
+        <span class="mini-stat-icon">☀️</span>
+        <div class="mini-stat-val">2 <span>cochilos</span></div>
+        <div class="mini-stat-lbl">Sonecas diurnas</div>
+        <div class="mini-stat-trend trend-same">= igual</div>
+      </div>
+      <div class="mini-stat-card msc-gold">
+        <span class="mini-stat-icon">⏱️</span>
+        <div class="mini-stat-val">82 <span>min</span></div>
+        <div class="mini-stat-lbl">Janela atual</div>
+        <div class="mini-stat-trend trend-up">✓ no ponto</div>
+      </div>
+      <div class="mini-stat-card msc-night">
+        <span class="mini-stat-icon">🌅</span>
+        <div class="mini-stat-val">06 <span>h 14</span></div>
+        <div class="mini-stat-lbl">Acordou hoje</div>
+        <div class="mini-stat-trend trend-same">= regular</div>
+      </div>
+    </div>
+
+    <!-- TIMELINE DO DIA -->
+    <div class="section-header fade-up fade-up-5">
+      <div class="section-title">Timeline de hoje</div>
+    </div>
+    <div class="timeline-card fade-up fade-up-5">
+      <div class="timeline-label">Distribuição do sono · 00h–22h</div>
+      <div class="timeline-ruler">
+        <span class="ruler-mark">0h</span>
+        <span class="ruler-mark">6h</span>
+        <span class="ruler-mark">12h</span>
+        <span class="ruler-mark">18h</span>
+        <span class="ruler-mark">22h</span>
+      </div>
+      <div class="timeline-bar-bg">
+        <!-- sono noturno: 20h–6h = 0%-27% -->
+        <div class="timeline-sleep-block tsb-night" id="tsb1"
+             style="left:0%; width:0%; top:4px; bottom:4px;"></div>
+        <!-- cochilo 1: 8h–9h30 = 36%-43% -->
+        <div class="timeline-sleep-block tsb-nap1" id="tsb2"
+             style="left:36%; width:0%;"></div>
+        <!-- cochilo 2: 12h30–14h = 57%-64% -->
+        <div class="timeline-sleep-block tsb-nap2" id="tsb3"
+             style="left:57%; width:0%;"></div>
+        <!-- cochilo 3: 16h–17h = 73%-77% -->
+        <div class="timeline-sleep-block tsb-nap3" id="tsb4"
+             style="left:73%; width:0%;"></div>
+      </div>
+      <div class="timeline-legend">
+        <div class="tl-leg-item">
+          <div class="tl-leg-dot" style="background:var(--night);"></div>Noite 10h
+        </div>
+        <div class="tl-leg-item">
+          <div class="tl-leg-dot" style="background:var(--sage);"></div>Cochilo 1h30
+        </div>
+        <div class="tl-leg-item">
+          <div class="tl-leg-dot" style="background:var(--tc);"></div>Cochilo 1h30
+        </div>
+        <div class="tl-leg-item">
+          <div class="tl-leg-dot" style="background:var(--gold);"></div>Cochilo 1h
+        </div>
+      </div>
+    </div>
+
+    <!-- SINAIS DE CANSAÇO -->
+    <div class="section-header fade-up fade-up-6">
+      <div class="section-title">Registrar sinal agora</div>
+    </div>
+    <div class="sinal-row fade-up fade-up-6">
+      <div class="sinal-chip" onclick="toggleChip(this)">
+        <span class="sinal-chip-icon">👁️</span>
+        <span class="sinal-chip-text">Olhar distante</span>
+      </div>
+      <div class="sinal-chip" onclick="toggleChip(this)">
+        <span class="sinal-chip-icon">😮</span>
+        <span class="sinal-chip-text">Bocejou</span>
+      </div>
+      <div class="sinal-chip" onclick="toggleChip(this)">
+        <span class="sinal-chip-icon">🐢</span>
+        <span class="sinal-chip-text">Desacelerou</span>
+      </div>
+      <div class="sinal-chip" onclick="toggleChip(this)">
+        <span class="sinal-chip-icon">👋</span>
+        <span class="sinal-chip-text">Esfregou olho</span>
+      </div>
+      <div class="sinal-chip" onclick="toggleChip(this)">
+        <span class="sinal-chip-icon">🔴</span>
+        <span class="sinal-chip-text">Olhos vermelhos</span>
+      </div>
+    </div>
+
+    <!-- CHAT QUICK ACCESS -->
+    <div class="section-header fade-up fade-up-7">
+      <div class="section-title">Apoio agora</div>
+    </div>
+    <div class="chat-card fade-up fade-up-7">
+      <div class="pulse-dot"></div>
+      <div class="chat-card-icon">🌿</div>
+      <div class="chat-card-text">
+        <div class="chat-card-title">Falar com o Guia do Sono</div>
+        <div class="chat-card-sub">Disponível agora · sem espera</div>
+      </div>
+      <div class="chat-card-arrow">›</div>
+    </div>
+
+    <!-- espaço extra no fundo -->
+    <div style="height:16px;"></div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <div class="nav-item active">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-lbl">Início</span>
+    </div>
+    <div class="nav-item">
+      <span class="nav-icon">📊</span>
+      <span class="nav-lbl">Progresso</span>
+    </div>
+    <div class="nav-item">
+      <span class="nav-icon">💬</span>
+      <span class="nav-lbl">Chat</span>
+    </div>
+    <div class="nav-item">
+      <span class="nav-icon">📚</span>
+      <span class="nav-lbl">Guias</span>
+    </div>
+    <div class="nav-item">
+      <span class="nav-icon">👤</span>
+      <span class="nav-lbl">Perfil</span>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── DADOS DO GRÁFICO ── */
+const weekData = [
+  { day: 'Seg', pct: 68,  type: 'sleep' },
+  { day: 'Ter', pct: 72,  type: 'sleep' },
+  { day: 'Qua', pct: 55,  type: 'nap'   },
+  { day: 'Qui', pct: 80,  type: 'sleep' },
+  { day: 'Sex', pct: 65,  type: 'nap'   },
+  { day: 'Sáb', pct: 88,  type: 'sleep' },
+  { day: 'Hoj', pct: 73,  type: 'today' },
+];
+
+function buildBars() {
+  const container = document.getElementById('barsContainer');
+  container.innerHTML = '';
+
+  weekData.forEach((d, i) => {
+    const isToday = d.type === 'today';
+    const group = document.createElement('div');
+    group.className = 'bar-group';
+
+    const pctEl = document.createElement('div');
+    pctEl.className = 'bar-pct';
+    pctEl.textContent = d.pct + '%';
+
+    const wrap = document.createElement('div');
+    wrap.className = `bar-wrap ${isToday ? 'active' : ''}`;
+
+    const tooltip = document.createElement('div');
+    tooltip.className = 'bar-tooltip';
+    tooltip.textContent = d.pct + '% · ' + (d.pct * 0.16).toFixed(1) + 'h';
+
+    const fill = document.createElement('div');
+    fill.className = `bar-fill ${d.type}`;
+    fill.style.height = '0%';
+
+    wrap.appendChild(tooltip);
+    wrap.appendChild(fill);
+
+    const dayEl = document.createElement('div');
+    dayEl.className = `bar-day ${isToday ? 'active' : ''}`;
+    dayEl.textContent = d.day;
+
+    group.appendChild(pctEl);
+    group.appendChild(wrap);
+    group.appendChild(dayEl);
+    container.appendChild(group);
+
+    // animate after paint
+    setTimeout(() => {
+      fill.style.height = d.pct + '%';
+      setTimeout(() => {
+        pctEl.classList.add('visible');
+      }, 600);
+    }, 200 + i * 80);
+  });
+}
+
+/* ── PROGRESS BAR DO BEBÊ ── */
+function animateProgress() {
+  setTimeout(() => {
+    document.getElementById('progressFill').style.width = '62%';
+  }, 400);
+}
+
+/* ── TIMELINE ── */
+function animateTimeline() {
+  const blocks = [
+    { id: 'tsb1', delay: 300,  w: '27%'  },  // noite
+    { id: 'tsb2', delay: 600,  w: '7%'   },  // cochilo 1
+    { id: 'tsb3', delay: 800,  w: '7%'   },  // cochilo 2
+    { id: 'tsb4', delay: 1000, w: '4.5%' },  // cochilo 3
+  ];
+  blocks.forEach(b => {
+    setTimeout(() => {
+      const el = document.getElementById(b.id);
+      el.classList.add('visible');
+      el.style.width = b.w;
+    }, b.delay);
+  });
+}
+
+/* ── CHIP TOGGLE ── */
+function toggleChip(el) {
+  el.classList.toggle('active');
+}
+
+/* ── AVATAR ── */
+function loadAvatar(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const avatar = document.getElementById('babyAvatar');
+    avatar.innerHTML = `<img src="${e.target.result}" alt="Sofia">`;
+  };
+  reader.readAsDataURL(file);
+}
+
+/* ── NAV ATIVA ── */
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+  });
+});
+
+/* ── INIT ── */
+buildBars();
+animateProgress();
+animateTimeline();
+</script>
+</body>
+</html>
