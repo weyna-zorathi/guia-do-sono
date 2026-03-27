@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia do Sono — Sono gentil para bebês, acolhimento para mães</title>
+<meta name="description" content="Uma assistente de IA especialista em sono infantil, disponível às 3h da manhã. Sem métodos de choro, sem julgamentos.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:  #faf6ef;
+  --warm:   #fff9f2;
+  --sage:   #8a9e7f;
+  --sage-l: #b5c9a8;
+  --sage-d: #5a7050;
+  --sage-p: #edf3e8;
+  --tc:     #c47a52;
+  --tc-l:   #e8a97e;
+  --tc-p:   #f5e0d0;
+  --brown:  #7a5c3e;
+  --brown-l:#a07850;
+  --linen:  #ede5d8;
+  --linen-d:#d8ccb8;
+  --night:  #2c3e2d;
+  --gold:   #c9a84c;
+  --gold-l: #e8cc7e;
+  --gold-p: #faf3df;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--cream);
+  color:var(--brown);
+  line-height:1.75;
+  overflow-x:hidden;
+}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--cream);}
+::-webkit-scrollbar-thumb{background:var(--linen-d);border-radius:3px;}
+
+/* ── UTILITÁRIOS ── */
+.wrap { max-width:1100px;margin:0 auto;padding:0 28px; }
+.wrap--narrow { max-width:680px;margin:0 auto;padding:0 28px; }
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.on{opacity:1;transform:none;}
+.d1{transition-delay:.08s;} .d2{transition-delay:.16s;} .d3{transition-delay:.24s;}
+
+/* ═══════════════════════
+   NAV
+═══════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:16px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(250,246,239,.9);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(216,204,184,.4);
+  transition:background .3s;
+}
+.nav-logo{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:1.15rem;color:var(--night);text-decoration:none;
+  display:flex;align-items:center;gap:8px;
+}
+.nav-logo-dot{width:7px;height:7px;border-radius:50%;background:var(--tc);}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-link{font-size:.85rem;color:var(--brown-l);text-decoration:none;font-weight:500;transition:color .2s;}
+.nav-link:hover{color:var(--night);}
+.nav-cta{
+  background:var(--night);color:#fff;
+  font-size:.82rem;font-weight:600;
+  padding:9px 22px;border-radius:100px;
+  text-decoration:none;
+  transition:background .2s,transform .15s;
+  border:none;cursor:pointer;font-family:'DM Sans',sans-serif;
+}
+.nav-cta:hover{background:var(--sage-d);transform:translateY(-1px);}
+@media(max-width:600px){
+  .nav-links{display:none;}
+  nav{padding:14px 20px;}
+}
+
+/* ═══════════════════════
+   HERO
+═══════════════════════ */
+.hero{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:120px 60px 80px;
+  gap:60px;
+  position:relative;
+  overflow:hidden;
+  background-image:
+    radial-gradient(ellipse at 5% 20%, rgba(196,122,82,.08) 0%,transparent 48%),
+    radial-gradient(ellipse at 95% 80%, rgba(138,158,127,.10) 0%,transparent 48%),
+    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23c47a52' fill-opacity='.018'%3E%3Cpath d='M50 50v-6h-2v6h-6v2h6v6h2v-6h6v-2h-6zm0-40V4h-2v6h-6v2h6v6h2v-6h6V4h-6zM10 50v-6H8v6H2v2h6v6h2v-6h6v-2h-6zM10 10V4H8v6H2v2h6v6h2V6h4V4H8z'/%3E%3C/g%3E%3C/svg%3E");
+}
+@media(max-width:800px){
+  .hero{grid-template-columns:1fr;padding:100px 24px 60px;gap:40px;}
+  .hero-visual{display:none;}
+}
+
+/* folhas */
+.hero-leaf{position:absolute;opacity:.08;pointer-events:none;}
+.hero-leaf--l{left:-80px;top:50%;transform:translateY(-50%);width:380px;}
+.hero-leaf--r{right:-80px;top:50%;transform:translateY(-50%) scaleX(-1);width:380px;}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--tc-p);border:1px solid rgba(196,122,82,.25);
+  border-radius:20px;padding:5px 16px;
+  font-size:.75rem;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--tc);margin-bottom:20px;
+}
+.badge-pulse{
+  width:6px;height:6px;border-radius:50%;background:var(--tc);
+  animation:pulse-dot 2s infinite;
+}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
+
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.4rem,4.5vw,3.6rem);
+  font-weight:700;color:var(--night);
+  line-height:1.13;margin-bottom:20px;
+}
+.hero-title em{color:var(--tc);font-style:italic;}
+
+.hero-sub{
+  font-family:'Lora',serif;font-style:italic;
+  font-size:1.05rem;color:var(--brown-l);
+  line-height:1.85;margin-bottom:36px;max-width:500px;
+}
+
+/* form hero */
+.hero-form{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+.hero-input{
+  flex:1;min-width:210px;
+  padding:14px 20px;
+  border:1.5px solid var(--linen-d);border-radius:100px;
+  font-family:'DM Sans',sans-serif;font-size:.92rem;
+  color:var(--night);background:var(--warm);outline:none;
+  transition:border-color .2s;
+}
+.hero-input::placeholder{color:var(--brown-l);opacity:.6;}
+.hero-input:focus{border-color:var(--tc);}
+.hero-btn{
+  background:var(--night);color:#fff;
+  font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;
+  padding:14px 26px;border-radius:100px;border:none;
+  cursor:pointer;white-space:nowrap;
+  transition:background .2s,transform .15s;
+}
+.hero-btn:hover{background:var(--sage-d);transform:translateY(-1px);}
+
+.hero-note{
+  font-size:.76rem;color:var(--brown-l);opacity:.65;
+  display:flex;align-items:center;gap:6px;
+}
+
+.success-inline{
+  display:none;
+  background:var(--sage-p);border:1px solid rgba(138,158,127,.3);
+  border-radius:12px;padding:14px 20px;
+  font-size:.9rem;color:var(--sage-d);
+  font-family:'Lora',serif;font-style:italic;
+  margin-top:10px;
+}
+
+/* chat mockup */
+.hero-visual{position:relative;}
+.chat-mockup{
+  background:var(--warm);
+  border:1px solid var(--linen);
+  border-radius:24px;
+  box-shadow:0 24px 64px rgba(44,62,45,.12),0 4px 16px rgba(44,62,45,.06);
+  overflow:hidden;
+}
+.chat-header{
+  background:var(--night);padding:16px 20px;
+  display:flex;align-items:center;gap:12px;
+}
+.chat-av{
+  width:38px;height:38px;border-radius:50%;
+  background:var(--sage);display:flex;align-items:center;
+  justify-content:center;font-size:17px;flex-shrink:0;
+}
+.chat-hname{font-size:.86rem;font-weight:600;color:#fff;margin-bottom:2px;}
+.chat-hstatus{font-size:.7rem;color:var(--sage-l);display:flex;align-items:center;gap:5px;}
+.sdot{width:5px;height:5px;border-radius:50%;background:var(--sage-l);animation:pulse-dot 2.5s infinite;}
+.chat-body{padding:20px;display:flex;flex-direction:column;gap:12px;}
+.bbl{
+  max-width:88%;border-radius:16px;
+  padding:11px 15px;font-size:.84rem;line-height:1.6;
+}
+.bbl-mom{
+  background:var(--tc-p);border:1px solid rgba(196,122,82,.2);
+  border-radius:16px 16px 4px 16px;align-self:flex-end;
+  color:var(--brown);font-family:'Lora',serif;font-style:italic;
+}
+.bbl-guia{
+  background:var(--sage-p);border:1px solid rgba(138,158,127,.2);
+  border-radius:16px 16px 16px 4px;align-self:flex-start;color:var(--night);
+}
+.bbl-guia strong{color:var(--sage-d);}
+.bbl-time{
+  font-size:9px;color:var(--brown-l);opacity:.45;
+  padding:0 4px;
+}
+.bbl-time.r{text-align:right;align-self:flex-end;}
+
+/* hora badge */
+.time-badge{
+  position:absolute;top:-12px;left:-12px;
+  background:var(--night);border:2px solid var(--cream);
+  color:var(--gold-l);font-size:.72rem;font-weight:600;
+  padding:5px 12px;border-radius:20px;
+  font-family:'DM Sans',sans-serif;
+  box-shadow:0 4px 12px rgba(0,0,0,.2);
+}
+
+.star-float{
+  position:absolute;color:var(--gold);font-size:13px;
+  opacity:.5;animation:float 6s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-10px) rotate(8deg)}}
+
+/* ═══════════════════════
+   DOR
+═══════════════════════ */
+.pain-section{
+  padding:96px 0;
+  background:var(--night);
+  position:relative;overflow:hidden;
+}
+.pain-section::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 60% at 0% 100%, rgba(138,158,127,.18) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 50% at 100% 0%, rgba(201,168,76,.12) 0%,transparent 50%);
+  pointer-events:none;
+}
+.pain-leaf{
+  position:absolute;right:-60px;bottom:-60px;
+  width:340px;opacity:.05;pointer-events:none;
+}
+
+.section-eyebrow{
+  font-size:.72rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;margin-bottom:12px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-eyebrow.light{color:var(--tc-l);}
+.section-eyebrow.light::after{content:'';width:36px;height:1px;background:var(--tc-l);opacity:.5;}
+.section-eyebrow.dark{color:var(--tc);}
+.section-eyebrow.dark::after{content:'';width:36px;height:1px;background:var(--tc-l);}
+
+.pain-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.7rem,3.5vw,2.5rem);
+  font-weight:700;color:#fff;line-height:1.2;
+  margin-bottom:14px;
+}
+.pain-title em{color:var(--tc-l);font-style:italic;}
+
+.pain-lead{
+  font-family:'Lora',serif;font-style:italic;
+  font-size:1rem;color:rgba(255,255,255,.45);
+  line-height:1.8;max-width:520px;margin-bottom:52px;
+}
+
+.pain-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+@media(max-width:700px){.pain-grid{grid-template-columns:1fr;}}
+
+.pain-card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;padding:28px 26px;
+  position:relative;overflow:hidden;
+  transition:border-color .2s,transform .2s;
+}
+.pain-card:hover{border-color:rgba(255,255,255,.15);transform:translateY(-2px);}
+.pain-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:3px;background:var(--tc-l);opacity:.5;
+}
+.pain-icon{font-size:28px;margin-bottom:14px;display:block;}
+.pain-card-title{
+  font-family:'Playfair Display',serif;font-size:1rem;
+  font-weight:700;color:#fff;margin-bottom:10px;
+}
+.pain-card-text{font-size:.86rem;color:rgba(255,255,255,.45);line-height:1.7;}
+
+/* ═══════════════════════
+   SOLUÇÃO
+═══════════════════════ */
+.solution-section{padding:96px 0;}
+
+.sol-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:72px;align-items:center;
+}
+@media(max-width:800px){.sol-grid{grid-template-columns:1fr;gap:40px;}}
+
+.sol-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.6rem,3vw,2.3rem);
+  font-weight:700;color:var(--night);line-height:1.25;margin-bottom:16px;
+}
+.sol-title em{color:var(--tc);font-style:italic;}
+.sol-sub{font-size:.95rem;color:var(--brown-l);line-height:1.85;margin-bottom:36px;}
+
+.feature-list{display:flex;flex-direction:column;gap:22px;}
+.feature-item{display:flex;gap:16px;align-items:flex-start;}
+.fi-icon{
+  width:46px;height:46px;border-radius:14px;
+  background:var(--sage-p);display:flex;
+  align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;border:1px solid rgba(138,158,127,.2);
+}
+.fi-icon.tc{background:var(--tc-p);border-color:rgba(196,122,82,.2);}
+.fi-icon.gold{background:var(--gold-p);border-color:rgba(201,168,76,.2);}
+.fi-title{font-weight:600;font-size:.93rem;color:var(--night);margin-bottom:4px;}
+.fi-text{font-size:.86rem;color:var(--brown-l);line-height:1.65;}
+
+/* app preview dark */
+.app-preview{
+  background:var(--night);border-radius:24px;padding:28px;
+  position:relative;overflow:hidden;
+}
+.app-preview::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(138,158,127,.18) 0%,transparent 65%);
+  pointer-events:none;
+}
+.ap-tag{
+  font-size:8px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;color:var(--sage-l);
+  background:rgba(138,158,127,.15);padding:5px 14px;
+  border-radius:20px;display:inline-block;margin-bottom:20px;
+  position:relative;z-index:1;
+}
+.ap-stats{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:12px;margin-bottom:18px;position:relative;z-index:1;
+}
+.ap-stat{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;padding:16px;
+}
+.ap-val{
+  font-family:'Playfair Display',serif;
+  font-size:1.6rem;font-weight:700;
+  color:var(--gold-l);line-height:1;margin-bottom:4px;
+}
+.ap-lbl{font-size:.74rem;color:rgba(255,255,255,.35);}
+
+.ap-bar{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;padding:13px 16px;
+  margin-bottom:10px;position:relative;z-index:1;
+}
+.ap-bar-lbl{
+  font-size:9px;color:rgba(255,255,255,.3);
+  text-transform:uppercase;letter-spacing:1.5px;
+  font-weight:500;margin-bottom:8px;
+}
+.ap-bar-track{
+  height:7px;background:rgba(255,255,255,.08);
+  border-radius:100px;overflow:hidden;
+}
+.ap-bar-fill{
+  height:100%;border-radius:100px;
+  background:linear-gradient(90deg,var(--sage),var(--gold));
+}
+.ap-bar-meta{
+  display:flex;justify-content:space-between;
+  margin-top:6px;font-size:9px;color:rgba(255,255,255,.25);
+}
+
+/* ═══════════════════════
+   COMO FUNCIONA
+═══════════════════════ */
+.how-section{
+  padding:96px 0;
+  background:var(--warm);
+  border-top:1px solid var(--linen);
+  border-bottom:1px solid var(--linen);
+}
+
+.how-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.6rem,3vw,2.3rem);
+  font-weight:700;color:var(--night);
+  line-height:1.25;margin-bottom:10px;text-align:center;
+}
+.how-title em{color:var(--tc);font-style:italic;}
+.how-sub{
+  font-family:'Lora',serif;font-style:italic;
+  font-size:.96rem;color:var(--brown-l);
+  text-align:center;margin-bottom:60px;line-height:1.8;
+}
+
+.steps{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;position:relative;
+}
+@media(max-width:700px){.steps{grid-template-columns:1fr 1fr;gap:28px;}}
+.steps::before{
+  content:'';position:absolute;
+  top:34px;left:12%;right:12%;height:1px;
+  background:var(--linen-d);z-index:0;
+}
+@media(max-width:700px){.steps::before{display:none;}}
+
+.step{
+  display:flex;flex-direction:column;
+  align-items:center;text-align:center;
+  padding:0 16px;position:relative;z-index:1;
+}
+.step-circle{
+  width:68px;height:68px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;margin-bottom:16px;
+  background:var(--cream);
+  border:2px solid transparent;
+  position:relative;
+}
+.sc-1{background:var(--tc-p);border-color:rgba(196,122,82,.3);}
+.sc-2{background:var(--sage-p);border-color:rgba(138,158,127,.3);}
+.sc-3{background:var(--gold-p);border-color:rgba(201,168,76,.3);}
+.sc-4{background:rgba(44,62,45,.06);border-color:rgba(44,62,45,.15);}
+.step-n{
+  position:absolute;top:-4px;right:-4px;
+  width:20px;height:20px;border-radius:50%;
+  background:var(--night);color:#fff;
+  font-size:10px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+.step-title{
+  font-family:'Playfair Display',serif;
+  font-size:.95rem;font-weight:700;
+  color:var(--night);margin-bottom:8px;
+}
+.step-text{font-size:.82rem;color:var(--brown-l);line-height:1.65;}
+
+/* ═══════════════════════
+   DEPOIMENTOS
+═══════════════════════ */
+.testi-section{
+  padding:96px 0;
+}
+.testi-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.6rem,3vw,2.3rem);
+  font-weight:700;color:var(--night);margin-bottom:10px;
+}
+.testi-title em{color:var(--tc);font-style:italic;}
+.testi-sub{
+  font-family:'Lora',serif;font-style:italic;
+  font-size:.96rem;color:var(--brown-l);
+  margin-bottom:52px;line-height:1.8;
+}
+.testi-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+@media(max-width:700px){.testi-grid{grid-template-columns:1fr;}}
+.testi-card{
+  background:var(--warm);border:1px solid var(--linen);
+  border-radius:20px;padding:28px;
+  display:flex;flex-direction:column;gap:16px;
+  transition:border-color .2s,transform .2s;
+}
+.testi-card:hover{border-color:var(--sage-l);transform:translateY(-2px);}
+.testi-stars{color:var(--gold);font-size:13px;letter-spacing:2px;}
+.testi-text{
+  font-family:'Lora',serif;font-style:italic;
+  font-size:.92rem;color:var(--brown);line-height:1.8;flex:1;
+}
+.testi-author{
+  display:flex;align-items:center;gap:12px;
+  padding-top:12px;border-top:1px solid var(--linen);
+}
+.ta-av{
+  width:38px;height:38px;border-radius:50%;
+  background:var(--sage-p);display:flex;
+  align-items:center;justify-content:center;font-size:16px;
+}
+.ta-name{font-size:.84rem;font-weight:600;color:var(--night);margin-bottom:2px;}
+.ta-role{font-size:.74rem;color:var(--brown-l);opacity:.7;}
+
+/* ═══════════════════════
+   CTA FINAL
+═══════════════════════ */
+.cta-section{
+  padding:100px 0;
+  background:var(--night);
+  position:relative;overflow:hidden;
+}
+.cta-section::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 0%, rgba(138,158,127,.18) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 90%, rgba(196,122,82,.12) 0%,transparent 55%);
+  pointer-events:none;
+}
+.cta-leaf{
+  position:absolute;left:-80px;bottom:-80px;
+  width:380px;opacity:.055;pointer-events:none;
+}
+
+.cta-ornament{
+  font-size:12px;color:var(--gold);letter-spacing:8px;
+  margin-bottom:22px;position:relative;z-index:1;text-align:center;
+}
+.cta-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,4vw,2.8rem);
+  font-weight:700;color:#fff;line-height:1.2;
+  margin-bottom:14px;text-align:center;
+  position:relative;z-index:1;
+}
+.cta-title em{color:var(--tc-l);font-style:italic;}
+.cta-sub{
+  font-family:'Lora',serif;font-style:italic;
+  font-size:1rem;color:rgba(255,255,255,.45);
+  max-width:500px;margin:0 auto 40px;
+  line-height:1.85;text-align:center;
+  position:relative;z-index:1;
+}
+.cta-form{
+  display:flex;gap:10px;max-width:460px;
+  margin:0 auto 14px;flex-wrap:wrap;justify-content:center;
+  position:relative;z-index:1;
+}
+.cta-input{
+  flex:1;min-width:210px;
+  padding:15px 22px;
+  border:1.5px solid rgba(255,255,255,.15);
+  border-radius:100px;
+  font-family:'DM Sans',sans-serif;font-size:.92rem;
+  color:#fff;background:rgba(255,255,255,.07);outline:none;
+  transition:border-color .2s;
+}
+.cta-input::placeholder{color:rgba(255,255,255,.35);}
+.cta-input:focus{border-color:var(--sage-l);}
+.cta-btn{
+  background:var(--tc);color:#fff;
+  font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;
+  padding:15px 28px;border-radius:100px;border:none;
+  cursor:pointer;white-space:nowrap;
+  transition:background .2s,transform .15s;
+}
+.cta-btn:hover{background:#b36844;transform:translateY(-1px);}
+.cta-note{
+  font-size:.74rem;color:rgba(255,255,255,.28);
+  text-align:center;position:relative;z-index:1;margin-bottom:36px;
+}
+.cta-badges{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:10px;position:relative;z-index:1;
+}
+.cta-badge{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:100px;padding:7px 16px;
+  font-size:.78rem;color:rgba(255,255,255,.65);
+  display:flex;align-items:center;gap:6px;
+}
+
+/* ═══════════════════════
+   FOOTER
+═══════════════════════ */
+footer{
+  background:var(--night);
+  border-top:1px solid rgba(255,255,255,.06);
+  padding:40px 28px 28px;text-align:center;
+}
+.footer-logo{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:1.15rem;color:rgba(255,255,255,.8);margin-bottom:8px;
+}
+.footer-tag{
+  font-size:.78rem;color:rgba(255,255,255,.25);margin-bottom:24px;
+}
+.footer-divider{
+  border:none;border-top:1px solid rgba(255,255,255,.07);
+  max-width:400px;margin:0 auto 18px;
+}
+.footer-legal{font-size:.74rem;color:rgba(255,255,255,.18);line-height:1.7;}
+.footer-login{
+  display:inline-block;
+  margin-top:16px;font-size:.82rem;
+  color:rgba(255,255,255,.35);text-decoration:none;
+  transition:color .2s;
+}
+.footer-login:hover{color:rgba(255,255,255,.65);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="landing.html">
+    <span class="nav-logo-dot"></span>
+    Guia do Sono
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="#solucao">Como funciona</a>
+    <a class="nav-link" href="#depoimentos">Histórias</a>
+    <a class="nav-link" href="#cta">E-book grátis</a>
+  </div>
+  <a class="nav-cta" href="index.html">Entrar no app →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="hero-leaf hero-leaf--l" viewBox="0 0 380 580" fill="none">
+    <path d="M190 570C100 475 15 365 22 215C30 65 155 12 190 7C225 12 350 65 358 215C366 365 280 475 190 570Z" fill="#5a7050"/>
+    <path d="M190 7L190 570" stroke="#5a7050" stroke-width="2.5" opacity=".4"/>
+    <path d="M190 100 C155 128 120 158 105 205" stroke="#5a7050" stroke-width="1.5" opacity=".3"/>
+    <path d="M190 100 C225 128 260 158 275 205" stroke="#5a7050" stroke-width="1.5" opacity=".3"/>
+    <path d="M190 230 C150 262 115 290 100 340" stroke="#5a7050" stroke-width="1.5" opacity=".3"/>
+    <path d="M190 230 C230 262 265 290 280 340" stroke="#5a7050" stroke-width="1.5" opacity=".3"/>
+    <path d="M190 370 C160 395 132 410 122 445" stroke="#5a7050" stroke-width="1.5" opacity=".3"/>
+    <path d="M190 370 C220 395 248 410 258 445" stroke="#5a7050" stroke-width="1.5" opacity=".3"/>
+  </svg>
+  <svg class="hero-leaf hero-leaf--r" viewBox="0 0 380 580" fill="none">
+    <path d="M190 570C100 475 15 365 22 215C30 65 155 12 190 7C225 12 350 65 358 215C366 365 280 475 190 570Z" fill="#5a7050"/>
+    <path d="M190 7L190 570" stroke="#5a7050" stroke-width="2.5" opacity=".4"/>
+    <path d="M190 100 C155 128 120 158 105 205" stroke="#5a7050" stroke-width="1.5" opacity=".3"/>
+    <path d="M190 100 C225 128 260 158 275 205" stroke="#5a7050" stroke-width="1.5" opacity=".3"/>
+    <path d="M190 230 C150 262 115 290 100 340" stroke="#5a7050" stroke-width="1.5" opacity=".3"/>
+    <path d="M190 230 C230 262 265 290 280 340" stroke="#5a7050" stroke-width="1.5" opacity=".3"/>
+  </svg>
+
+  <div class="reveal">
+    <div class="hero-badge"><span class="badge-pulse"></span>Lista de espera aberta · Grátis</div>
+    <h1 class="hero-title">
+      Ela acorda às 3h.<br>
+      E você não sabe<br>
+      mais o que <em>fazer.</em>
+    </h1>
+    <p class="hero-sub">
+      O Guia do Sono é uma assistente de IA especialista em sono infantil — acolhedora, disponível a qualquer hora, sem julgamentos e sem métodos de choro.
+    </p>
+    <form class="hero-form" onsubmit="handleHeroForm(event)">
+      <input class="hero-input" type="email" id="heroEmail" placeholder="Seu melhor e-mail" required>
+      <button class="hero-btn" type="submit">Quero entrar na lista →</button>
+    </form>
+    <div class="success-inline" id="heroSuccess">
+      🌿 Maravilha! Você entrou na lista. O e-book chega em instantes.
+    </div>
+    <p class="hero-note">🔒 Sem spam. Você recebe o e-book gratuito + 10% de desconto no lançamento.</p>
+  </div>
+
+  <div class="hero-visual reveal d2">
+    <span class="time-badge">🌙 03:24</span>
+    <span class="star-float" style="top:20px;right:20px;">✦</span>
+    <span class="star-float" style="bottom:60px;left:10px;font-size:10px;animation-delay:2s;">✦</span>
+
+    <div class="chat-mockup">
+      <div class="chat-header">
+        <div class="chat-av">🌿</div>
+        <div>
+          <div class="chat-hname">Guia do Sono</div>
+          <div class="chat-hstatus"><span class="sdot"></span>Online · sempre disponível</div>
+        </div>
+      </div>
+      <div class="chat-body">
+        <div class="bbl bbl-mom">"Meu bebê de 4 meses acorda toda hora. Estou exausta e não aguento mais…"</div>
+        <div class="bbl-time r">03:24</div>
+        <div class="bbl bbl-guia">Eu entendo, mamãe. Antes de qualquer coisa — <strong>você está fazendo um trabalho lindo</strong>, mesmo nas noites mais difíceis. 🌿</div>
+        <div class="bbl bbl-guia">Aos 4 meses existe uma regressão muito conhecida. O cérebro do seu bebê está amadurecendo. Isso vai passar — e podemos tornar mais leve agora.</div>
+        <div class="bbl-time">03:24</div>
+        <div class="bbl bbl-mom">"O que faço agora, nessa madrugada?"</div>
+        <div class="bbl-time r">03:25</div>
+        <div class="bbl bbl-guia">A janela de sono do seu bebê agora é de <strong>75 a 100 minutos</strong>. Quando foi a última soneca? Vamos descobrir juntas o melhor momento. 🌙</div>
+        <div class="bbl-time">03:25</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOR -->
+<section class="pain-section">
+  <svg class="pain-leaf" viewBox="0 0 340 480" fill="none">
+    <path d="M170 470C90 390 10 295 15 175C20 55 130 10 170 5C210 10 320 55 325 175C330 295 250 390 170 470Z" fill="#b5c9a8"/>
+    <path d="M170 5L170 470" stroke="#b5c9a8" stroke-width="2" opacity=".4"/>
+  </svg>
+
+  <div class="wrap">
+    <div class="reveal">
+      <div class="section-eyebrow light">A realidade de muitas famílias</div>
+      <h2 class="pain-title">Você já se sentiu<br><em>completamente sozinha</em> assim?</h2>
+      <p class="pain-lead">Não é fraqueza. É falta de informação — e de uma companhia que realmente entenda o que você está vivendo.</p>
+    </div>
+
+    <div class="pain-grid">
+      <div class="pain-card reveal d1">
+        <span class="pain-icon">🌙</span>
+        <div class="pain-card-title">Noites fragmentadas sem explicação</div>
+        <p class="pain-card-text">Você faz tudo certo, mas o bebê continua acordando a cada hora. Ninguém consegue te dizer o porquê de um jeito que faça sentido.</p>
+      </div>
+      <div class="pain-card reveal d2">
+        <span class="pain-icon">📱</span>
+        <div class="pain-card-title">Pesquisas conflitantes às 2h da manhã</div>
+        <p class="pain-card-text">Um site diz uma coisa, o outro contradiz. O grupo do WhatsApp opina com certeza. Você fecha o celular mais confusa do que entrou.</p>
+      </div>
+      <div class="pain-card reveal d3">
+        <span class="pain-icon">💔</span>
+        <div class="pain-card-title">Sentimento de culpa que não passa</div>
+        <p class="pain-card-text">Deixar chorar parece cruel. Mas segurar também "não pode". Parece que qualquer escolha tem um especialista esperando para criticar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUÇÃO -->
+<section class="solution-section" id="solucao">
+  <div class="wrap">
+    <div class="sol-grid">
+      <div class="reveal">
+        <div class="section-eyebrow dark">A solução</div>
+        <h2 class="sol-title">Uma companheira que<br><em>entende</em> o sono do seu bebê</h2>
+        <p class="sol-sub">O Guia do Sono combina inteligência artificial com conteúdo especializado em sono gentil — para te acompanhar quando você mais precisa: de noite, sozinha, sem julgamentos.</p>
+
+        <div class="feature-list">
+          <div class="feature-item">
+            <div class="fi-icon">🌙</div>
+            <div>
+              <div class="fi-title">Chat de apoio 24 horas</div>
+              <p class="fi-text">Pergunte qualquer coisa sobre sono do seu bebê — de madrugada, de manhã, quando precisar. Sem espera, sem julgamento.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="fi-icon tc">⏱️</div>
+            <div>
+              <div class="fi-title">Janelas de sono personalizadas</div>
+              <p class="fi-text">Com base na idade e rotina do seu bebê, o app calcula a janela de vigília ideal e te avisa na hora certa.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="fi-icon gold">🌿</div>
+            <div>
+              <div class="fi-title">Rituais e rotinas gentis</div>
+              <p class="fi-text">Guias de ritual de sono passo a passo, sem nenhum método que envolva deixar o bebê chorar sozinho.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal d2">
+        <div class="app-preview">
+          <div class="ap-tag">✦ Guia do Sono · Dashboard</div>
+          <div class="ap-stats">
+            <div class="ap-stat"><div class="ap-val">4m</div><div class="ap-lbl">Idade da Sofia</div></div>
+            <div class="ap-stat"><div class="ap-val">90min</div><div class="ap-lbl">Janela atual</div></div>
+          </div>
+          <div class="ap-bar">
+            <div class="ap-bar-lbl">Próxima janela de sono</div>
+            <div class="ap-bar-track"><div class="ap-bar-fill" style="width:65%"></div></div>
+            <div class="ap-bar-meta"><span>Acordou 09h20</span><span>Soneca: ~10h50</span></div>
+          </div>
+          <div class="ap-bar">
+            <div class="ap-bar-lbl">Pressão do sono acumulada</div>
+            <div class="ap-bar-track"><div class="ap-bar-fill" style="width:78%;background:linear-gradient(90deg,var(--gold),var(--tc));"></div></div>
+            <div class="ap-bar-meta"><span>Moderada</span><span>Alta em ~25 min</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="how-section">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center;max-width:560px;margin:0 auto;">
+      <div class="section-eyebrow dark" style="justify-content:center;">Como funciona</div>
+      <h2 class="how-title">Simples como <em>deve ser</em></h2>
+      <p class="how-sub">Sem configuração técnica. Sem curva de aprendizado. Só você, seu bebê e o apoio que vocês merecem.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal d1">
+        <div class="step-circle sc-1">🌸<span class="step-n">1</span></div>
+        <div class="step-title">Conte sobre o seu bebê</div>
+        <p class="step-text">Idade, rotina atual, principais dificuldades. Menos de 2 minutos.</p>
+      </div>
+      <div class="step reveal d2">
+        <div class="step-circle sc-2">🌿<span class="step-n">2</span></div>
+        <div class="step-title">Receba seu guia</div>
+        <p class="step-text">Janelas de sono, rituais e orientações feitas para o momento do seu bebê.</p>
+      </div>
+      <div class="step reveal d3">
+        <div class="step-circle sc-3">💬<span class="step-n">3</span></div>
+        <div class="step-title">Converse quando precisar</div>
+        <p class="step-text">Use o chat a qualquer hora. Para dúvidas rápidas ou para se sentir menos sozinha.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-circle sc-4">🌙<span class="step-n">4</span></div>
+        <div class="step-title">Noites que melhoram</div>
+        <p class="step-text">Com pequenas mudanças gentis, o sono do bebê e o seu vão se transformando.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="testi-section" id="depoimentos">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="section-eyebrow dark">O que as mães dizem</div>
+      <h2 class="testi-title">Famílias que já dormem <em>melhor</em></h2>
+      <p class="testi-sub">Histórias reais de mães que encontraram acolhimento — e descanso.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal d1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Nunca tinha ouvido falar em janela de sono. Depois de entender isso, minha filha de 3 meses passou a adormecer em 10 minutos. Parecia mágica, mas era só o momento certo."</p>
+        <div class="testi-author">
+          <div class="ta-av">👩</div>
+          <div><div class="ta-name">Camila R.</div><div class="ta-role">Mãe da Isabela, 3 meses</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal d2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Às 2h da manhã, sem saber mais o que fazer, abri o chat. A resposta foi tão acolhedora que eu chorei de alívio. Me senti menos sozinha numa hora em que me sentia completamente perdida."</p>
+        <div class="testi-author">
+          <div class="ta-av">👩</div>
+          <div><div class="ta-name">Fernanda M.</div><div class="ta-role">Mãe do Miguel, 5 meses</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal d3">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"O que mais me surpreendeu foi a ausência de julgamento. Nenhum 'você deveria ter feito assim'. Só orientação gentil, no ritmo da minha família."</p>
+        <div class="testi-author">
+          <div class="ta-av">👩</div>
+          <div><div class="ta-name">Juliana P.</div><div class="ta-role">Mãe da Sofia, 8 meses</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section" id="cta">
+  <svg class="cta-leaf" viewBox="0 0 380 520" fill="none">
+    <path d="M190 510C105 430 18 330 22 195C26 60 148 12 190 7C232 12 354 60 358 195C362 330 275 430 190 510Z" fill="#b5c9a8"/>
+    <path d="M190 7L190 510" stroke="#b5c9a8" stroke-width="2" opacity=".4"/>
+  </svg>
+
+  <div class="wrap--narrow">
+    <div class="reveal">
+      <p class="cta-ornament">✦ ✦ ✦</p>
+      <h2 class="cta-title">Reserve sua vaga e ganhe<br><em>o e-book gratuito agora</em></h2>
+      <p class="cta-sub">As primeiras mães a se inscreverem recebem o guia "O Segredo da 1ª Janela de Sono" imediatamente — e 10% de desconto no lançamento.</p>
+
+      <form class="cta-form" onsubmit="handleCtaForm(event)">
+        <input class="cta-input" type="email" id="ctaEmail" placeholder="Seu melhor e-mail" required>
+        <button class="cta-btn" type="submit">Quero entrar na lista ✦</button>
+      </form>
+      <div class="success-inline" id="ctaSuccess" style="background:rgba(181,201,168,.15);border-color:rgba(181,201,168,.3);color:var(--sage-l);text-align:center;max-width:460px;margin:10px auto 0;">
+        🌿 Você está na lista! O e-book vai chegar em instantes, mamãe.
+      </div>
+      <p class="cta-note">Gratuito para entrar. Sem spam. Cancele quando quiser.</p>
+
+      <div class="cta-badges">
+        <div class="cta-badge">🌿 Sem métodos de choro</div>
+        <div class="cta-badge">🌙 Apoio 24h</div>
+        <div class="cta-badge">💛 Sem julgamentos</div>
+        <div class="cta-badge">🔒 Dados protegidos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Guia do Sono</div>
+  <p class="footer-tag">Sono gentil para bebês. Acolhimento para mães.</p>
+  <hr class="footer-divider">
+  <p class="footer-legal">
+    © 2025 Guia do Sono · Todos os direitos reservados<br>
+    Conteúdo informativo. Não substitui orientação médica ou de especialistas em saúde infantil.
+  </p>
+  <a class="footer-login" href="index.html">Já tenho conta → Entrar no app</a>
+</footer>
+
+<script>
+/* reveal */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); });
+}, {threshold:.1});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+/* nav scroll */
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').style.background =
+    window.scrollY > 40 ? 'rgba(250,246,239,.97)' : 'rgba(250,246,239,.9)';
+});
+
+/* forms */
+function showSuccess(inputId, successId, formEl) {
+  formEl.style.display = 'none';
+  const s = document.getElementById(successId);
+  s.style.display = 'block';
+  console.log('email:', document.getElementById(inputId).value);
+}
+function handleHeroForm(e) {
+  e.preventDefault();
+  showSuccess('heroEmail','heroSuccess', e.target);
+}
+function handleCtaForm(e) {
+  e.preventDefault();
+  showSuccess('ctaEmail','ctaSuccess', e.target);
+}
+</script>
+</body>
+</html>
