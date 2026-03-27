@@ -1,27 +1,24 @@
 {
   "name": "Guia do Sono",
-  "short_name": "Sleepy",
-  "description": "Consultora técnica de sono infantil 0–5 anos. Diagnósticos precisos, métodos gentis, 24 horas.",
+  "short_name": "Guia do Sono",
+  "description": "Sono gentil para bebês. Apoio 24h para mães.",
   "start_url": "/",
   "display": "standalone",
-  "orientation": "portrait-primary",
+  "orientation": "portrait",
   "background_color": "#faf6ef",
-  "theme_color": "#1a2618",
-  "categories": ["health", "lifestyle"],
-  "lang": "pt-BR",
+  "theme_color": "#2c3e2d",
   "icons": [
-    { "src": "/favicon-16.png",       "sizes": "16x16",   "type": "image/png" },
-    { "src": "/favicon-32.png",       "sizes": "32x32",   "type": "image/png" },
-    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
-    { "src": "/icon-192.png",         "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "/icon-512.png",         "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
-  ],
-  "shortcuts": [
     {
-      "name": "Guia IA",
-      "url": "/",
-      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
-  ],
-  "prefer_related_applications": false
+  ]
 }
