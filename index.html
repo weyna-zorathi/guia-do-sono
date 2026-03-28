@@ -559,8 +559,7 @@ body {
 .chat-input-wrap {
   display:flex; align-items:flex-end; gap:8px;
   padding:10px 14px;
-  background:var(--nav-bg);
-  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  background:#fdfbf7;   /* solid cream — no backdrop blur needed */
   border-top:1px solid var(--border);
   flex-shrink:0;
 }
@@ -586,8 +585,8 @@ body {
   gap:11px;
   scroll-behavior:smooth;
   scrollbar-width:none;
-  /* leave room for mobile input bar */
-  padding-bottom:calc(72px + env(safe-area-inset-bottom, 0px));
+  /* mobile: only need to clear the floating input bar */
+  padding-bottom:calc(68px + env(safe-area-inset-bottom, 0px));
 }
 @media(min-width:800px) { #chat-msgs { padding-bottom:14px; } }
 #chat-msgs::-webkit-scrollbar { display:none; }
@@ -598,15 +597,18 @@ body {
   flex-shrink:0;
 }
 
-/* Mobile fixed input — ONLY visible on chat tab */
+/* Mobile fixed input — ONLY visible on chat tab, ABOVE bottom nav */
 #chat-input-mobile {
   position:fixed;
   bottom:0; left:0; right:0;
-  z-index:50;          /* below modals (9990+), above content */
+  z-index:110;   /* above bottom-nav (100) so it doesn't get covered */
   display:none;
 }
 #chat-input-mobile.on { display:flex; }
 #chat-input-mobile .chat-input-wrap { width:100%; }
+
+/* Hide bottom nav when chat input is active on mobile */
+body.chat-active .bottom-nav { display:none; }
 
 #u-input {
   flex:1; border:1.5px solid var(--border-d); border-radius:20px;
@@ -1327,11 +1329,11 @@ body {
       <div class="sb-brand-name">Guia do Sono<small>sono gentil</small></div>
     </div>
     <nav class="sb-nav">
-      <button class="sn-item active" data-tab="home">      <span class="sn-icon">🏠</span> Início</button>
-      <button class="sn-item"        data-tab="orcamento"> <span class="sn-icon">💰</span> Orçamento</button>
-      <button class="sn-item"        data-tab="chat">      <span class="sn-icon">💬</span> Chat IA</button>
-      <button class="sn-item"        data-tab="guias">     <span class="sn-icon">📚</span> Guias</button>
-      <button class="sn-item"        data-tab="perfil">    <span class="sn-icon">👤</span> Perfil</button>
+      <button class="sn-item active" data-tab="home"      onclick="goTo('home')">      <span class="sn-icon">🏠</span> Início</button>
+      <button class="sn-item"        data-tab="orcamento" onclick="goTo('orcamento')"> <span class="sn-icon">💰</span> Orçamento</button>
+      <button class="sn-item"        data-tab="chat"      onclick="goTo('chat')">      <span class="sn-icon">💬</span> Chat IA</button>
+      <button class="sn-item"        data-tab="guias"     onclick="goTo('guias')">     <span class="sn-icon">📚</span> Guias</button>
+      <button class="sn-item"        data-tab="perfil"    onclick="goTo('perfil')">    <span class="sn-icon">👤</span> Perfil</button>
     </nav>
     <div class="sb-footer">
       <div class="sb-user">
@@ -2246,14 +2248,16 @@ function goTo(tab) {
 function syncChatInput() {
   const isDesk = window.innerWidth >= 800;
   const onChat = currentTab === 'chat';
-  // Mobile fixed bar — show ONLY when on chat tab and mobile
+
+  // Mobile: toggle fixed input bar + hide bottom nav while chatting
   const mob = document.getElementById('chat-input-mobile');
   if (mob) mob.classList.toggle('on', !isDesk && onChat);
-  // Desktop inline bar — show only on chat tab on desktop
+  // Hide bottom-nav on mobile while chat is open (input sits at bottom instead)
+  document.body.classList.toggle('chat-active', !isDesk && onChat);
+
+  // Desktop: show inline input inside chat page
   const desk = document.getElementById('chat-input-desktop');
   if (desk) desk.style.display = (isDesk && onChat) ? 'flex' : 'none';
-  // CRITICAL: Ensure mobile input bar does NOT show on other tabs
-  if (!onChat && mob) mob.classList.remove('on');
 }
 
 /* ═══════════════════════════════════════
