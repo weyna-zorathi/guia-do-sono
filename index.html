@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -10,267 +10,401 @@
 <meta name="apple-mobile-web-app-title" content="Guia do Sono">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon192.png">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- Supabase CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 
-/* ══════════════════════════════════════════════
-   DESIGN TOKENS
-══════════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   TOKENS — LIGHT
+══════════════════════════════════════════ */
 :root {
-  --cream:    #faf6ef;
-  --warm:     #fff9f2;
-  --sage:     #8a9e7f;
-  --sage-l:   #b5c9a8;
-  --sage-d:   #5a7050;
-  --sage-p:   #edf3e8;
-  --tc:       #c47a52;
-  --tc-l:     #e8a97e;
-  --tc-p:     #f5e0d0;
-  --brown:    #7a5c3e;
-  --brown-l:  #a07850;
-  --linen:    #ede5d8;
-  --linen-d:  #d8ccb8;
-  --night:    #2c3e2d;
-  --gold:     #c9a84c;
-  --gold-l:   #e8cc7e;
-  --gold-p:   #faf3df;
-  --lav:      #9b8db5;
-  --lav-l:    #c8c0dc;
-  --lav-p:    #f0edf8;
+  --cream:   #faf6ef;
+  --warm:    #fff9f2;
+  --sage:    #8a9e7f;
+  --sage-l:  #b5c9a8;
+  --sage-d:  #5a7050;
+  --sage-p:  #edf3e8;
+  --tc:      #c47a52;
+  --tc-l:    #e8a97e;
+  --tc-p:    #f5e0d0;
+  --brown:   #7a5c3e;
+  --brown-l: #a07850;
+  --linen:   #ede5d8;
+  --linen-d: #d8ccb8;
+  --night:   #2c3e2d;
+  --gold:    #c9a84c;
+  --gold-l:  #e8cc7e;
+  --gold-p:  #faf3df;
+  --lav:     #9b8db5;
+  --lav-l:   #c8c0dc;
+  --lav-p:   #f0edf8;
+
+  /* Semantic */
+  --bg:        var(--cream);
+  --bg-card:   var(--warm);
+  --bg-card2:  #fff;
+  --border:    var(--linen);
+  --border-d:  var(--linen-d);
+  --text:      var(--night);
+  --text-sub:  var(--brown-l);
+  --shadow:    rgba(44,62,45,.09);
+  --shadow-lg: rgba(44,62,45,.16);
+  --nav-bg:    rgba(250,246,239,.97);
 }
 
-/* ══════════════════════════════════════════════
+/* ══════════════════════════════════════════
+   TOKENS — DARK MODE
+══════════════════════════════════════════ */
+[data-theme="dark"] {
+  --bg:        #1a2118;
+  --bg-card:   #22302200;
+  --bg-card:   #233022;
+  --bg-card2:  #2a3a2a;
+  --border:    rgba(255,255,255,.09);
+  --border-d:  rgba(255,255,255,.15);
+  --text:      #e8f0e5;
+  --text-sub:  #8aaa80;
+  --shadow:    rgba(0,0,0,.3);
+  --shadow-lg: rgba(0,0,0,.5);
+  --nav-bg:    rgba(26,33,24,.97);
+  --cream:     #1a2118;
+  --warm:      #233022;
+  --linen:     rgba(255,255,255,.09);
+  --linen-d:   rgba(255,255,255,.15);
+  --night:     #e8f0e5;
+  --brown-l:   #8aaa80;
+  --gold-p:    #2a2510;
+  --sage-p:    #1c2e1c;
+  --tc-p:      #2e1c14;
+  --lav-p:     #1e1c2e;
+}
+
+/* ══════════════════════════════════════════
    BASE
-══════════════════════════════════════════════ */
+══════════════════════════════════════════ */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-html, body { height:100%; height:100dvh; overflow:hidden; }
+html { height:100%; }
 body {
   font-family:'DM Sans', sans-serif;
-  background:var(--cream);
+  background:var(--bg);
+  color:var(--text);
+  min-height:100dvh;
   display:flex; flex-direction:column;
-  position:relative;
+  overflow:hidden;
+  transition:background .35s, color .35s;
 }
 
-/* ══════════════════════════════════════════════
+/* ══════════════════════════════════════════
+   SCROLLBAR
+══════════════════════════════════════════ */
+::-webkit-scrollbar { width:4px; height:4px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--linen-d); border-radius:4px; }
+
+/* ══════════════════════════════════════════
    ██ LOGIN SCREEN
-══════════════════════════════════════════════ */
+══════════════════════════════════════════ */
 #login-screen {
   position:fixed; inset:0; z-index:9999;
   display:flex; align-items:center; justify-content:center;
   padding:24px;
   background:
-    radial-gradient(ellipse 80% 60% at 20% 0%,   rgba(138,158,127,.35) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 50% at 90% 100%,  rgba(196,122,82,.25)  0%, transparent 50%),
-    radial-gradient(ellipse 70% 60% at 50% 50%,   rgba(155,141,181,.18) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 60% at 20% 0%,  rgba(138,158,127,.32) 0%,transparent 55%),
+    radial-gradient(ellipse 60% 50% at 90% 100%, rgba(196,122,82,.22)  0%,transparent 50%),
+    radial-gradient(ellipse 70% 60% at 50% 50%,  rgba(155,141,181,.15) 0%,transparent 60%),
     var(--cream);
-  transition:opacity .55s ease, transform .55s ease;
+  transition:opacity .5s ease, transform .5s ease;
 }
-#login-screen.hidden {
-  opacity:0;
-  transform:scale(1.03);
-  pointer-events:none;
-}
+#login-screen.fade-out { opacity:0; transform:scale(1.04); pointer-events:none; }
 
-/* Decorative botanical blobs */
-#login-screen::before, #login-screen::after {
-  content:'';
-  position:absolute;
-  border-radius:50%;
-  pointer-events:none;
-}
+/* botanical blobs */
 #login-screen::before {
-  width:260px; height:260px;
-  top:-60px; left:-60px;
-  background:radial-gradient(circle, rgba(138,158,127,.18) 0%, transparent 70%);
-  animation:blobFloat 8s ease-in-out infinite;
+  content:''; position:absolute;
+  width:280px; height:280px; border-radius:50%;
+  top:-70px; left:-70px;
+  background:radial-gradient(circle, rgba(138,158,127,.18) 0%,transparent 70%);
+  animation:blobFloat 9s ease-in-out infinite; pointer-events:none;
 }
 #login-screen::after {
-  width:200px; height:200px;
-  bottom:-40px; right:-40px;
-  background:radial-gradient(circle, rgba(196,122,82,.15) 0%, transparent 70%);
-  animation:blobFloat 10s ease-in-out infinite reverse;
+  content:''; position:absolute;
+  width:220px; height:220px; border-radius:50%;
+  bottom:-50px; right:-50px;
+  background:radial-gradient(circle, rgba(196,122,82,.14) 0%,transparent 70%);
+  animation:blobFloat 11s ease-in-out infinite reverse; pointer-events:none;
 }
 @keyframes blobFloat {
   0%,100% { transform:translate(0,0) scale(1); }
-  50%      { transform:translate(12px,-16px) scale(1.06); }
+  50%      { transform:translate(14px,-18px) scale(1.07); }
 }
 
 .login-card {
-  width:100%; max-width:380px;
-  background:rgba(255,249,242,.82);
-  backdrop-filter:blur(28px) saturate(160%);
-  -webkit-backdrop-filter:blur(28px) saturate(160%);
-  border:1px solid rgba(255,255,255,.72);
-  border-radius:28px;
-  padding:40px 32px 36px;
-  box-shadow:
-    0 8px 32px rgba(90,112,80,.14),
-    0 2px 8px rgba(90,112,80,.08),
-    inset 0 1px 0 rgba(255,255,255,.9);
+  width:100%; max-width:400px;
+  background:rgba(255,249,242,.86);
+  backdrop-filter:blur(32px) saturate(180%);
+  -webkit-backdrop-filter:blur(32px) saturate(180%);
+  border:1px solid rgba(255,255,255,.75);
+  border-radius:30px; padding:44px 36px 40px;
+  box-shadow:0 12px 40px rgba(90,112,80,.16), inset 0 1px 0 rgba(255,255,255,.95);
   text-align:center;
-  animation:cardIn .7s cubic-bezier(.34,1.56,.64,1) both;
+  animation:cardIn .65s cubic-bezier(.34,1.56,.64,1) both;
 }
 @keyframes cardIn {
-  from { opacity:0; transform:translateY(32px) scale(.96); }
+  from { opacity:0; transform:translateY(36px) scale(.95); }
   to   { opacity:1; transform:translateY(0) scale(1); }
 }
 
-.login-leaf { font-size:42px; margin-bottom:14px; animation:leafSway 4s ease-in-out infinite; display:block; }
-@keyframes leafSway {
-  0%,100% { transform:rotate(-4deg); }
-  50%      { transform:rotate(4deg); }
-}
-.login-title {
-  font-family:'Playfair Display', serif;
-  font-size:26px; font-weight:700;
-  color:var(--night); margin-bottom:6px; line-height:1.2;
-}
+.login-leaf { font-size:46px; display:block; margin-bottom:16px; animation:leafSway 4s ease-in-out infinite; }
+@keyframes leafSway { 0%,100%{transform:rotate(-5deg);} 50%{transform:rotate(5deg);} }
+.login-title { font-family:'Playfair Display',serif; font-size:28px; font-weight:700; color:#2c3e2d; margin-bottom:6px; line-height:1.2; }
 .login-title em { color:var(--tc); font-style:italic; }
-.login-subtitle {
-  font-family:'Lora', serif; font-style:italic;
-  font-size:13px; color:var(--brown-l);
-  margin-bottom:32px; line-height:1.5;
-}
+.login-subtitle { font-family:'Lora',serif; font-style:italic; font-size:13px; color:var(--brown-l); margin-bottom:34px; line-height:1.5; }
 
-/* Social buttons */
 .login-btn {
   display:flex; align-items:center; justify-content:center; gap:12px;
-  width:100%; padding:15px 20px;
-  border:none; border-radius:16px;
-  font-family:'DM Sans', sans-serif; font-size:15px; font-weight:600;
+  width:100%; padding:16px 20px; border:none; border-radius:16px;
+  font-family:'DM Sans',sans-serif; font-size:15px; font-weight:600;
   cursor:pointer; margin-bottom:12px;
-  transition:transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s, opacity .18s;
-  position:relative; overflow:hidden;
+  transition:transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s, opacity .2s;
 }
-.login-btn::after {
-  content:''; position:absolute; inset:0;
-  background:rgba(255,255,255,0);
-  transition:background .15s;
-}
-.login-btn:hover::after { background:rgba(255,255,255,.12); }
-.login-btn:active { transform:scale(.97) !important; opacity:.9; }
-
+.login-btn:active { transform:scale(.96); opacity:.9; }
 .login-btn-google {
-  background:#fff;
-  border:1.5px solid var(--linen-d);
-  color:var(--night);
-  box-shadow:0 2px 8px rgba(44,62,45,.08);
+  background:#fff; border:1.5px solid var(--linen-d); color:#2c3e2d;
+  box-shadow:0 2px 10px rgba(44,62,45,.1);
 }
-.login-btn-google:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(44,62,45,.12); }
-
+.login-btn-google:hover { transform:translateY(-2px); box-shadow:0 6px 22px rgba(44,62,45,.14); }
 .login-btn-apple {
-  background:var(--night);
-  color:#fff;
-  box-shadow:0 4px 16px rgba(44,62,45,.3);
+  background:#1a1a1a; color:#fff;
+  box-shadow:0 4px 18px rgba(0,0,0,.3);
 }
-.login-btn-apple:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(44,62,45,.38); }
-
+.login-btn-apple:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,0,0,.4); }
 .login-btn-icon { width:22px; height:22px; flex-shrink:0; }
-
-.login-divider {
-  display:flex; align-items:center; gap:12px;
-  margin:16px 0;
-}
+.login-divider { display:flex; align-items:center; gap:12px; margin:14px 0; }
 .login-divider-line { flex:1; height:1px; background:var(--linen); }
-.login-divider-txt  { font-size:11px; color:var(--brown-l); white-space:nowrap; font-family:'Lora',serif; font-style:italic; }
-
-.login-terms {
-  margin-top:20px; font-size:11px;
-  color:var(--brown-l); line-height:1.5;
-}
+.login-divider-txt  { font-size:11px; color:var(--brown-l); font-family:'Lora',serif; font-style:italic; }
+.login-terms { margin-top:20px; font-size:11px; color:var(--brown-l); line-height:1.5; }
 .login-terms a { color:var(--sage-d); text-decoration:none; }
-
-/* ══════════════════════════════════════════════
-   APP SHELL (hidden until login)
-══════════════════════════════════════════════ */
-#app {
-  display:flex; flex-direction:column;
-  flex:1; height:100%; overflow:hidden;
-  opacity:0; transition:opacity .45s ease;
+.login-error {
+  background:var(--tc-p); border:1px solid var(--tc-l); color:var(--tc);
+  border-radius:10px; padding:10px 14px; font-size:12px; margin-top:12px; display:none;
 }
-#app.visible { opacity:1; }
+.login-error.show { display:block; }
+.login-loading { font-size:13px; color:var(--sage-d); margin-top:10px; display:none; font-family:'Lora',serif; font-style:italic; }
+.login-loading.show { display:block; }
 
-/* ══════════════════════════════════════════════
-   PAGES
-══════════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   ██ APP SHELL — DESKTOP LAYOUT
+══════════════════════════════════════════ */
+#app {
+  display:none; flex:1; height:100dvh; overflow:hidden;
+}
+#app.visible { display:flex; }
+
+/* ── Sidebar (desktop) ── */
+.sidebar {
+  width:220px; flex-shrink:0;
+  background:var(--bg-card);
+  border-right:1px solid var(--border);
+  display:flex; flex-direction:column;
+  padding:28px 0 20px;
+  overflow-y:auto;
+}
+.sidebar-brand {
+  padding:0 20px 24px;
+  display:flex; align-items:center; gap:10px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:12px;
+}
+.sidebar-brand-icon {
+  width:38px; height:38px; border-radius:12px;
+  background:linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%);
+  display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;
+}
+.sidebar-brand-name {
+  font-family:'Playfair Display',serif; font-size:14px; font-weight:700;
+  color:var(--text); line-height:1.2;
+}
+.sidebar-brand-name small { display:block; font-family:'DM Sans',sans-serif; font-size:10px; font-weight:400; color:var(--text-sub); font-style:italic; }
+
+.sidebar-nav { flex:1; padding:0 10px; display:flex; flex-direction:column; gap:2px; }
+.snav-item {
+  display:flex; align-items:center; gap:12px;
+  padding:11px 14px; border-radius:14px;
+  cursor:pointer; border:none; background:transparent;
+  font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500;
+  color:var(--text-sub); width:100%; text-align:left;
+  transition:background .15s, color .15s, transform .15s;
+}
+.snav-item:hover { background:var(--sage-p); color:var(--sage-d); }
+.snav-item.active { background:var(--sage-p); color:var(--sage-d); font-weight:600; }
+.snav-item:active { transform:scale(.97); }
+.snav-icon { font-size:18px; line-height:1; flex-shrink:0; }
+
+.sidebar-footer { padding:16px 20px 0; border-top:1px solid var(--border); margin-top:12px; }
+.sidebar-user {
+  display:flex; align-items:center; gap:10px; margin-bottom:14px;
+}
+.sidebar-user-av {
+  width:34px; height:34px; border-radius:50%;
+  background:linear-gradient(135deg, var(--sage-l), var(--lav));
+  display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0;
+}
+.sidebar-user-name { font-size:12px; font-weight:600; color:var(--text); }
+.sidebar-user-plan { font-size:10px; color:var(--text-sub); }
+.theme-toggle {
+  display:flex; align-items:center; justify-content:space-between;
+  font-size:11px; color:var(--text-sub); cursor:pointer;
+}
+.theme-switch {
+  width:36px; height:20px; border-radius:20px;
+  background:var(--linen-d); position:relative; transition:background .3s; cursor:pointer; border:none;
+}
+.theme-switch.on { background:var(--night); }
+.theme-switch::after {
+  content:''; position:absolute; top:3px; left:3px;
+  width:14px; height:14px; border-radius:50%; background:#fff;
+  transition:transform .3s;
+}
+.theme-switch.on::after { transform:translateX(16px); }
+
+/* ── Content area ── */
+.content-area {
+  flex:1; display:flex; flex-direction:column; overflow:hidden; min-width:0;
+}
+
+/* ── Pages ── */
 .page { display:none; flex:1; flex-direction:column; overflow:hidden; }
 .page.active { display:flex; }
 
-/* ══════════════════════════════════════════════
-   SCROLL AREA
-══════════════════════════════════════════════ */
+/* ── Scroll area ── */
 .scroll-area {
   flex:1; overflow-y:auto; overflow-x:hidden;
-  -webkit-overflow-scrolling:touch; scrollbar-width:none;
-  padding-top:env(safe-area-inset-top, 0px);
-  padding-bottom:calc(84px + env(safe-area-inset-bottom, 0px));
-  background:var(--cream);
-  background-image:
-    radial-gradient(ellipse at 90% 5%,  rgba(196,122,82,.05) 0%, transparent 40%),
-    radial-gradient(ellipse at 10% 60%, rgba(138,158,127,.05) 0%, transparent 40%);
+  -webkit-overflow-scrolling:touch;
+  padding:0 0 calc(76px + env(safe-area-inset-bottom,0px));
 }
-.scroll-area::-webkit-scrollbar { display:none; }
 
-/* ══════════════════════════════════════════════
-   HEADER
-══════════════════════════════════════════════ */
-.app-header {
-  padding:20px 20px 8px;
-  display:flex; justify-content:space-between; align-items:flex-start;
+/* MOBILE: scroll padding smaller since nav is fixed bottom */
+@media(min-width:800px) {
+  .scroll-area { padding-bottom:24px; }
 }
-.header-greeting { font-size:11px; color:var(--brown-l); letter-spacing:.04em; margin-bottom:2px; }
-.header-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--night); line-height:1.2; }
-.header-title em { color:var(--tc); font-style:italic; }
-.header-icons { display:flex; gap:8px; align-items:center; margin-top:4px; }
+
+/* ══════════════════════════════════════════
+   BOTTOM NAV (mobile only)
+══════════════════════════════════════════ */
+.bottom-nav {
+  position:fixed; bottom:0; left:0; right:0;
+  background:var(--nav-bg);
+  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-around;
+  padding:8px 4px max(env(safe-area-inset-bottom,8px),8px);
+  z-index:100;
+}
+.nav-item {
+  flex:1; display:flex; flex-direction:column; align-items:center; gap:3px;
+  padding:8px 2px; border-radius:14px; cursor:pointer;
+  border:none; background:transparent;
+  transition:background .15s, transform .15s;
+}
+.nav-item:active { transform:scale(.9); }
+.nav-item.active { background:var(--sage-p); }
+.nav-icon { font-size:20px; line-height:1; }
+.nav-lbl  { font-size:10px; font-weight:500; color:var(--text-sub); }
+.nav-item.active .nav-lbl { color:var(--sage-d); }
+
+/* Desktop: hide bottom nav, show sidebar */
+@media(min-width:800px) {
+  .bottom-nav { display:none; }
+  .sidebar    { display:flex; }
+}
+@media(max-width:799px) {
+  .sidebar { display:none; }
+}
+
+/* ══════════════════════════════════════════
+   PAGE HEADER
+══════════════════════════════════════════ */
+.page-header {
+  padding:20px 24px 12px;
+  flex-shrink:0;
+  display:flex; justify-content:space-between; align-items:center;
+}
+@media(max-width:799px) {
+  .page-header { padding:16px 16px 8px; }
+}
+.ph-left {}
+.ph-greeting { font-size:11px; color:var(--text-sub); letter-spacing:.04em; margin-bottom:2px; }
+.ph-title { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--text); line-height:1.2; }
+.ph-title em { color:var(--tc); font-style:italic; }
+.ph-actions { display:flex; gap:8px; align-items:center; }
 .icon-btn {
   width:38px; height:38px; border-radius:12px;
-  background:var(--warm); border:1px solid var(--linen);
+  background:var(--bg-card); border:1px solid var(--border);
   display:flex; align-items:center; justify-content:center;
-  font-size:16px; cursor:pointer; transition:all .18s;
+  font-size:17px; cursor:pointer; transition:all .18s;
 }
-.icon-btn:active { transform:scale(.93); background:var(--linen); }
+.icon-btn:active { transform:scale(.92); }
 
-/* ══════════════════════════════════════════════
+/* ══════════════════════════════════════════
+   SECTION HEADER
+══════════════════════════════════════════ */
+.sec-header { padding:14px 24px 8px; display:flex; justify-content:space-between; align-items:center; }
+@media(max-width:799px) { .sec-header { padding:14px 16px 8px; } }
+.sec-title { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:var(--text); }
+.sec-link  { font-size:11px; color:var(--tc); font-weight:500; cursor:pointer; }
+
+/* ══════════════════════════════════════════
+   DESKTOP GRID HELPERS
+══════════════════════════════════════════ */
+.grid-2 {
+  display:grid; grid-template-columns:1fr 1fr; gap:16px;
+  padding:0 24px;
+}
+@media(max-width:799px) { .grid-2 { grid-template-columns:1fr 1fr; padding:0 16px; gap:10px; } }
+@media(max-width:400px) { .grid-2 { grid-template-columns:1fr 1fr; } }
+
+.padded { padding:0 24px; }
+@media(max-width:799px) { .padded { padding:0 16px; } }
+
+/* ══════════════════════════════════════════
    BABY CARD
-══════════════════════════════════════════════ */
+══════════════════════════════════════════ */
 .baby-card {
-  margin:8px 16px 0; background:var(--night);
-  border-radius:22px; padding:18px;
+  margin:0 24px; background:var(--night);
+  border-radius:24px; padding:20px;
   position:relative; overflow:hidden; cursor:pointer;
   transition:transform .18s;
+  box-shadow:0 8px 32px var(--shadow-lg);
 }
+@media(max-width:799px) { .baby-card { margin:0 16px; border-radius:20px; } }
 .baby-card:active { transform:scale(.99); }
 .baby-card::before {
   content:''; position:absolute; inset:0;
   background:
-    radial-gradient(ellipse 60% 80% at 5% 50%, rgba(138,158,127,.22) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 60% at 100% 20%, rgba(201,168,76,.14) 0%, transparent 55%);
+    radial-gradient(ellipse 60% 80% at 5% 50%, rgba(138,158,127,.22) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 60% at 100% 20%, rgba(201,168,76,.15) 0%,transparent 55%);
   pointer-events:none;
 }
-.baby-card-inner { display:flex; gap:14px; align-items:center; position:relative; z-index:1; }
+.baby-card-inner { display:flex; gap:16px; align-items:center; position:relative; z-index:1; }
 .baby-avatar-wrap { position:relative; flex-shrink:0; }
 .baby-avatar {
-  width:64px; height:64px; border-radius:20px;
-  background:rgba(255,255,255,.08); border:2px solid rgba(255,255,255,.15);
-  display:flex; align-items:center; justify-content:center;
-  font-size:26px; overflow:hidden;
+  width:68px; height:68px; border-radius:20px;
+  background:rgba(255,255,255,.1); border:2px solid rgba(255,255,255,.18);
+  display:flex; align-items:center; justify-content:center; font-size:28px; overflow:hidden;
 }
 .baby-avatar img { width:100%; height:100%; object-fit:cover; border-radius:18px; }
 .avatar-add-btn {
   position:absolute; bottom:-4px; right:-4px;
-  width:20px; height:20px; border-radius:50%;
+  width:22px; height:22px; border-radius:50%;
   background:var(--tc); color:#fff; font-size:13px;
   display:flex; align-items:center; justify-content:center;
   border:2px solid var(--night); font-weight:700; cursor:pointer;
 }
 .baby-info { flex:1; }
-.baby-name { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:#fff; margin-bottom:2px; }
+.baby-name { font-family:'Playfair Display',serif; font-size:19px; font-weight:700; color:#fff; margin-bottom:2px; }
 .baby-age  { font-size:11px; color:rgba(255,255,255,.5); margin-bottom:10px; font-family:'Lora',serif; font-style:italic; }
 .baby-stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; }
-.baby-stat {
-  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1);
-  border-radius:10px; padding:7px 8px; text-align:center;
-}
+.baby-stat { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.1); border-radius:10px; padding:7px 8px; text-align:center; }
 .baby-stat-val { font-size:13px; font-weight:600; color:var(--gold-l); line-height:1; margin-bottom:3px; }
 .baby-stat-lbl { font-size:8px; color:rgba(255,255,255,.35); text-transform:uppercase; letter-spacing:.06em; line-height:1.3; }
 .window-badge {
@@ -282,514 +416,361 @@ body {
 .window-badge-lbl { font-size:8px; color:rgba(255,255,255,.35); }
 .baby-card-footer { margin-top:14px; position:relative; z-index:1; }
 .progress-label-row { display:flex; justify-content:space-between; margin-bottom:6px; }
-.progress-lbl  { font-size:10px; color:rgba(255,255,255,.4); text-transform:uppercase; letter-spacing:.06em; }
+.progress-lbl  { font-size:10px; color:rgba(255,255,255,.45); text-transform:uppercase; letter-spacing:.06em; }
 .progress-time { font-size:10px; color:var(--sage-l); font-weight:500; }
-.progress-track { height:6px; background:rgba(255,255,255,.08); border-radius:100px; overflow:hidden; }
-.progress-fill {
-  height:100%; border-radius:100px;
-  background:linear-gradient(90deg, var(--sage), var(--gold));
-  width:0%; transition:width 1.2s cubic-bezier(.34,1.56,.64,1);
+.progress-track { height:6px; background:rgba(255,255,255,.1); border-radius:100px; overflow:hidden; }
+.progress-fill { height:100%; border-radius:100px; background:linear-gradient(90deg, var(--sage), var(--gold)); width:0%; transition:width 1.2s cubic-bezier(.34,1.56,.64,1); }
+
+/* ══════════════════════════════════════════
+   CLIMATE CARD
+══════════════════════════════════════════ */
+.climate-card {
+  background:linear-gradient(135deg, var(--lav) 0%, var(--sage-d) 100%);
+  border-radius:20px; padding:20px;
+  position:relative; overflow:hidden;
+  box-shadow:0 6px 24px rgba(90,80,112,.2);
 }
+.climate-card::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 70% 80% at 10% 50%, rgba(255,255,255,.12) 0%,transparent 55%);
+  pointer-events:none;
+}
+.climate-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; position:relative; z-index:1; }
+.climate-location { font-size:11px; color:rgba(255,255,255,.65); font-family:'Lora',serif; font-style:italic; }
+.climate-emoji { font-size:32px; }
+.climate-temp-row { display:flex; align-items:flex-end; gap:8px; margin-bottom:8px; position:relative; z-index:1; }
+.climate-temp { font-family:'Playfair Display',serif; font-size:42px; font-weight:700; color:#fff; line-height:1; }
+.climate-temp-unit { font-size:18px; color:rgba(255,255,255,.7); margin-bottom:6px; }
+.climate-ideal { font-size:11px; color:rgba(255,255,255,.7); position:relative; z-index:1; margin-bottom:14px; font-family:'Lora',serif; font-style:italic; }
+.climate-ideal strong { color:var(--gold-l); }
+.climate-tip-row { display:flex; gap:8px; flex-wrap:wrap; position:relative; z-index:1; }
+.climate-tip {
+  background:rgba(255,255,255,.18); backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.25); border-radius:12px;
+  padding:7px 11px; font-size:12px; color:#fff; font-weight:500;
+}
+.climate-tip span { margin-right:4px; }
 
-/* ══════════════════════════════════════════════
-   SECTION HEADER
-══════════════════════════════════════════════ */
-.section-header { padding:18px 20px 10px; display:flex; justify-content:space-between; align-items:center; }
-.section-title { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:var(--night); }
-.section-link  { font-size:11px; color:var(--tc); font-weight:500; cursor:pointer; }
-
-/* ══════════════════════════════════════════════
+/* ══════════════════════════════════════════
    MINI STATS
-══════════════════════════════════════════════ */
-.mini-stats { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:0 16px; }
+══════════════════════════════════════════ */
 .mini-stat-card {
-  background:var(--warm); border:1px solid var(--linen);
-  border-radius:18px; padding:14px;
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:18px; padding:16px;
   position:relative; overflow:hidden; cursor:pointer;
-  transition:transform .18s, border-color .15s;
+  transition:transform .18s, box-shadow .18s;
+  box-shadow:0 2px 10px var(--shadow);
 }
 .mini-stat-card:active { transform:scale(.97); }
-.mini-stat-card::before { content:''; position:absolute; top:-16px; right:-16px; width:60px; height:60px; border-radius:50%; opacity:.12; }
+.mini-stat-card::before { content:''; position:absolute; top:-18px; right:-18px; width:65px; height:65px; border-radius:50%; opacity:.12; }
 .msc-sage::before  { background:var(--sage); }
 .msc-tc::before    { background:var(--tc); }
 .msc-gold::before  { background:var(--gold); }
 .msc-night::before { background:var(--night); }
-.mini-stat-icon { font-size:20px; margin-bottom:8px; display:block; }
-.mini-stat-val  { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--night); line-height:1; margin-bottom:3px; }
-.mini-stat-val span { font-size:12px; font-weight:400; color:var(--brown-l); }
-.mini-stat-lbl  { font-size:11px; color:var(--brown-l); line-height:1.4; }
+.mini-stat-icon { font-size:22px; margin-bottom:8px; display:block; }
+.mini-stat-val  { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--text); line-height:1; margin-bottom:3px; }
+.mini-stat-val span { font-size:12px; font-weight:400; color:var(--text-sub); }
+.mini-stat-lbl  { font-size:11px; color:var(--text-sub); line-height:1.4; }
 .mini-stat-trend { position:absolute; bottom:12px; right:12px; font-size:9px; font-weight:600; padding:3px 7px; border-radius:20px; }
 .trend-up   { background:var(--sage-p); color:var(--sage-d); }
 .trend-same { background:var(--gold-p); color:#7a6010; }
 .trend-down { background:var(--tc-p);   color:var(--tc); }
 
-/* ══════════════════════════════════════════════
-   SINAIS
-══════════════════════════════════════════════ */
-.sinal-row { display:flex; gap:8px; margin:0 16px; overflow-x:auto; scrollbar-width:none; padding-bottom:4px; }
+/* ══════════════════════════════════════════
+   SINAIS CHIPS
+══════════════════════════════════════════ */
+.sinal-row { display:flex; gap:8px; padding:0 24px; overflow-x:auto; scrollbar-width:none; padding-bottom:4px; }
+@media(max-width:799px) { .sinal-row { padding:0 16px; } }
 .sinal-row::-webkit-scrollbar { display:none; }
 .sinal-chip {
-  flex-shrink:0; background:var(--warm); border:1px solid var(--linen);
+  flex-shrink:0; background:var(--bg-card); border:1px solid var(--border);
   border-radius:14px; padding:10px 13px;
-  display:flex; align-items:center; gap:7px;
-  cursor:pointer; transition:all .18s;
+  display:flex; align-items:center; gap:7px; cursor:pointer;
+  transition:all .18s;
 }
 .sinal-chip:active { transform:scale(.95); }
 .sinal-chip.active { background:var(--sage-p); border-color:var(--sage); }
 .sinal-chip-icon { font-size:15px; }
-.sinal-chip-text { font-size:11px; font-weight:500; color:var(--night); white-space:nowrap; }
+.sinal-chip-text { font-size:11px; font-weight:500; color:var(--text); white-space:nowrap; }
 
-/* ══════════════════════════════════════════════
-   QUICK BUDGET (HOME)
-══════════════════════════════════════════════ */
-.budget-quick-card {
-  margin:0 16px; background:var(--warm);
-  border:1px solid var(--linen); border-radius:20px; overflow:hidden;
-}
-.bq-header {
-  padding:14px 16px; background:var(--night);
-  display:flex; justify-content:space-between; align-items:center;
-}
-.bq-header-title { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:#fff; }
-.bq-total { font-size:11px; color:var(--gold-l); font-weight:500; }
-.budget-row {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:11px 16px; border-bottom:1px solid var(--linen);
-  transition:background .15s; cursor:pointer;
-}
-.budget-row:last-child { border-bottom:none; }
-.budget-row:active { background:var(--cream); }
-.budget-row-left { display:flex; align-items:center; gap:10px; }
-.budget-row-icon { width:32px; height:32px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:14px; }
-.bri-sage  { background:var(--sage-p); }
-.bri-tc    { background:var(--tc-p); }
-.bri-gold  { background:var(--gold-p); }
-.bri-lav   { background:var(--lav-p); }
-.bri-night { background:rgba(44,62,45,.08); }
-.budget-row-name { font-size:12px; font-weight:500; color:var(--night); }
-.budget-row-cat  { font-size:10px; color:var(--brown-l); margin-top:1px; }
-.budget-row-val  { font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:var(--night); }
-.bq-total-row {
-  display:flex; justify-content:space-between; align-items:center;
-  padding:12px 16px; background:var(--sage-p); border-top:2px solid var(--sage-l);
-}
-.bq-total-lbl { font-size:12px; font-weight:600; color:var(--sage-d); }
-.bq-total-val { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:var(--sage-d); }
-
-/* ══════════════════════════════════════════════
+/* ══════════════════════════════════════════
    CHAT ENTRY CARD
-══════════════════════════════════════════════ */
+══════════════════════════════════════════ */
 .chat-entry-card {
-  margin:0 16px; background:linear-gradient(135deg, var(--night) 0%, #3d5a3e 100%);
-  border-radius:20px; padding:16px 18px;
+  background:linear-gradient(135deg, var(--night) 0%, #3d5a3e 100%);
+  border-radius:20px; padding:18px;
   display:flex; align-items:center; gap:14px;
   cursor:pointer; position:relative; overflow:hidden;
-  transition:transform .18s;
+  transition:transform .18s; box-shadow:0 6px 24px rgba(44,62,45,.25);
 }
 .chat-entry-card:active { transform:scale(.98); }
 .chat-entry-card::before {
   content:''; position:absolute; inset:0;
-  background:radial-gradient(ellipse 60% 80% at 5% 50%, rgba(138,158,127,.2) 0%, transparent 60%);
+  background:radial-gradient(ellipse 60% 80% at 5% 50%, rgba(138,158,127,.2) 0%,transparent 60%);
   pointer-events:none;
 }
-.cec-icon {
-  width:42px; height:42px; border-radius:13px;
-  background:rgba(138,158,127,.25); border:1px solid rgba(138,158,127,.3);
-  display:flex; align-items:center; justify-content:center; font-size:20px;
-  flex-shrink:0; position:relative; z-index:1;
-}
-.cec-text { flex:1; position:relative; z-index:1; }
+.cec-icon { width:44px; height:44px; border-radius:14px; background:rgba(138,158,127,.25); border:1px solid rgba(138,158,127,.3); display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; position:relative; z-index:1; }
+.cec-text  { flex:1; position:relative; z-index:1; }
 .cec-title { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:#fff; margin-bottom:2px; }
-.cec-sub { font-size:11px; color:rgba(255,255,255,.45); font-family:'Lora',serif; font-style:italic; }
-.cec-arrow { font-size:20px; color:rgba(255,255,255,.35); position:relative; z-index:1; }
-.pulse-dot {
-  position:absolute; top:14px; right:16px;
-  width:8px; height:8px; border-radius:50%;
-  background:var(--sage-l); z-index:1;
-  animation:pulseGlow 2s infinite;
-}
-@keyframes pulseGlow {
-  0%,100% { box-shadow:0 0 0 0 rgba(181,201,168,.5); }
-  50%      { box-shadow:0 0 0 6px rgba(181,201,168,0); }
-}
+.cec-sub   { font-size:11px; color:rgba(255,255,255,.45); font-family:'Lora',serif; font-style:italic; }
+.cec-arrow { font-size:22px; color:rgba(255,255,255,.35); z-index:1; }
+.pulse-dot { position:absolute; top:14px; right:14px; width:8px; height:8px; border-radius:50%; background:var(--sage-l); z-index:1; animation:pulseGlow 2s infinite; }
+@keyframes pulseGlow { 0%,100%{box-shadow:0 0 0 0 rgba(181,201,168,.5);} 50%{box-shadow:0 0 0 7px rgba(181,201,168,0);} }
 
-/* ══════════════════════════════════════════════
-   ██ ORÇAMENTO PAGE
-══════════════════════════════════════════════ */
-.orcamento-header {
-  padding:max(env(safe-area-inset-top,0px),16px) 20px 0;
+/* ══════════════════════════════════════════
+   ██ CHAT PAGE
+══════════════════════════════════════════ */
+.chat-page-header {
+  padding:20px 24px 14px;
+  background:var(--bg-card); border-bottom:1px solid var(--border);
+  display:flex; align-items:center; gap:12px; flex-shrink:0;
+  box-shadow:0 2px 10px var(--shadow);
+}
+@media(max-width:799px) { .chat-page-header { padding:16px 16px 12px; } }
+.chat-av { width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+.chat-hd-info { flex:1; }
+.chat-hd-name   { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:var(--text); }
+.chat-hd-status { font-size:11px; color:var(--sage); display:flex; align-items:center; gap:5px; margin-top:1px; }
+.online-dot { width:6px; height:6px; border-radius:50%; background:var(--sage); animation:pulseGlow 2s infinite; }
+.msg-counter-badge { font-size:11px; font-weight:500; padding:4px 11px; border-radius:20px; background:var(--gold-p); border:1px solid var(--gold-l); color:#7a6010; white-space:nowrap; transition:all .3s; }
+.msg-counter-badge.esgotado { background:var(--tc-p); border-color:var(--tc-l); color:var(--tc); }
+
+#limit-banner { display:none; text-align:center; padding:10px 20px; background:var(--tc-p); border-top:1px solid var(--tc-l); font-size:12px; color:var(--tc); line-height:1.5; flex-shrink:0; }
+#limit-banner.visible { display:block; }
+
+#chat-messages { flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:12px; scroll-behavior:smooth; scrollbar-width:none; padding-bottom:80px; }
+#chat-messages::-webkit-scrollbar { display:none; }
+@media(min-width:800px) { #chat-messages { padding-bottom:16px; max-width:700px; width:100%; margin:0 auto; } }
+
+.bubble { max-width:82%; padding:11px 16px; border-radius:18px; font-size:14px; line-height:1.65; animation:fadeInUp .28s ease both; }
+.bubble-ai { align-self:flex-start; background:var(--bg-card2); border:1px solid var(--border); border-bottom-left-radius:5px; box-shadow:0 2px 8px var(--shadow); color:var(--text); }
+.bubble-ai .bsender { font-family:'Lora',serif; font-size:10px; color:var(--sage); font-style:italic; display:block; margin-bottom:4px; }
+.bubble-user { align-self:flex-end; background:linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%); color:#fff; border-bottom-right-radius:5px; box-shadow:0 2px 8px rgba(90,112,80,.3); }
+
+.welcome-bubble { align-self:flex-start; max-width:90%; background:linear-gradient(135deg, var(--sage-p) 0%, var(--gold-p) 100%); border:1px solid var(--border-d); border-radius:18px; border-bottom-left-radius:5px; padding:16px; font-size:13px; color:var(--brown); line-height:1.65; animation:fadeInUp .3s ease both; }
+.wb-title { font-family:'Playfair Display',serif; font-size:16px; color:var(--text); margin-bottom:6px; display:block; }
+.chips-row { display:flex; flex-wrap:wrap; gap:7px; margin-top:10px; }
+.chip-q { background:var(--bg-card2); border:1px solid var(--border-d); border-radius:20px; padding:6px 12px; font-size:12px; color:var(--brown); cursor:pointer; transition:all .18s; }
+.chip-q:active { transform:scale(.95); background:var(--sage); color:#fff; border-color:var(--sage); }
+
+.typing-bubble { align-self:flex-start; display:flex; align-items:center; gap:5px; padding:10px 15px; background:var(--bg-card2); border:1px solid var(--border); border-radius:18px; border-bottom-left-radius:5px; box-shadow:0 2px 8px var(--shadow); animation:fadeInUp .28s ease both; }
+.typing-bubble span { width:7px; height:7px; border-radius:50%; animation:typingBounce 1.2s infinite; }
+.typing-bubble span:nth-child(1){background:var(--sage);}
+.typing-bubble span:nth-child(2){background:var(--tc);animation-delay:.2s;}
+.typing-bubble span:nth-child(3){background:var(--gold);animation-delay:.4s;}
+@keyframes typingBounce { 0%,60%,100%{transform:translateY(0);} 30%{transform:translateY(-6px);} }
+
+/* Chat input — desktop inside page, mobile fixed */
+.chat-input-wrap {
+  padding:12px 16px; background:var(--nav-bg);
+  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);
+  display:flex; align-items:flex-end; gap:8px;
   flex-shrink:0;
+}
+@media(min-width:800px) {
+  .chat-input-wrap { max-width:700px; width:100%; margin:0 auto; border-radius:0; }
+}
+#chat-input-bar-mobile {
+  position:fixed; bottom:0; left:0; right:0;
+  background:var(--nav-bg); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);
+  padding:10px 16px max(env(safe-area-inset-bottom,10px),10px);
+  display:none; align-items:flex-end; gap:8px; z-index:50;
+}
+#chat-input-bar-mobile.active { display:flex; }
+
+#user-input {
+  flex:1; border:1.5px solid var(--border-d); border-radius:20px;
+  padding:10px 14px; font-family:'DM Sans',sans-serif; font-size:14px;
+  color:var(--text); background:var(--bg-card); resize:none; outline:none;
+  max-height:110px; line-height:1.5; transition:border-color .2s, box-shadow .2s;
+}
+#user-input::placeholder { color:var(--text-sub); }
+#user-input:focus { border-color:var(--sage); box-shadow:0 0 0 3px rgba(138,158,127,.15); }
+#user-input:disabled { opacity:.5; cursor:not-allowed; }
+
+.ia-btn { width:42px; height:42px; flex-shrink:0; border-radius:50%; border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:transform .18s cubic-bezier(.34,1.56,.64,1), opacity .18s; }
+.ia-btn:active { transform:scale(.9) !important; }
+#mic-btn { background:var(--bg-card); border:1.5px solid var(--border-d); color:var(--text-sub); }
+#mic-btn.listening { background:var(--tc-p); border-color:var(--tc); color:var(--tc); animation:micPulse 1s infinite; }
+@keyframes micPulse { 0%,100%{transform:scale(1);}50%{transform:scale(1.1);} }
+#mic-btn svg { width:18px; height:18px; }
+#send-btn { background:linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%); box-shadow:0 3px 10px rgba(90,112,80,.35); }
+#send-btn:disabled { opacity:.4; cursor:not-allowed; }
+#send-btn svg { width:20px; height:20px; fill:none; stroke:#fff; stroke-width:2; }
+
+/* ══════════════════════════════════════════
+   ██ ORÇAMENTO
+══════════════════════════════════════════ */
+.orc-layout { padding:0 24px; display:flex; flex-direction:column; gap:16px; }
+@media(max-width:799px) { .orc-layout { padding:0 16px; } }
+@media(min-width:900px) {
+  .orc-layout { flex-direction:row; align-items:flex-start; gap:20px; }
+  .orc-left  { flex:1.2; min-width:0; }
+  .orc-right { flex:1; min-width:0; }
 }
 
 /* Add expense form */
 .add-expense-card {
-  margin:0 16px 4px; background:var(--warm);
-  border:1.5px solid var(--linen-d); border-radius:20px; padding:16px;
+  background:var(--bg-card); border:1.5px solid var(--border-d); border-radius:20px; padding:18px;
+  box-shadow:0 2px 10px var(--shadow);
 }
-.add-expense-card h3 {
-  font-family:'Playfair Display',serif; font-size:14px; font-weight:700;
-  color:var(--night); margin-bottom:12px;
-}
-.expense-inputs { display:grid; grid-template-columns:1fr auto; gap:8px; margin-bottom:8px; }
-.expense-inputs-row2 { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px; }
+.add-expense-card h3 { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:var(--text); margin-bottom:14px; }
+.expense-field { margin-bottom:10px; }
+.expense-label { font-size:11px; font-weight:600; color:var(--text-sub); margin-bottom:4px; display:block; letter-spacing:.04em; text-transform:uppercase; }
 .expense-input {
-  padding:10px 14px; border:1.5px solid var(--linen-d); border-radius:12px;
-  font-family:'DM Sans',sans-serif; font-size:13px; color:var(--night);
-  background:var(--cream); outline:none; width:100%;
-  transition:border-color .2s, box-shadow .2s;
+  width:100%; padding:10px 14px; border:1.5px solid var(--border-d); border-radius:12px;
+  font-family:'DM Sans',sans-serif; font-size:13px; color:var(--text);
+  background:var(--bg); outline:none; transition:border-color .2s, box-shadow .2s;
 }
 .expense-input:focus { border-color:var(--sage); box-shadow:0 0 0 3px rgba(138,158,127,.12); }
-.expense-input::placeholder { color:var(--brown-l); }
+.expense-input::placeholder { color:var(--text-sub); }
+.expense-row-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .btn-add-expense {
-  background:linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%);
-  color:#fff; border:none; border-radius:12px; padding:10px 18px;
-  font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600;
-  cursor:pointer; white-space:nowrap;
-  box-shadow:0 3px 10px rgba(90,112,80,.25);
-  transition:transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s;
+  width:100%; background:linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%);
+  color:#fff; border:none; border-radius:12px; padding:12px;
+  font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600; cursor:pointer;
+  box-shadow:0 3px 12px rgba(90,112,80,.3); transition:transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s;
+  margin-top:4px;
 }
-.btn-add-expense:active { transform:scale(.95); box-shadow:0 1px 5px rgba(90,112,80,.2); }
+.btn-add-expense:active { transform:scale(.97); box-shadow:0 1px 5px rgba(90,112,80,.2); }
+.btn-add-expense:disabled { opacity:.5; cursor:not-allowed; transform:none; }
 
 /* Expense list */
-.expense-summary {
-  display:flex; justify-content:space-between; align-items:center;
-  padding:10px 16px 6px;
-}
-.expense-month-lbl { font-family:'Lora',serif; font-style:italic; font-size:12px; color:var(--brown-l); }
-.expense-total-lbl { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:var(--sage-d); }
-
-.expense-list { margin:0 16px; display:flex; flex-direction:column; gap:8px; }
+.expense-list-card { background:var(--bg-card); border:1px solid var(--border); border-radius:20px; overflow:hidden; box-shadow:0 2px 10px var(--shadow); }
+.exp-list-header { padding:14px 16px; background:var(--night); display:flex; justify-content:space-between; align-items:center; }
+.exp-list-title { font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:#fff; }
+.exp-list-total { font-size:12px; color:var(--gold-l); font-weight:500; }
+.expense-list { display:flex; flex-direction:column; }
 .expense-item {
-  background:var(--warm); border:1px solid var(--linen); border-radius:14px;
-  padding:12px 14px; display:flex; align-items:center; gap:10px;
+  display:flex; align-items:center; gap:12px; padding:12px 16px;
+  border-bottom:1px solid var(--border); transition:background .15s;
   animation:fadeInUp .3s ease both;
 }
-.expense-item-icon {
-  width:36px; height:36px; border-radius:10px;
-  background:var(--sage-p); display:flex; align-items:center; justify-content:center;
-  font-size:16px; flex-shrink:0;
-}
-.expense-item-info { flex:1; }
-.expense-item-name { font-size:13px; font-weight:500; color:var(--night); }
-.expense-item-date { font-size:10px; color:var(--brown-l); margin-top:1px; }
-.expense-item-val  { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:var(--night); }
-.expense-item-del  {
-  width:28px; height:28px; border-radius:8px; border:none;
-  background:var(--tc-p); color:var(--tc); font-size:14px;
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer; transition:all .15s; flex-shrink:0;
-}
+.expense-item:last-child { border-bottom:none; }
+.expense-item:active { background:var(--bg); }
+.expense-item-icon { width:36px; height:36px; border-radius:10px; background:var(--sage-p); display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+.expense-item-info { flex:1; min-width:0; }
+.expense-item-name { font-size:13px; font-weight:500; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.expense-item-meta { font-size:10px; color:var(--text-sub); margin-top:1px; }
+.expense-item-val  { font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:var(--text); flex-shrink:0; }
+.expense-item-del  { width:28px; height:28px; border-radius:8px; border:none; background:var(--tc-p); color:var(--tc); font-size:13px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all .15s; flex-shrink:0; }
 .expense-item-del:active { transform:scale(.9); }
-.expense-empty {
-  text-align:center; padding:24px 16px;
-  font-family:'Lora',serif; font-style:italic;
-  font-size:13px; color:var(--brown-l);
-}
+.exp-total-row { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; background:var(--sage-p); border-top:2px solid var(--sage-l); }
+.exp-total-lbl { font-size:12px; font-weight:600; color:var(--sage-d); }
+.exp-total-val { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:var(--sage-d); }
+.expense-empty { text-align:center; padding:28px 16px; font-family:'Lora',serif; font-style:italic; font-size:13px; color:var(--text-sub); }
+
+/* Supabase sync status */
+.sync-status { display:flex; align-items:center; gap:6px; font-size:11px; color:var(--text-sub); margin-top:6px; }
+.sync-dot { width:6px; height:6px; border-radius:50%; background:var(--sage); }
+.sync-dot.saving { background:var(--gold); animation:pulseDot .8s infinite; }
+.sync-dot.error  { background:var(--tc); }
+@keyframes pulseDot { 0%,100%{opacity:1;}50%{opacity:.3;} }
 
 /* Affiliate grid */
-.affiliate-section { margin:16px 16px 0; }
-.affiliate-section-title {
-  font-family:'Playfair Display',serif; font-size:15px; font-weight:700;
-  color:var(--night); margin-bottom:12px;
-}
-.affiliate-section-title em { color:var(--tc); font-style:italic; }
+.affiliate-title { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:var(--text); margin-bottom:12px; }
+.affiliate-title em { color:var(--tc); font-style:italic; }
 .affiliate-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.affiliate-card {
-  background:var(--warm); border:1px solid var(--linen); border-radius:18px;
-  overflow:hidden; cursor:pointer; transition:transform .18s, box-shadow .18s;
-}
-.affiliate-card:active { transform:scale(.97); box-shadow:0 2px 8px rgba(44,62,45,.1); }
-.affiliate-img {
-  width:100%; height:100px; object-fit:cover;
-  background:var(--linen);
-  display:flex; align-items:center; justify-content:center; font-size:36px;
-}
-.affiliate-img-placeholder { width:100%; height:100px; display:flex; align-items:center; justify-content:center; font-size:36px; background:var(--linen); }
+.affiliate-card { background:var(--bg-card); border:1px solid var(--border); border-radius:18px; overflow:hidden; cursor:pointer; transition:transform .18s, box-shadow .18s; box-shadow:0 2px 8px var(--shadow); }
+.affiliate-card:active { transform:scale(.97); }
+.affiliate-card:hover { box-shadow:0 6px 20px var(--shadow-lg); }
+.affiliate-img-ph { width:100%; height:90px; display:flex; align-items:center; justify-content:center; font-size:34px; background:var(--linen); }
 .affiliate-body { padding:10px 12px 12px; }
-.affiliate-name { font-size:12px; font-weight:600; color:var(--night); margin-bottom:3px; line-height:1.3; }
+.affiliate-name  { font-size:11px; font-weight:600; color:var(--text); margin-bottom:3px; line-height:1.3; }
 .affiliate-price { font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:var(--tc); margin-bottom:8px; }
 .affiliate-btn {
   display:block; width:100%; padding:8px;
   background:linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%);
-  color:#fff; border:none; border-radius:10px;
-  font-family:'DM Sans',sans-serif; font-size:11px; font-weight:600;
-  cursor:pointer; text-align:center; text-decoration:none;
+  color:#fff; border:none; border-radius:10px; font-family:'DM Sans',sans-serif;
+  font-size:11px; font-weight:600; cursor:pointer; text-align:center; text-decoration:none;
   transition:opacity .18s;
 }
 .affiliate-btn:active { opacity:.85; }
 
-/* ══════════════════════════════════════════════
-   EBOOKS / GUIAS
-══════════════════════════════════════════════ */
-.ebook-featured {
-  margin:0 16px; background:var(--night); border-radius:22px;
-  padding:22px; position:relative; overflow:hidden; cursor:pointer;
-  transition:transform .18s;
-}
-.ebook-featured:active { transform:scale(.99); }
-.ebook-featured::before {
-  content:''; position:absolute; inset:0;
-  background:radial-gradient(ellipse 60% 80% at 5% 50%, rgba(201,168,76,.18) 0%, transparent 60%);
-  pointer-events:none;
-}
-.ef-badge { display:inline-block; background:rgba(201,168,76,.2); border:1px solid rgba(201,168,76,.35); border-radius:20px; padding:4px 12px; font-size:10px; color:var(--gold-l); font-weight:500; margin-bottom:12px; position:relative; z-index:1; }
-.ef-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:#fff; margin-bottom:6px; position:relative; z-index:1; line-height:1.3; }
-.ef-sub   { font-size:12px; color:rgba(255,255,255,.5); font-family:'Lora',serif; font-style:italic; position:relative; z-index:1; margin-bottom:16px; }
-.ef-cta   { display:inline-flex; align-items:center; gap:8px; background:rgba(138,158,127,.25); border:1px solid rgba(138,158,127,.35); border-radius:12px; padding:10px 16px; position:relative; z-index:1; }
-.ef-cta-txt { font-size:13px; font-weight:600; color:#fff; }
+/* ══════════════════════════════════════════
+   ██ GUIAS
+══════════════════════════════════════════ */
+.filter-row { display:flex; gap:8px; padding:0 24px; overflow-x:auto; scrollbar-width:none; padding-bottom:4px; }
+@media(max-width:799px) { .filter-row { padding:0 16px; } }
+.filter-row::-webkit-scrollbar { display:none; }
+.filter-chip { flex-shrink:0; padding:8px 16px; border-radius:20px; font-size:12px; font-weight:500; cursor:pointer; border:1.5px solid var(--border-d); background:var(--bg-card); color:var(--text-sub); transition:all .18s; }
+.filter-chip.active { background:var(--night); border-color:var(--night); color:#fff; }
+.filter-chip:active { transform:scale(.95); }
 
-.ebook-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:0 16px; }
-.ebook-card {
-  background:var(--warm); border:1px solid var(--linen); border-radius:18px;
-  padding:14px; cursor:pointer; position:relative; overflow:hidden;
-  transition:transform .18s, border-color .15s;
+.featured-ebook {
+  background:var(--night); border-radius:22px; padding:24px; position:relative; overflow:hidden; cursor:pointer; text-decoration:none; display:block; transition:transform .18s; box-shadow:0 8px 28px var(--shadow-lg);
 }
-.ebook-card:active { transform:scale(.97); border-color:var(--linen-d); }
-.ec-emoji { font-size:22px; margin-bottom:8px; display:block; }
-.ec-title { font-family:'Playfair Display',serif; font-size:13px; font-weight:600; color:var(--night); line-height:1.3; margin-bottom:4px; }
-.ec-sub   { font-size:10px; color:var(--brown-l); line-height:1.4; }
-.ec-tag   { position:absolute; top:10px; right:10px; font-size:9px; font-weight:600; padding:3px 7px; border-radius:10px; }
-.tag-free { background:var(--sage-p); color:var(--sage-d); }
-.tag-plus { background:var(--gold-p); color:#7a6010; }
+.featured-ebook:active { transform:scale(.99); }
+.featured-ebook::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 80% at 5% 80%, rgba(138,158,127,.22) 0%,transparent 60%); pointer-events:none; }
+.fe-badge { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gold-l); background:rgba(201,168,76,.18); padding:4px 12px; border-radius:20px; display:inline-block; margin-bottom:14px; position:relative; z-index:1; }
+.fe-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:#fff; line-height:1.25; margin-bottom:8px; position:relative; z-index:1; }
+.fe-title em { color:var(--tc-l); font-style:italic; }
+.fe-sub   { font-family:'Lora',serif; font-style:italic; font-size:12px; color:rgba(255,255,255,.45); margin-bottom:18px; position:relative; z-index:1; line-height:1.6; }
+.fe-cta   { display:inline-flex; align-items:center; gap:8px; background:var(--tc); color:#fff; font-size:12px; font-weight:600; padding:9px 18px; border-radius:100px; position:relative; z-index:1; }
 
-/* ══════════════════════════════════════════════
-   PERFIL
-══════════════════════════════════════════════ */
-.perfil-hero {
-  margin:12px 16px 0; background:var(--night); border-radius:22px;
-  padding:22px; display:flex; align-items:center; gap:16px;
-  position:relative; overflow:hidden;
-}
-.perfil-hero::before {
-  content:''; position:absolute; inset:0;
-  background:radial-gradient(ellipse 60% 80% at 0% 50%, rgba(138,158,127,.2) 0%, transparent 60%);
-  pointer-events:none;
-}
-.ph-avatar {
-  width:68px; height:68px; border-radius:50%;
-  background:rgba(255,255,255,.1); border:2px solid rgba(255,255,255,.2);
-  display:flex; align-items:center; justify-content:center; font-size:28px;
-  flex-shrink:0; position:relative; z-index:1;
-}
-.ph-info  { flex:1; position:relative; z-index:1; }
-.ph-name  { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:#fff; margin-bottom:3px; }
+.guide-list { display:flex; flex-direction:column; gap:10px; }
+.guide-card { background:var(--bg-card); border:1px solid var(--border); border-radius:18px; padding:16px 18px; display:flex; gap:14px; align-items:flex-start; text-decoration:none; cursor:pointer; transition:border-color .2s, transform .18s, box-shadow .18s; box-shadow:0 2px 8px var(--shadow); }
+.guide-card:hover { border-color:var(--border-d); transform:translateY(-1px); box-shadow:0 6px 20px var(--shadow-lg); }
+.guide-card:active { transform:scale(.98); }
+.guide-icon { width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; }
+.gi-sage  { background:var(--sage-p); }
+.gi-tc    { background:var(--tc-p); }
+.gi-gold  { background:var(--gold-p); }
+.gi-night { background:var(--lav-p); }
+.guide-info  { flex:1; }
+.guide-title { font-weight:600; font-size:.9rem; color:var(--text); margin-bottom:4px; }
+.guide-sub   { font-size:.8rem; color:var(--text-sub); line-height:1.55; }
+.guide-meta  { display:flex; align-items:center; gap:8px; margin-top:8px; }
+.guide-tag   { font-size:9px; font-weight:600; letter-spacing:1px; text-transform:uppercase; padding:3px 8px; border-radius:10px; }
+.tag-novo  { background:var(--sage-p); color:var(--sage-d); }
+.tag-pop   { background:var(--tc-p);   color:var(--tc); }
+.tag-livre { background:var(--gold-p); color:#7a6010; }
+.guide-arrow { color:var(--border-d); font-size:20px; align-self:center; }
+
+/* ══════════════════════════════════════════
+   ██ PERFIL
+══════════════════════════════════════════ */
+.perfil-hero { background:var(--night); border-radius:22px; padding:22px; display:flex; align-items:center; gap:16px; position:relative; overflow:hidden; box-shadow:0 6px 24px var(--shadow-lg); }
+.perfil-hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 80% at 0% 50%, rgba(138,158,127,.2) 0%,transparent 60%); pointer-events:none; }
+.ph-avatar { width:68px; height:68px; border-radius:50%; background:rgba(255,255,255,.1); border:2px solid rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; font-size:28px; flex-shrink:0; position:relative; z-index:1; overflow:hidden; }
+.ph-avatar img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+.ph-info { flex:1; position:relative; z-index:1; }
+.ph-name { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:#fff; margin-bottom:3px; }
+.ph-email { font-size:11px; color:rgba(255,255,255,.5); margin-bottom:4px; font-family:'Lora',serif; font-style:italic; }
 .ph-plan  { font-size:11px; color:var(--gold-l); font-weight:500; }
 .ph-plan span { background:rgba(201,168,76,.2); border:1px solid rgba(201,168,76,.3); border-radius:10px; padding:2px 8px; }
 
-.perfil-section { margin:16px 16px 0; }
-.perfil-section-title { font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:var(--brown-l); margin-bottom:8px; text-transform:uppercase; letter-spacing:.06em; }
-.perfil-item {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:13px 16px; background:var(--warm); border:1px solid var(--linen);
-  border-radius:14px; margin-bottom:8px; cursor:pointer;
-  transition:all .18s;
-}
-.perfil-item:active { transform:scale(.98); background:var(--cream); }
-.pi-left  { display:flex; align-items:center; gap:12px; }
-.pi-icon  { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:16px; }
-.pi-sage  { background:var(--sage-p); }
-.pi-tc    { background:var(--tc-p); }
-.pi-gold  { background:var(--gold-p); }
-.pi-lav   { background:var(--lav-p); }
-.pi-lbl   { font-size:13px; font-weight:500; color:var(--night); }
-.pi-sub   { font-size:11px; color:var(--brown-l); margin-top:1px; }
-.pi-arrow { font-size:18px; color:var(--brown-l); }
+.perfil-section { margin-top:16px; }
+.perfil-section-title { font-family:'Playfair Display',serif; font-size:12px; font-weight:700; color:var(--text-sub); margin-bottom:8px; text-transform:uppercase; letter-spacing:.06em; }
+.perfil-item { display:flex; align-items:center; justify-content:space-between; padding:13px 16px; background:var(--bg-card); border:1px solid var(--border); border-radius:14px; margin-bottom:8px; cursor:pointer; transition:all .18s; }
+.perfil-item:active { transform:scale(.98); background:var(--bg); }
+.pi-left { display:flex; align-items:center; gap:12px; }
+.pi-icon { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:16px; }
+.pi-sage { background:var(--sage-p); } .pi-tc { background:var(--tc-p); } .pi-gold { background:var(--gold-p); } .pi-lav { background:var(--lav-p); }
+.pi-lbl  { font-size:13px; font-weight:500; color:var(--text); }
+.pi-sub  { font-size:11px; color:var(--text-sub); margin-top:1px; }
+.pi-arrow { font-size:18px; color:var(--text-sub); }
 
-.plan-upgrade-card {
-  margin:16px 16px 0; background:linear-gradient(135deg, var(--tc) 0%, var(--gold) 100%);
-  border-radius:20px; padding:20px; text-align:center; cursor:pointer;
-  transition:transform .18s;
-}
+.plan-upgrade-card { margin-top:16px; background:linear-gradient(135deg, var(--tc) 0%, var(--gold) 100%); border-radius:20px; padding:20px; text-align:center; cursor:pointer; transition:transform .18s; }
 .plan-upgrade-card:active { transform:scale(.98); }
 .puc-title { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:#fff; margin-bottom:6px; }
 .puc-sub   { font-size:12px; color:rgba(255,255,255,.8); margin-bottom:14px; line-height:1.5; }
 .puc-btn   { display:inline-block; background:#fff; color:var(--tc); font-size:13px; font-weight:700; padding:10px 24px; border-radius:12px; }
 
-/* logout btn */
-.logout-btn {
-  margin:12px 16px; display:block; width:calc(100% - 32px);
-  padding:13px; text-align:center; border-radius:14px;
-  background:transparent; border:1.5px solid var(--linen-d);
-  font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500;
-  color:var(--brown-l); cursor:pointer; transition:all .18s;
-}
-.logout-btn:active { background:var(--linen); transform:scale(.98); }
+.logout-btn { margin-top:12px; display:block; width:100%; padding:13px; text-align:center; border-radius:14px; background:transparent; border:1.5px solid var(--border-d); font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; color:var(--text-sub); cursor:pointer; transition:all .18s; }
+.logout-btn:active { background:var(--tc-p); color:var(--tc); transform:scale(.98); }
 
-/* ══════════════════════════════════════════════
-   BOTTOM NAV
-══════════════════════════════════════════════ */
-.bottom-nav {
-  position:fixed; bottom:0; left:0; right:0;
-  background:rgba(250,246,239,.96);
-  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
-  border-top:1px solid var(--linen);
-  display:flex; align-items:center; justify-content:space-around;
-  padding:8px;
-  padding-bottom:max(env(safe-area-inset-bottom, 8px), 8px);
-  z-index:100;
-}
-.nav-item {
-  flex:1; display:flex; flex-direction:column; align-items:center; gap:3px;
-  padding:8px 4px; border-radius:14px; cursor:pointer;
-  border:none; background:transparent;
-  transition:background .15s, transform .15s;
-}
-.nav-item:active { transform:scale(.92); }
-.nav-item.active { background:var(--sage-p); }
-.nav-icon { font-size:20px; line-height:1; }
-.nav-lbl  { font-size:10px; font-weight:500; color:var(--brown-l); }
-.nav-item.active .nav-lbl { color:var(--sage-d); }
-
-/* ══════════════════════════════════════════════
-   ██ CHAT PAGE
-══════════════════════════════════════════════ */
-.chat-header {
-  padding:max(env(safe-area-inset-top,0px),16px) 16px 14px;
-  background:var(--warm); border-bottom:1px solid var(--linen);
-  display:flex; align-items:center; gap:12px; flex-shrink:0;
-  box-shadow:0 2px 12px rgba(44,62,45,.06);
-}
-.chat-av {
-  width:40px; height:40px; border-radius:50%;
-  background:linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%);
-  display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;
-}
-.chat-hd-info { flex:1; }
-.chat-hd-name { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:var(--night); }
-.chat-hd-status { font-size:11px; color:var(--sage); display:flex; align-items:center; gap:5px; margin-top:1px; }
-.online-dot { width:6px; height:6px; border-radius:50%; background:var(--sage); animation:pulseGlow 2s infinite; }
-.msg-counter-badge {
-  font-size:11px; font-weight:500; padding:4px 10px; border-radius:20px;
-  background:var(--gold-p); border:1px solid var(--gold-l); color:#7a6010;
-  white-space:nowrap; transition:all .3s;
-}
-.msg-counter-badge.esgotado { background:var(--tc-p); border-color:var(--tc-l); color:var(--tc); }
-
-#chat-messages {
-  flex:1; overflow-y:auto; padding:16px 14px;
-  display:flex; flex-direction:column; gap:12px;
-  scroll-behavior:smooth; scrollbar-width:none;
-  padding-bottom:calc(80px + env(safe-area-inset-bottom, 0px));
-}
-#chat-messages::-webkit-scrollbar { display:none; }
-
-.bubble { max-width:82%; padding:11px 15px; border-radius:18px; font-size:14px; line-height:1.6; animation:fadeInUp .28s ease both; }
-.bubble-ai {
-  align-self:flex-start; background:var(--warm);
-  border:1px solid var(--linen); border-bottom-left-radius:5px;
-  box-shadow:0 2px 8px rgba(44,62,45,.07); color:var(--night);
-}
-.bubble-ai .bsender { font-family:'Lora',serif; font-size:10px; color:var(--sage); font-style:italic; display:block; margin-bottom:4px; }
-.bubble-user {
-  align-self:flex-end;
-  background:linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%);
-  color:#fff; border-bottom-right-radius:5px;
-  box-shadow:0 2px 8px rgba(90,112,80,.3);
-}
-
-.welcome-bubble {
-  align-self:flex-start; max-width:90%;
-  background:linear-gradient(135deg, var(--sage-p) 0%, var(--gold-p) 100%);
-  border:1px solid var(--linen-d); border-radius:18px; border-bottom-left-radius:5px;
-  padding:14px 16px; font-size:13px; color:var(--brown); line-height:1.6;
-  animation:fadeInUp .3s ease both;
-}
-.wb-title { font-family:'Playfair Display',serif; font-size:15px; color:var(--night); margin-bottom:6px; display:block; }
-.chips-row { display:flex; flex-wrap:wrap; gap:7px; margin-top:10px; }
-.chip-q {
-  background:#fff; border:1px solid var(--linen-d); border-radius:20px;
-  padding:5px 11px; font-size:12px; color:var(--brown); cursor:pointer;
-  transition:all .18s;
-}
-.chip-q:active { transform:scale(.95); background:var(--sage); color:#fff; border-color:var(--sage); }
-
-.typing-bubble {
-  align-self:flex-start; display:flex; align-items:center; gap:5px;
-  padding:10px 15px; background:var(--warm); border:1px solid var(--linen);
-  border-radius:18px; border-bottom-left-radius:5px;
-  box-shadow:0 2px 8px rgba(44,62,45,.07); animation:fadeInUp .28s ease both;
-}
-.typing-bubble span { width:7px; height:7px; border-radius:50%; animation:typingBounce 1.2s infinite; }
-.typing-bubble span:nth-child(1) { background:var(--sage); }
-.typing-bubble span:nth-child(2) { background:var(--tc); animation-delay:.2s; }
-.typing-bubble span:nth-child(3) { background:var(--gold); animation-delay:.4s; }
-@keyframes typingBounce {
-  0%,60%,100% { transform:translateY(0); }
-  30%          { transform:translateY(-6px); }
-}
-
-.chat-input-bar {
-  position:fixed; bottom:0; left:0; right:0;
-  background:rgba(250,246,239,.97);
-  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
-  border-top:1px solid var(--linen);
-  padding:10px 14px;
-  padding-bottom:max(env(safe-area-inset-bottom,10px),10px);
-  display:none; align-items:flex-end; gap:8px; z-index:50;
-}
-.chat-input-bar.active { display:flex; }
-
-#user-input {
-  flex:1; border:1.5px solid var(--linen-d); border-radius:20px;
-  padding:10px 14px; font-family:'DM Sans',sans-serif; font-size:14px;
-  color:var(--night); background:var(--warm);
-  resize:none; outline:none; max-height:110px; line-height:1.5;
-  transition:border-color .2s, box-shadow .2s;
-}
-#user-input::placeholder { color:var(--brown-l); }
-#user-input:focus { border-color:var(--sage); box-shadow:0 0 0 3px rgba(138,158,127,.15); }
-#user-input:disabled { opacity:.5; cursor:not-allowed; }
-
-.input-action-btn {
-  width:42px; height:42px; flex-shrink:0; border-radius:50%; border:none;
-  display:flex; align-items:center; justify-content:center; cursor:pointer;
-  transition:transform .18s cubic-bezier(.34,1.56,.64,1), opacity .18s;
-}
-.input-action-btn:active { transform:scale(.9) !important; }
-
-#mic-btn { background:var(--warm); border:1.5px solid var(--linen-d); color:var(--brown-l); }
-#mic-btn.listening { background:var(--tc-p); border-color:var(--tc); color:var(--tc); animation:micPulse 1s infinite; }
-@keyframes micPulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.1);} }
-#mic-btn svg { width:18px; height:18px; }
-
-#send-btn {
-  background:linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%);
-  box-shadow:0 3px 10px rgba(90,112,80,.35);
-}
-#send-btn:hover:not(:disabled) { transform:scale(1.06); }
-#send-btn:disabled { opacity:.4; cursor:not-allowed; }
-#send-btn svg { width:20px; height:20px; fill:none; stroke:#fff; stroke-width:2; }
-
-#limit-banner {
-  display:none; text-align:center; padding:10px 20px;
-  background:var(--tc-p); border-top:1px solid var(--tc-l);
-  font-size:12px; color:var(--tc); line-height:1.5; flex-shrink:0;
-}
-#limit-banner.visible { display:block; }
-
-/* ══════════════════════════════════════════════
+/* ══════════════════════════════════════════
    GLASSMORPHISM PRO MODAL
-══════════════════════════════════════════════ */
-#pro-overlay {
-  display:none; position:fixed; inset:0; z-index:9998;
-  background:rgba(44,62,45,.55); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-  align-items:flex-end; justify-content:center;
-  padding-bottom:env(safe-area-inset-bottom,0px);
-}
+══════════════════════════════════════════ */
+#pro-overlay { display:none; position:fixed; inset:0; z-index:9998; background:rgba(44,62,45,.55); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); align-items:flex-end; justify-content:center; padding-bottom:env(safe-area-inset-bottom,0px); }
 #pro-overlay.open { display:flex; }
-#pro-modal {
-  background:rgba(250,246,239,.94); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
-  border:1px solid rgba(255,255,255,.65); border-bottom:none;
-  border-radius:28px 28px 0 0; padding:28px 24px 36px;
-  width:100%; max-width:480px;
-  animation:slideUp .4s cubic-bezier(.34,1.56,.64,1) both;
-}
-@keyframes slideUp {
-  from { transform:translateY(100%); opacity:0; }
-  to   { transform:translateY(0); opacity:1; }
-}
+#pro-modal { background:rgba(250,246,239,.95); backdrop-filter:blur(28px); -webkit-backdrop-filter:blur(28px); border:1px solid rgba(255,255,255,.7); border-bottom:none; border-radius:28px 28px 0 0; padding:28px 24px 36px; width:100%; max-width:480px; animation:slideUp .4s cubic-bezier(.34,1.56,.64,1) both; }
+@keyframes slideUp { from{transform:translateY(100%);opacity:0;} to{transform:translateY(0);opacity:1;} }
 .pm-handle { width:40px; height:4px; background:var(--linen-d); border-radius:4px; margin:0 auto 20px; }
-.pm-emoji  { text-align:center; font-size:36px; margin-bottom:10px; }
+.pm-emoji  { text-align:center; font-size:38px; margin-bottom:10px; }
 .pm-title  { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--night); text-align:center; margin-bottom:6px; }
 .pm-sub    { font-size:13px; color:var(--brown-l); text-align:center; line-height:1.5; margin-bottom:20px; }
 .pm-perks  { display:flex; flex-direction:column; gap:10px; margin-bottom:22px; }
@@ -797,45 +778,35 @@ body {
 .pm-perk-icon { width:34px; height:34px; border-radius:10px; background:var(--sage-p); display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
 .pm-perk-txt  { font-size:13px; color:var(--night); line-height:1.4; }
 .pm-perk-txt strong { color:var(--sage-d); }
-.pm-btn {
-  display:block; width:100%; padding:16px;
-  background:linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%);
-  color:#fff; border:none; border-radius:16px; text-align:center;
-  font-family:'DM Sans',sans-serif; font-size:15px; font-weight:700;
-  cursor:pointer; box-shadow:0 4px 16px rgba(90,112,80,.3);
-  transition:transform .18s, opacity .18s;
-}
+.pm-btn  { display:block; width:100%; padding:16px; background:linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%); color:#fff; border:none; border-radius:16px; text-align:center; font-family:'DM Sans',sans-serif; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 4px 16px rgba(90,112,80,.3); transition:transform .18s, opacity .18s; }
 .pm-btn:active { transform:scale(.98); opacity:.9; }
 .pm-skip { display:block; text-align:center; margin-top:12px; font-size:12px; color:var(--brown-l); cursor:pointer; }
 
-/* ══════════════════════════════════════════════
+/* ══════════════════════════════════════════
    ANIMATIONS
-══════════════════════════════════════════════ */
-@keyframes fadeInUp {
-  from { opacity:0; transform:translateY(14px); }
-  to   { opacity:1; transform:translateY(0); }
-}
-.fade-up { opacity:0; animation:fadeInUp .5s ease forwards; }
-.fd1{animation-delay:.05s} .fd2{animation-delay:.12s} .fd3{animation-delay:.20s}
-.fd4{animation-delay:.28s} .fd5{animation-delay:.36s} .fd6{animation-delay:.44s}
-.fd7{animation-delay:.52s} .fd8{animation-delay:.60s} .fd9{animation-delay:.68s}
+══════════════════════════════════════════ */
+@keyframes fadeInUp { from{opacity:0;transform:translateY(14px);} to{opacity:1;transform:translateY(0);} }
+.fu { opacity:0; animation:fadeInUp .5s ease forwards; }
+.d1{animation-delay:.05s}.d2{animation-delay:.12s}.d3{animation-delay:.2s}
+.d4{animation-delay:.28s}.d5{animation-delay:.36s}.d6{animation-delay:.44s}
+.d7{animation-delay:.52s}.d8{animation-delay:.60s}
 
+/* Utility */
+.sp { height:20px; }
 </style>
 </head>
 <body>
 
-<!-- ════════════════════════════════════════════
-     ██ LOGIN SCREEN
-════════════════════════════════════════════ -->
+<!-- ════════════════════════════════
+     LOGIN SCREEN
+════════════════════════════════ -->
 <div id="login-screen">
   <div class="login-card">
     <span class="login-leaf">🌿</span>
     <div class="login-title">Guia do <em>Sono</em></div>
     <div class="login-subtitle">Seu refúgio tranquilo para noites mais serenas</div>
 
-    <!-- GOOGLE -->
-    <button class="login-btn login-btn-google" onclick="simulateLogin()">
-      <!-- Google icon SVG -->
+    <button class="login-btn login-btn-google" id="btn-google">
       <svg class="login-btn-icon" viewBox="0 0 24 24">
         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
         <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -851,346 +822,449 @@ body {
       <div class="login-divider-line"></div>
     </div>
 
-    <!-- APPLE -->
-    <button class="login-btn login-btn-apple" onclick="simulateLogin()">
-      <!-- Apple icon SVG -->
+    <button class="login-btn login-btn-apple" id="btn-apple">
       <svg class="login-btn-icon" viewBox="0 0 24 24" fill="white">
         <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
       </svg>
       Continuar com Apple
     </button>
 
-    <div class="login-terms">
-      Ao continuar, você aceita nossos <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a>.
-    </div>
+    <div id="login-error" class="login-error">Não foi possível entrar. Tente novamente.</div>
+    <div id="login-loading" class="login-loading">Entrando… aguarde um momento 🌿</div>
+
+    <div class="login-terms">Ao continuar, você aceita nossos <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a>.</div>
   </div>
 </div>
-<!--
-  === GANCHO PARA AUTENTICAÇÃO REAL ===
-  Para integrar com Supabase Auth:
-    1. Importe o client: import { createClient } from '@supabase/supabase-js'
-    2. No botão Google: supabase.auth.signInWithOAuth({ provider: 'google' })
-    3. No botão Apple: supabase.auth.signInWithOAuth({ provider: 'apple' })
-    4. Escute a sessão: supabase.auth.onAuthStateChange((event, session) => { ... })
-    5. Substitua simulateLogin() pela lógica de onAuthStateChange
-
-  Para Firebase Auth:
-    1. import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
-    2. signInWithPopup(auth, new GoogleAuthProvider()).then(revealApp)
-    3. OAuthProvider('apple.com') para Apple
--->
 
 
-<!-- ════════════════════════════════════════════
-     ██ APP SHELL
-════════════════════════════════════════════ -->
+<!-- ════════════════════════════════
+     APP SHELL
+════════════════════════════════ -->
 <div id="app">
 
-  <!-- ══ PAGE: HOME ═══════════════════════════ -->
-  <div class="page active" id="page-home">
-    <div class="scroll-area">
-
-      <div class="app-header fade-up fd1">
+  <!-- SIDEBAR (desktop) -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-icon">🌿</div>
+      <div class="sidebar-brand-name">Guia do Sono<small>sono gentil</small></div>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="snav-item active" data-tab="home">      <span class="snav-icon">🏠</span> Início</button>
+      <button class="snav-item"        data-tab="orcamento"> <span class="snav-icon">💰</span> Orçamento</button>
+      <button class="snav-item"        data-tab="chat">      <span class="snav-icon">💬</span> Chat IA</button>
+      <button class="snav-item"        data-tab="guias">     <span class="snav-icon">📚</span> Guias</button>
+      <button class="snav-item"        data-tab="perfil">    <span class="snav-icon">👤</span> Perfil</button>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-user-av" id="sb-av">👩</div>
         <div>
-          <div class="header-greeting" id="greeting-text">Bom dia, mamãe ✦</div>
-          <div class="header-title">Como dormiu a <em>pequena?</em></div>
-        </div>
-        <div class="header-icons">
-          <div class="icon-btn">🔔</div>
-          <div class="icon-btn">⚙️</div>
+          <div class="sidebar-user-name" id="sb-name">Carregando…</div>
+          <div class="sidebar-user-plan">Plano Gratuito</div>
         </div>
       </div>
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <span>🌙 Modo noturno</span>
+        <button class="theme-switch" id="theme-switch" aria-label="Alternar tema"></button>
+      </div>
+    </div>
+  </aside>
 
-      <!-- PERFIL DO BEBÊ -->
-      <div class="baby-card fade-up fd2">
-        <div class="window-badge">
-          <div class="window-badge-val">90 min</div>
-          <div class="window-badge-lbl">janela atual</div>
-        </div>
-        <div class="baby-card-inner">
-          <div class="baby-avatar-wrap">
-            <div class="baby-avatar" id="babyAvatar">🌸</div>
-            <label class="avatar-add-btn" for="avatarInput">+</label>
-            <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="loadAvatar(event)">
+  <!-- CONTENT -->
+  <div class="content-area">
+
+    <!-- ══ HOME ══════════════════════════════ -->
+    <div class="page active" id="page-home">
+      <div class="scroll-area">
+
+        <div class="page-header fu d1">
+          <div class="ph-left">
+            <div class="ph-greeting" id="greeting-txt">Bom dia, mamãe ✦</div>
+            <div class="ph-title">Como dormiu a <em>pequena?</em></div>
           </div>
-          <div class="baby-info">
-            <div class="baby-name" id="baby-name-display">Sofia</div>
-            <div class="baby-age">4 meses e 12 dias</div>
-            <div class="baby-stats-row">
-              <div class="baby-stat"><div class="baby-stat-val">2</div><div class="baby-stat-lbl">cochilos</div></div>
-              <div class="baby-stat"><div class="baby-stat-val">4h20</div><div class="baby-stat-lbl">total</div></div>
-              <div class="baby-stat"><div class="baby-stat-val">10h</div><div class="baby-stat-lbl">noite</div></div>
+          <div class="ph-actions">
+            <div class="icon-btn" onclick="toggleTheme()">🌙</div>
+            <div class="icon-btn">🔔</div>
+          </div>
+        </div>
+
+        <!-- BABY CARD -->
+        <div class="padded fu d2">
+          <div class="baby-card">
+            <div class="window-badge">
+              <div class="window-badge-val">90 min</div>
+              <div class="window-badge-lbl">janela atual</div>
+            </div>
+            <div class="baby-card-inner">
+              <div class="baby-avatar-wrap">
+                <div class="baby-avatar" id="babyAvatar">🌸</div>
+                <label class="avatar-add-btn" for="avatarInput">+</label>
+                <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="loadAvatar(event)">
+              </div>
+              <div class="baby-info">
+                <div class="baby-name" id="baby-name-lbl">Sofia</div>
+                <div class="baby-age">4 meses e 12 dias</div>
+                <div class="baby-stats-row">
+                  <div class="baby-stat"><div class="baby-stat-val">2</div><div class="baby-stat-lbl">cochilos</div></div>
+                  <div class="baby-stat"><div class="baby-stat-val">4h20</div><div class="baby-stat-lbl">total</div></div>
+                  <div class="baby-stat"><div class="baby-stat-val">10h</div><div class="baby-stat-lbl">noite</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="baby-card-footer">
+              <div class="progress-label-row">
+                <span class="progress-lbl">Próxima janela</span>
+                <span class="progress-time">~14h30</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
             </div>
           </div>
         </div>
-        <div class="baby-card-footer">
-          <div class="progress-label-row">
-            <span class="progress-lbl">Próxima janela</span>
-            <span class="progress-time">~14h30</span>
-          </div>
-          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-        </div>
-      </div>
 
-      <!-- MINI STATS -->
-      <div class="section-header fade-up fd3"><div class="section-title">Resumo de hoje</div></div>
-      <div class="mini-stats fade-up fd3">
-        <div class="mini-stat-card msc-sage">
-          <span class="mini-stat-icon">🌙</span>
-          <div class="mini-stat-val">10 <span>h 20</span></div>
-          <div class="mini-stat-lbl">Sono total</div>
-          <div class="mini-stat-trend trend-up">↑ +40min</div>
-        </div>
-        <div class="mini-stat-card msc-tc">
-          <span class="mini-stat-icon">☀️</span>
-          <div class="mini-stat-val">2 <span>cochilos</span></div>
-          <div class="mini-stat-lbl">Sonecas diurnas</div>
-          <div class="mini-stat-trend trend-same">= igual</div>
-        </div>
-        <div class="mini-stat-card msc-gold">
-          <span class="mini-stat-icon">⏱️</span>
-          <div class="mini-stat-val">82 <span>min</span></div>
-          <div class="mini-stat-lbl">Janela atual</div>
-          <div class="mini-stat-trend trend-up">✓ ok</div>
-        </div>
-        <div class="mini-stat-card msc-night">
-          <span class="mini-stat-icon">🌅</span>
-          <div class="mini-stat-val">06 <span>h14</span></div>
-          <div class="mini-stat-lbl">Acordou hoje</div>
-          <div class="mini-stat-trend trend-same">= regular</div>
-        </div>
-      </div>
-
-      <!-- SINAIS -->
-      <div class="section-header fade-up fd4"><div class="section-title">Registrar sinal agora</div></div>
-      <div class="sinal-row fade-up fd4">
-        <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">👁️</span><span class="sinal-chip-text">Olhar distante</span></div>
-        <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">😮</span><span class="sinal-chip-text">Bocejou</span></div>
-        <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">🐢</span><span class="sinal-chip-text">Desacelerou</span></div>
-        <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">👋</span><span class="sinal-chip-text">Esfregou olho</span></div>
-        <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">🔴</span><span class="sinal-chip-text">Olhos vermelhos</span></div>
-      </div>
-
-      <!-- TABELA DE GASTOS RÁPIDA -->
-      <div class="section-header fade-up fd5">
-        <div class="section-title">Gastos do mês</div>
-        <div class="section-link" onclick="goToTab('orcamento')">Ver tudo →</div>
-      </div>
-      <div class="budget-quick-card fade-up fd5">
-        <div class="bq-header">
-          <span class="bq-header-title">Itens da Sofia</span>
-          <span class="bq-total" id="home-budget-total">Calculando…</span>
-        </div>
-        <div id="home-budget-rows">
-          <div class="budget-row">
-            <div class="budget-row-left"><div class="budget-row-icon bri-sage">🍼</div><div><div class="budget-row-name">Fórmula</div><div class="budget-row-cat">Alimentação</div></div></div>
-            <div class="budget-row-val">R$ 320</div>
-          </div>
-          <div class="budget-row">
-            <div class="budget-row-left"><div class="budget-row-icon bri-tc">🛍️</div><div><div class="budget-row-name">Fraldas</div><div class="budget-row-cat">Higiene</div></div></div>
-            <div class="budget-row-val">R$ 180</div>
-          </div>
-          <div class="budget-row">
-            <div class="budget-row-left"><div class="budget-row-icon bri-gold">🎵</div><div><div class="budget-row-name">Ruído branco</div><div class="budget-row-cat">Sono</div></div></div>
-            <div class="budget-row-val">R$ 29,90</div>
-          </div>
-        </div>
-        <div class="bq-total-row">
-          <span class="bq-total-lbl">Total registrado</span>
-          <span class="bq-total-val" id="home-budget-total-val">carregando…</span>
-        </div>
-      </div>
-
-      <!-- CHAT ENTRY -->
-      <div class="section-header fade-up fd6"><div class="section-title">Apoio agora</div></div>
-      <div class="chat-entry-card fade-up fd6" onclick="goToTab('chat')">
-        <div class="pulse-dot"></div>
-        <div class="cec-icon">🌿</div>
-        <div class="cec-text">
-          <div class="cec-title">Falar com o Guia do Sono</div>
-          <div class="cec-sub">Disponível agora · método gentil · sem espera</div>
-        </div>
-        <div class="cec-arrow">›</div>
-      </div>
-
-      <div style="height:20px;"></div>
-    </div>
-  </div>
-
-  <!-- ══ PAGE: ORÇAMENTO ══════════════════════ -->
-  <div class="page" id="page-orcamento">
-    <div class="scroll-area">
-      <div class="app-header">
-        <div>
-          <div class="header-greeting">Finanças do bebê</div>
-          <div class="header-title">Seu <em>Orçamento</em></div>
-        </div>
-      </div>
-
-      <!-- ADICIONAR GASTO -->
-      <div class="section-header"><div class="section-title">Registrar gasto</div></div>
-      <div class="add-expense-card fade-up fd1">
-        <div class="expense-inputs">
-          <input class="expense-input" id="exp-name" type="text" placeholder="Nome do item (ex: Fraldas G)" />
-        </div>
-        <div class="expense-inputs-row2">
-          <input class="expense-input" id="exp-val" type="number" inputmode="decimal" placeholder="Valor R$" step="0.01" min="0" />
-          <input class="expense-input" id="exp-date" type="date" />
-        </div>
-        <button class="btn-add-expense" onclick="addExpense()">+ Adicionar</button>
-      </div>
-
-      <!-- LISTA DE GASTOS -->
-      <div class="expense-summary">
-        <span class="expense-month-lbl" id="expense-month-lbl">Mês atual</span>
-        <span class="expense-total-lbl" id="expense-total-display">R$ 0,00</span>
-      </div>
-      <div class="expense-list" id="expense-list">
-        <div class="expense-empty">Nenhum gasto registrado ainda.<br>Adicione o primeiro item acima 🌿</div>
-      </div>
-
-      <!-- AFILIADOS -->
-      <div class="affiliate-section fade-up fd3">
-        <div class="affiliate-section-title">
-          🛒 Garimpado para a <em id="affiliate-baby-name">Sofia</em>
-        </div>
-
-        <div class="affiliate-grid">
-
-          <!-- Produto 1 -->
-          <div class="affiliate-card">
-            <div class="affiliate-img-placeholder">🍼</div>
-            <div class="affiliate-body">
-              <div class="affiliate-name">Mamadeira Anti-Cólica Philips Avent</div>
-              <div class="affiliate-price">R$ 89,90</div>
-              <!-- Coloque seu link de afiliado aqui -->
-              <a class="affiliate-btn" href="" target="_blank" rel="noopener">Ver na Loja</a>
+        <!-- CLIMATE + STATS GRID -->
+        <div class="sec-header fu d3"><div class="sec-title">Ambiente & sono</div></div>
+        <div class="grid-2 fu d3">
+          <!-- Climate Card -->
+          <div class="climate-card" id="climate-card">
+            <div class="climate-header">
+              <div>
+                <div class="climate-location" id="climate-loc">Sua cidade</div>
+                <div style="font-size:10px;color:rgba(255,255,255,.5);font-style:italic;font-family:'Lora',serif;" id="climate-desc">Parcialmente nublado</div>
+              </div>
+              <div class="climate-emoji" id="climate-emoji">🌤️</div>
+            </div>
+            <div class="climate-temp-row">
+              <div class="climate-temp" id="climate-temp">24</div>
+              <div class="climate-temp-unit">°C</div>
+            </div>
+            <div class="climate-ideal" id="climate-ideal-txt">Temperatura ideal para o sono: <strong>18–22°C</strong></div>
+            <div class="climate-tip-row" id="climate-tips">
+              <div class="climate-tip"><span>👕</span>Mameluco leve</div>
+              <div class="climate-tip"><span>🌬️</span>Ventilador baixo</div>
             </div>
           </div>
 
-          <!-- Produto 2 -->
-          <div class="affiliate-card">
-            <div class="affiliate-img-placeholder">🎶</div>
-            <div class="affiliate-body">
-              <div class="affiliate-name">Máquina de Ruído Branco LectroFan</div>
-              <div class="affiliate-price">R$ 249,00</div>
-              <!-- Coloque seu link de afiliado aqui -->
-              <a class="affiliate-btn" href="" target="_blank" rel="noopener">Ver na Loja</a>
+          <!-- Stat card -->
+          <div class="mini-stat-card msc-sage">
+            <span class="mini-stat-icon">🌙</span>
+            <div class="mini-stat-val">10 <span>h 20</span></div>
+            <div class="mini-stat-lbl">Sono total</div>
+            <div class="mini-stat-trend trend-up">↑ +40min</div>
+          </div>
+        </div>
+
+        <!-- MINI STATS -->
+        <div class="grid-2 fu d4" style="margin-top:10px;">
+          <div class="mini-stat-card msc-tc">
+            <span class="mini-stat-icon">☀️</span>
+            <div class="mini-stat-val">2 <span>cochilos</span></div>
+            <div class="mini-stat-lbl">Sonecas diurnas</div>
+            <div class="mini-stat-trend trend-same">= igual</div>
+          </div>
+          <div class="mini-stat-card msc-gold">
+            <span class="mini-stat-icon">⏱️</span>
+            <div class="mini-stat-val">82 <span>min</span></div>
+            <div class="mini-stat-lbl">Janela atual</div>
+            <div class="mini-stat-trend trend-up">✓ ok</div>
+          </div>
+        </div>
+
+        <!-- SINAIS -->
+        <div class="sec-header fu d5"><div class="sec-title">Registrar sinal agora</div></div>
+        <div class="sinal-row fu d5">
+          <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">👁️</span><span class="sinal-chip-text">Olhar distante</span></div>
+          <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">😮</span><span class="sinal-chip-text">Bocejou</span></div>
+          <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">🐢</span><span class="sinal-chip-text">Desacelerou</span></div>
+          <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">👋</span><span class="sinal-chip-text">Esfregou olho</span></div>
+          <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">🔴</span><span class="sinal-chip-text">Olhos vermelhos</span></div>
+        </div>
+
+        <!-- CHAT ENTRY -->
+        <div class="sec-header fu d6"><div class="sec-title">Apoio agora</div></div>
+        <div class="padded fu d6">
+          <div class="chat-entry-card" onclick="goToTab('chat')">
+            <div class="pulse-dot"></div>
+            <div class="cec-icon">🌿</div>
+            <div class="cec-text">
+              <div class="cec-title">Falar com o Guia do Sono</div>
+              <div class="cec-sub">Método gentil · sem choro · disponível agora</div>
+            </div>
+            <div class="cec-arrow">›</div>
+          </div>
+        </div>
+        <div class="sp"></div>
+      </div>
+    </div><!-- /page-home -->
+
+    <!-- ══ ORÇAMENTO ══════════════════════════ -->
+    <div class="page" id="page-orcamento">
+      <div class="scroll-area">
+        <div class="page-header fu d1">
+          <div class="ph-left">
+            <div class="ph-greeting">Finanças do bebê</div>
+            <div class="ph-title">Seu <em>Orçamento</em></div>
+          </div>
+        </div>
+
+        <div class="orc-layout fu d2">
+          <!-- LEFT: form + list -->
+          <div class="orc-left">
+            <div class="add-expense-card">
+              <h3>🌱 Registrar gasto</h3>
+              <div class="expense-field">
+                <label class="expense-label">Item</label>
+                <input class="expense-input" id="exp-name" type="text" placeholder="ex: Fraldas G, Vitamina D…" />
+              </div>
+              <div class="expense-row-2">
+                <div class="expense-field">
+                  <label class="expense-label">Valor (R$)</label>
+                  <input class="expense-input" id="exp-val" type="number" inputmode="decimal" placeholder="0,00" step="0.01" min="0" />
+                </div>
+                <div class="expense-field">
+                  <label class="expense-label">Categoria</label>
+                  <select class="expense-input" id="exp-cat">
+                    <option value="Alimentação">🍼 Alimentação</option>
+                    <option value="Higiene">🛍️ Higiene</option>
+                    <option value="Saúde">💊 Saúde</option>
+                    <option value="Sono">🎵 Sono</option>
+                    <option value="Vestuário">👕 Vestuário</option>
+                    <option value="Educação">📚 Educação</option>
+                    <option value="Outros">🛒 Outros</option>
+                  </select>
+                </div>
+              </div>
+              <div class="expense-field">
+                <label class="expense-label">Data</label>
+                <input class="expense-input" id="exp-date" type="date" />
+              </div>
+              <button class="btn-add-expense" id="btn-add-exp" onclick="addExpense()">+ Adicionar gasto</button>
+              <div class="sync-status" id="sync-status">
+                <div class="sync-dot" id="sync-dot"></div>
+                <span id="sync-txt">Sincronizado com Supabase</span>
+              </div>
+            </div>
+
+            <div class="expense-list-card" style="margin-top:16px;">
+              <div class="exp-list-header">
+                <span class="exp-list-title" id="exp-month-title">Gastos de março</span>
+                <span class="exp-list-total" id="exp-total-badge">R$ 0,00</span>
+              </div>
+              <div class="expense-list" id="expense-list">
+                <div class="expense-empty">Nenhum gasto ainda.<br>Adicione o primeiro item acima 🌿</div>
+              </div>
+              <div class="exp-total-row" id="exp-total-row" style="display:none;">
+                <span class="exp-total-lbl">Total do mês</span>
+                <span class="exp-total-val" id="exp-total-val">R$ 0,00</span>
+              </div>
             </div>
           </div>
 
-          <!-- Produto 3 -->
-          <div class="affiliate-card">
-            <div class="affiliate-img-placeholder">🌙</div>
-            <div class="affiliate-body">
-              <div class="affiliate-name">Saco de Dormir Infantil Halo SleepSack</div>
-              <div class="affiliate-price">R$ 159,90</div>
-              <!-- Coloque seu link de afiliado aqui -->
-              <a class="affiliate-btn" href="" target="_blank" rel="noopener">Ver na Loja</a>
+          <!-- RIGHT: affiliates -->
+          <div class="orc-right">
+            <div class="affiliate-title">🛒 Garimpado para a <em id="aff-baby-name">Sofia</em></div>
+            <div class="affiliate-grid">
+              <div class="affiliate-card">
+                <div class="affiliate-img-ph">🍼</div>
+                <div class="affiliate-body">
+                  <div class="affiliate-name">Mamadeira Anti-Cólica Philips Avent</div>
+                  <div class="affiliate-price">R$ 89,90</div>
+                  <!-- Coloque seu link de afiliado aqui -->
+                  <a class="affiliate-btn" href="" target="_blank" rel="noopener">Ver na Loja</a>
+                </div>
+              </div>
+              <div class="affiliate-card">
+                <div class="affiliate-img-ph">🎶</div>
+                <div class="affiliate-body">
+                  <div class="affiliate-name">Máquina de Ruído Branco LectroFan</div>
+                  <div class="affiliate-price">R$ 249,00</div>
+                  <!-- Coloque seu link de afiliado aqui -->
+                  <a class="affiliate-btn" href="" target="_blank" rel="noopener">Ver na Loja</a>
+                </div>
+              </div>
+              <div class="affiliate-card">
+                <div class="affiliate-img-ph">🌙</div>
+                <div class="affiliate-body">
+                  <div class="affiliate-name">Saco de Dormir Halo SleepSack</div>
+                  <div class="affiliate-price">R$ 159,90</div>
+                  <!-- Coloque seu link de afiliado aqui -->
+                  <a class="affiliate-btn" href="" target="_blank" rel="noopener">Ver na Loja</a>
+                </div>
+              </div>
+              <div class="affiliate-card">
+                <div class="affiliate-img-ph">🛏️</div>
+                <div class="affiliate-body">
+                  <div class="affiliate-name">Berço Portátil Multikids Baby</div>
+                  <div class="affiliate-price">R$ 319,00</div>
+                  <!-- Coloque seu link de afiliado aqui -->
+                  <a class="affiliate-btn" href="" target="_blank" rel="noopener">Ver na Loja</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sp"></div>
+      </div>
+    </div><!-- /page-orcamento -->
+
+    <!-- ══ CHAT ═══════════════════════════════ -->
+    <div class="page" id="page-chat" style="position:relative;">
+      <div class="chat-page-header">
+        <div class="chat-av">🌿</div>
+        <div class="chat-hd-info">
+          <div class="chat-hd-name">Guia do Sono</div>
+          <div class="chat-hd-status"><div class="online-dot"></div>sono gentil · disponível</div>
+        </div>
+        <div class="msg-counter-badge" id="msg-counter">3 mensagens hoje</div>
+      </div>
+      <div id="limit-banner">
+        🌙 Suas 3 mensagens gratuitas de hoje foram usadas.<br>
+        <strong>Assine o Plano Plus</strong> para conversar sem limites.
+      </div>
+      <div id="chat-messages"></div>
+
+      <!-- Desktop: input inside page -->
+      <div class="chat-input-wrap" id="chat-input-desktop" style="display:none;">
+        <textarea id="user-input-d" rows="1" placeholder="O que está acontecendo com o sono?" class="expense-input" style="border-radius:20px;padding:10px 16px;max-height:110px;resize:none;font-size:14px;"></textarea>
+        <button class="ia-btn" id="mic-btn-d" title="Microfone" onclick="toggleMic()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+        </button>
+        <button class="ia-btn" id="send-btn-d" onclick="sendMessage()" style="background:linear-gradient(135deg,var(--sage),var(--sage-d));box-shadow:0 3px 10px rgba(90,112,80,.35);">
+          <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="none" stroke="#fff" stroke-width="2"/></svg>
+        </button>
+      </div>
+    </div><!-- /page-chat -->
+
+    <!-- ══ GUIAS ══════════════════════════════ -->
+    <div class="page" id="page-guias">
+      <div class="scroll-area">
+        <div class="page-header fu d1">
+          <div class="ph-left">
+            <div class="ph-greeting">Biblioteca de conteúdo</div>
+            <div class="ph-title">Guias & <em>Recursos</em></div>
+          </div>
+        </div>
+
+        <div class="filter-row fu d1">
+          <div class="filter-chip active" onclick="filterGuias(this,'todos')">Todos</div>
+          <div class="filter-chip" onclick="filterGuias(this,'recem')">Recém-nascido</div>
+          <div class="filter-chip" onclick="filterGuias(this,'1-3')">1–3 meses</div>
+          <div class="filter-chip" onclick="filterGuias(this,'4-6')">4–6 meses</div>
+          <div class="filter-chip" onclick="filterGuias(this,'regressao')">Regressões</div>
+        </div>
+
+        <div class="sec-header fu d2"><div class="sec-title">Em destaque</div></div>
+        <div class="padded fu d2">
+          <a class="featured-ebook" href="tabela-mestra-sono.html" target="_blank">
+            <div class="fe-badge">✦ Em destaque</div>
+            <div class="fe-title">Tabela Mestra<br>de <em>Janelas de Sono</em></div>
+            <div class="fe-sub">Referência completa de 0 a 3 anos — janelas de vigília, cochilos e sinais.</div>
+            <div class="fe-cta">Acessar guia →</div>
+          </a>
+        </div>
+
+        <div class="sec-header fu d3"><div class="sec-title">Guias para você</div></div>
+        <div class="padded fu d3">
+          <div class="guide-list">
+            <a class="guide-card" href="ritual-de-ouro-ebook.html" target="_blank" data-cat="todos recem 1-3">
+              <div class="guide-icon gi-gold">✨</div>
+              <div class="guide-info">
+                <div class="guide-title">O Ritual de Ouro do Sono</div>
+                <div class="guide-sub">Como criar uma rotina que funcione — passo a passo, sem choro.</div>
+                <div class="guide-meta"><div class="guide-tag tag-pop">Popular</div><span style="font-size:10px;color:var(--text-sub);">· 5 min leitura</span></div>
+              </div>
+              <div class="guide-arrow">›</div>
+            </a>
+            <a class="guide-card" href="dicionario-sensorial-bebe.html" target="_blank" data-cat="todos recem 1-3 4-6">
+              <div class="guide-icon gi-tc">📖</div>
+              <div class="guide-info">
+                <div class="guide-title">Dicionário Sensorial do Bebê</div>
+                <div class="guide-sub">O que cada tipo de choro e sinal quer dizer — e como responder com calma.</div>
+                <div class="guide-meta"><div class="guide-tag tag-novo">Novo</div><span style="font-size:10px;color:var(--text-sub);">· 8 min leitura</span></div>
+              </div>
+              <div class="guide-arrow">›</div>
+            </a>
+            <a class="guide-card" href="autonomia-com-afeto.html" target="_blank" data-cat="todos 4-6">
+              <div class="guide-icon gi-sage">🌱</div>
+              <div class="guide-info">
+                <div class="guide-title">Autonomia com Afeto</div>
+                <div class="guide-sub">Como ajudar seu bebê a desenvolver independência no sono de forma gentil.</div>
+                <div class="guide-meta"><div class="guide-tag tag-livre">10 min</div></div>
+              </div>
+              <div class="guide-arrow">›</div>
+            </a>
+            <a class="guide-card" href="sleepy_planos_plus_premium_fix.html" target="_blank" data-cat="todos regressao">
+              <div class="guide-icon gi-night">🌙</div>
+              <div class="guide-info">
+                <div class="guide-title">O Segredo da 1ª Janela de Sono</div>
+                <div class="guide-sub">Entenda a janela de sono e como acertá-la para transformar as noites.</div>
+                <div class="guide-meta"><div class="guide-tag tag-pop">Grátis</div><span style="font-size:10px;color:var(--text-sub);">· 6 min leitura</span></div>
+              </div>
+              <div class="guide-arrow">›</div>
+            </a>
+            <a class="guide-card" href="questionario_boas_vindas_guia_sono.html" target="_blank" data-cat="todos recem">
+              <div class="guide-icon gi-tc">📋</div>
+              <div class="guide-info">
+                <div class="guide-title">Questionário de Boas-Vindas</div>
+                <div class="guide-sub">Avalie o perfil de sono do seu bebê e receba orientações personalizadas.</div>
+                <div class="guide-meta"><div class="guide-tag tag-novo">Interativo</div></div>
+              </div>
+              <div class="guide-arrow">›</div>
+            </a>
+          </div>
+        </div>
+        <div class="sp"></div>
+      </div>
+    </div><!-- /page-guias -->
+
+    <!-- ══ PERFIL ══════════════════════════════ -->
+    <div class="page" id="page-perfil">
+      <div class="scroll-area">
+        <div class="page-header fu d1">
+          <div class="ph-left">
+            <div class="ph-greeting">Configurações</div>
+            <div class="ph-title">Meu <em>Perfil</em></div>
+          </div>
+        </div>
+        <div class="padded">
+          <div class="perfil-hero fu d2">
+            <div class="ph-avatar" id="perfil-av">👩</div>
+            <div class="ph-info">
+              <div class="ph-name" id="perfil-name">Mamãe da Sofia</div>
+              <div class="ph-email" id="perfil-email"></div>
+              <div class="ph-plan"><span>✦ Plano Gratuito</span></div>
             </div>
           </div>
 
-          <!-- Produto 4 -->
-          <div class="affiliate-card">
-            <div class="affiliate-img-placeholder">🛏️</div>
-            <div class="affiliate-body">
-              <div class="affiliate-name">Berço Portátil Multikids Baby</div>
-              <div class="affiliate-price">R$ 319,00</div>
-              <!-- Coloque seu link de afiliado aqui -->
-              <a class="affiliate-btn" href="" target="_blank" rel="noopener">Ver na Loja</a>
-            </div>
+          <div class="perfil-section fu d3">
+            <div class="perfil-section-title">Bebê</div>
+            <div class="perfil-item"><div class="pi-left"><div class="pi-icon pi-sage">🌸</div><div><div class="pi-lbl" id="pi-baby-name">Sofia</div><div class="pi-sub">4 meses · Feminino</div></div></div><div class="pi-arrow">›</div></div>
+            <div class="perfil-item"><div class="pi-left"><div class="pi-icon pi-tc">📅</div><div><div class="pi-lbl">Data de nascimento</div><div class="pi-sub">14 de novembro de 2024</div></div></div><div class="pi-arrow">›</div></div>
           </div>
 
+          <div class="perfil-section fu d4">
+            <div class="perfil-section-title">Preferências</div>
+            <div class="perfil-item" onclick="toggleTheme()">
+              <div class="pi-left"><div class="pi-icon pi-lav">🎨</div><div><div class="pi-lbl">Modo Noturno</div><div class="pi-sub" id="theme-label">Claro ativo</div></div></div>
+              <div class="pi-arrow">›</div>
+            </div>
+            <div class="perfil-item"><div class="pi-left"><div class="pi-icon pi-gold">🔔</div><div><div class="pi-lbl">Notificações</div><div class="pi-sub">Lembretes de janela de sono</div></div></div><div class="pi-arrow">›</div></div>
+          </div>
+
+          <div class="plan-upgrade-card fu d5">
+            <div class="puc-title">✨ Assine o Plano Plus</div>
+            <div class="puc-sub">Chat ilimitado, todos os e-books e acompanhamento semanal personalizado.</div>
+            <div class="puc-btn">Ver planos · a partir de R$29,90/mês</div>
+          </div>
+
+          <button class="logout-btn fu d6" onclick="doLogout()">Sair da conta</button>
+          <div class="sp"></div>
         </div>
       </div>
+    </div><!-- /page-perfil -->
 
-      <div style="height:20px;"></div>
-    </div>
-  </div>
+  </div><!-- /content-area -->
 
-  <!-- ══ PAGE: CHAT ════════════════════════════ -->
-  <div class="page" id="page-chat">
-    <div class="chat-header">
-      <div class="chat-av">🌿</div>
-      <div class="chat-hd-info">
-        <div class="chat-hd-name">Guia do Sono</div>
-        <div class="chat-hd-status"><div class="online-dot"></div>sono gentil · disponível</div>
-      </div>
-      <div class="msg-counter-badge" id="msg-counter">3 mensagens hoje</div>
-    </div>
-    <div id="limit-banner">
-      🌙 Suas 3 mensagens gratuitas de hoje foram usadas.<br>
-      <strong>Assine o Plano Plus</strong> para conversar sem limites.
-    </div>
-    <div id="chat-messages"></div>
-  </div>
-
-  <!-- ══ PAGE: GUIAS ═══════════════════════════ -->
-  <div class="page" id="page-guias">
-    <div class="scroll-area">
-      <div class="app-header">
-        <div>
-          <div class="header-greeting">Biblioteca</div>
-          <div class="header-title">Guias & <em>E-books</em></div>
-        </div>
-      </div>
-      <div class="section-header fade-up fd1"><div class="section-title">Em destaque</div></div>
-      <div class="ebook-featured fade-up fd2">
-        <div class="ef-badge">✨ Novo</div>
-        <div class="ef-title">Ritual de Ouro:<br>o sono do 4º trimestre</div>
-        <div class="ef-sub">Guia completo para os primeiros 3 meses com suavidade</div>
-        <div class="ef-cta"><span class="ef-cta-txt">Ler agora</span><span>›</span></div>
-      </div>
-      <div class="section-header fade-up fd3"><div class="section-title">Todos os guias</div></div>
-      <div class="ebook-grid fade-up fd4">
-        <div class="ebook-card"><div class="ec-tag tag-free">Grátis</div><span class="ec-emoji">🌙</span><div class="ec-title">Tabela Mestra do Sono</div><div class="ec-sub">Janelas por faixa etária</div></div>
-        <div class="ebook-card"><div class="ec-tag tag-free">Grátis</div><span class="ec-emoji">👁️</span><div class="ec-title">Dicionário Sensorial</div><div class="ec-sub">Sinais de cansaço em bebês</div></div>
-        <div class="ebook-card"><div class="ec-tag tag-plus">Plus</div><span class="ec-emoji">🤍</span><div class="ec-title">Autonomia com Afeto</div><div class="ec-sub">Independência sem choro</div></div>
-        <div class="ebook-card"><div class="ec-tag tag-plus">Plus</div><span class="ec-emoji">📊</span><div class="ec-title">Protocolo das 2h</div><div class="ec-sub">Pressão de sono na prática</div></div>
-        <div class="ebook-card"><div class="ec-tag tag-plus">Plus</div><span class="ec-emoji">🌿</span><div class="ec-title">Saltos de Desenvolvimento</div><div class="ec-sub">Por que o sono piora</div></div>
-        <div class="ebook-card"><div class="ec-tag tag-plus">Plus</div><span class="ec-emoji">💆</span><div class="ec-title">Nervo Vago e Sono</div><div class="ec-sub">Calma para bebê e mãe</div></div>
-      </div>
-      <div style="height:20px;"></div>
-    </div>
-  </div>
-
-  <!-- ══ PAGE: PERFIL ══════════════════════════ -->
-  <div class="page" id="page-perfil">
-    <div class="scroll-area">
-      <div class="app-header">
-        <div>
-          <div class="header-greeting">Configurações</div>
-          <div class="header-title">Meu <em>Perfil</em></div>
-        </div>
-      </div>
-      <div class="perfil-hero fade-up fd1">
-        <div class="ph-avatar">👩</div>
-        <div class="ph-info">
-          <div class="ph-name">Mamãe da Sofia</div>
-          <div class="ph-plan"><span>✦ Plano Gratuito</span></div>
-        </div>
-      </div>
-      <div class="perfil-section fade-up fd2">
-        <div class="perfil-section-title">Bebê</div>
-        <div class="perfil-item"><div class="pi-left"><div class="pi-icon pi-sage">🌸</div><div><div class="pi-lbl">Sofia</div><div class="pi-sub">4 meses · Feminino</div></div></div><div class="pi-arrow">›</div></div>
-        <div class="perfil-item"><div class="pi-left"><div class="pi-icon pi-tc">📅</div><div><div class="pi-lbl">Data de nascimento</div><div class="pi-sub">14 de novembro de 2024</div></div></div><div class="pi-arrow">›</div></div>
-      </div>
-      <div class="perfil-section fade-up fd3">
-        <div class="perfil-section-title">Preferências</div>
-        <div class="perfil-item"><div class="pi-left"><div class="pi-icon pi-gold">🔔</div><div><div class="pi-lbl">Notificações</div><div class="pi-sub">Lembretes de janela de sono</div></div></div><div class="pi-arrow">›</div></div>
-        <div class="perfil-item"><div class="pi-left"><div class="pi-icon pi-lav">🎨</div><div><div class="pi-lbl">Tema visual</div><div class="pi-sub">Rústico cremoso · padrão</div></div></div><div class="pi-arrow">›</div></div>
-      </div>
-      <div class="plan-upgrade-card fade-up fd4">
-        <div class="puc-title">✨ Assine o Plano Plus</div>
-        <div class="puc-sub">Chat ilimitado, todos os e-books e acompanhamento semanal personalizado.</div>
-        <div class="puc-btn">Ver planos · a partir de R$29,90/mês</div>
-      </div>
-      <button class="logout-btn fade-up fd5" onclick="doLogout()">Sair da conta</button>
-      <div style="height:20px;"></div>
-    </div>
-  </div>
-
-  <!-- ══ BOTTOM NAV ════════════════════════════ -->
+  <!-- BOTTOM NAV (mobile) -->
   <nav class="bottom-nav">
     <button class="nav-item active" data-tab="home"      onclick="goToTab('home')">      <span class="nav-icon">🏠</span><span class="nav-lbl">Início</span></button>
     <button class="nav-item"        data-tab="orcamento" onclick="goToTab('orcamento')"> <span class="nav-icon">💰</span><span class="nav-lbl">Orçamento</span></button>
@@ -1201,19 +1275,14 @@ body {
 
 </div><!-- /#app -->
 
-<!-- CHAT INPUT BAR (fixed, outside app flex) -->
-<div class="chat-input-bar" id="chat-input-bar">
+<!-- Mobile chat input (fixed) -->
+<div id="chat-input-bar-mobile">
   <textarea id="user-input" rows="1" placeholder="O que está acontecendo com o sono?"></textarea>
-  <button class="input-action-btn" id="mic-btn" title="Usar microfone" onclick="toggleMic()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <rect x="9" y="2" width="6" height="11" rx="3"/>
-      <path d="M5 10a7 7 0 0 0 14 0"/>
-      <line x1="12" y1="19" x2="12" y2="22"/>
-      <line x1="8"  y1="22" x2="16" y2="22"/>
-    </svg>
+  <button class="ia-btn" id="mic-btn" title="Microfone" onclick="toggleMic()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
   </button>
-  <button class="input-action-btn" id="send-btn" onclick="sendMessage()">
-    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+  <button class="ia-btn" id="send-btn" onclick="sendMessage()" style="background:linear-gradient(135deg,var(--sage),var(--sage-d));box-shadow:0 3px 10px rgba(90,112,80,.35);">
+    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="none" stroke="#fff" stroke-width="2"/></svg>
   </button>
 </div>
 
@@ -1223,251 +1292,493 @@ body {
     <div class="pm-handle"></div>
     <div class="pm-emoji">🌙</div>
     <div class="pm-title">Suas mensagens acabaram</div>
-    <div class="pm-sub">Você usou suas 3 mensagens gratuitas de hoje. Assine o Plano Plus para continuar.</div>
+    <div class="pm-sub">Você usou suas 3 mensagens gratuitas de hoje. Assine o Plano Plus para continuar sem limites.</div>
     <div class="pm-perks">
-      <div class="pm-perk"><div class="pm-perk-icon">💬</div><div class="pm-perk-txt"><strong>Chat ilimitado</strong> com a Guia do Sono, a qualquer hora</div></div>
+      <div class="pm-perk"><div class="pm-perk-icon">💬</div><div class="pm-perk-txt"><strong>Chat ilimitado</strong> com a Guia do Sono</div></div>
       <div class="pm-perk"><div class="pm-perk-icon">📚</div><div class="pm-perk-txt"><strong>Todos os e-books</strong> e guias da biblioteca</div></div>
       <div class="pm-perk"><div class="pm-perk-icon">📊</div><div class="pm-perk-txt"><strong>Acompanhamento</strong> personalizado semanal</div></div>
     </div>
-    <button class="pm-btn" onclick="window.location.href='#planos'">Ver planos · a partir de R$29,90/mês</button>
+    <button class="pm-btn">Ver planos · a partir de R$29,90/mês</button>
     <span class="pm-skip" onclick="closeProModal()">Voltar · continuar amanhã</span>
   </div>
 </div>
 
 
-<!-- ════════════════════════════════════════════
-     ██ JAVASCRIPT
-════════════════════════════════════════════ -->
+<!-- ════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════ -->
 <script>
 'use strict';
 
-const BABY_NAME = 'Sofia';
+/* ═══════════════════════════════════
+   SUPABASE CONFIG
+   Credenciais fornecidas pela Weyna
+═══════════════════════════════════ */
+const SUPA_URL  = 'https://ddyonglfjuryeucmpnqt.supabase.co';
+const SUPA_KEY  = 'sb_publishable_fzjuIev_nXgty9LvWj1J1g_D0TSgqbm';
+const { createClient } = supabase;
+const sb = createClient(SUPA_URL, SUPA_KEY);
 
-/* ═══════════════════════════════════════
-   LOGIN
-═══════════════════════════════════════ */
-function simulateLogin() {
-  /*
-    === AQUI: integre com Supabase ou Firebase Auth (ver comentário no HTML) ===
-    Após auth real, chame revealApp() no callback de sucesso.
-  */
-  const screen = document.getElementById('login-screen');
-  screen.classList.add('hidden');
-  setTimeout(() => {
-    screen.style.display = 'none';
-    revealApp();
-  }, 580);
+/* ═══════════════════════════════════
+   GLOBALS
+═══════════════════════════════════ */
+const BABY_NAME = 'Sofia';
+let currentUser = null;
+let chatBooted  = false;
+let isLoading   = false;
+let chatHistory = [];
+let recognition = null;
+let isListening = false;
+let isDark = false;
+
+/* ═══════════════════════════════════
+   SUPABASE AUTH
+═══════════════════════════════════ */
+// Listen for auth state changes (handles redirect after OAuth)
+sb.auth.onAuthStateChange(async (event, session) => {
+  if (session?.user) {
+    currentUser = session.user;
+    hideLogin();
+    showApp();
+  } else {
+    currentUser = null;
+    showLogin();
+  }
+});
+
+// Also check session on page load
+(async () => {
+  const { data: { session } } = await sb.auth.getSession();
+  if (session?.user) {
+    currentUser = session.user;
+    hideLogin();
+    showApp();
+  }
+})();
+
+document.getElementById('btn-google').addEventListener('click', async () => {
+  setLoginState('loading');
+  const { error } = await sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.origin + window.location.pathname }
+  });
+  if (error) setLoginState('error', error.message);
+});
+
+document.getElementById('btn-apple').addEventListener('click', async () => {
+  setLoginState('loading');
+  const { error } = await sb.auth.signInWithOAuth({
+    provider: 'apple',
+    options: { redirectTo: window.location.origin + window.location.pathname }
+  });
+  if (error) setLoginState('error', error.message);
+});
+
+function setLoginState(state, msg) {
+  document.getElementById('login-error').classList.remove('show');
+  document.getElementById('login-loading').classList.remove('show');
+  if (state === 'loading') document.getElementById('login-loading').classList.add('show');
+  if (state === 'error') {
+    document.getElementById('login-error').textContent = msg || 'Erro ao entrar. Tente novamente.';
+    document.getElementById('login-error').classList.add('show');
+  }
 }
 
-function revealApp() {
-  const app = document.getElementById('app');
-  app.classList.add('visible');
+function hideLogin() {
+  const s = document.getElementById('login-screen');
+  s.classList.add('fade-out');
+  setTimeout(() => s.style.display = 'none', 520);
+}
+
+function showLogin() {
+  const s = document.getElementById('login-screen');
+  s.style.display = 'flex';
+  requestAnimationFrame(() => s.classList.remove('fade-out'));
+}
+
+function showApp() {
+  document.getElementById('app').classList.add('visible');
   initApp();
 }
 
-function doLogout() {
-  /*
-    === AQUI: supabase.auth.signOut() ou firebase auth.signOut() ===
-  */
+async function doLogout() {
   if (!confirm('Sair da sua conta?')) return;
+  await sb.auth.signOut();
   document.getElementById('app').classList.remove('visible');
-  const screen = document.getElementById('login-screen');
-  screen.style.display = 'flex';
-  requestAnimationFrame(() => screen.classList.remove('hidden'));
+  chatBooted = false;
+  chatHistory = [];
 }
 
-/* ═══════════════════════════════════════
-   INIT (after login)
-═══════════════════════════════════════ */
+/* ═══════════════════════════════════
+   INIT
+═══════════════════════════════════ */
 function initApp() {
   setGreeting();
   animateProgress();
-  renderExpenses();
-  updateHomeBudgetTotal();
+  loadClimate();
+  loadExpensesFromSupabase();
+  updateUserUI();
+  // Check saved theme
+  if (localStorage.getItem('guia_sono_theme') === 'dark') applyDark();
+  // Init date field
+  const df = document.getElementById('exp-date');
+  if (df) df.value = new Date().toISOString().split('T')[0];
+  // Responsive chat input
+  handleChatInput();
+  window.addEventListener('resize', handleChatInput);
+}
+
+function handleChatInput() {
+  const isDesk = window.innerWidth >= 800;
+  const mobBar = document.getElementById('chat-input-bar-mobile');
+  const deskBar = document.getElementById('chat-input-desktop');
+  mobBar.classList.toggle('active', !isDesk && currentTab === 'chat');
+  if (deskBar) deskBar.style.display = isDesk ? 'flex' : 'none';
+}
+
+function updateUserUI() {
+  if (!currentUser) return;
+  const meta = currentUser.user_metadata || {};
+  const name  = meta.full_name || meta.name || currentUser.email?.split('@')[0] || 'Mamãe';
+  const email = currentUser.email || '';
+  const avatar = meta.avatar_url || meta.picture || '';
+
+  document.getElementById('sb-name').textContent    = name;
+  document.getElementById('perfil-name').textContent = name;
+  document.getElementById('perfil-email').textContent = email;
+  if (avatar) {
+    document.getElementById('perfil-av').innerHTML = `<img src="${avatar}" alt="${name}">`;
+    document.getElementById('sb-av').innerHTML     = `<img src="${avatar}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" alt="">`;
+  }
+  // Update affiliate baby name
+  const abn = document.getElementById('aff-baby-name');
+  if (abn) abn.textContent = BABY_NAME;
 }
 
 function setGreeting() {
   const h = new Date().getHours();
-  const txt = h < 12 ? 'Bom dia, mamãe ✦' : h < 18 ? 'Boa tarde, mamãe ✦' : 'Boa noite, mamãe ✦';
-  document.getElementById('greeting-text').textContent = txt;
+  const g = document.getElementById('greeting-txt');
+  if (!g) return;
+  g.textContent = h < 12 ? 'Bom dia, mamãe ✦' : h < 18 ? 'Boa tarde, mamãe ✦' : 'Boa noite, mamãe ✦';
 }
 
 function animateProgress() {
-  setTimeout(() => {
-    const el = document.getElementById('progressFill');
-    if (el) el.style.width = '62%';
-  }, 400);
+  setTimeout(() => { const f = document.getElementById('progressFill'); if(f) f.style.width = '62%'; }, 500);
 }
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════
+   THEME (Dark Mode)
+═══════════════════════════════════ */
+function toggleTheme() {
+  isDark ? applyLight() : applyDark();
+}
+function applyDark() {
+  isDark = true;
+  document.documentElement.setAttribute('data-theme','dark');
+  document.getElementById('theme-switch').classList.add('on');
+  document.getElementById('theme-label').textContent = 'Escuro ativo';
+  localStorage.setItem('guia_sono_theme','dark');
+}
+function applyLight() {
+  isDark = false;
+  document.documentElement.setAttribute('data-theme','light');
+  document.getElementById('theme-switch').classList.remove('on');
+  document.getElementById('theme-label').textContent = 'Claro ativo';
+  localStorage.setItem('guia_sono_theme','light');
+}
+
+/* ═══════════════════════════════════
    TAB NAVIGATION
-═══════════════════════════════════════ */
-const inputBar = document.getElementById('chat-input-bar');
+═══════════════════════════════════ */
+let currentTab = 'home';
 
 function goToTab(tab) {
+  currentTab = tab;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.tab === tab));
+  document.querySelectorAll('.nav-item, .snav-item').forEach(n => n.classList.toggle('active', n.dataset.tab === tab));
   document.getElementById(`page-${tab}`).classList.add('active');
 
-  // Chat input bar visibility
-  inputBar.classList.toggle('active', tab === 'chat');
+  // Mobile chat input bar
+  const mobBar = document.getElementById('chat-input-bar-mobile');
+  mobBar.classList.toggle('active', tab === 'chat' && window.innerWidth < 800);
+
+  // Desktop chat input
+  const deskBar = document.getElementById('chat-input-desktop');
+  if (deskBar) deskBar.style.display = (tab === 'chat' && window.innerWidth >= 800) ? 'flex' : 'none';
 
   if (tab === 'chat' && !chatBooted) bootChat();
-  if (tab === 'orcamento') renderExpenses();
 }
 
-/* ═══════════════════════════════════════
-   UTILS
-═══════════════════════════════════════ */
-function toggleChip(el) { el.classList.toggle('active'); }
+/* ═══════════════════════════════════
+   CLIMATE CARD
+═══════════════════════════════════ */
+async function loadClimate() {
+  /* 
+    Usamos Open-Meteo (gratuito, sem API key).
+    Geolocation → lat/lon → temperatura atual.
+    Fallback: temperatura simulada.
+  */
+  function applyClimate(temp, city, weatherCode) {
+    const el = document.getElementById('climate-temp');
+    if(el) el.textContent = Math.round(temp);
+    const loc = document.getElementById('climate-loc');
+    if(loc) loc.textContent = city;
+    const emoji = document.getElementById('climate-emoji');
+    const desc  = document.getElementById('climate-desc');
 
-function loadAvatar(event) {
-  const file = event.target.files[0]; if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    document.getElementById('babyAvatar').innerHTML = `<img src="${e.target.result}" alt="foto">`;
-  };
-  reader.readAsDataURL(file);
+    // WMO weather code → emoji/desc mapping (simplified)
+    const W = {
+      0:['☀️','Céu limpo'], 1:['🌤️','Principalmente limpo'], 2:['⛅','Parcialmente nublado'],
+      3:['☁️','Nublado'], 45:['🌫️','Neblina'], 51:['🌦️','Chuva leve'], 61:['🌧️','Chuva moderada'],
+      80:['🌦️','Pancadas de chuva'], 95:['⛈️','Tempestade'],
+    };
+    const info = W[weatherCode] || W[Math.floor(weatherCode/10)*10] || ['🌤️','Variável'];
+    if(emoji) emoji.textContent = info[0];
+    if(desc)  desc.textContent  = info[1];
+
+    // Ideal range for baby sleep
+    const ideal = document.getElementById('climate-ideal-txt');
+    if(ideal) {
+      const ok = temp >= 18 && temp <= 22;
+      ideal.innerHTML = ok
+        ? 'Temperatura <strong style="color:#c8f0b0;">ideal ✓</strong> para o sono do bebê'
+        : `Temperatura ideal para o sono: <strong>18–22°C</strong>`;
+    }
+
+    // Tips based on temperature
+    const tipsEl = document.getElementById('climate-tips');
+    if(!tipsEl) return;
+    let tips = [];
+    if (temp < 16)       tips = [['🧣','Macacão grosso'],['🍵','Ambiente aquecido'],['🛏️','Coberta leve']];
+    else if (temp < 20)  tips = [['🧥','Macacão + meia'],['🌡️','Quarto ~20°C']];
+    else if (temp < 24)  tips = [['👕','Mameluco leve'],['💨','Ventilação natural']];
+    else if (temp < 28)  tips = [['🩱','Body de malha'],['🌬️','Ventilador baixo']];
+    else                 tips = [['👶','Só fralda + body'],['❄️','Ar-condicionado 23°C'],['💧','Hidrate bem']];
+    tipsEl.innerHTML = tips.map(t=>`<div class="climate-tip"><span>${t[0]}</span>${t[1]}</div>`).join('');
+  }
+
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition(async pos => {
+      try {
+        const lat = pos.coords.latitude.toFixed(4);
+        const lon = pos.coords.longitude.toFixed(4);
+        const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weathercode&timezone=auto`);
+        const data = await res.json();
+        const temp = data?.current?.temperature_2m ?? 24;
+        const code = data?.current?.weathercode ?? 1;
+        // Reverse geocode city name via nominatim
+        const geoRes = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
+        const geoData = await geoRes.json();
+        const city = geoData?.address?.city || geoData?.address?.town || geoData?.address?.state || 'Sua cidade';
+        applyClimate(temp, city, code);
+      } catch { applyClimate(24, 'Sua cidade', 1); }
+    }, () => applyClimate(24, 'Sua cidade', 1), { timeout:5000 });
+  } else {
+    applyClimate(24, 'Sua cidade', 1);
+  }
 }
 
-/* ═══════════════════════════════════════
-   ██ ORÇAMENTO — localStorage
-═══════════════════════════════════════ */
-const EXP_KEY = 'guia_sono_expenses';
+/* ═══════════════════════════════════
+   EXPENSES — SUPABASE
+═══════════════════════════════════ */
+/*
+  Tabela Supabase necessária (SQL para rodar no Supabase SQL Editor):
+  
+  create table if not exists expenses (
+    id          uuid primary key default gen_random_uuid(),
+    user_id     uuid references auth.users(id) on delete cascade,
+    name        text not null,
+    val         numeric not null,
+    category    text,
+    date        date not null,
+    created_at  timestamptz default now()
+  );
+  alter table expenses enable row level security;
+  create policy "Users see own expenses" on expenses for all using (auth.uid() = user_id);
+*/
 
-function getExpenses() {
-  try { return JSON.parse(localStorage.getItem(EXP_KEY)) || []; }
-  catch { return []; }
+const EXP_FALLBACK = 'guia_sono_exp_local'; // localStorage fallback
+
+function syncStatus(state, msg) {
+  const dot = document.getElementById('sync-dot');
+  const txt = document.getElementById('sync-txt');
+  if (!dot || !txt) return;
+  dot.className = 'sync-dot' + (state === 'saving' ? ' saving' : state === 'error' ? ' error' : '');
+  txt.textContent = msg || 'Sincronizado';
 }
-function saveExpenses(arr) { localStorage.setItem(EXP_KEY, JSON.stringify(arr)); }
 
-function getCurrentMonthExpenses() {
-  const now = new Date();
-  const ym  = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
-  return getExpenses().filter(e => e.date && e.date.startsWith(ym));
-}
-
-function addExpense() {
+async function addExpense() {
   const name = document.getElementById('exp-name').value.trim();
   const val  = parseFloat(document.getElementById('exp-val').value);
+  const cat  = document.getElementById('exp-cat').value;
   const date = document.getElementById('exp-date').value || new Date().toISOString().split('T')[0];
 
   if (!name) { document.getElementById('exp-name').focus(); return; }
   if (isNaN(val) || val <= 0) { document.getElementById('exp-val').focus(); return; }
 
-  const expenses = getExpenses();
-  expenses.push({ id: Date.now(), name, val, date });
-  saveExpenses(expenses);
+  const btn = document.getElementById('btn-add-exp');
+  btn.disabled = true; btn.textContent = 'Salvando…';
+  syncStatus('saving', 'Salvando no Supabase…');
+
+  const item = { name, val, category: cat, date, created_at: new Date().toISOString() };
+
+  if (currentUser) {
+    const { data, error } = await sb
+      .from('expenses')
+      .insert({ user_id: currentUser.id, ...item })
+      .select()
+      .single();
+
+    if (error) {
+      console.warn('Supabase error, using localStorage fallback:', error.message);
+      saveLocalExpense({ id: Date.now().toString(), ...item });
+      syncStatus('error', 'Salvo localmente (offline)');
+    } else {
+      syncStatus('ok', 'Sincronizado com Supabase ✓');
+    }
+  } else {
+    saveLocalExpense({ id: Date.now().toString(), ...item });
+    syncStatus('ok', 'Salvo localmente');
+  }
 
   document.getElementById('exp-name').value = '';
   document.getElementById('exp-val').value  = '';
-
-  renderExpenses();
-  updateHomeBudgetTotal();
+  btn.disabled = false; btn.textContent = '+ Adicionar gasto';
+  loadExpensesFromSupabase();
 }
 
-function deleteExpense(id) {
-  const expenses = getExpenses().filter(e => e.id !== id);
-  saveExpenses(expenses);
-  renderExpenses();
-  updateHomeBudgetTotal();
+function saveLocalExpense(item) {
+  const arr = getLocalExpenses();
+  arr.push(item);
+  localStorage.setItem(EXP_FALLBACK, JSON.stringify(arr));
+}
+function getLocalExpenses() {
+  try { return JSON.parse(localStorage.getItem(EXP_FALLBACK)) || []; } catch { return []; }
 }
 
-function fmt(val) {
-  return val.toLocaleString('pt-BR', { style:'currency', currency:'BRL' });
+async function loadExpensesFromSupabase() {
+  let items = [];
+
+  if (currentUser) {
+    const now = new Date();
+    const start = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-01`;
+    const { data, error } = await sb
+      .from('expenses')
+      .select('*')
+      .eq('user_id', currentUser.id)
+      .gte('date', start)
+      .order('date', { ascending: false });
+
+    if (!error && data) {
+      items = data;
+    } else {
+      // Merge with local
+      items = getLocalExpenses();
+    }
+  } else {
+    items = getLocalExpenses();
+  }
+
+  renderExpenses(items);
 }
 
-function renderExpenses() {
-  const list = document.getElementById('expense-list');
-  const totalEl = document.getElementById('expense-total-display');
-  const monthLbl = document.getElementById('expense-month-lbl');
+async function deleteExpense(id, isLocal) {
+  if (isLocal) {
+    const arr = getLocalExpenses().filter(e => e.id !== id);
+    localStorage.setItem(EXP_FALLBACK, JSON.stringify(arr));
+  } else if (currentUser) {
+    await sb.from('expenses').delete().eq('id', id).eq('user_id', currentUser.id);
+  }
+  loadExpensesFromSupabase();
+}
+
+function fmt(val) { return val.toLocaleString('pt-BR', { style:'currency', currency:'BRL' }); }
+
+function renderExpenses(items) {
+  const list   = document.getElementById('expense-list');
+  const totalEl = document.getElementById('exp-total-val');
+  const badgeEl = document.getElementById('exp-total-badge');
+  const totalRow = document.getElementById('exp-total-row');
+  const monthTitleEl = document.getElementById('exp-month-title');
   if (!list) return;
 
-  const items = getCurrentMonthExpenses();
-  const now   = new Date();
+  // Month title
   const months = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-  if (monthLbl) monthLbl.textContent = `${months[now.getMonth()]} ${now.getFullYear()}`;
+  const now = new Date();
+  if (monthTitleEl) monthTitleEl.textContent = `Gastos de ${months[now.getMonth()].toLowerCase()}`;
 
-  const total = items.reduce((s, e) => s + e.val, 0);
-  if (totalEl) totalEl.textContent = fmt(total);
+  const total = (items||[]).reduce((s,e) => s + Number(e.val), 0);
+  if (totalEl)   totalEl.textContent  = fmt(total);
+  if (badgeEl)   badgeEl.textContent  = fmt(total);
+  if (totalRow)  totalRow.style.display = items?.length > 0 ? 'flex' : 'none';
 
-  const ICONS = ['🍼','🛍️','💊','🧴','🎵','🛒','🌙','☀️','🍎','👕'];
-  if (items.length === 0) {
-    list.innerHTML = '<div class="expense-empty">Nenhum gasto registrado ainda.<br>Adicione o primeiro item acima 🌿</div>';
+  const CAT_ICONS = {
+    'Alimentação':'🍼','Higiene':'🛍️','Saúde':'💊','Sono':'🎵',
+    'Vestuário':'👕','Educação':'📚','Outros':'🛒',
+  };
+
+  if (!items || items.length === 0) {
+    list.innerHTML = '<div class="expense-empty">Nenhum gasto registrado.<br>Adicione o primeiro item acima 🌿</div>';
     return;
   }
+
   list.innerHTML = '';
-  [...items].reverse().forEach((e, i) => {
+  items.forEach((e, i) => {
     const el = document.createElement('div');
     el.className = 'expense-item';
     el.style.animationDelay = `${i * 0.04}s`;
+    const icon = CAT_ICONS[e.category] || '🛒';
+    const isLocal = typeof e.id === 'number' || String(e.id).length < 36;
     const d = new Date(e.date + 'T00:00:00');
     const dateStr = d.toLocaleDateString('pt-BR', { day:'2-digit', month:'short' });
     el.innerHTML = `
-      <div class="expense-item-icon">${ICONS[i % ICONS.length]}</div>
+      <div class="expense-item-icon">${icon}</div>
       <div class="expense-item-info">
         <div class="expense-item-name">${e.name}</div>
-        <div class="expense-item-date">${dateStr}</div>
+        <div class="expense-item-meta">${e.category || 'Outros'} · ${dateStr}</div>
       </div>
-      <div class="expense-item-val">${fmt(e.val)}</div>
-      <button class="expense-item-del" onclick="deleteExpense(${e.id})" title="Remover">✕</button>`;
+      <div class="expense-item-val">${fmt(Number(e.val))}</div>
+      <button class="expense-item-del" onclick="deleteExpense('${e.id}',${isLocal})" title="Remover">✕</button>`;
     list.appendChild(el);
   });
-
-  // Update affiliate section baby name
-  const abn = document.getElementById('affiliate-baby-name');
-  if (abn) abn.textContent = BABY_NAME;
 }
 
-function updateHomeBudgetTotal() {
-  const items = getCurrentMonthExpenses();
-  const total = items.reduce((s, e) => s + e.val, 0);
-  const el = document.getElementById('home-budget-total-val');
-  const el2 = document.getElementById('home-budget-total');
-  if (el)  el.textContent  = fmt(total);
-  if (el2) el2.textContent = `Total: ${fmt(total)}`;
-}
-
-/* ═══════════════════════════════════════
-   ██ CHAT
-═══════════════════════════════════════ */
+/* ═══════════════════════════════════
+   CHAT
+═══════════════════════════════════ */
 const MAX_FREE    = 3;
-const STORAGE_KEY = 'guia_sono_usage';
+const USAGE_KEY   = 'guia_sono_usage';
 
 function todayKey() { return new Date().toISOString().split('T')[0]; }
 function getUsage() {
   try {
-    const p = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    return p && p.date === todayKey() ? p : { date:todayKey(), count:0 };
+    const p = JSON.parse(localStorage.getItem(USAGE_KEY));
+    return (p && p.date === todayKey()) ? p : { date:todayKey(), count:0 };
   } catch { return { date:todayKey(), count:0 }; }
 }
-function incrementUsage() {
-  const u = getUsage(); u.count++;
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(u)); return u.count;
-}
-function getRemaining() { return Math.max(0, MAX_FREE - getUsage().count); }
+function incrementUsage() { const u=getUsage(); u.count++; localStorage.setItem(USAGE_KEY,JSON.stringify(u)); return u.count; }
+function getRemaining()   { return Math.max(0, MAX_FREE - getUsage().count); }
 
 function refreshChatUI() {
-  const rem     = getRemaining();
+  const rem = getRemaining();
   const counter = document.getElementById('msg-counter');
   const banner  = document.getElementById('limit-banner');
-  const input   = document.getElementById('user-input');
-  const btn     = document.getElementById('send-btn');
-  counter.textContent = rem > 0 ? `${rem} mensagem${rem===1?'':'s'} hoje` : 'Limite atingido';
-  counter.classList.toggle('esgotado', rem === 0);
-  banner.classList.toggle('visible', rem === 0);
-  input.disabled   = rem === 0;
-  btn.disabled     = rem === 0;
+  const inputs  = [document.getElementById('user-input'), document.getElementById('user-input-d')].filter(Boolean);
+  const sends   = [document.getElementById('send-btn'), document.getElementById('send-btn-d')].filter(Boolean);
+
+  if(counter) { counter.textContent = rem > 0 ? `${rem} mensagem${rem===1?'':'s'} hoje` : 'Limite atingido'; counter.classList.toggle('esgotado', rem===0); }
+  if(banner)  banner.classList.toggle('visible', rem===0);
+  inputs.forEach(i => i.disabled = rem===0);
+  sends.forEach(b  => b.disabled  = rem===0);
 }
 
 const chatEl = document.getElementById('chat-messages');
-let chatBooted = false;
 
 function addBubble(text, role) {
   const el = document.createElement('div');
-  el.className = `bubble bubble-${role === 'user' ? 'user' : 'ai'}`;
+  el.className = `bubble bubble-${role==='user'?'user':'ai'}`;
   if (role !== 'user') {
-    const s = document.createElement('span'); s.className = 'bsender'; s.textContent = 'Guia do Sono';
+    const s = document.createElement('span'); s.className='bsender'; s.textContent='Guia do Sono';
     el.appendChild(s);
   }
   const body = document.createElement('span');
@@ -1476,63 +1787,60 @@ function addBubble(text, role) {
   chatEl.appendChild(el);
   chatEl.scrollTop = chatEl.scrollHeight;
 }
-
 function showTyping() {
-  const el = document.createElement('div'); el.className = 'typing-bubble'; el.id = 'typing-indicator';
-  el.innerHTML = '<span></span><span></span><span></span>';
+  const el = document.createElement('div'); el.className='typing-bubble'; el.id='typing-indicator';
+  el.innerHTML='<span></span><span></span><span></span>';
   chatEl.appendChild(el); chatEl.scrollTop = chatEl.scrollHeight;
 }
-function removeTyping() { const el = document.getElementById('typing-indicator'); if(el) el.remove(); }
+function removeTyping() { const e=document.getElementById('typing-indicator'); if(e) e.remove(); }
 
 function bootChat() {
   chatBooted = true;
   refreshChatUI();
   if (getRemaining() > 0) {
-    const wb = document.createElement('div'); wb.className = 'welcome-bubble';
+    const wb = document.createElement('div'); wb.className='welcome-bubble';
     wb.innerHTML = `
       <span class="wb-title">🌙 Olá! Sou a Guia do Sono</span>
-      Estou aqui para te ajudar com gentileza e sem julgamentos. O que está acontecendo com o sono da ${BABY_NAME}?
+      Estou aqui para te apoiar com gentileza e sem julgamentos. O que está acontecendo com o sono da ${BABY_NAME}?
       <div class="chips-row">
         <div class="chip-q" onclick="prefill('Meu bebê não dorme de noite')">Não dorme à noite</div>
-        <div class="chip-q" onclick="prefill('Como criar uma rotina de sono?')">Criar rotina</div>
+        <div class="chip-q" onclick="prefill('Como criar uma rotina?')">Criar rotina</div>
         <div class="chip-q" onclick="prefill('Regressão do sono 4 meses')">Regressão 4 meses</div>
-        <div class="chip-q" onclick="prefill('Estou muito cansada e precisando de apoio')">Estou exausta 💚</div>
+        <div class="chip-q" onclick="prefill('Estou muito cansada e precisando de ajuda')">Estou exausta 💚</div>
       </div>`;
     chatEl.appendChild(wb);
   }
 }
 
 function prefill(text) {
-  const input = document.getElementById('user-input');
-  input.value = text; autoResize(input); input.focus();
+  const inputs = [document.getElementById('user-input'), document.getElementById('user-input-d')].filter(Boolean);
+  inputs.forEach(i => { i.value = text; autoResize(i); });
+  (inputs[0] || inputs[1])?.focus();
 }
 
-let chatHistory = [];
-let isLoading   = false;
+function getActiveInput() {
+  return window.innerWidth >= 800
+    ? document.getElementById('user-input-d')
+    : document.getElementById('user-input');
+}
 
 async function sendMessage() {
-  const input = document.getElementById('user-input');
-  const btn   = document.getElementById('send-btn');
-  const text  = input.value.trim();
+  const input = getActiveInput();
+  const text  = input?.value.trim();
   if (!text || isLoading) return;
   if (getRemaining() <= 0) { openProModal(); return; }
 
   input.value = ''; autoResize(input);
-  isLoading = true; btn.disabled = true;
+  isLoading = true;
+  [document.getElementById('send-btn'),document.getElementById('send-btn-d')].forEach(b => { if(b) b.disabled=true; });
 
   addBubble(text, 'user');
   chatHistory.push({ role:'user', content:text });
-  incrementUsage();
-  refreshChatUI();
+  incrementUsage(); refreshChatUI();
   if (getRemaining() === 0) openProModal();
-
   showTyping();
 
   try {
-    /*
-      === GANCHO: fetch('/api/chat') chama sua Vercel serverless function ===
-      O /api/chat.js lê GROQ_API_KEY do process.env e envia para Groq.
-    */
     const res = await fetch('/api/chat', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
@@ -1545,75 +1853,82 @@ async function sendMessage() {
     addBubble(reply, 'ai');
     chatHistory.push({ role:'assistant', content:reply });
   } catch(err) {
-    removeTyping();
-    chatHistory.pop();
+    removeTyping(); chatHistory.pop();
     addBubble('Parece que a conexão falhou. Verifique sua internet e tente de novo. 🌿', 'ai');
     console.error('[Guia do Sono]', err);
   } finally {
     isLoading = false;
-    if (getRemaining() > 0) btn.disabled = false;
+    if (getRemaining() > 0) {
+      [document.getElementById('send-btn'),document.getElementById('send-btn-d')].forEach(b => { if(b) b.disabled=false; });
+    }
   }
 }
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════
    MIC
-═══════════════════════════════════════ */
-let recognition = null;
-let isListening = false;
-
+═══════════════════════════════════ */
 function toggleMic() {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) { alert('Seu navegador não suporta reconhecimento de voz. Tente o Chrome.'); return; }
+  if (!SR) { alert('Navegador não suporta reconhecimento de voz. Use o Chrome.'); return; }
   if (isListening) { recognition.stop(); return; }
   recognition = new SR();
-  recognition.lang = 'pt-BR'; recognition.continuous = false; recognition.interimResults = false;
-  recognition.onstart  = () => { isListening = true;  document.getElementById('mic-btn').classList.add('listening'); };
-  recognition.onresult = e  => {
-    const t = e.results[0][0].transcript;
-    const inp = document.getElementById('user-input');
-    inp.value = t; autoResize(inp); inp.focus();
-  };
-  recognition.onend    = () => { isListening = false; document.getElementById('mic-btn').classList.remove('listening'); };
-  recognition.onerror  = () => { isListening = false; document.getElementById('mic-btn').classList.remove('listening'); };
+  recognition.lang='pt-BR'; recognition.continuous=false; recognition.interimResults=false;
+  const mbs = [document.getElementById('mic-btn'),document.getElementById('mic-btn-d')].filter(Boolean);
+  recognition.onstart  = () => { isListening=true;  mbs.forEach(b=>b.classList.add('listening')); };
+  recognition.onresult = e  => { const t=e.results[0][0].transcript; const inp=getActiveInput(); if(inp){inp.value=t;autoResize(inp);inp.focus();} };
+  recognition.onend    = () => { isListening=false; mbs.forEach(b=>b.classList.remove('listening')); };
+  recognition.onerror  = () => { isListening=false; mbs.forEach(b=>b.classList.remove('listening')); };
   recognition.start();
 }
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════
    INPUT EVENTS
-═══════════════════════════════════════ */
-function autoResize(el) {
-  el.style.height = 'auto';
-  el.style.height = Math.min(el.scrollHeight, 110) + 'px';
-}
-document.getElementById('user-input').addEventListener('input', function() { autoResize(this); });
-document.getElementById('user-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+═══════════════════════════════════ */
+function autoResize(el) { if(!el)return; el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,110)+'px'; }
+
+['user-input','user-input-d'].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener('input', function(){ autoResize(this); });
+  el.addEventListener('keydown', e => { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();} });
 });
 
-/* ═══════════════════════════════════════
-   PRO MODAL
-═══════════════════════════════════════ */
+/* ═══════════════════════════════════
+   GUIAS FILTER
+═══════════════════════════════════ */
+function filterGuias(chip, cat) {
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  chip.classList.add('active');
+  document.querySelectorAll('.guide-card').forEach(card => {
+    const cats = card.dataset.cat || 'todos';
+    card.style.display = (cat==='todos' || cats.includes(cat)) ? 'flex' : 'none';
+  });
+}
+
+/* ═══════════════════════════════════
+   MISC
+═══════════════════════════════════ */
+function toggleChip(el) { el.classList.toggle('active'); }
+
+function loadAvatar(event) {
+  const file = event.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => { document.getElementById('babyAvatar').innerHTML=`<img src="${e.target.result}" alt="foto">`; };
+  reader.readAsDataURL(file);
+}
+
 function openProModal()  { document.getElementById('pro-overlay').classList.add('open'); }
 function closeProModal(e) {
-  if (!e || e.target === document.getElementById('pro-overlay')) {
+  if (!e || e.target === document.getElementById('pro-overlay'))
     document.getElementById('pro-overlay').classList.remove('open');
-  }
 }
 
-/* ═══════════════════════════════════════
+/* ═══════════════════════════════════
    PWA
-═══════════════════════════════════════ */
+═══════════════════════════════════ */
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(() => {});
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
 }
-
-/* ═══════════════════════════════════════
-   DATE FIELD DEFAULT
-═══════════════════════════════════════ */
-window.addEventListener('DOMContentLoaded', () => {
-  const dateField = document.getElementById('exp-date');
-  if (dateField) dateField.value = new Date().toISOString().split('T')[0];
-});
 </script>
 </body>
 </html>
