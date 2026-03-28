@@ -1053,6 +1053,65 @@ body {
   line-height:1.6;
 }
 
+/* ── Perfil da Mãe Hero Editável ──────────────────── */
+.p-av-wrap { position:relative; flex-shrink:0; cursor:pointer; }
+.p-av-edit {
+  position:absolute; bottom:-2px; right:-2px;
+  width:22px; height:22px; border-radius:50%;
+  background:var(--sage); border:2px solid var(--night);
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; color:#fff; cursor:pointer;
+}
+.pf-edit-card {
+  background:var(--bg-card); border:1.5px solid var(--border-d); border-radius:18px;
+  padding:16px; margin-top:16px; display:flex; flex-direction:column; gap:10px;
+}
+.pf-edit-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.pf-edit-label {
+  font-size:10px; font-weight:700; color:var(--text-sub);
+  letter-spacing:.06em; text-transform:uppercase; margin-bottom:4px; display:block;
+}
+.pf-edit-input {
+  width:100%; padding:9px 12px; border:1.5px solid var(--border-d); border-radius:11px;
+  font-family:'DM Sans',sans-serif; font-size:13px; color:var(--text); background:var(--bg);
+  outline:none; transition:border-color .2s, box-shadow .2s;
+}
+.pf-edit-input:focus { border-color:var(--sage); box-shadow:0 0 0 3px rgba(138,158,127,.14); }
+.pf-edit-input::placeholder { color:var(--text-sub); }
+.pf-save-btn {
+  background:linear-gradient(135deg, var(--sage), var(--sage-d));
+  color:#fff; border:none; border-radius:11px; padding:10px;
+  font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer;
+  box-shadow:0 3px 10px rgba(90,112,80,.25); transition:transform .18s, box-shadow .18s;
+}
+.pf-save-btn:active { transform:scale(.97); }
+.pf-save-msg { font-size:11px; color:var(--sage-d); text-align:center; font-family:'Lora',serif; font-style:italic; min-height:14px; }
+
+/* ── Rotina Ontem/Hoje tabs ─────────────────────── */
+.rotina-day-tabs {
+  display:flex; gap:6px; padding:10px 16px 0;
+  border-bottom:1px solid var(--border); flex-shrink:0;
+}
+.rdt-tab {
+  padding:7px 16px; border-radius:10px 10px 0 0;
+  font-size:12px; font-weight:600; cursor:pointer;
+  border:none; background:transparent; color:var(--text-sub);
+  transition:all .18s; border-bottom:2px solid transparent;
+}
+.rdt-tab.active { color:var(--sage-d); border-bottom-color:var(--sage); }
+.rdt-tab:hover:not(.active) { color:var(--text); }
+
+/* ── Sugestão de janela ─────────────────────────── */
+.janela-hint {
+  background:linear-gradient(135deg, var(--sage-p) 0%, var(--gold-p) 100%);
+  border:1px solid var(--sage-l); border-radius:12px;
+  padding:10px 13px; font-size:12px; color:var(--sage-d);
+  font-family:'Lora',serif; font-style:italic; line-height:1.5;
+  display:none;
+}
+.janela-hint.visible { display:block; animation:fadeUp .3s ease both; }
+.janela-hint strong { color:var(--night); font-style:normal; }
+
 /* ── Baby Card Expanded ───────────────────────── */
 .bc-name-big {
   font-family:'Playfair Display',serif;
@@ -1350,6 +1409,11 @@ body {
         </div>
         <div class="px fu d4">
           <div class="rotina-card">
+            <!-- Tabs Ontem / Hoje -->
+            <div class="rotina-day-tabs">
+              <button class="rdt-tab" onclick="switchRotinaDay(-1)">Ontem</button>
+              <button class="rdt-tab active" id="rdt-hoje" onclick="switchRotinaDay(0)">Hoje</button>
+            </div>
             <div class="rotina-hdr">
               <span class="rotina-hdr-title">🌅 Diário do Sono</span>
               <span class="rotina-hdr-date" id="rotina-date">hoje</span>
@@ -1359,8 +1423,11 @@ body {
               <div class="rotina-row">
                 <div class="rotina-icon ri-gold">🌅</div>
                 <span class="rotina-label">Acordou às</span>
-                <input class="rotina-input" id="rt-despertar" type="time" title="Horário de despertar">
+                <input class="rotina-input" id="rt-despertar" type="time"
+                  title="Horário de despertar" oninput="calcJanelas()">
               </div>
+              <!-- Sugestão de janelas calculada automaticamente -->
+              <div class="janela-hint" id="janela-hint"></div>
               <div class="rotina-divider"></div>
               <!-- Sonecas -->
               <div>
@@ -1527,7 +1594,7 @@ body {
     </div><!-- /orcamento -->
 
     <!-- ══ CHAT ═══════════════════════════════ -->
-    <div class="page" id="page-chat">
+    <div class="page" id="page-chat" style="display:none;flex-direction:column;overflow:hidden;">
       <div class="chat-hdr">
         <div class="chat-av">🌿</div>
         <div class="chat-hd">
@@ -1540,16 +1607,24 @@ body {
         🌙 Suas 3 mensagens gratuitas de hoje foram usadas.<br>
         <strong>Assine o Plano Plus</strong> para conversar sem limites.
       </div>
-      <div id="chat-msgs"></div>
-      <!-- Desktop input (inside page, shown via CSS) -->
-      <div id="chat-input-desktop">
+      <div id="chat-msgs" style="flex:1;overflow-y:auto;"></div>
+      <!-- Desktop + Mobile input inside page — always rendered, shown/hidden by JS -->
+      <div id="chat-input-desktop" style="flex-shrink:0;">
         <div class="chat-input-wrap">
           <textarea id="u-input" rows="1" placeholder="O que está acontecendo com o sono?"></textarea>
-          <button class="ia-btn" id="mic-btn" onclick="toggleMic()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></svg>
+          <button class="ia-btn" id="mic-btn" onclick="toggleMic()" title="Microfone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="2" width="6" height="11" rx="3"/>
+              <path d="M5 10a7 7 0 0 0 14 0"/>
+              <line x1="12" y1="19" x2="12" y2="22"/>
+              <line x1="8"  y1="22" x2="16" y2="22"/>
+            </svg>
           </button>
-          <button class="ia-btn" id="send-btn" onclick="sendMsg()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="#fff" stroke="none"/></svg>
+          <button class="ia-btn" id="send-btn" onclick="sendMsg()" style="background:linear-gradient(135deg,var(--sage),var(--sage-d));box-shadow:0 3px 12px rgba(90,112,80,.32);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2" fill="#fff" stroke="none"/>
+            </svg>
           </button>
         </div>
       </div>
@@ -1646,7 +1721,11 @@ body {
         </div>
         <div class="px">
           <div class="perfil-hero fu d2">
-            <div class="p-av" id="p-av">👩</div>
+            <div class="p-av-wrap">
+              <div class="p-av" id="p-av">👩</div>
+              <label class="p-av-edit" for="p-av-input" title="Trocar foto">✏️</label>
+              <input type="file" id="p-av-input" accept="image/*" style="display:none" onchange="loadMaeAvatar(event)">
+            </div>
             <div class="p-info">
               <div class="p-name"  id="p-name">Mamãe</div>
               <div class="p-email" id="p-email"></div>
@@ -1654,10 +1733,63 @@ body {
             </div>
           </div>
 
-          <div class="pf-section fu d3">
+          <!-- Campos editáveis da mãe -->
+          <div class="pf-edit-card fu d3">
+            <div class="pf-sec-lbl" style="margin-bottom:2px;">👩 Seus dados</div>
+            <div class="pf-edit-row">
+              <div>
+                <label class="pf-edit-label">Seu nome</label>
+                <input class="pf-edit-input" id="pf-mae-nome" type="text" placeholder="Como posso te chamar?">
+              </div>
+              <div>
+                <label class="pf-edit-label">Nome do bebê</label>
+                <input class="pf-edit-input" id="pf-bebe-nome" type="text" placeholder="Nome do bebê">
+              </div>
+            </div>
+            <div class="pf-edit-row">
+              <div>
+                <label class="pf-edit-label">Nascimento do bebê</label>
+                <input class="pf-edit-input" id="pf-bebe-nasc" type="date">
+              </div>
+              <div>
+                <label class="pf-edit-label">Sonecas por dia</label>
+                <select class="pf-edit-input" id="pf-bebe-sonecas">
+                  <option value="">— selecione —</option>
+                  <option value="5-6">5–6 (recém-nascido)</option>
+                  <option value="3-4">3–4 sonecas</option>
+                  <option value="2">2 sonecas</option>
+                  <option value="1">1 soneca</option>
+                  <option value="0">Sem sonecas</option>
+                </select>
+              </div>
+            </div>
+            <div class="pf-edit-row">
+              <div>
+                <label class="pf-edit-label">Peso atual</label>
+                <input class="pf-edit-input" id="pf-bebe-peso" type="text" placeholder="ex: 6,2 kg">
+              </div>
+              <div>
+                <label class="pf-edit-label">Altura atual</label>
+                <input class="pf-edit-input" id="pf-bebe-altura" type="text" placeholder="ex: 62 cm">
+              </div>
+            </div>
+            <button class="pf-save-btn" onclick="savePerfilMae()">🌿 Salvar perfil</button>
+            <div class="pf-save-msg" id="pf-save-msg"></div>
+          </div>
+
+          <div class="pf-section fu d4">
             <div class="pf-sec-lbl">Bebê</div>
-            <div class="pf-item"><div class="pf-left"><div class="pf-icon pi-sage">🌸</div><div><div class="pf-lbl">Sofia</div><div class="pf-sub">4 meses · Feminino</div></div></div><div class="pf-arr">›</div></div>
-            <div class="pf-item"><div class="pf-left"><div class="pf-icon pi-tc">📅</div><div><div class="pf-lbl">Data de nascimento</div><div class="pf-sub">14 de novembro de 2024</div></div></div><div class="pf-arr">›</div></div>
+            <div class="pf-item" id="pf-bebe-row">
+              <div class="pf-left"><div class="pf-icon pi-sage">🌸</div>
+              <div><div class="pf-lbl" id="pf-bebe-nome-display">–</div>
+              <div class="pf-sub" id="pf-bebe-idade-display">Preencha o perfil acima</div></div></div>
+              <div class="pf-arr">›</div>
+            </div>
+            <div class="pf-item">
+              <div class="pf-left"><div class="pf-icon pi-lav">🧠</div>
+              <div><div class="pf-lbl">Salto de Desenvolvimento</div>
+              <div class="pf-sub" id="pf-salto-display">–</div></div></div>
+            </div>
           </div>
 
           <div class="pf-section fu d4">
@@ -2118,10 +2250,15 @@ function goTo(tab) {
 
 function syncChatInput() {
   const isDesk = window.innerWidth >= 800;
-  const mob  = document.getElementById('chat-input-mobile');
-  const desk = document.getElementById('chat-input-desktop');
-  if (mob)  mob.classList.toggle('on', !isDesk && currentTab === 'chat');
-  if (desk) desk.style.display = (isDesk && currentTab === 'chat') ? 'flex' : 'none';
+  const mob    = document.getElementById('chat-input-mobile');
+  const desk   = document.getElementById('chat-input-desktop');
+  const onChat = currentTab === 'chat';
+  if (mob)  mob.classList.toggle('on', !isDesk && onChat);
+  // Desktop: show inline input when on chat tab; hide otherwise
+  if (desk) desk.style.display = (isDesk && onChat) ? 'flex' : 'none';
+  // Make sure chat page itself uses flex when active
+  const chatPage = document.getElementById('page-chat');
+  if (chatPage && onChat) chatPage.style.display = 'flex';
 }
 
 /* ═══════════════════════════════════════
@@ -2606,23 +2743,7 @@ document.addEventListener('DOMContentLoaded', renderVitrine);
 /* ═══════════════════════════════════════
    LOAD PROFILE CACHE → Dashboard
 ═══════════════════════════════════════ */
-function loadProfileCache() {
-  try {
-    const cached = JSON.parse(localStorage.getItem('gds_profile_cache') || '{}');
-    if (cached.nome_bebe) {
-      const el = document.getElementById('bc-name-display');
-      if (el) el.textContent = cached.nome_bebe;
-    }
-    if (cached.peso) {
-      const el = document.getElementById('bc-peso');
-      if (el) el.textContent = cached.peso;
-    }
-    if (cached.altura) {
-      const el = document.getElementById('bc-altura');
-      if (el) el.textContent = cached.altura;
-    }
-  } catch {}
-}
+// loadProfileCache → now handled by applyPerfilCache in perfil section below
 
 /* ═══════════════════════════════════════
    ROTINA DIÁRIA — salva localmente e no Supabase
@@ -2650,28 +2771,34 @@ function getTodayStr() {
 }
 
 function loadRotina() {
-  // Set date label
-  const dateEl = document.getElementById('rotina-date');
+  const offset  = (typeof rotinaOffset !== 'undefined') ? rotinaOffset : 0;
+  const dateStr = getRotinaDate ? getRotinaDate(offset) : getTodayStr();
+  const dateEl  = document.getElementById('rotina-date');
   if (dateEl) {
-    const now = new Date();
-    dateEl.textContent = now.toLocaleDateString('pt-BR', { weekday:'long', day:'numeric', month:'long' });
+    const d = new Date(dateStr + 'T00:00:00');
+    dateEl.textContent = d.toLocaleDateString('pt-BR', { weekday:'long', day:'numeric', month:'long' });
   }
-
-  const today = getTodayStr();
-  const key   = ROTINA_KEY + today;
+  const key = ROTINA_KEY + dateStr;
+  const fields = ['rt-despertar','rt-s1-esp','rt-s1-real','rt-s2-esp','rt-s2-real',
+                  'rt-s3-esp','rt-s3-real','rt-noturno','rt-relato'];
+  // Clear fields first
+  fields.forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  // Hide janela hint when loading
+  const hint = document.getElementById('janela-hint');
+  if (hint) hint.classList.remove('visible');
   try {
     const saved = JSON.parse(localStorage.getItem(key) || '{}');
-    const fields = ['rt-despertar','rt-s1-esp','rt-s1-real','rt-s2-esp','rt-s2-real',
-                    'rt-s3-esp','rt-s3-real','rt-noturno','rt-relato'];
     fields.forEach(id => {
       const el = document.getElementById(id);
       if (el && saved[id]) el.value = saved[id];
     });
+    // Recalculate janelas if despertar was saved
+    if (saved['rt-despertar']) calcJanelas();
   } catch {}
 }
 
 async function saveRotina() {
-  const today = getTodayStr();
+  const today = getRotinaDate ? getRotinaDate((typeof rotinaOffset!=='undefined'?rotinaOffset:0)) : getTodayStr();
   const key   = ROTINA_KEY + today;
   const ids   = ['rt-despertar','rt-s1-esp','rt-s1-real','rt-s2-esp','rt-s2-real',
                  'rt-s3-esp','rt-s3-real','rt-noturno','rt-relato'];
@@ -2793,6 +2920,19 @@ function renderWmStep() {
               value="${wmAnswers['altura'] || ''}"
               oninput="wmAnswers['altura']=this.value">
           </div>
+        </div>
+
+        <div class="wm-field">
+          <label class="wm-field-label">Quantas sonecas o bebê faz por dia?</label>
+          <select class="wm-field-input" id="wm-sonecas"
+            onchange="wmAnswers['sonecas_por_dia']=this.value">
+            <option value="">— selecione —</option>
+            <option value="5-6" ${wmAnswers['sonecas_por_dia']==='5-6'?'selected':''}>5–6 sonecas (recém-nascido)</option>
+            <option value="3-4" ${wmAnswers['sonecas_por_dia']==='3-4'?'selected':''}>3–4 sonecas</option>
+            <option value="2"   ${wmAnswers['sonecas_por_dia']==='2'?'selected':''}>2 sonecas</option>
+            <option value="1"   ${wmAnswers['sonecas_por_dia']==='1'?'selected':''}>1 soneca</option>
+            <option value="0"   ${wmAnswers['sonecas_por_dia']==='0'?'selected':''}>Sem sonecas ainda</option>
+          </select>
         </div>
       </div>`;
     return;
@@ -2931,6 +3071,17 @@ async function saveWelcomeProfile() {
   if (altura) { const el = document.getElementById('bc-altura'); if (el) el.textContent = altura; }
 
   // Salva no localStorage como backup
+  // Save to perfil cache so dashboard updates immediately
+  const pfCache = {
+    nome_bebe:       wmAnswers['nome_bebe']       || '',
+    data_nascimento: wmAnswers['data_nascimento'] || '',
+    peso:            wmAnswers['peso']            || '',
+    altura:          wmAnswers['altura']          || '',
+    sonecas_por_dia: wmAnswers['sonecas_por_dia'] || '',
+    apoio:           wmAnswers['apoio']           || [],
+  };
+  savePerfilCache(pfCache);
+  applyPerfilCache(pfCache);
   localStorage.setItem('gds_profile_cache', JSON.stringify(wmAnswers));
 
   // Salva no Supabase (tabela profile já criada)
@@ -2974,6 +3125,245 @@ function openGuideModal() {
 }
 function closeGuideModal() {
   document.getElementById('guide-overlay').classList.remove('open');
+}
+
+
+/* ═══════════════════════════════════════
+   PERFIL DA MÃE — save/load
+═══════════════════════════════════════ */
+const PF_KEY = 'gds_perfil_mae';
+
+function loadMaeAvatar(event) {
+  const file = event.target.files[0]; if (!file) return;
+  const r = new FileReader();
+  r.onload = e => {
+    const src = e.target.result;
+    const el  = document.getElementById('p-av');
+    if (el) el.innerHTML = `<img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+    const cache = getPerfilCache();
+    cache.mae_foto = src;
+    savePerfilCache(cache);
+  };
+  r.readAsDataURL(file);
+}
+
+function getPerfilCache() {
+  try { return JSON.parse(localStorage.getItem(PF_KEY) || '{}'); } catch { return {}; }
+}
+function savePerfilCache(obj) {
+  localStorage.setItem(PF_KEY, JSON.stringify(obj));
+}
+
+async function savePerfilMae() {
+  const nome      = (document.getElementById('pf-mae-nome')?.value    || '').trim();
+  const bebeNome  = (document.getElementById('pf-bebe-nome')?.value   || '').trim();
+  const bebeNasc  = document.getElementById('pf-bebe-nasc')?.value    || '';
+  const sonecas   = document.getElementById('pf-bebe-sonecas')?.value || '';
+  const peso      = (document.getElementById('pf-bebe-peso')?.value   || '').trim();
+  const altura    = (document.getElementById('pf-bebe-altura')?.value || '').trim();
+
+  // Persist locally
+  const cache = getPerfilCache();
+  Object.assign(cache, { mae_nome: nome, nome_bebe: bebeNome,
+    data_nascimento: bebeNasc, sonecas_por_dia: sonecas, peso, altura });
+  savePerfilCache(cache);
+
+  // Update dashboard immediately
+  applyPerfilCache(cache);
+
+  // Supabase upsert
+  if (currentUser && !modoTeste) {
+    await sb.from('profile').upsert({
+      user_id:         currentUser.id,
+      nome_bebe:       bebeNome  || null,
+      data_nascimento: bebeNasc  || null,
+      peso_atual:      peso      || null,
+      altura_atual:    altura    || null,
+    }, { onConflict:'user_id' });
+  }
+
+  const msg = document.getElementById('pf-save-msg');
+  if (msg) { msg.textContent = '✓ Perfil salvo 🌿'; setTimeout(() => msg.textContent='', 2500); }
+}
+
+function applyPerfilCache(cache) {
+  if (!cache) return;
+  // Baby name on dashboard
+  if (cache.nome_bebe) {
+    ['bc-name-display','pf-bebe-nome-display'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.textContent = cache.nome_bebe;
+    });
+  }
+  if (cache.peso)   { const el=document.getElementById('bc-peso');   if(el) el.textContent=cache.peso; }
+  if (cache.altura) { const el=document.getElementById('bc-altura'); if(el) el.textContent=cache.altura; }
+
+  // Calculated age + salto
+  if (cache.data_nascimento) {
+    const info = calcIdadeESalto(cache.data_nascimento);
+    const idadeEl = document.getElementById('pf-bebe-idade-display');
+    const saltoEl = document.getElementById('pf-salto-display');
+    const bcStatus= document.getElementById('bc-status');
+    if (idadeEl) idadeEl.textContent = info.idadeStr;
+    if (saltoEl) saltoEl.textContent = info.salto;
+    if (bcStatus) bcStatus.innerHTML = '🌱 ' + info.salto;
+    // Update bc-age
+    const bcAge = document.getElementById('bc-age-display');
+    if (bcAge) bcAge.textContent = info.idadeStr;
+  }
+
+  // Pre-fill edit fields
+  if (cache.mae_nome)  { const el=document.getElementById('pf-mae-nome');      if(el) el.value=cache.mae_nome; }
+  if (cache.nome_bebe) { const el=document.getElementById('pf-bebe-nome');     if(el) el.value=cache.nome_bebe; }
+  if (cache.data_nascimento) { const el=document.getElementById('pf-bebe-nasc'); if(el) el.value=cache.data_nascimento; }
+  if (cache.sonecas_por_dia) { const el=document.getElementById('pf-bebe-sonecas'); if(el) el.value=cache.sonecas_por_dia; }
+  if (cache.peso)   { const el=document.getElementById('pf-bebe-peso');   if(el) el.value=cache.peso; }
+  if (cache.altura) { const el=document.getElementById('pf-bebe-altura'); if(el) el.value=cache.altura; }
+
+  // Restore avatar
+  if (cache.mae_foto) {
+    const el = document.getElementById('p-av');
+    if (el) el.innerHTML = `<img src="${cache.mae_foto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+  }
+}
+
+/* ═══════════════════════════════════════
+   CÁLCULO DE IDADE E SALTO DE DESENVOLVIMENTO
+═══════════════════════════════════════ */
+function calcIdadeESalto(dataStr) {
+  if (!dataStr) return { idadeStr:'–', salto:'–' };
+  const nasc  = new Date(dataStr + 'T00:00:00');
+  const hoje  = new Date();
+  let anos    = hoje.getFullYear() - nasc.getFullYear();
+  let meses   = hoje.getMonth() - nasc.getMonth();
+  let dias    = hoje.getDate() - nasc.getDate();
+  if (dias < 0)   { meses--; }
+  if (meses < 0)  { anos--; meses += 12; }
+  const totalDias  = Math.floor((hoje - nasc) / 86400000);
+  const totalSemanas = Math.floor(totalDias / 7);
+  const totalMeses   = anos * 12 + meses;
+
+  // Idade legível
+  let idadeStr = '';
+  if (totalMeses < 1) {
+    idadeStr = totalSemanas + (totalSemanas === 1 ? ' semana' : ' semanas');
+  } else if (totalMeses < 24) {
+    idadeStr = totalMeses + (totalMeses === 1 ? ' mês' : ' meses');
+    if (dias > 0) idadeStr += ' e ' + dias + (dias === 1 ? ' dia' : ' dias');
+  } else {
+    idadeStr = anos + (anos === 1 ? ' ano' : ' anos');
+    if (meses > 0) idadeStr += ' e ' + meses + (meses === 1 ? ' mês' : ' meses');
+  }
+
+  // Saltos de desenvolvimento (Wonder Weeks / referência gentil)
+  // Semanas ajustadas a partir do nascimento
+  const SALTOS = [
+    { semMin:4,  semMax:5,  nome:'Salto 1 — Sensações (5ª semana)' },
+    { semMin:7,  semMax:9,  nome:'Salto 2 — Padrões (8ª semana)' },
+    { semMin:11, semMax:12, nome:'Salto 3 — Transições (12ª semana)' },
+    { semMin:14, semMax:17, nome:'Salto 4 — Eventos · Regressão dos 4 meses' },
+    { semMin:22, semMax:26, nome:'Salto 5 — Relacionamentos (6 meses)' },
+    { semMin:33, semMax:37, nome:'Salto 6 — Categorias (8–9 meses)' },
+    { semMin:41, semMax:46, nome:'Salto 7 — Sequências (10 meses)' },
+    { semMin:51, semMax:54, nome:'Salto 8 — Programas (12 meses)' },
+    { semMin:59, semMax:64, nome:'Salto 9 — Princípios (15 meses)' },
+    { semMin:70, semMax:76, nome:'Salto 10 — Sistemas (17–20 meses)' },
+  ];
+  const emSalto = SALTOS.find(s => totalSemanas >= s.semMin && totalSemanas <= s.semMax);
+  let salto = '';
+  if (emSalto) {
+    salto = '⚡ ' + emSalto.nome;
+  } else if (totalMeses < 1) {
+    salto = '🌱 Quarto Trimestre — adaptação ao mundo';
+  } else if (totalMeses < 4) {
+    salto = '🌸 Fase tranquila — aproveite os sorrisos';
+  } else if (totalMeses >= 4 && totalMeses < 5) {
+    salto = '⚡ Regressão dos 4 meses — arquitetura de sono muda';
+  } else if (totalMeses >= 36) {
+    salto = '🌳 Pré-escolar — consolidando o sono';
+  } else {
+    salto = '🌿 Desenvolvimento estável — ' + idadeStr;
+  }
+  return { idadeStr, salto, totalMeses, totalSemanas };
+}
+
+/* ═══════════════════════════════════════
+   ROTINA — Ontem / Hoje + Cálculo de Janelas
+═══════════════════════════════════════ */
+let rotinaOffset = 0; // 0 = hoje, -1 = ontem
+
+function switchRotinaDay(offset) {
+  rotinaOffset = offset;
+  document.querySelectorAll('.rdt-tab').forEach((t, i) => {
+    t.classList.toggle('active', (i === 0 && offset === -1) || (i === 1 && offset === 0));
+  });
+  loadRotina();
+}
+
+function getRotinaDate(offset) {
+  const d = new Date();
+  d.setDate(d.getDate() + offset);
+  return d.toISOString().split('T')[0];
+}
+
+function calcJanelas() {
+  const despertar = document.getElementById('rt-despertar')?.value;
+  const hint      = document.getElementById('janela-hint');
+  if (!despertar || !hint) return;
+
+  // Get age in months from cache
+  const cache     = getPerfilCache();
+  const info      = cache.data_nascimento ? calcIdadeESalto(cache.data_nascimento) : null;
+  const meses     = info ? info.totalMeses : null;
+
+  // Janela de vigília por idade (minutos)
+  let janelaMin = 90; // padrão
+  if (meses === null)    janelaMin = 90;
+  else if (meses < 1)    janelaMin = 55;
+  else if (meses < 2)    janelaMin = 65;
+  else if (meses < 3)    janelaMin = 75;
+  else if (meses < 4)    janelaMin = 90;
+  else if (meses < 6)    janelaMin = 105;
+  else if (meses < 8)    janelaMin = 120;
+  else if (meses < 10)   janelaMin = 150;
+  else if (meses < 12)   janelaMin = 180;
+  else if (meses < 18)   janelaMin = 210;
+  else                   janelaMin = 270;
+
+  const [h, m] = despertar.split(':').map(Number);
+  const baseMin = h * 60 + m;
+
+  function addMin(base, delta) {
+    const total = (base + delta) % (24 * 60);
+    return String(Math.floor(total / 60)).padStart(2,'0') + ':' + String(total % 60).padStart(2,'0');
+  }
+
+  const s1    = addMin(baseMin, janelaMin);
+  // Sonecas qty from cache
+  const sonQ  = cache.sonecas_por_dia || '2';
+  let noturno;
+  if (sonQ === '0')     noturno = addMin(baseMin, janelaMin * 1);
+  else if (sonQ === '1') noturno = addMin(baseMin, janelaMin * 3);
+  else if (sonQ === '2') noturno = addMin(baseMin, janelaMin * 4.5);
+  else                   noturno = addMin(baseMin, janelaMin * 5);
+
+  const idadeLabel = info ? info.idadeStr : 'seu bebê';
+  hint.innerHTML =
+    `💡 Para <strong>${idadeLabel}</strong>, janela de vigília ≈ <strong>${janelaMin} min</strong><br>` +
+    `☀️ 1ª soneca sugerida: <strong>${s1}</strong> &nbsp;·&nbsp; 🌙 Sono noturno: <strong>${noturno}</strong>`;
+  hint.classList.add('visible');
+
+  // Auto-fill suggested times (only if fields are empty)
+  const s1Field = document.getElementById('rt-s1-esp');
+  const ntField = document.getElementById('rt-noturno');
+  if (s1Field && !s1Field.value) s1Field.value = s1;
+  if (ntField && !ntField.value) ntField.value = noturno;
+}
+
+/* ═══════════════════════════════════════
+   loadProfileCache → applyPerfilCache
+═══════════════════════════════════════ */
+function loadProfileCache() {
+  applyPerfilCache(getPerfilCache());
 }
 
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
