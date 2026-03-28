@@ -554,17 +554,45 @@ body {
   .chat-input-wrap { max-width:680px; width:100%; margin:0 auto; }
 }
 
-/* mobile: fixed at bottom, only visible on chat tab */
+/* ── Chat page layout ── */
+#page-chat {
+  display:none;          /* JS sets display:flex when active */
+  flex-direction:column;
+  overflow:hidden;
+  min-height:0;          /* critical: allows flex children to shrink */
+}
+#page-chat.active { display:flex; }
+
+#chat-msgs {
+  flex:1;
+  overflow-y:auto;
+  padding:14px;
+  display:flex;
+  flex-direction:column;
+  gap:11px;
+  scroll-behavior:smooth;
+  scrollbar-width:none;
+  /* leave room for mobile input bar */
+  padding-bottom:calc(72px + env(safe-area-inset-bottom, 0px));
+}
+@media(min-width:800px) { #chat-msgs { padding-bottom:14px; } }
+#chat-msgs::-webkit-scrollbar { display:none; }
+
+/* Desktop inline input — inside page-chat flex column */
+#chat-input-desktop {
+  display:none;       /* JS controls this */
+  flex-shrink:0;
+}
+
+/* Mobile fixed input — ONLY visible on chat tab */
 #chat-input-mobile {
-  position:fixed; bottom:0; left:0; right:0; z-index:50;
+  position:fixed;
+  bottom:0; left:0; right:0;
+  z-index:50;          /* below modals (9990+), above content */
   display:none;
 }
 #chat-input-mobile.on { display:flex; }
 #chat-input-mobile .chat-input-wrap { width:100%; }
-
-/* desktop: inside the chat page flex column — controlled entirely by JS */
-#chat-input-desktop { display:none; }
-/* Note: JS syncChatInput() shows/hides this — no CSS media override */
 
 #u-input {
   flex:1; border:1.5px solid var(--border-d); border-radius:20px;
@@ -1429,33 +1457,9 @@ body {
               <!-- Sugestão de janelas calculada automaticamente -->
               <div class="janela-hint" id="janela-hint"></div>
               <div class="rotina-divider"></div>
-              <!-- Sonecas -->
-              <div>
-                <div style="font-size:11px;font-weight:600;color:var(--text-sub);margin-bottom:6px;display:flex;align-items:center;gap:6px;">
-                  <span style="background:var(--sage-p);border-radius:8px;padding:2px 8px;font-size:10px;">☀️ Sonecas</span>
-                </div>
-                <div class="soneca-grid">
-                  <div class="soneca-row">
-                    <div class="soneca-num"></div>
-                    <div class="soneca-col-label">Esperado</div>
-                    <div class="soneca-col-label">Real</div>
-                  </div>
-                  <div class="soneca-row">
-                    <div class="soneca-num">1</div>
-                    <input class="rotina-input" id="rt-s1-esp" type="time" title="Soneca 1 esperada">
-                    <input class="rotina-input" id="rt-s1-real" type="time" title="Soneca 1 real">
-                  </div>
-                  <div class="soneca-row">
-                    <div class="soneca-num">2</div>
-                    <input class="rotina-input" id="rt-s2-esp" type="time" title="Soneca 2 esperada">
-                    <input class="rotina-input" id="rt-s2-real" type="time" title="Soneca 2 real">
-                  </div>
-                  <div class="soneca-row">
-                    <div class="soneca-num">3</div>
-                    <input class="rotina-input" id="rt-s3-esp" type="time" title="Soneca 3 esperada">
-                    <input class="rotina-input" id="rt-s3-real" type="time" title="Soneca 3 real">
-                  </div>
-                </div>
+              <!-- Sonecas — renderizadas dinamicamente por buildSonecasGrid() -->
+              <div id="sonecas-container">
+                <!-- JS buildSonecasGrid() preenche aqui baseado no nº de sonecas do perfil -->
               </div>
               <div class="rotina-divider"></div>
               <!-- Sono noturno -->
@@ -1594,7 +1598,7 @@ body {
     </div><!-- /orcamento -->
 
     <!-- ══ CHAT ═══════════════════════════════ -->
-    <div class="page" id="page-chat" style="display:none;flex-direction:column;overflow:hidden;">
+    <div class="page" id="page-chat">
       <div class="chat-hdr">
         <div class="chat-av">🌿</div>
         <div class="chat-hd">
@@ -1607,7 +1611,7 @@ body {
         🌙 Suas 3 mensagens gratuitas de hoje foram usadas.<br>
         <strong>Assine o Plano Plus</strong> para conversar sem limites.
       </div>
-      <div id="chat-msgs" style="flex:1;overflow-y:auto;"></div>
+      <div id="chat-msgs"></div>
       <!-- Desktop + Mobile input inside page — always rendered, shown/hidden by JS -->
       <div id="chat-input-desktop" style="flex-shrink:0;">
         <div class="chat-input-wrap">
@@ -2169,6 +2173,8 @@ function initApp() {
   // default date
   const df = document.getElementById('exp-date');
   if (df) df.value = new Date().toISOString().split('T')[0];
+  // Build adaptive soneca grid based on profile
+  buildSonecasGrid();
   // chat input responsive
   syncChatInput();
   window.addEventListener('resize', syncChatInput);
@@ -2250,15 +2256,15 @@ function goTo(tab) {
 
 function syncChatInput() {
   const isDesk = window.innerWidth >= 800;
-  const mob    = document.getElementById('chat-input-mobile');
-  const desk   = document.getElementById('chat-input-desktop');
   const onChat = currentTab === 'chat';
-  if (mob)  mob.classList.toggle('on', !isDesk && onChat);
-  // Desktop: show inline input when on chat tab; hide otherwise
+  // Mobile fixed bar — show ONLY when on chat tab and mobile
+  const mob = document.getElementById('chat-input-mobile');
+  if (mob) mob.classList.toggle('on', !isDesk && onChat);
+  // Desktop inline bar — show only on chat tab on desktop
+  const desk = document.getElementById('chat-input-desktop');
   if (desk) desk.style.display = (isDesk && onChat) ? 'flex' : 'none';
-  // Make sure chat page itself uses flex when active
-  const chatPage = document.getElementById('page-chat');
-  if (chatPage && onChat) chatPage.style.display = 'flex';
+  // CRITICAL: Ensure mobile input bar does NOT show on other tabs
+  if (!onChat && mob) mob.classList.remove('on');
 }
 
 /* ═══════════════════════════════════════
@@ -2778,21 +2784,31 @@ function loadRotina() {
     const d = new Date(dateStr + 'T00:00:00');
     dateEl.textContent = d.toLocaleDateString('pt-BR', { weekday:'long', day:'numeric', month:'long' });
   }
-  const key = ROTINA_KEY + dateStr;
-  const fields = ['rt-despertar','rt-s1-esp','rt-s1-real','rt-s2-esp','rt-s2-real',
-                  'rt-s3-esp','rt-s3-real','rt-noturno','rt-relato'];
-  // Clear fields first
-  fields.forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
-  // Hide janela hint when loading
+
+  // Build adaptive soneca grid FIRST (depends on profile sonecas_por_dia)
+  buildSonecasGrid();
+
+  // Collect all possible field IDs (up to 6 sonecas)
+  const baseFields = ['rt-despertar','rt-noturno','rt-relato'];
+  const sonecaFields = [];
+  for (let i = 1; i <= 6; i++) {
+    sonecaFields.push('rt-s' + i + '-esp', 'rt-s' + i + '-real');
+  }
+  const allFields = [...baseFields, ...sonecaFields];
+
+  // Clear existing values
+  allFields.forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
   const hint = document.getElementById('janela-hint');
   if (hint) hint.classList.remove('visible');
+
+  // Restore saved values
   try {
+    const key   = ROTINA_KEY + dateStr;
     const saved = JSON.parse(localStorage.getItem(key) || '{}');
-    fields.forEach(id => {
+    allFields.forEach(id => {
       const el = document.getElementById(id);
       if (el && saved[id]) el.value = saved[id];
     });
-    // Recalculate janelas if despertar was saved
     if (saved['rt-despertar']) calcJanelas();
   } catch {}
 }
@@ -2800,8 +2816,16 @@ function loadRotina() {
 async function saveRotina() {
   const today = getRotinaDate ? getRotinaDate((typeof rotinaOffset!=='undefined'?rotinaOffset:0)) : getTodayStr();
   const key   = ROTINA_KEY + today;
-  const ids   = ['rt-despertar','rt-s1-esp','rt-s1-real','rt-s2-esp','rt-s2-real',
-                 'rt-s3-esp','rt-s3-real','rt-noturno','rt-relato'];
+  // Collect all fields: base + any soneca rows that exist in the DOM
+  const baseSaveIds = ['rt-despertar','rt-noturno','rt-relato'];
+  const sonecaSaveIds = [];
+  for (let i = 1; i <= 6; i++) {
+    ['esp','real'].forEach(t => {
+      const id = 'rt-s' + i + '-' + t;
+      if (document.getElementById(id)) sonecaSaveIds.push(id);
+    });
+  }
+  const ids = [...baseSaveIds, ...sonecaSaveIds];
 
   const data = {};
   ids.forEach(id => {
@@ -2852,14 +2876,30 @@ const WM_TOTAL = 3;   // etapas reais (a 4ª é a tela de conclusão)
 let wmStep    = 0;
 let wmAnswers = {};   // objeto chave→valor para campos livres e seleções
 
-/* ── checkWelcome: abre o modal se ainda não preencheu ── */
-function checkWelcome() {
-  if (!localStorage.getItem(WM_KEY)) {
-    wmStep   = 0;
-    wmAnswers = {};
-    renderWmStep();
-    document.getElementById('welcome-overlay').classList.add('open');
+/* ── checkWelcome: verifica localStorage + Supabase antes de abrir ── */
+async function checkWelcome() {
+  // 1. Se já respondeu localmente, não mostra de novo
+  if (localStorage.getItem(WM_KEY)) return;
+
+  // 2. Se usuário real: verifica se já tem perfil no Supabase
+  if (currentUser && !modoTeste) {
+    const { data } = await sb
+      .from('profile')
+      .select('nome_bebe')
+      .eq('user_id', currentUser.id)
+      .maybeSingle();
+    if (data?.nome_bebe) {
+      // Já tem perfil — marca localmente e não mostra modal
+      localStorage.setItem(WM_KEY, '1');
+      return;
+    }
   }
+
+  // 3. Nenhuma das condições: mostra o modal
+  wmStep    = 0;
+  wmAnswers = {};
+  renderWmStep();
+  document.getElementById('welcome-overlay').classList.add('open');
 }
 
 /* ── Atualiza header progress bar e label ── */
@@ -3224,6 +3264,8 @@ function applyPerfilCache(cache) {
     const el = document.getElementById('p-av');
     if (el) el.innerHTML = `<img src="${cache.mae_foto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
   }
+  // Rebuild soneca grid if on home tab (rotina may already be rendered)
+  if (typeof buildSonecasGrid === 'function') buildSonecasGrid();
 }
 
 /* ═══════════════════════════════════════
@@ -3364,6 +3406,57 @@ function calcJanelas() {
 ═══════════════════════════════════════ */
 function loadProfileCache() {
   applyPerfilCache(getPerfilCache());
+}
+
+
+/* ═══════════════════════════════════════
+   SONECAS ADAPTATIVAS
+   Renderiza 0-6 linhas de soneca de acordo
+   com o perfil do bebê salvo.
+═══════════════════════════════════════ */
+function buildSonecasGrid() {
+  const container = document.getElementById('sonecas-container');
+  if (!container) return;
+
+  const cache   = getPerfilCache ? getPerfilCache() : {};
+  const rawSon  = cache.sonecas_por_dia || '';
+  // Parse: '2' → 2, '3-4' → 4, '5-6' → 5, '0' → 0
+  let maxSon = 2; // default
+  if (rawSon === '0')   maxSon = 0;
+  else if (rawSon === '1')   maxSon = 1;
+  else if (rawSon === '2')   maxSon = 2;
+  else if (rawSon === '3-4') maxSon = 3;
+  else if (rawSon === '5-6') maxSon = 5;
+
+  if (maxSon === 0) {
+    container.innerHTML = `
+      <div style="font-size:12px;color:var(--text-sub);font-family:'Lora',serif;font-style:italic;padding:8px 0;">
+        🌙 Sem sonecas registradas no perfil.
+      </div>`;
+    return;
+  }
+
+  let html = `
+    <div style="font-size:11px;font-weight:600;color:var(--text-sub);margin-bottom:6px;display:flex;align-items:center;gap:6px;">
+      <span style="background:var(--sage-p);border-radius:8px;padding:2px 8px;font-size:10px;">☀️ Sonecas (${maxSon})</span>
+    </div>
+    <div class="soneca-grid">
+      <div class="soneca-row">
+        <div class="soneca-num"></div>
+        <div class="soneca-col-label">Esperado</div>
+        <div class="soneca-col-label">Real</div>
+      </div>`;
+
+  for (let i = 1; i <= maxSon; i++) {
+    html += `
+      <div class="soneca-row">
+        <div class="soneca-num">${i}</div>
+        <input class="rotina-input" id="rt-s${i}-esp"  type="time" title="Soneca ${i} esperada">
+        <input class="rotina-input" id="rt-s${i}-real" type="time" title="Soneca ${i} real">
+      </div>`;
+  }
+  html += '</div>';
+  container.innerHTML = html;
 }
 
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
