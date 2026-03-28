@@ -1,11 +1,511 @@
-async function sendMessage() {
-    const input = document.getElementById('user-input').value;
-    const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: input })
-    });
-    const data = await response.json();
-    // Aqui você adiciona a resposta no chat...
-    console.log(data.response);
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guia do Sono — Assistente de Sono Infantil</title>
+  <link rel="manifest" href="manifest.json" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lora:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sage:      #7A9E7E;
+      --sage-lt:   #A8C5AB;
+      --sage-xlt:  #EAF1EA;
+      --terra:     #C17A5A;
+      --terra-lt:  #E8B99A;
+      --cream:     #FAF6F0;
+      --cream-dk:  #F0E9DF;
+      --lav:       #9B8DB5;
+      --lav-lt:    #D4CCE8;
+      --brown:     #5C4033;
+      --brown-lt:  #8A6655;
+      --text:      #3A2E27;
+      --text-lt:   #7A6A60;
+      --white:     #FFFFFF;
+      --shadow:    rgba(92,64,51,0.12);
+      --r:         16px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--cream-dk);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 12px var(--shadow);
+      z-index: 10;
+    }
+    .header-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--sage) 0%, var(--lav) 100%);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(123,157,126,0.4);
+    }
+    .header-avatar svg { width: 22px; height: 22px; fill: none; stroke: white; stroke-width: 1.8; }
+    .header-info { flex: 1; }
+    .header-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--brown);
+      line-height: 1.2;
+    }
+    .header-status {
+      font-size: 0.72rem;
+      color: var(--sage);
+      font-weight: 500;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .status-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--sage);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:.6; transform:scale(1.3); }
+    }
+    .badge-free {
+      background: var(--cream-dk);
+      border: 1px solid var(--terra-lt);
+      color: var(--brown-lt);
+      font-size: 0.68rem;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+      transition: background .3s, color .3s, border-color .3s;
+    }
+    .badge-free.esgotado {
+      background: #fdecea;
+      border-color: var(--terra);
+      color: var(--terra);
+    }
+
+    /* ── MESSAGES ── */
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 16px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      scroll-behavior: smooth;
+    }
+    #messages::-webkit-scrollbar { width: 4px; }
+    #messages::-webkit-scrollbar-track { background: transparent; }
+    #messages::-webkit-scrollbar-thumb { background: var(--lav-lt); border-radius: 4px; }
+
+    .bubble {
+      max-width: 84%;
+      padding: 12px 16px;
+      border-radius: var(--r);
+      font-size: 0.9rem;
+      line-height: 1.65;
+      animation: fadeUp .3s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(8px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .bubble-ai {
+      align-self: flex-start;
+      background: var(--white);
+      border: 1px solid var(--cream-dk);
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 2px 10px var(--shadow);
+    }
+    .bubble-ai .sender {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.75rem;
+      color: var(--sage);
+      font-style: italic;
+      margin-bottom: 5px;
+      display: block;
+    }
+    .bubble-user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, var(--sage) 0%, var(--lav) 100%);
+      color: white;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 2px 10px rgba(123,157,126,0.35);
+    }
+
+    /* Typing indicator */
+    .typing {
+      align-self: flex-start;
+      display: flex; align-items: center; gap: 5px;
+      padding: 10px 16px;
+      background: var(--white);
+      border: 1px solid var(--cream-dk);
+      border-radius: var(--r);
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 2px 10px var(--shadow);
+      animation: fadeUp .3s ease both;
+    }
+    .typing span {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--sage);
+      animation: bounce 1.2s infinite;
+    }
+    .typing span:nth-child(2) { animation-delay:.2s; background:var(--lav); }
+    .typing span:nth-child(3) { animation-delay:.4s; background:var(--terra-lt); }
+    @keyframes bounce {
+      0%,60%,100% { transform:translateY(0); }
+      30%          { transform:translateY(-6px); }
+    }
+
+    /* Welcome card */
+    .welcome-card {
+      background: linear-gradient(135deg, var(--sage-xlt) 0%, var(--lav-lt) 100%);
+      border: 1px solid var(--lav-lt);
+      border-radius: var(--r);
+      padding: 18px 16px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--brown-lt);
+      line-height: 1.6;
+      animation: fadeUp .4s ease both;
+    }
+    .wc-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--brown);
+      margin-bottom: 6px;
+      display: block;
+    }
+    .wc-chips {
+      display: flex; flex-wrap: wrap; gap: 7px;
+      justify-content: center;
+      margin-top: 12px;
+    }
+    .chip {
+      background: var(--white);
+      border: 1px solid var(--cream-dk);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 0.78rem;
+      color: var(--brown-lt);
+      cursor: pointer;
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    .chip:hover { background:var(--sage); color:white; border-color:var(--sage); }
+
+    /* ── LIMIT BANNER ── */
+    #limit-banner {
+      display: none;
+      background: linear-gradient(135deg, var(--terra) 0%, var(--lav) 100%);
+      color: white;
+      text-align: center;
+      padding: 14px 20px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      flex-shrink: 0;
+    }
+    #limit-banner strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      margin-bottom: 3px;
+    }
+    #limit-banner.visible { display: block; }
+
+    /* ── INPUT AREA ── */
+    #input-area {
+      background: var(--white);
+      border-top: 1px solid var(--cream-dk);
+      padding: 12px 16px;
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      flex-shrink: 0;
+      box-shadow: 0 -2px 12px var(--shadow);
+    }
+    #user-input {
+      flex: 1;
+      border: 1.5px solid var(--cream-dk);
+      border-radius: 22px;
+      padding: 10px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      background: var(--cream);
+      resize: none;
+      outline: none;
+      max-height: 120px;
+      line-height: 1.5;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    #user-input::placeholder { color: var(--text-lt); }
+    #user-input:focus { border-color: var(--sage); box-shadow: 0 0 0 3px rgba(122,158,126,0.15); }
+    #user-input:disabled { opacity:.5; cursor:not-allowed; }
+    #send-btn {
+      width: 44px; height: 44px; flex-shrink: 0;
+      border-radius: 50%; border: none;
+      background: linear-gradient(135deg, var(--sage) 0%, var(--lav) 100%);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 3px 10px rgba(123,157,126,0.4);
+      transition: transform .15s, box-shadow .15s, opacity .2s;
+    }
+    #send-btn:hover { transform:scale(1.07); box-shadow:0 4px 14px rgba(123,157,126,0.5); }
+    #send-btn:active { transform:scale(.96); }
+    #send-btn:disabled { opacity:.4; cursor:not-allowed; transform:none; }
+    #send-btn svg { width:20px; height:20px; fill:none; stroke:white; stroke-width:2; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-avatar">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 2C8 2 5 5 5 9c0 3.5 2 6 5 7.5V20h4v-3.5C17 15 19 12.5 19 9c0-4-3-7-7-7z"/>
+      <path d="M9 14s0 4-3 5M15 14s0 4 3 5"/>
+    </svg>
+  </div>
+  <div class="header-info">
+    <span class="header-name">Guia do Sono</span>
+    <div class="header-status">
+      <div class="status-dot"></div>
+      sono gentil · disponível
+    </div>
+  </div>
+  <div class="badge-free" id="msg-counter">3 mensagens hoje</div>
+</header>
+
+<!-- MESSAGES -->
+<div id="messages"></div>
+
+<!-- LIMIT BANNER -->
+<div id="limit-banner">
+  <strong>🌙 Você usou suas 3 mensagens gratuitas de hoje</strong>
+  Volte amanhã para continuar, ou assine o Plano Plus para conversar sem limites. 💚
+</div>
+
+<!-- INPUT -->
+<div id="input-area">
+  <textarea
+    id="user-input"
+    rows="1"
+    placeholder="O que está acontecendo com o sono do seu bebê?"
+    aria-label="Mensagem"
+  ></textarea>
+  <button id="send-btn" aria-label="Enviar">
+    <svg viewBox="0 0 24 24">
+      <line x1="22" y1="2" x2="11" y2="13"/>
+      <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+// ── CONFIGURAÇÃO ──────────────────────────────────────────
+const MAX_FREE    = 3;
+const STORAGE_KEY = 'guia_sono_usage'; // { date: "YYYY-MM-DD", count: N }
+
+// ── CONTROLE DE LIMITE (localStorage) ────────────────────
+function getTodayKey() {
+  return new Date().toISOString().split('T')[0];
 }
+function getUsage() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return { date: getTodayKey(), count: 0 };
+    const parsed = JSON.parse(raw);
+    // Zera automaticamente se for um novo dia
+    return parsed.date === getTodayKey()
+      ? parsed
+      : { date: getTodayKey(), count: 0 };
+  } catch {
+    return { date: getTodayKey(), count: 0 };
+  }
+}
+function incrementUsage() {
+  const u = getUsage();
+  u.count++;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(u));
+  return u.count;
+}
+function getRemaining() {
+  return Math.max(0, MAX_FREE - getUsage().count);
+}
+function refreshUI() {
+  const rem     = getRemaining();
+  const counter = document.getElementById('msg-counter');
+  const banner  = document.getElementById('limit-banner');
+  const input   = document.getElementById('user-input');
+  const btn     = document.getElementById('send-btn');
+
+  counter.textContent = rem > 0
+    ? `${rem} mensagem${rem === 1 ? '' : 's'} hoje`
+    : 'Limite atingido';
+  counter.classList.toggle('esgotado', rem === 0);
+  banner.classList.toggle('visible', rem === 0);
+  input.disabled = rem === 0;
+  if (rem === 0) btn.disabled = true;
+}
+
+// ── RENDER ────────────────────────────────────────────────
+const messagesEl = document.getElementById('messages');
+
+function addBubble(text, role) {
+  const wrap = document.createElement('div');
+  wrap.className = `bubble bubble-${role === 'user' ? 'user' : 'ai'}`;
+
+  if (role !== 'user') {
+    const s = document.createElement('span');
+    s.className = 'sender';
+    s.textContent = 'Guia do Sono';
+    wrap.appendChild(s);
+  }
+
+  const body = document.createElement('span');
+  body.innerHTML = text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
+  wrap.appendChild(body);
+
+  messagesEl.appendChild(wrap);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function showTyping() {
+  const el = document.createElement('div');
+  el.className = 'typing';
+  el.id = 'typing-indicator';
+  el.innerHTML = '<span></span><span></span><span></span>';
+  messagesEl.appendChild(el);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+function removeTyping() {
+  const el = document.getElementById('typing-indicator');
+  if (el) el.remove();
+}
+
+function addWelcomeCard() {
+  const el = document.createElement('div');
+  el.className = 'welcome-card';
+  el.innerHTML = `
+    <span class="wc-title">🌙 Olá! Sou a Guia do Sono</span>
+    Estou aqui para te ajudar a entender o sono do seu bebê com gentileza e sem julgamentos.
+    Pode me contar o que está acontecendo.
+    <div class="wc-chips">
+      <div class="chip" onclick="prefill('Meu bebê não dorme de noite')">Não dorme à noite</div>
+      <div class="chip" onclick="prefill('Como criar uma rotina de sono?')">Criar rotina</div>
+      <div class="chip" onclick="prefill('Regressão do sono com 4 meses')">Regressão 4 meses</div>
+      <div class="chip" onclick="prefill('Estou muito cansada e preciso de ajuda')">Estou exausta 💚</div>
+    </div>
+  `;
+  messagesEl.appendChild(el);
+}
+
+function prefill(text) {
+  const input = document.getElementById('user-input');
+  input.value = text;
+  autoResize(input);
+  input.focus();
+}
+
+// ── ENVIO ─────────────────────────────────────────────────
+let history   = [];
+let isLoading = false;
+
+async function sendMessage() {
+  const input = document.getElementById('user-input');
+  const btn   = document.getElementById('send-btn');
+  const text  = input.value.trim();
+
+  if (!text || isLoading || getRemaining() <= 0) return;
+
+  // Reset campo
+  input.value = '';
+  autoResize(input);
+  isLoading   = true;
+  btn.disabled = true;
+
+  // Exibe mensagem da usuária
+  addBubble(text, 'user');
+  history.push({ role: 'user', content: text });
+
+  // Contabiliza ANTES de chamar a API (evita burlar o limite)
+  incrementUsage();
+  refreshUI();
+
+  showTyping();
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: history }),
+    });
+
+    removeTyping();
+
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      throw new Error(errData.error || `HTTP ${res.status}`);
+    }
+
+    const data  = await res.json();
+    const reply = data.reply || 'Não consegui responder agora. Tente novamente. 🌿';
+
+    addBubble(reply, 'ai');
+    history.push({ role: 'assistant', content: reply });
+
+  } catch (err) {
+    removeTyping();
+    history.pop(); // reverte histórico — a mensagem da usuária não foi respondida
+    addBubble(
+      'Parece que houve uma dificuldade de conexão. Verifique sua internet e tente novamente. 🌿',
+      'ai'
+    );
+    console.error('[Guia do Sono] Erro:', err.message);
+  } finally {
+    isLoading = false;
+    if (getRemaining() > 0) btn.disabled = false;
+  }
+}
+
+// ── EVENTOS ───────────────────────────────────────────────
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+}
+document.getElementById('user-input').addEventListener('input', function() {
+  autoResize(this);
+});
+document.getElementById('user-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+});
+document.getElementById('send-btn').addEventListener('click', sendMessage);
+
+// ── INIT ──────────────────────────────────────────────────
+refreshUI();
+addWelcomeCard();
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+</script>
+</body>
+</html>
