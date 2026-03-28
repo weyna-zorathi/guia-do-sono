@@ -1374,7 +1374,11 @@ async function sendOtp() {
 // ── Passo 2: verifica o código ──
 async function verifyOtp() {
   const email = document.getElementById('login-email').value.trim();
-  const code  = [0,1,2,3,4,5].map(i => document.getElementById(`otp${i}`).value).join('').trim();
+
+  // Coleta cada box, descarta qualquer char não-numérico e concatena
+  const code = [0,1,2,3,4,5]
+    .map(i => (document.getElementById('otp' + i).value || '').replace(/\D/g, ''))
+    .join('');
 
   if (code.length < 6) {
     showLoginMsg('Digite os 6 dígitos do código.', 'error'); return;
@@ -1385,25 +1389,27 @@ async function verifyOtp() {
   btn.disabled = true; txt.textContent = 'Verificando…';
   hideLoginMsg();
 
-  const { data, error } = await sb.auth.verifyOtp({
-    email,
-    token: code,
-    type: 'email',
-  });
+  // Tenta os 3 tipos que o Supabase pode usar dependendo da config do projeto
+  let data, error;
+  ({ data, error } = await sb.auth.verifyOtp({ email, token: code, type: 'email' }));
+  if (error) ({ data, error } = await sb.auth.verifyOtp({ email, token: code, type: 'magiclink' }));
+  if (error) ({ data, error } = await sb.auth.verifyOtp({ email, token: code, type: 'signup' }));
 
   btn.disabled = false; txt.textContent = '🌿 Entrar no app';
 
   if (error) {
-    showLoginMsg('Código inválido ou expirado. Tente novamente.', 'error');
-    // Limpa os boxes para redigitar
+    showLoginMsg('Código inválido ou expirado. Solicite um novo código.', 'error');
     [0,1,2,3,4,5].forEach(i => {
-      const b = document.getElementById(`otp${i}`);
+      const b = document.getElementById('otp' + i);
       b.value = ''; b.classList.remove('filled');
     });
     document.getElementById('otp0').focus();
   } else if (data?.session) {
     currentUser = data.session.user;
     revealApp();
+  } else {
+    // Sessão pode chegar via onAuthStateChange — aguarda 800ms
+    setTimeout(() => { if (currentUser) revealApp(); }, 800);
   }
 }
 
