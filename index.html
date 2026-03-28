@@ -1025,6 +1025,98 @@ body {
   line-height:1.6;
 }
 
+/* ── Baby Card Expanded ───────────────────────── */
+.bc-name-big {
+  font-family:'Playfair Display',serif;
+  font-size:24px; font-weight:700; color:#fff;
+  letter-spacing:-.01em; line-height:1.1; margin-bottom:2px;
+}
+.bc-status-badge {
+  display:inline-flex; align-items:center; gap:5px;
+  background:rgba(201,168,76,.22); border:1px solid rgba(201,168,76,.4);
+  border-radius:20px; padding:3px 10px; margin-bottom:10px;
+  font-size:10px; font-weight:600; color:var(--gold-l); letter-spacing:.04em;
+}
+.bc-measures {
+  display:flex; gap:6px; margin-top:8px;
+}
+.bc-measure {
+  flex:1; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1);
+  border-radius:10px; padding:6px 8px; text-align:center;
+}
+.bc-measure-val { font-size:13px; font-weight:600; color:rgba(255,255,255,.9); line-height:1; margin-bottom:2px; }
+.bc-measure-lbl { font-size:8px; color:rgba(255,255,255,.35); text-transform:uppercase; letter-spacing:.06em; }
+
+/* ── Rotina Diária Card ────────────────────────── */
+.rotina-card {
+  background:var(--bg-card); border:1px solid var(--border); border-radius:20px;
+  overflow:hidden; box-shadow:0 2px 10px var(--shadow);
+}
+.rotina-hdr {
+  background:var(--night); padding:12px 16px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.rotina-hdr-title {
+  font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:#fff;
+}
+.rotina-hdr-date { font-size:10px; color:rgba(255,255,255,.4); font-family:'Lora',serif; font-style:italic; }
+.rotina-body { padding:14px 16px; display:flex; flex-direction:column; gap:12px; }
+.rotina-row { display:flex; align-items:center; gap:10px; }
+.rotina-icon {
+  width:32px; height:32px; border-radius:10px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:15px;
+}
+.ri-gold  { background:var(--gold-p); }
+.ri-sage  { background:var(--sage-p); }
+.ri-lav   { background:var(--lav-p); }
+.ri-tc    { background:var(--tc-p); }
+.rotina-label { font-size:11px; font-weight:600; color:var(--text); flex:1; }
+.rotina-input {
+  border:1.5px solid var(--border-d); border-radius:10px;
+  padding:6px 10px; font-family:'DM Sans',sans-serif; font-size:13px;
+  color:var(--text); background:var(--bg); outline:none; width:90px; text-align:center;
+  transition:border-color .2s, box-shadow .2s;
+}
+.rotina-input:focus { border-color:var(--sage); box-shadow:0 0 0 3px rgba(138,158,127,.14); }
+.rotina-input.wide { width:100%; text-align:left; }
+.soneca-grid { display:flex; flex-direction:column; gap:6px; }
+.soneca-row  { display:grid; grid-template-columns:auto 1fr 1fr; gap:8px; align-items:center; }
+.soneca-num  { font-size:10px; font-weight:700; color:var(--text-sub); width:22px; text-align:center; }
+.soneca-col-label { font-size:9px; color:var(--text-sub); text-align:center; text-transform:uppercase; letter-spacing:.06em; }
+.rotina-divider { height:1px; background:var(--border); margin:2px 0; }
+.relato-area {
+  width:100%; border:1.5px solid var(--border-d); border-radius:12px;
+  padding:9px 12px; font-family:'Lora',serif; font-style:italic; font-size:13px;
+  color:var(--text); background:var(--bg); outline:none; resize:none; min-height:70px;
+  line-height:1.5; transition:border-color .2s, box-shadow .2s;
+}
+.relato-area:focus { border-color:var(--sage); box-shadow:0 0 0 3px rgba(138,158,127,.14); }
+.relato-area::placeholder { color:var(--text-sub); }
+.rotina-save-btn {
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  background:linear-gradient(135deg, var(--sage), var(--sage-d));
+  color:#fff; border:none; border-radius:12px; padding:10px;
+  font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer;
+  box-shadow:0 3px 10px rgba(90,112,80,.25); transition:transform .18s, box-shadow .18s, opacity .2s;
+  width:100%;
+}
+.rotina-save-btn:hover { transform:translateY(-1px); box-shadow:0 5px 16px rgba(90,112,80,.35); }
+.rotina-save-btn:active { transform:scale(.97); opacity:.9; }
+.rotina-saved-msg { font-size:11px; color:var(--sage-d); text-align:center; font-family:'Lora',serif; font-style:italic; min-height:16px; }
+
+/* ── Vitrine por Abas ───────────────────────────── */
+.vitrine-tabs {
+  display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px;
+}
+.vt-tab {
+  padding:6px 14px; border-radius:20px; font-size:12px; font-weight:500;
+  cursor:pointer; border:1.5px solid var(--border-d);
+  background:var(--bg-card); color:var(--text-sub);
+  transition:all .18s;
+}
+.vt-tab.active { background:var(--night); border-color:var(--night); color:#fff; }
+.vt-tab:active  { transform:scale(.95); }
+
 /* ── Modo de Teste ── */
 .test-badge {
   display:none;
@@ -1173,12 +1265,12 @@ body {
           </div>
         </div>
 
-        <!-- BABY CARD -->
+        <!-- BABY CARD EXPANDIDO -->
         <div class="sec-hdr fu d3"><div class="sec-title">Perfil do Bebê</div></div>
         <div class="px fu d3">
           <div class="baby-card">
             <div class="w-badge">
-              <div class="w-badge-val">90 min</div>
+              <div class="w-badge-val" id="janela-val">90 min</div>
               <div class="w-badge-lbl">janela atual</div>
             </div>
             <div class="bc-inner">
@@ -1188,12 +1280,28 @@ body {
                 <input type="file" id="av-input" accept="image/*" style="display:none" onchange="loadAvatar(event)">
               </div>
               <div class="bc-info">
-                <div class="bc-name">Sofia</div>
-                <div class="bc-age">4 meses e 12 dias</div>
-                <div class="bc-stats">
-                  <div class="bc-stat"><div class="bc-stat-val">2</div><div class="bc-stat-lbl">cochilos</div></div>
-                  <div class="bc-stat"><div class="bc-stat-val">4h20</div><div class="bc-stat-lbl">total</div></div>
-                  <div class="bc-stat"><div class="bc-stat-val">10h</div><div class="bc-stat-lbl">noite</div></div>
+                <div class="bc-name-big" id="bc-name-display">Sofia</div>
+                <div class="bc-age" id="bc-age-display">4 meses e 12 dias</div>
+                <div class="bc-status-badge" id="bc-status">
+                  🌱 Salto de Desenvolvimento
+                </div>
+                <div class="bc-measures">
+                  <div class="bc-measure">
+                    <div class="bc-measure-val" id="bc-peso">6,2 kg</div>
+                    <div class="bc-measure-lbl">Peso</div>
+                  </div>
+                  <div class="bc-measure">
+                    <div class="bc-measure-val" id="bc-altura">62 cm</div>
+                    <div class="bc-measure-lbl">Altura</div>
+                  </div>
+                  <div class="bc-measure">
+                    <div class="bc-measure-val">2</div>
+                    <div class="bc-measure-lbl">Cochilos</div>
+                  </div>
+                  <div class="bc-measure">
+                    <div class="bc-measure-val">10h</div>
+                    <div class="bc-measure-lbl">Noite</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1207,35 +1315,74 @@ body {
           </div>
         </div>
 
-        <!-- MINI STATS -->
-        <div class="sec-hdr fu d4"><div class="sec-title">Resumo de hoje</div></div>
+        <!-- ROTINA DIÁRIA -->
+        <div class="sec-hdr fu d4">
+          <div class="sec-title">Rotina de hoje</div>
+          <div class="sec-link" onclick="saveRotina()" style="color:var(--sage-d)">Salvar ✓</div>
+        </div>
         <div class="px fu d4">
-          <div class="grid-2" style="margin-bottom:10px;">
-            <div class="ms-card ms-sage">
-              <span class="ms-icon">🌙</span>
-              <div class="ms-val">10 <span>h 20</span></div>
-              <div class="ms-lbl">Sono total</div>
-              <div class="ms-trend t-up">↑ +40min</div>
+          <div class="rotina-card">
+            <div class="rotina-hdr">
+              <span class="rotina-hdr-title">🌅 Diário do Sono</span>
+              <span class="rotina-hdr-date" id="rotina-date">hoje</span>
             </div>
-            <div class="ms-card ms-tc">
-              <span class="ms-icon">☀️</span>
-              <div class="ms-val">2 <span>cochilos</span></div>
-              <div class="ms-lbl">Sonecas diurnas</div>
-              <div class="ms-trend t-same">= igual</div>
-            </div>
-          </div>
-          <div class="grid-2">
-            <div class="ms-card ms-gold">
-              <span class="ms-icon">⏱️</span>
-              <div class="ms-val">82 <span>min</span></div>
-              <div class="ms-lbl">Janela atual</div>
-              <div class="ms-trend t-up">✓ ok</div>
-            </div>
-            <div class="ms-card ms-night">
-              <span class="ms-icon">🌅</span>
-              <div class="ms-val">06 <span>h14</span></div>
-              <div class="ms-lbl">Acordou hoje</div>
-              <div class="ms-trend t-same">= regular</div>
+            <div class="rotina-body">
+              <!-- Despertar -->
+              <div class="rotina-row">
+                <div class="rotina-icon ri-gold">🌅</div>
+                <span class="rotina-label">Acordou às</span>
+                <input class="rotina-input" id="rt-despertar" type="time" title="Horário de despertar">
+              </div>
+              <div class="rotina-divider"></div>
+              <!-- Sonecas -->
+              <div>
+                <div style="font-size:11px;font-weight:600;color:var(--text-sub);margin-bottom:6px;display:flex;align-items:center;gap:6px;">
+                  <span style="background:var(--sage-p);border-radius:8px;padding:2px 8px;font-size:10px;">☀️ Sonecas</span>
+                </div>
+                <div class="soneca-grid">
+                  <div class="soneca-row">
+                    <div class="soneca-num"></div>
+                    <div class="soneca-col-label">Esperado</div>
+                    <div class="soneca-col-label">Real</div>
+                  </div>
+                  <div class="soneca-row">
+                    <div class="soneca-num">1</div>
+                    <input class="rotina-input" id="rt-s1-esp" type="time" title="Soneca 1 esperada">
+                    <input class="rotina-input" id="rt-s1-real" type="time" title="Soneca 1 real">
+                  </div>
+                  <div class="soneca-row">
+                    <div class="soneca-num">2</div>
+                    <input class="rotina-input" id="rt-s2-esp" type="time" title="Soneca 2 esperada">
+                    <input class="rotina-input" id="rt-s2-real" type="time" title="Soneca 2 real">
+                  </div>
+                  <div class="soneca-row">
+                    <div class="soneca-num">3</div>
+                    <input class="rotina-input" id="rt-s3-esp" type="time" title="Soneca 3 esperada">
+                    <input class="rotina-input" id="rt-s3-real" type="time" title="Soneca 3 real">
+                  </div>
+                </div>
+              </div>
+              <div class="rotina-divider"></div>
+              <!-- Sono noturno -->
+              <div class="rotina-row">
+                <div class="rotina-icon ri-lav">🌙</div>
+                <span class="rotina-label">Sono noturno às</span>
+                <input class="rotina-input" id="rt-noturno" type="time" title="Horário do sono noturno">
+              </div>
+              <div class="rotina-divider"></div>
+              <!-- Relato madrugada -->
+              <div>
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                  <div class="rotina-icon ri-tc" style="width:26px;height:26px;font-size:13px;">🌌</div>
+                  <span style="font-size:11px;font-weight:600;color:var(--text);">Relato da Madrugada</span>
+                </div>
+                <textarea class="relato-area" id="rt-relato"
+                  placeholder="Como foi a noite? Quantas vezes acordou, o que ajudou, como você está sentindo…"></textarea>
+              </div>
+              <button class="rotina-save-btn" onclick="saveRotina()">
+                🌿 Salvar rotina de hoje
+              </button>
+              <div class="rotina-saved-msg" id="rotina-saved-msg"></div>
             </div>
           </div>
         </div>
@@ -1328,12 +1475,19 @@ body {
             </div>
           </div>
 
-          <!-- RIGHT: vitrine de afiliados (renderizada via JS do array PRODUTOS) -->
+          <!-- RIGHT: vitrine de afiliados com abas por categoria -->
           <div class="orc-right fu d3">
             <div class="vitrine-header">
               <div class="vitrine-eyebrow">curadoria</div>
               <div class="vitrine-title">🛒 Garimpado para a <em>Sofia</em></div>
               <div class="vitrine-tagline">Curadoria de mestre para o sono do seu pequeno</div>
+            </div>
+            <div class="vitrine-tabs" id="vitrine-tabs">
+              <div class="vt-tab active" onclick="filterVitrine(this,'todos')">Todos</div>
+              <div class="vt-tab" onclick="filterVitrine(this,'Higiene')">🛁 Higiene</div>
+              <div class="vt-tab" onclick="filterVitrine(this,'Bem-estar')">🌿 Bem-estar</div>
+              <div class="vt-tab" onclick="filterVitrine(this,'Alimentação')">🍼 Alimentação</div>
+              <div class="vt-tab" onclick="filterVitrine(this,'Segurança')">🛡️ Segurança</div>
             </div>
             <div class="aff-grid" id="vitrine-grid">
               <!-- preenchido por renderVitrine() no JS -->
@@ -1849,6 +2003,7 @@ function initApp() {
   animProgress();
   fillUserUI();
   loadExpenses();
+  loadRotina();
   if (isDark) applyDark(false);
   // default date
   const df = document.getElementById('exp-date');
@@ -2292,58 +2447,115 @@ function closePro() { document.getElementById('pro-ov').classList.remove('on'); 
    Para adicionar produtos: copie um objeto e cole no array.
    Ícones: use qualquer emoji no campo `emoji`.
 ═══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════
+   VITRINE DE AFILIADOS
+   ─────────────────────────────────────
+   Campos: emoji, nome, tag, preco, categoria, url
+   Categorias disponíveis: Higiene | Bem-estar | Alimentação | Segurança
+   Para adicionar: copie um objeto e ajuste os campos.
+   Para ativar o link: coloque o URL de afiliada Amazon no campo `url`.
+═══════════════════════════════════════ */
 const PRODUTOS = [
+  // ── HIGIENE ────────────────────────
   {
-    emoji:  '🍼',
-    nome:   'Mamadeira Anti-Cólica Philips Avent',
-    tag:    'Dormir como um anjo começa pela barriga feliz',
-    preco:  'R$ 89,90',
-    url:    '', // ← coloque aqui seu link de associada Amazon
+    emoji:'🛁', categoria:'Higiene',
+    nome:'Banheira Ergonômica Safety 1st',
+    tag:'Banho seguro e relaxante antes de dormir',
+    preco:'R$ 129,90',
+    url:'', // ← link de afiliada Amazon
   },
   {
-    emoji:  '🎶',
-    nome:   'Máquina de Ruído Branco LectroFan',
-    tag:    'O som que acalma e mantém o sono profundo',
-    preco:  'R$ 249,00',
-    url:    '', // ← coloque aqui seu link de associada Amazon
+    emoji:'🧴', categoria:'Higiene',
+    nome:'Sabonete Líquido Johnson's Baby',
+    tag:'Fórmula suave que acalma antes da soneca',
+    preco:'R$ 24,90',
+    url:'', // ← link de afiliada Amazon
+  },
+  // ── BEM-ESTAR ──────────────────────
+  {
+    emoji:'🎶', categoria:'Bem-estar',
+    nome:'Máquina de Ruído Branco LectroFan',
+    tag:'O som que acalma e mantém o sono profundo',
+    preco:'R$ 249,00',
+    url:'', // ← link de afiliada Amazon
   },
   {
-    emoji:  '🌙',
-    nome:   'Saco de Dormir Halo SleepSack',
-    tag:    'Segurança e quentinho a noite toda',
-    preco:  'R$ 159,90',
-    url:    '', // ← coloque aqui seu link de associada Amazon
+    emoji:'🌙', categoria:'Bem-estar',
+    nome:'Saco de Dormir Halo SleepSack',
+    tag:'Segurança e quentinho a noite toda',
+    preco:'R$ 159,90',
+    url:'', // ← link de afiliada Amazon
   },
   {
-    emoji:  '🛏️',
-    nome:   'Berço Portátil Multikids Baby',
-    tag:    'Rotina de sono em qualquer lugar da casa',
-    preco:  'R$ 319,00',
-    url:    '', // ← coloque aqui seu link de associada Amazon
+    emoji:'🔆', categoria:'Bem-estar',
+    nome:'Abajur Luminária Noturna Touch',
+    tag:'Luz âmbar que não atrapalha a melatonina',
+    preco:'R$ 79,90',
+    url:'', // ← link de afiliada Amazon
   },
   {
-    emoji:  '🌿',
-    nome:   'Umidificador de Ar Ultrassônico',
-    tag:    'Ambiente ideal para o sono do bebê',
-    preco:  'R$ 189,90',
-    url:    '', // ← coloque aqui seu link de associada Amazon
+    emoji:'🌿', categoria:'Bem-estar',
+    nome:'Umidificador de Ar Ultrassônico',
+    tag:'Ambiente ideal para o sono do bebê',
+    preco:'R$ 189,90',
+    url:'', // ← link de afiliada Amazon
+  },
+  // ── ALIMENTAÇÃO ────────────────────
+  {
+    emoji:'🍼', categoria:'Alimentação',
+    nome:'Mamadeira Anti-Cólica Philips Avent',
+    tag:'Barriga feliz, sono tranquilo',
+    preco:'R$ 89,90',
+    url:'', // ← link de afiliada Amazon
   },
   {
-    emoji:  '🔆',
-    nome:   'Abajur Luminária Noturna Touch',
-    tag:    'Luz âmbar que não atrapalha a melatonina',
-    preco:  'R$ 79,90',
-    url:    '', // ← coloque aqui seu link de associada Amazon
+    emoji:'🥄', categoria:'Alimentação',
+    nome:'Kit Introdução Alimentar Oxo Tot',
+    tag:'Primeiras colheradas com segurança',
+    preco:'R$ 149,90',
+    url:'', // ← link de afiliada Amazon
+  },
+  // ── SEGURANÇA ──────────────────────
+  {
+    emoji:'🛏️', categoria:'Segurança',
+    nome:'Berço Portátil Multikids Baby',
+    tag:'Rotina de sono em qualquer lugar',
+    preco:'R$ 319,00',
+    url:'', // ← link de afiliada Amazon
+  },
+  {
+    emoji:'🛡️', categoria:'Segurança',
+    nome:'Monitor de Bebê com Vídeo HD',
+    tag:'Durma tranquila, ele está bem',
+    preco:'R$ 399,00',
+    url:'', // ← link de afiliada Amazon
   },
 ];
+
+let vitrineCategoria = 'todos';
+
+function filterVitrine(tab, cat) {
+  vitrineCategoria = cat;
+  document.querySelectorAll('.vt-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  renderVitrine();
+}
 
 function renderVitrine() {
   const grid = document.getElementById('vitrine-grid');
   if (!grid) return;
-  grid.innerHTML = PRODUTOS.map(p => `
+  const filtered = vitrineCategoria === 'todos'
+    ? PRODUTOS
+    : PRODUTOS.filter(p => p.categoria === vitrineCategoria);
+  if (!filtered.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:24px;font-family:Lora,serif;font-style:italic;color:var(--text-sub);">Nenhum produto nesta categoria ainda 🌿</div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(p => `
     <div class="aff-card">
       <div class="aff-img-wrap">${p.emoji}</div>
       <div class="aff-body">
+        <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-sub);margin-bottom:4px;">${p.categoria}</div>
         <div class="aff-name">${p.nome}</div>
         <div class="aff-tag">${p.tag}</div>
         <div class="aff-price">${p.preco} <small>aprox.</small></div>
@@ -2351,16 +2563,103 @@ function renderVitrine() {
            href="${p.url || '#'}"
            target="_blank" rel="noopener sponsored"
            onclick="${p.url ? '' : 'event.preventDefault()'}">
-          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           Ver na Loja
         </a>
       </div>
     </div>`).join('');
 }
 
-// Render on load and whenever the orcamento tab is opened
 document.addEventListener('DOMContentLoaded', renderVitrine);
 
+
+
+/* ═══════════════════════════════════════
+   ROTINA DIÁRIA — salva localmente e no Supabase
+   Tabela Supabase necessária (SQL Editor):
+   create table if not exists rotina (
+     id         uuid primary key default gen_random_uuid(),
+     user_id    uuid references auth.users(id) on delete cascade,
+     data       date not null,
+     despertar  time,
+     s1_esp     time, s1_real time,
+     s2_esp     time, s2_real time,
+     s3_esp     time, s3_real time,
+     noturno    time,
+     relato     text,
+     created_at timestamptz default now(),
+     unique(user_id, data)
+   );
+   alter table rotina enable row level security;
+   create policy "rotina própria" on rotina for all using (auth.uid() = user_id);
+═══════════════════════════════════════ */
+const ROTINA_KEY = 'gds_rotina_';
+
+function getTodayStr() {
+  return new Date().toISOString().split('T')[0];
+}
+
+function loadRotina() {
+  // Set date label
+  const dateEl = document.getElementById('rotina-date');
+  if (dateEl) {
+    const now = new Date();
+    dateEl.textContent = now.toLocaleDateString('pt-BR', { weekday:'long', day:'numeric', month:'long' });
+  }
+
+  const today = getTodayStr();
+  const key   = ROTINA_KEY + today;
+  try {
+    const saved = JSON.parse(localStorage.getItem(key) || '{}');
+    const fields = ['rt-despertar','rt-s1-esp','rt-s1-real','rt-s2-esp','rt-s2-real',
+                    'rt-s3-esp','rt-s3-real','rt-noturno','rt-relato'];
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && saved[id]) el.value = saved[id];
+    });
+  } catch {}
+}
+
+async function saveRotina() {
+  const today = getTodayStr();
+  const key   = ROTINA_KEY + today;
+  const ids   = ['rt-despertar','rt-s1-esp','rt-s1-real','rt-s2-esp','rt-s2-real',
+                 'rt-s3-esp','rt-s3-real','rt-noturno','rt-relato'];
+
+  const data = {};
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) data[id] = el.value;
+  });
+
+  // Save to localStorage always
+  localStorage.setItem(key, JSON.stringify(data));
+
+  // Save to Supabase if authenticated (non-test user)
+  if (currentUser && !modoTeste) {
+    const row = {
+      user_id:   currentUser.id,
+      data:      today,
+      despertar: data['rt-despertar'] || null,
+      s1_esp:    data['rt-s1-esp']   || null,
+      s1_real:   data['rt-s1-real']  || null,
+      s2_esp:    data['rt-s2-esp']   || null,
+      s2_real:   data['rt-s2-real']  || null,
+      s3_esp:    data['rt-s3-esp']   || null,
+      s3_real:   data['rt-s3-real']  || null,
+      noturno:   data['rt-noturno']  || null,
+      relato:    data['rt-relato']   || null,
+    };
+    sb.from('rotina').upsert(row, { onConflict: 'user_id,data' });
+  }
+
+  // Feedback visual
+  const msg = document.getElementById('rotina-saved-msg');
+  if (msg) {
+    msg.textContent = '✓ Rotina salva com sucesso 🌿';
+    setTimeout(() => { msg.textContent = ''; }, 2800);
+  }
+}
 
 /* ═══════════════════════════════════════
    WELCOME QUESTIONNAIRE
