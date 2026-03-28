@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     });
 
     const reply = completion.choices[0]?.message?.content || 
-      "Desculpe, não consegui responder agora. Tente novamente. 🌿";
+      "Desculpe mamãe, não consegui responder agora. Tente de novo 🌿";
 
     return res.status(200).json({ reply });
 
