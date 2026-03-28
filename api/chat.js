@@ -1,20 +1,38 @@
-import Groq from "groq-sdk";
-
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+// api/chat.js
+import Groq from 'groq-sdk';
 
 export default async function handler(req, res) {
-  const { message } = req.body;
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Método não permitido' });
+  }
 
-  const chatCompletion = await groq.chat.completions.create({
-    messages: [
-      {
-        role: "system",
-        content: "Você é a Guia do Sono. Responda de forma técnica, direta e acolhedora sobre sono de bebês, amamentação (foco em desmame gentil) e vacinas do SUS. Use tons de verde sálvia e linho como referência estética. Não seja prolixa."
-      },
-      { role: "user", content: message }
-    ],
-    model: "llama3-8b-8192", // Modelo rápido e grátis
+  const { messages } = req.body;
+
+  if (!messages || !Array.isArray(messages)) {
+    return res.status(400).json({ error: 'Mensagens inválidas' });
+  }
+
+  const groq = new Groq({
+    apiKey: process.env.GROQ_API_KEY,
   });
 
-  res.status(200).json({ response: chatCompletion.choices[0].message.content });
+  try {
+    const completion = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",
+      messages: messages,
+      max_tokens: 900,
+      temperature: 0.7,
+    });
+
+    const reply = completion.choices[0]?.message?.content || 
+      "Desculpe, não consegui responder agora. Tente novamente. 🌿";
+
+    return res.status(200).json({ reply });
+
+  } catch (error) {
+    console.error('Groq Error:', error);
+    return res.status(500).json({ 
+      error: 'Erro ao conectar com a IA. Tente novamente em instantes. 🌿' 
+    });
+  }
 }
