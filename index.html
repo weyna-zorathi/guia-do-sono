@@ -12,32 +12,36 @@
 <link rel="apple-touch-icon" href="icon192.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════
-   TOKENS
-═══════════════════════════════════════════ */
+
+/* ══════════════════════════════════════════════
+   DESIGN TOKENS
+══════════════════════════════════════════════ */
 :root {
-  --cream:   #faf6ef;
-  --warm:    #fff9f2;
-  --sage:    #8a9e7f;
-  --sage-l:  #b5c9a8;
-  --sage-d:  #5a7050;
-  --sage-p:  #edf3e8;
-  --tc:      #c47a52;
-  --tc-l:    #e8a97e;
-  --tc-p:    #f5e0d0;
-  --brown:   #7a5c3e;
-  --brown-l: #a07850;
-  --linen:   #ede5d8;
-  --linen-d: #d8ccb8;
-  --night:   #2c3e2d;
-  --gold:    #c9a84c;
-  --gold-l:  #e8cc7e;
-  --gold-p:  #faf3df;
+  --cream:    #faf6ef;
+  --warm:     #fff9f2;
+  --sage:     #8a9e7f;
+  --sage-l:   #b5c9a8;
+  --sage-d:   #5a7050;
+  --sage-p:   #edf3e8;
+  --tc:       #c47a52;
+  --tc-l:     #e8a97e;
+  --tc-p:     #f5e0d0;
+  --brown:    #7a5c3e;
+  --brown-l:  #a07850;
+  --linen:    #ede5d8;
+  --linen-d:  #d8ccb8;
+  --night:    #2c3e2d;
+  --gold:     #c9a84c;
+  --gold-l:   #e8cc7e;
+  --gold-p:   #faf3df;
+  --lav:      #9b8db5;
+  --lav-l:    #c8c0dc;
+  --lav-p:    #f0edf8;
 }
 
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════════════════
    BASE
-═══════════════════════════════════════════ */
+══════════════════════════════════════════════ */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 html, body { height:100%; height:100dvh; overflow:hidden; }
 body {
@@ -47,55 +51,195 @@ body {
   position:relative;
 }
 
-/* ═══════════════════════════════════════════
-   PAGES (tab system)
-═══════════════════════════════════════════ */
+/* ══════════════════════════════════════════════
+   ██ LOGIN SCREEN
+══════════════════════════════════════════════ */
+#login-screen {
+  position:fixed; inset:0; z-index:9999;
+  display:flex; align-items:center; justify-content:center;
+  padding:24px;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 0%,   rgba(138,158,127,.35) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 90% 100%,  rgba(196,122,82,.25)  0%, transparent 50%),
+    radial-gradient(ellipse 70% 60% at 50% 50%,   rgba(155,141,181,.18) 0%, transparent 60%),
+    var(--cream);
+  transition:opacity .55s ease, transform .55s ease;
+}
+#login-screen.hidden {
+  opacity:0;
+  transform:scale(1.03);
+  pointer-events:none;
+}
+
+/* Decorative botanical blobs */
+#login-screen::before, #login-screen::after {
+  content:'';
+  position:absolute;
+  border-radius:50%;
+  pointer-events:none;
+}
+#login-screen::before {
+  width:260px; height:260px;
+  top:-60px; left:-60px;
+  background:radial-gradient(circle, rgba(138,158,127,.18) 0%, transparent 70%);
+  animation:blobFloat 8s ease-in-out infinite;
+}
+#login-screen::after {
+  width:200px; height:200px;
+  bottom:-40px; right:-40px;
+  background:radial-gradient(circle, rgba(196,122,82,.15) 0%, transparent 70%);
+  animation:blobFloat 10s ease-in-out infinite reverse;
+}
+@keyframes blobFloat {
+  0%,100% { transform:translate(0,0) scale(1); }
+  50%      { transform:translate(12px,-16px) scale(1.06); }
+}
+
+.login-card {
+  width:100%; max-width:380px;
+  background:rgba(255,249,242,.82);
+  backdrop-filter:blur(28px) saturate(160%);
+  -webkit-backdrop-filter:blur(28px) saturate(160%);
+  border:1px solid rgba(255,255,255,.72);
+  border-radius:28px;
+  padding:40px 32px 36px;
+  box-shadow:
+    0 8px 32px rgba(90,112,80,.14),
+    0 2px 8px rgba(90,112,80,.08),
+    inset 0 1px 0 rgba(255,255,255,.9);
+  text-align:center;
+  animation:cardIn .7s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes cardIn {
+  from { opacity:0; transform:translateY(32px) scale(.96); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
+}
+
+.login-leaf { font-size:42px; margin-bottom:14px; animation:leafSway 4s ease-in-out infinite; display:block; }
+@keyframes leafSway {
+  0%,100% { transform:rotate(-4deg); }
+  50%      { transform:rotate(4deg); }
+}
+.login-title {
+  font-family:'Playfair Display', serif;
+  font-size:26px; font-weight:700;
+  color:var(--night); margin-bottom:6px; line-height:1.2;
+}
+.login-title em { color:var(--tc); font-style:italic; }
+.login-subtitle {
+  font-family:'Lora', serif; font-style:italic;
+  font-size:13px; color:var(--brown-l);
+  margin-bottom:32px; line-height:1.5;
+}
+
+/* Social buttons */
+.login-btn {
+  display:flex; align-items:center; justify-content:center; gap:12px;
+  width:100%; padding:15px 20px;
+  border:none; border-radius:16px;
+  font-family:'DM Sans', sans-serif; font-size:15px; font-weight:600;
+  cursor:pointer; margin-bottom:12px;
+  transition:transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s, opacity .18s;
+  position:relative; overflow:hidden;
+}
+.login-btn::after {
+  content:''; position:absolute; inset:0;
+  background:rgba(255,255,255,0);
+  transition:background .15s;
+}
+.login-btn:hover::after { background:rgba(255,255,255,.12); }
+.login-btn:active { transform:scale(.97) !important; opacity:.9; }
+
+.login-btn-google {
+  background:#fff;
+  border:1.5px solid var(--linen-d);
+  color:var(--night);
+  box-shadow:0 2px 8px rgba(44,62,45,.08);
+}
+.login-btn-google:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(44,62,45,.12); }
+
+.login-btn-apple {
+  background:var(--night);
+  color:#fff;
+  box-shadow:0 4px 16px rgba(44,62,45,.3);
+}
+.login-btn-apple:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(44,62,45,.38); }
+
+.login-btn-icon { width:22px; height:22px; flex-shrink:0; }
+
+.login-divider {
+  display:flex; align-items:center; gap:12px;
+  margin:16px 0;
+}
+.login-divider-line { flex:1; height:1px; background:var(--linen); }
+.login-divider-txt  { font-size:11px; color:var(--brown-l); white-space:nowrap; font-family:'Lora',serif; font-style:italic; }
+
+.login-terms {
+  margin-top:20px; font-size:11px;
+  color:var(--brown-l); line-height:1.5;
+}
+.login-terms a { color:var(--sage-d); text-decoration:none; }
+
+/* ══════════════════════════════════════════════
+   APP SHELL (hidden until login)
+══════════════════════════════════════════════ */
+#app {
+  display:flex; flex-direction:column;
+  flex:1; height:100%; overflow:hidden;
+  opacity:0; transition:opacity .45s ease;
+}
+#app.visible { opacity:1; }
+
+/* ══════════════════════════════════════════════
+   PAGES
+══════════════════════════════════════════════ */
 .page { display:none; flex:1; flex-direction:column; overflow:hidden; }
 .page.active { display:flex; }
 
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════════════════
    SCROLL AREA
-═══════════════════════════════════════════ */
+══════════════════════════════════════════════ */
 .scroll-area {
   flex:1; overflow-y:auto; overflow-x:hidden;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch; scrollbar-width:none;
   padding-top:env(safe-area-inset-top, 0px);
   padding-bottom:calc(84px + env(safe-area-inset-bottom, 0px));
   background:var(--cream);
   background-image:
-    radial-gradient(ellipse at 90% 5%, rgba(196,122,82,.06) 0%, transparent 40%),
-    radial-gradient(ellipse at 10% 60%, rgba(138,158,127,.06) 0%, transparent 40%);
+    radial-gradient(ellipse at 90% 5%,  rgba(196,122,82,.05) 0%, transparent 40%),
+    radial-gradient(ellipse at 10% 60%, rgba(138,158,127,.05) 0%, transparent 40%);
 }
 .scroll-area::-webkit-scrollbar { display:none; }
 
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════════════════
    HEADER
-═══════════════════════════════════════════ */
+══════════════════════════════════════════════ */
 .app-header {
   padding:20px 20px 8px;
   display:flex; justify-content:space-between; align-items:flex-start;
 }
 .header-greeting { font-size:11px; color:var(--brown-l); letter-spacing:.04em; margin-bottom:2px; }
-.header-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--night); }
+.header-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--night); line-height:1.2; }
 .header-title em { color:var(--tc); font-style:italic; }
 .header-icons { display:flex; gap:8px; align-items:center; margin-top:4px; }
 .icon-btn {
   width:38px; height:38px; border-radius:12px;
   background:var(--warm); border:1px solid var(--linen);
   display:flex; align-items:center; justify-content:center;
-  font-size:16px; cursor:pointer; transition:background .2s;
+  font-size:16px; cursor:pointer; transition:all .18s;
 }
-.icon-btn:active { background:var(--linen); }
+.icon-btn:active { transform:scale(.93); background:var(--linen); }
 
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════════════════
    BABY CARD
-═══════════════════════════════════════════ */
+══════════════════════════════════════════════ */
 .baby-card {
-  margin:8px 16px 0;
-  background:var(--night); border-radius:22px; padding:18px;
+  margin:8px 16px 0; background:var(--night);
+  border-radius:22px; padding:18px;
   position:relative; overflow:hidden; cursor:pointer;
+  transition:transform .18s;
 }
+.baby-card:active { transform:scale(.99); }
 .baby-card::before {
   content:''; position:absolute; inset:0;
   background:
@@ -121,7 +265,7 @@ body {
 }
 .baby-info { flex:1; }
 .baby-name { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:#fff; margin-bottom:2px; }
-.baby-age { font-size:11px; color:rgba(255,255,255,.5); margin-bottom:10px; font-family:'Lora',serif; font-style:italic; }
+.baby-age  { font-size:11px; color:rgba(255,255,255,.5); margin-bottom:10px; font-family:'Lora',serif; font-style:italic; }
 .baby-stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; }
 .baby-stat {
   background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1);
@@ -138,7 +282,7 @@ body {
 .window-badge-lbl { font-size:8px; color:rgba(255,255,255,.35); }
 .baby-card-footer { margin-top:14px; position:relative; z-index:1; }
 .progress-label-row { display:flex; justify-content:space-between; margin-bottom:6px; }
-.progress-lbl { font-size:10px; color:rgba(255,255,255,.4); text-transform:uppercase; letter-spacing:.06em; }
+.progress-lbl  { font-size:10px; color:rgba(255,255,255,.4); text-transform:uppercase; letter-spacing:.06em; }
 .progress-time { font-size:10px; color:var(--sage-l); font-weight:500; }
 .progress-track { height:6px; background:rgba(255,255,255,.08); border-radius:100px; overflow:hidden; }
 .progress-fill {
@@ -147,122 +291,117 @@ body {
   width:0%; transition:width 1.2s cubic-bezier(.34,1.56,.64,1);
 }
 
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════════════════
    SECTION HEADER
-═══════════════════════════════════════════ */
+══════════════════════════════════════════════ */
 .section-header { padding:18px 20px 10px; display:flex; justify-content:space-between; align-items:center; }
 .section-title { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:var(--night); }
-.section-link { font-size:11px; color:var(--tc); font-weight:500; cursor:pointer; }
+.section-link  { font-size:11px; color:var(--tc); font-weight:500; cursor:pointer; }
 
-/* ═══════════════════════════════════════════
-   CHART CARD
-═══════════════════════════════════════════ */
-.chart-card {
-  margin:0 16px; background:var(--warm);
-  border:1px solid var(--linen); border-radius:20px; padding:16px 18px;
-}
-.chart-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px; }
-.chart-big-val { font-family:'Playfair Display',serif; font-size:26px; font-weight:700; color:var(--night); line-height:1; }
-.chart-big-unit { font-size:12px; color:var(--brown-l); margin-left:4px; font-weight:400; }
-.chart-big-sub { font-size:11px; color:var(--brown-l); margin-top:2px; font-family:'Lora',serif; font-style:italic; }
-.chart-legend { display:flex; flex-direction:column; gap:4px; align-items:flex-end; }
-.legend-item { display:flex; align-items:center; gap:5px; font-size:10px; color:var(--brown-l); }
-.legend-dot { width:8px; height:8px; border-radius:2px; }
-.bars-container { display:flex; align-items:flex-end; gap:7px; height:90px; margin:14px 0 8px; }
-.bar-group { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; height:100%; justify-content:flex-end; }
-.bar-pct { font-size:9px; font-weight:600; color:var(--brown-l); opacity:0; transition:opacity .4s; line-height:1; }
-.bar-pct.visible { opacity:1; }
-.bar-wrap { width:100%; display:flex; flex-direction:column; justify-content:flex-end; height:72px; border-radius:8px; overflow:hidden; background:var(--linen); cursor:pointer; }
-.bar-fill { width:100%; border-radius:8px; height:0%; transition:height 1s cubic-bezier(.34,1.56,.64,1); position:relative; }
-.bar-fill.sleep { background:linear-gradient(180deg, var(--sage-l) 0%, var(--sage) 100%); }
-.bar-fill.nap   { background:linear-gradient(180deg, var(--tc-l) 0%, var(--tc) 100%); }
-.bar-fill.today { background:linear-gradient(180deg, var(--gold-l) 0%, var(--gold) 100%); box-shadow:0 0 12px rgba(201,168,76,.4); }
-.bar-day { font-size:10px; color:var(--brown-l); font-weight:400; }
-.bar-day.active { font-weight:600; color:var(--night); }
-
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════════════════
    MINI STATS
-═══════════════════════════════════════════ */
+══════════════════════════════════════════════ */
 .mini-stats { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:0 16px; }
 .mini-stat-card {
   background:var(--warm); border:1px solid var(--linen);
   border-radius:18px; padding:14px;
-  position:relative; overflow:hidden; cursor:pointer; transition:border-color .15s;
+  position:relative; overflow:hidden; cursor:pointer;
+  transition:transform .18s, border-color .15s;
 }
-.mini-stat-card:active { border-color:var(--linen-d); }
+.mini-stat-card:active { transform:scale(.97); }
 .mini-stat-card::before { content:''; position:absolute; top:-16px; right:-16px; width:60px; height:60px; border-radius:50%; opacity:.12; }
 .msc-sage::before  { background:var(--sage); }
 .msc-tc::before    { background:var(--tc); }
 .msc-gold::before  { background:var(--gold); }
 .msc-night::before { background:var(--night); }
 .mini-stat-icon { font-size:20px; margin-bottom:8px; display:block; }
-.mini-stat-val { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--night); line-height:1; margin-bottom:3px; }
+.mini-stat-val  { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--night); line-height:1; margin-bottom:3px; }
 .mini-stat-val span { font-size:12px; font-weight:400; color:var(--brown-l); }
-.mini-stat-lbl { font-size:11px; color:var(--brown-l); line-height:1.4; }
+.mini-stat-lbl  { font-size:11px; color:var(--brown-l); line-height:1.4; }
 .mini-stat-trend { position:absolute; bottom:12px; right:12px; font-size:9px; font-weight:600; padding:3px 7px; border-radius:20px; }
 .trend-up   { background:var(--sage-p); color:var(--sage-d); }
 .trend-same { background:var(--gold-p); color:#7a6010; }
-.trend-down { background:var(--tc-p);  color:var(--tc); }
+.trend-down { background:var(--tc-p);   color:var(--tc); }
 
-/* ═══════════════════════════════════════════
-   TIMELINE
-═══════════════════════════════════════════ */
-.timeline-card { margin:0 16px; background:var(--warm); border:1px solid var(--linen); border-radius:20px; padding:14px 16px; }
-.timeline-label { font-size:10px; text-transform:uppercase; letter-spacing:.1em; color:var(--brown-l); font-weight:500; margin-bottom:10px; }
-.timeline-ruler { display:flex; justify-content:space-between; margin-bottom:5px; }
-.ruler-mark { font-size:9px; color:var(--brown-l); opacity:.5; }
-.timeline-bar-bg { height:34px; background:var(--linen); border-radius:10px; position:relative; overflow:hidden; margin-bottom:8px; }
-.timeline-sleep-block { position:absolute; top:4px; bottom:4px; border-radius:6px; opacity:0; transition:opacity .5s ease, width .8s cubic-bezier(.34,1.56,.64,1); }
-.timeline-sleep-block.visible { opacity:1; }
-.tsb-night { background:linear-gradient(90deg, var(--night), #3d5a3e); }
-.tsb-nap1  { background:linear-gradient(90deg, var(--sage-l), var(--sage)); }
-.tsb-nap2  { background:linear-gradient(90deg, var(--tc-l), var(--tc)); }
-.tsb-nap3  { background:linear-gradient(90deg, var(--gold-l), var(--gold)); }
-.timeline-legend { display:flex; gap:10px; flex-wrap:wrap; }
-.tl-leg-item { display:flex; align-items:center; gap:5px; font-size:10px; color:var(--brown-l); }
-.tl-leg-dot { width:8px; height:8px; border-radius:2px; }
-
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════════════════
    SINAIS
-═══════════════════════════════════════════ */
-.sinal-row { display:flex; gap:8px; margin:0 16px; overflow-x:auto; scrollbar-width:none; padding-bottom:2px; }
+══════════════════════════════════════════════ */
+.sinal-row { display:flex; gap:8px; margin:0 16px; overflow-x:auto; scrollbar-width:none; padding-bottom:4px; }
 .sinal-row::-webkit-scrollbar { display:none; }
 .sinal-chip {
   flex-shrink:0; background:var(--warm); border:1px solid var(--linen);
-  border-radius:14px; padding:10px 13px; display:flex; align-items:center;
-  gap:7px; cursor:pointer; transition:border-color .2s, background .2s;
+  border-radius:14px; padding:10px 13px;
+  display:flex; align-items:center; gap:7px;
+  cursor:pointer; transition:all .18s;
 }
-.sinal-chip:active { background:var(--sage-p); }
+.sinal-chip:active { transform:scale(.95); }
 .sinal-chip.active { background:var(--sage-p); border-color:var(--sage); }
 .sinal-chip-icon { font-size:15px; }
 .sinal-chip-text { font-size:11px; font-weight:500; color:var(--night); white-space:nowrap; }
 
-/* ═══════════════════════════════════════════
-   CHAT ENTRY CARD (dashboard)
-═══════════════════════════════════════════ */
+/* ══════════════════════════════════════════════
+   QUICK BUDGET (HOME)
+══════════════════════════════════════════════ */
+.budget-quick-card {
+  margin:0 16px; background:var(--warm);
+  border:1px solid var(--linen); border-radius:20px; overflow:hidden;
+}
+.bq-header {
+  padding:14px 16px; background:var(--night);
+  display:flex; justify-content:space-between; align-items:center;
+}
+.bq-header-title { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:#fff; }
+.bq-total { font-size:11px; color:var(--gold-l); font-weight:500; }
+.budget-row {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:11px 16px; border-bottom:1px solid var(--linen);
+  transition:background .15s; cursor:pointer;
+}
+.budget-row:last-child { border-bottom:none; }
+.budget-row:active { background:var(--cream); }
+.budget-row-left { display:flex; align-items:center; gap:10px; }
+.budget-row-icon { width:32px; height:32px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:14px; }
+.bri-sage  { background:var(--sage-p); }
+.bri-tc    { background:var(--tc-p); }
+.bri-gold  { background:var(--gold-p); }
+.bri-lav   { background:var(--lav-p); }
+.bri-night { background:rgba(44,62,45,.08); }
+.budget-row-name { font-size:12px; font-weight:500; color:var(--night); }
+.budget-row-cat  { font-size:10px; color:var(--brown-l); margin-top:1px; }
+.budget-row-val  { font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:var(--night); }
+.bq-total-row {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:12px 16px; background:var(--sage-p); border-top:2px solid var(--sage-l);
+}
+.bq-total-lbl { font-size:12px; font-weight:600; color:var(--sage-d); }
+.bq-total-val { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:var(--sage-d); }
+
+/* ══════════════════════════════════════════════
+   CHAT ENTRY CARD
+══════════════════════════════════════════════ */
 .chat-entry-card {
-  margin:0 16px;
-  background:linear-gradient(135deg, var(--night) 0%, #3d5a3e 100%);
+  margin:0 16px; background:linear-gradient(135deg, var(--night) 0%, #3d5a3e 100%);
   border-radius:20px; padding:16px 18px;
   display:flex; align-items:center; gap:14px;
   cursor:pointer; position:relative; overflow:hidden;
+  transition:transform .18s;
 }
+.chat-entry-card:active { transform:scale(.98); }
 .chat-entry-card::before {
   content:''; position:absolute; inset:0;
   background:radial-gradient(ellipse 60% 80% at 5% 50%, rgba(138,158,127,.2) 0%, transparent 60%);
   pointer-events:none;
 }
-.chat-entry-card:active { opacity:.9; }
 .cec-icon {
   width:42px; height:42px; border-radius:13px;
   background:rgba(138,158,127,.25); border:1px solid rgba(138,158,127,.3);
-  display:flex; align-items:center; justify-content:center;
-  font-size:20px; flex-shrink:0; position:relative; z-index:1;
+  display:flex; align-items:center; justify-content:center; font-size:20px;
+  flex-shrink:0; position:relative; z-index:1;
 }
 .cec-text { flex:1; position:relative; z-index:1; }
 .cec-title { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:#fff; margin-bottom:2px; }
 .cec-sub { font-size:11px; color:rgba(255,255,255,.45); font-family:'Lora',serif; font-style:italic; }
-.cec-arrow { font-size:20px; color:rgba(255,255,255,.3); position:relative; z-index:1; }
+.cec-arrow { font-size:20px; color:rgba(255,255,255,.35); position:relative; z-index:1; }
 .pulse-dot {
   position:absolute; top:14px; right:16px;
   width:8px; height:8px; border-radius:50%;
@@ -274,94 +413,152 @@ body {
   50%      { box-shadow:0 0 0 6px rgba(181,201,168,0); }
 }
 
-/* ═══════════════════════════════════════════
-   ORÇAMENTO (budget table)
-═══════════════════════════════════════════ */
-.budget-card {
-  margin:0 16px; background:var(--warm);
-  border:1px solid var(--linen); border-radius:20px; overflow:hidden;
+/* ══════════════════════════════════════════════
+   ██ ORÇAMENTO PAGE
+══════════════════════════════════════════════ */
+.orcamento-header {
+  padding:max(env(safe-area-inset-top,0px),16px) 20px 0;
+  flex-shrink:0;
 }
-.budget-header {
-  padding:14px 16px; background:var(--night);
-  display:flex; justify-content:space-between; align-items:center;
-}
-.budget-header-title { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:#fff; }
-.budget-header-total { font-size:11px; color:var(--gold-l); font-weight:500; }
-.budget-row {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:11px 16px; border-bottom:1px solid var(--linen);
-  transition:background .15s; cursor:pointer;
-}
-.budget-row:last-child { border-bottom:none; }
-.budget-row:active { background:var(--cream); }
-.budget-row-left { display:flex; align-items:center; gap:10px; }
-.budget-row-icon {
-  width:32px; height:32px; border-radius:10px;
-  display:flex; align-items:center; justify-content:center; font-size:14px;
-}
-.bri-sage  { background:var(--sage-p); }
-.bri-tc    { background:var(--tc-p); }
-.bri-gold  { background:var(--gold-p); }
-.bri-night { background:rgba(44,62,45,.08); }
-.budget-row-name { font-size:12px; font-weight:500; color:var(--night); }
-.budget-row-cat  { font-size:10px; color:var(--brown-l); margin-top:1px; }
-.budget-row-val  { font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:var(--night); }
-.budget-total-row {
-  display:flex; justify-content:space-between; align-items:center;
-  padding:12px 16px; background:var(--sage-p); border-top:2px solid var(--sage-l);
-}
-.budget-total-lbl { font-size:12px; font-weight:600; color:var(--sage-d); }
-.budget-total-val { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:var(--sage-d); }
 
-/* ═══════════════════════════════════════════
-   EBOOKS (guias section)
-═══════════════════════════════════════════ */
+/* Add expense form */
+.add-expense-card {
+  margin:0 16px 4px; background:var(--warm);
+  border:1.5px solid var(--linen-d); border-radius:20px; padding:16px;
+}
+.add-expense-card h3 {
+  font-family:'Playfair Display',serif; font-size:14px; font-weight:700;
+  color:var(--night); margin-bottom:12px;
+}
+.expense-inputs { display:grid; grid-template-columns:1fr auto; gap:8px; margin-bottom:8px; }
+.expense-inputs-row2 { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px; }
+.expense-input {
+  padding:10px 14px; border:1.5px solid var(--linen-d); border-radius:12px;
+  font-family:'DM Sans',sans-serif; font-size:13px; color:var(--night);
+  background:var(--cream); outline:none; width:100%;
+  transition:border-color .2s, box-shadow .2s;
+}
+.expense-input:focus { border-color:var(--sage); box-shadow:0 0 0 3px rgba(138,158,127,.12); }
+.expense-input::placeholder { color:var(--brown-l); }
+.btn-add-expense {
+  background:linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%);
+  color:#fff; border:none; border-radius:12px; padding:10px 18px;
+  font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600;
+  cursor:pointer; white-space:nowrap;
+  box-shadow:0 3px 10px rgba(90,112,80,.25);
+  transition:transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s;
+}
+.btn-add-expense:active { transform:scale(.95); box-shadow:0 1px 5px rgba(90,112,80,.2); }
+
+/* Expense list */
+.expense-summary {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:10px 16px 6px;
+}
+.expense-month-lbl { font-family:'Lora',serif; font-style:italic; font-size:12px; color:var(--brown-l); }
+.expense-total-lbl { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:var(--sage-d); }
+
+.expense-list { margin:0 16px; display:flex; flex-direction:column; gap:8px; }
+.expense-item {
+  background:var(--warm); border:1px solid var(--linen); border-radius:14px;
+  padding:12px 14px; display:flex; align-items:center; gap:10px;
+  animation:fadeInUp .3s ease both;
+}
+.expense-item-icon {
+  width:36px; height:36px; border-radius:10px;
+  background:var(--sage-p); display:flex; align-items:center; justify-content:center;
+  font-size:16px; flex-shrink:0;
+}
+.expense-item-info { flex:1; }
+.expense-item-name { font-size:13px; font-weight:500; color:var(--night); }
+.expense-item-date { font-size:10px; color:var(--brown-l); margin-top:1px; }
+.expense-item-val  { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:var(--night); }
+.expense-item-del  {
+  width:28px; height:28px; border-radius:8px; border:none;
+  background:var(--tc-p); color:var(--tc); font-size:14px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all .15s; flex-shrink:0;
+}
+.expense-item-del:active { transform:scale(.9); }
+.expense-empty {
+  text-align:center; padding:24px 16px;
+  font-family:'Lora',serif; font-style:italic;
+  font-size:13px; color:var(--brown-l);
+}
+
+/* Affiliate grid */
+.affiliate-section { margin:16px 16px 0; }
+.affiliate-section-title {
+  font-family:'Playfair Display',serif; font-size:15px; font-weight:700;
+  color:var(--night); margin-bottom:12px;
+}
+.affiliate-section-title em { color:var(--tc); font-style:italic; }
+.affiliate-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.affiliate-card {
+  background:var(--warm); border:1px solid var(--linen); border-radius:18px;
+  overflow:hidden; cursor:pointer; transition:transform .18s, box-shadow .18s;
+}
+.affiliate-card:active { transform:scale(.97); box-shadow:0 2px 8px rgba(44,62,45,.1); }
+.affiliate-img {
+  width:100%; height:100px; object-fit:cover;
+  background:var(--linen);
+  display:flex; align-items:center; justify-content:center; font-size:36px;
+}
+.affiliate-img-placeholder { width:100%; height:100px; display:flex; align-items:center; justify-content:center; font-size:36px; background:var(--linen); }
+.affiliate-body { padding:10px 12px 12px; }
+.affiliate-name { font-size:12px; font-weight:600; color:var(--night); margin-bottom:3px; line-height:1.3; }
+.affiliate-price { font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:var(--tc); margin-bottom:8px; }
+.affiliate-btn {
+  display:block; width:100%; padding:8px;
+  background:linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%);
+  color:#fff; border:none; border-radius:10px;
+  font-family:'DM Sans',sans-serif; font-size:11px; font-weight:600;
+  cursor:pointer; text-align:center; text-decoration:none;
+  transition:opacity .18s;
+}
+.affiliate-btn:active { opacity:.85; }
+
+/* ══════════════════════════════════════════════
+   EBOOKS / GUIAS
+══════════════════════════════════════════════ */
 .ebook-featured {
   margin:0 16px; background:var(--night); border-radius:22px;
   padding:22px; position:relative; overflow:hidden; cursor:pointer;
-  text-decoration:none; display:block;
+  transition:transform .18s;
 }
+.ebook-featured:active { transform:scale(.99); }
 .ebook-featured::before {
   content:''; position:absolute; inset:0;
   background:radial-gradient(ellipse 60% 80% at 5% 50%, rgba(201,168,76,.18) 0%, transparent 60%);
   pointer-events:none;
 }
-.ef-badge {
-  display:inline-block; background:rgba(201,168,76,.2); border:1px solid rgba(201,168,76,.35);
-  border-radius:20px; padding:4px 12px; font-size:10px; color:var(--gold-l); font-weight:500;
-  margin-bottom:12px; position:relative; z-index:1;
-}
+.ef-badge { display:inline-block; background:rgba(201,168,76,.2); border:1px solid rgba(201,168,76,.35); border-radius:20px; padding:4px 12px; font-size:10px; color:var(--gold-l); font-weight:500; margin-bottom:12px; position:relative; z-index:1; }
 .ef-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:#fff; margin-bottom:6px; position:relative; z-index:1; line-height:1.3; }
-.ef-sub { font-size:12px; color:rgba(255,255,255,.5); font-family:'Lora',serif; font-style:italic; position:relative; z-index:1; margin-bottom:16px; }
-.ef-cta {
-  display:inline-flex; align-items:center; gap:8px;
-  background:rgba(138,158,127,.25); border:1px solid rgba(138,158,127,.35);
-  border-radius:12px; padding:10px 16px; position:relative; z-index:1;
-}
+.ef-sub   { font-size:12px; color:rgba(255,255,255,.5); font-family:'Lora',serif; font-style:italic; position:relative; z-index:1; margin-bottom:16px; }
+.ef-cta   { display:inline-flex; align-items:center; gap:8px; background:rgba(138,158,127,.25); border:1px solid rgba(138,158,127,.35); border-radius:12px; padding:10px 16px; position:relative; z-index:1; }
 .ef-cta-txt { font-size:13px; font-weight:600; color:#fff; }
 
 .ebook-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:0 16px; }
 .ebook-card {
-  background:var(--warm); border:1px solid var(--linen); border-radius:18px; padding:14px;
-  cursor:pointer; position:relative; overflow:hidden; transition:border-color .15s;
+  background:var(--warm); border:1px solid var(--linen); border-radius:18px;
+  padding:14px; cursor:pointer; position:relative; overflow:hidden;
+  transition:transform .18s, border-color .15s;
 }
-.ebook-card:active { border-color:var(--linen-d); }
+.ebook-card:active { transform:scale(.97); border-color:var(--linen-d); }
 .ec-emoji { font-size:22px; margin-bottom:8px; display:block; }
 .ec-title { font-family:'Playfair Display',serif; font-size:13px; font-weight:600; color:var(--night); line-height:1.3; margin-bottom:4px; }
-.ec-sub { font-size:10px; color:var(--brown-l); line-height:1.4; }
-.ec-tag {
-  position:absolute; top:10px; right:10px;
-  font-size:9px; font-weight:600; padding:3px 7px; border-radius:10px;
-}
+.ec-sub   { font-size:10px; color:var(--brown-l); line-height:1.4; }
+.ec-tag   { position:absolute; top:10px; right:10px; font-size:9px; font-weight:600; padding:3px 7px; border-radius:10px; }
 .tag-free { background:var(--sage-p); color:var(--sage-d); }
 .tag-plus { background:var(--gold-p); color:#7a6010; }
 
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════════════════
    PERFIL
-═══════════════════════════════════════════ */
+══════════════════════════════════════════════ */
 .perfil-hero {
-  margin:12px 16px 0; background:var(--night); border-radius:22px; padding:22px;
-  display:flex; align-items:center; gap:16px; position:relative; overflow:hidden;
+  margin:12px 16px 0; background:var(--night); border-radius:22px;
+  padding:22px; display:flex; align-items:center; gap:16px;
+  position:relative; overflow:hidden;
 }
 .perfil-hero::before {
   content:''; position:absolute; inset:0;
@@ -374,9 +571,9 @@ body {
   display:flex; align-items:center; justify-content:center; font-size:28px;
   flex-shrink:0; position:relative; z-index:1;
 }
-.ph-info { flex:1; position:relative; z-index:1; }
-.ph-name { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:#fff; margin-bottom:3px; }
-.ph-plan { font-size:11px; color:var(--gold-l); font-weight:500; }
+.ph-info  { flex:1; position:relative; z-index:1; }
+.ph-name  { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:#fff; margin-bottom:3px; }
+.ph-plan  { font-size:11px; color:var(--gold-l); font-weight:500; }
 .ph-plan span { background:rgba(201,168,76,.2); border:1px solid rgba(201,168,76,.3); border-radius:10px; padding:2px 8px; }
 
 .perfil-section { margin:16px 16px 0; }
@@ -384,35 +581,43 @@ body {
 .perfil-item {
   display:flex; align-items:center; justify-content:space-between;
   padding:13px 16px; background:var(--warm); border:1px solid var(--linen);
-  border-radius:14px; margin-bottom:8px; cursor:pointer; transition:background .15s;
+  border-radius:14px; margin-bottom:8px; cursor:pointer;
+  transition:all .18s;
 }
-.perfil-item:active { background:var(--cream); }
-.pi-left { display:flex; align-items:center; gap:12px; }
-.pi-icon {
-  width:36px; height:36px; border-radius:10px;
-  display:flex; align-items:center; justify-content:center; font-size:16px;
-}
-.pi-sage { background:var(--sage-p); }
-.pi-tc   { background:var(--tc-p); }
-.pi-gold { background:var(--gold-p); }
-.pi-lbl  { font-size:13px; font-weight:500; color:var(--night); }
-.pi-sub  { font-size:11px; color:var(--brown-l); margin-top:1px; }
+.perfil-item:active { transform:scale(.98); background:var(--cream); }
+.pi-left  { display:flex; align-items:center; gap:12px; }
+.pi-icon  { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:16px; }
+.pi-sage  { background:var(--sage-p); }
+.pi-tc    { background:var(--tc-p); }
+.pi-gold  { background:var(--gold-p); }
+.pi-lav   { background:var(--lav-p); }
+.pi-lbl   { font-size:13px; font-weight:500; color:var(--night); }
+.pi-sub   { font-size:11px; color:var(--brown-l); margin-top:1px; }
 .pi-arrow { font-size:18px; color:var(--brown-l); }
 
 .plan-upgrade-card {
   margin:16px 16px 0; background:linear-gradient(135deg, var(--tc) 0%, var(--gold) 100%);
   border-radius:20px; padding:20px; text-align:center; cursor:pointer;
+  transition:transform .18s;
 }
+.plan-upgrade-card:active { transform:scale(.98); }
 .puc-title { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:#fff; margin-bottom:6px; }
-.puc-sub { font-size:12px; color:rgba(255,255,255,.75); margin-bottom:14px; line-height:1.5; }
-.puc-btn {
-  display:inline-block; background:#fff; color:var(--tc);
-  font-size:13px; font-weight:700; padding:10px 24px; border-radius:12px;
-}
+.puc-sub   { font-size:12px; color:rgba(255,255,255,.8); margin-bottom:14px; line-height:1.5; }
+.puc-btn   { display:inline-block; background:#fff; color:var(--tc); font-size:13px; font-weight:700; padding:10px 24px; border-radius:12px; }
 
-/* ═══════════════════════════════════════════
+/* logout btn */
+.logout-btn {
+  margin:12px 16px; display:block; width:calc(100% - 32px);
+  padding:13px; text-align:center; border-radius:14px;
+  background:transparent; border:1.5px solid var(--linen-d);
+  font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500;
+  color:var(--brown-l); cursor:pointer; transition:all .18s;
+}
+.logout-btn:active { background:var(--linen); transform:scale(.98); }
+
+/* ══════════════════════════════════════════════
    BOTTOM NAV
-═══════════════════════════════════════════ */
+══════════════════════════════════════════════ */
 .bottom-nav {
   position:fixed; bottom:0; left:0; right:0;
   background:rgba(250,246,239,.96);
@@ -426,28 +631,27 @@ body {
 .nav-item {
   flex:1; display:flex; flex-direction:column; align-items:center; gap:3px;
   padding:8px 4px; border-radius:14px; cursor:pointer;
-  text-decoration:none; transition:background .15s;
   border:none; background:transparent;
+  transition:background .15s, transform .15s;
 }
-.nav-item:active { background:var(--linen); }
+.nav-item:active { transform:scale(.92); }
 .nav-item.active { background:var(--sage-p); }
 .nav-icon { font-size:20px; line-height:1; }
 .nav-lbl  { font-size:10px; font-weight:500; color:var(--brown-l); }
 .nav-item.active .nav-lbl { color:var(--sage-d); }
 
-/* ═══════════════════════════════════════════
-   ── CHAT PAGE ──
-═══════════════════════════════════════════ */
+/* ══════════════════════════════════════════════
+   ██ CHAT PAGE
+══════════════════════════════════════════════ */
 .chat-header {
-  padding:max(env(safe-area-inset-top,0px), 16px) 16px 14px;
-  padding-top:max(env(safe-area-inset-top,0px),16px);
+  padding:max(env(safe-area-inset-top,0px),16px) 16px 14px;
   background:var(--warm); border-bottom:1px solid var(--linen);
   display:flex; align-items:center; gap:12px; flex-shrink:0;
   box-shadow:0 2px 12px rgba(44,62,45,.06);
 }
 .chat-av {
   width:40px; height:40px; border-radius:50%;
-  background:linear-gradient(135deg, var(--sage) 0%, #5a7050 100%);
+  background:linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%);
   display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;
 }
 .chat-hd-info { flex:1; }
@@ -459,34 +663,23 @@ body {
   background:var(--gold-p); border:1px solid var(--gold-l); color:#7a6010;
   white-space:nowrap; transition:all .3s;
 }
-.msg-counter-badge.esgotado { background:#f5e0d0; border-color:var(--tc-l); color:var(--tc); }
+.msg-counter-badge.esgotado { background:var(--tc-p); border-color:var(--tc-l); color:var(--tc); }
 
-/* messages list */
 #chat-messages {
   flex:1; overflow-y:auto; padding:16px 14px;
   display:flex; flex-direction:column; gap:12px;
   scroll-behavior:smooth; scrollbar-width:none;
-  padding-bottom:calc(80px + env(safe-area-inset-bottom,0px));
+  padding-bottom:calc(80px + env(safe-area-inset-bottom, 0px));
 }
 #chat-messages::-webkit-scrollbar { display:none; }
 
-.bubble {
-  max-width:82%; padding:11px 15px; border-radius:18px;
-  font-size:14px; line-height:1.6; animation:bubbleIn .28s ease both;
-}
-@keyframes bubbleIn {
-  from { opacity:0; transform:translateY(6px); }
-  to   { opacity:1; transform:translateY(0); }
-}
+.bubble { max-width:82%; padding:11px 15px; border-radius:18px; font-size:14px; line-height:1.6; animation:fadeInUp .28s ease both; }
 .bubble-ai {
   align-self:flex-start; background:var(--warm);
   border:1px solid var(--linen); border-bottom-left-radius:5px;
   box-shadow:0 2px 8px rgba(44,62,45,.07); color:var(--night);
 }
-.bubble-ai .bsender {
-  font-family:'Lora',serif; font-size:10px; color:var(--sage);
-  font-style:italic; display:block; margin-bottom:4px;
-}
+.bubble-ai .bsender { font-family:'Lora',serif; font-size:10px; color:var(--sage); font-style:italic; display:block; margin-bottom:4px; }
 .bubble-user {
   align-self:flex-end;
   background:linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%);
@@ -494,34 +687,29 @@ body {
   box-shadow:0 2px 8px rgba(90,112,80,.3);
 }
 
-/* welcome bubble */
 .welcome-bubble {
-  align-self:flex-start; max-width:88%;
+  align-self:flex-start; max-width:90%;
   background:linear-gradient(135deg, var(--sage-p) 0%, var(--gold-p) 100%);
   border:1px solid var(--linen-d); border-radius:18px; border-bottom-left-radius:5px;
   padding:14px 16px; font-size:13px; color:var(--brown); line-height:1.6;
-  animation:bubbleIn .3s ease both;
+  animation:fadeInUp .3s ease both;
 }
 .wb-title { font-family:'Playfair Display',serif; font-size:15px; color:var(--night); margin-bottom:6px; display:block; }
 .chips-row { display:flex; flex-wrap:wrap; gap:7px; margin-top:10px; }
 .chip-q {
   background:#fff; border:1px solid var(--linen-d); border-radius:20px;
   padding:5px 11px; font-size:12px; color:var(--brown); cursor:pointer;
-  transition:background .15s, color .15s, border-color .15s;
+  transition:all .18s;
 }
-.chip-q:hover { background:var(--sage); color:#fff; border-color:var(--sage); }
+.chip-q:active { transform:scale(.95); background:var(--sage); color:#fff; border-color:var(--sage); }
 
-/* typing indicator */
 .typing-bubble {
   align-self:flex-start; display:flex; align-items:center; gap:5px;
   padding:10px 15px; background:var(--warm); border:1px solid var(--linen);
   border-radius:18px; border-bottom-left-radius:5px;
-  box-shadow:0 2px 8px rgba(44,62,45,.07);
-  animation:bubbleIn .28s ease both;
+  box-shadow:0 2px 8px rgba(44,62,45,.07); animation:fadeInUp .28s ease both;
 }
-.typing-bubble span {
-  width:7px; height:7px; border-radius:50%; animation:typingBounce 1.2s infinite;
-}
+.typing-bubble span { width:7px; height:7px; border-radius:50%; animation:typingBounce 1.2s infinite; }
 .typing-bubble span:nth-child(1) { background:var(--sage); }
 .typing-bubble span:nth-child(2) { background:var(--tc); animation-delay:.2s; }
 .typing-bubble span:nth-child(3) { background:var(--gold); animation-delay:.4s; }
@@ -530,7 +718,6 @@ body {
   30%          { transform:translateY(-6px); }
 }
 
-/* input bar */
 .chat-input-bar {
   position:fixed; bottom:0; left:0; right:0;
   background:rgba(250,246,239,.97);
@@ -538,8 +725,10 @@ body {
   border-top:1px solid var(--linen);
   padding:10px 14px;
   padding-bottom:max(env(safe-area-inset-bottom,10px),10px);
-  display:flex; align-items:flex-end; gap:8px; z-index:50;
+  display:none; align-items:flex-end; gap:8px; z-index:50;
 }
+.chat-input-bar.active { display:flex; }
+
 #user-input {
   flex:1; border:1.5px solid var(--linen-d); border-radius:20px;
   padding:10px 14px; font-family:'DM Sans',sans-serif; font-size:14px;
@@ -554,11 +743,11 @@ body {
 .input-action-btn {
   width:42px; height:42px; flex-shrink:0; border-radius:50%; border:none;
   display:flex; align-items:center; justify-content:center; cursor:pointer;
-  transition:transform .15s, opacity .2s;
+  transition:transform .18s cubic-bezier(.34,1.56,.64,1), opacity .18s;
 }
-#mic-btn {
-  background:var(--warm); border:1.5px solid var(--linen-d); color:var(--brown-l);
-}
+.input-action-btn:active { transform:scale(.9) !important; }
+
+#mic-btn { background:var(--warm); border:1.5px solid var(--linen-d); color:var(--brown-l); }
 #mic-btn.listening { background:var(--tc-p); border-color:var(--tc); color:var(--tc); animation:micPulse 1s infinite; }
 @keyframes micPulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.1);} }
 #mic-btn svg { width:18px; height:18px; }
@@ -567,40 +756,37 @@ body {
   background:linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%);
   box-shadow:0 3px 10px rgba(90,112,80,.35);
 }
-#send-btn:hover { transform:scale(1.06); }
-#send-btn:active { transform:scale(.95); }
-#send-btn:disabled { opacity:.4; cursor:not-allowed; transform:none; }
+#send-btn:hover:not(:disabled) { transform:scale(1.06); }
+#send-btn:disabled { opacity:.4; cursor:not-allowed; }
 #send-btn svg { width:20px; height:20px; fill:none; stroke:#fff; stroke-width:2; }
 
-/* ── limit banner ── */
 #limit-banner {
   display:none; text-align:center; padding:10px 20px;
   background:var(--tc-p); border-top:1px solid var(--tc-l);
-  font-size:12px; color:var(--tc); line-height:1.5;
-  flex-shrink:0;
+  font-size:12px; color:var(--tc); line-height:1.5; flex-shrink:0;
 }
 #limit-banner.visible { display:block; }
 
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════════════════
    GLASSMORPHISM PRO MODAL
-═══════════════════════════════════════════ */
+══════════════════════════════════════════════ */
 #pro-overlay {
-  display:none; position:fixed; inset:0; z-index:999;
+  display:none; position:fixed; inset:0; z-index:9998;
   background:rgba(44,62,45,.55); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-  align-items:flex-end; justify-content:center; padding-bottom:env(safe-area-inset-bottom,0px);
+  align-items:flex-end; justify-content:center;
+  padding-bottom:env(safe-area-inset-bottom,0px);
 }
 #pro-overlay.open { display:flex; }
-
 #pro-modal {
-  background:rgba(250,246,239,.92); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
-  border:1px solid rgba(255,255,255,.6); border-bottom:none;
+  background:rgba(250,246,239,.94); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
+  border:1px solid rgba(255,255,255,.65); border-bottom:none;
   border-radius:28px 28px 0 0; padding:28px 24px 36px;
   width:100%; max-width:480px;
   animation:slideUp .4s cubic-bezier(.34,1.56,.64,1) both;
 }
 @keyframes slideUp {
   from { transform:translateY(100%); opacity:0; }
-  to   { transform:translateY(0);    opacity:1; }
+  to   { transform:translateY(0); opacity:1; }
 }
 .pm-handle { width:40px; height:4px; background:var(--linen-d); border-radius:4px; margin:0 auto 20px; }
 .pm-emoji  { text-align:center; font-size:36px; margin-bottom:10px; }
@@ -608,12 +794,8 @@ body {
 .pm-sub    { font-size:13px; color:var(--brown-l); text-align:center; line-height:1.5; margin-bottom:20px; }
 .pm-perks  { display:flex; flex-direction:column; gap:10px; margin-bottom:22px; }
 .pm-perk   { display:flex; align-items:center; gap:10px; }
-.pm-perk-icon {
-  width:34px; height:34px; border-radius:10px;
-  background:var(--sage-p); display:flex; align-items:center; justify-content:center;
-  font-size:16px; flex-shrink:0;
-}
-.pm-perk-txt { font-size:13px; color:var(--night); line-height:1.4; }
+.pm-perk-icon { width:34px; height:34px; border-radius:10px; background:var(--sage-p); display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+.pm-perk-txt  { font-size:13px; color:var(--night); line-height:1.4; }
 .pm-perk-txt strong { color:var(--sage-d); }
 .pm-btn {
   display:block; width:100%; padding:16px;
@@ -621,595 +803,649 @@ body {
   color:#fff; border:none; border-radius:16px; text-align:center;
   font-family:'DM Sans',sans-serif; font-size:15px; font-weight:700;
   cursor:pointer; box-shadow:0 4px 16px rgba(90,112,80,.3);
-  transition:opacity .2s;
+  transition:transform .18s, opacity .18s;
 }
-.pm-btn:hover { opacity:.9; }
+.pm-btn:active { transform:scale(.98); opacity:.9; }
 .pm-skip { display:block; text-align:center; margin-top:12px; font-size:12px; color:var(--brown-l); cursor:pointer; }
-.pm-skip:hover { color:var(--brown); }
 
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════════════════
    ANIMATIONS
-═══════════════════════════════════════════ */
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(12px); }
+══════════════════════════════════════════════ */
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(14px); }
   to   { opacity:1; transform:translateY(0); }
 }
-.fade-up { opacity:0; animation:fadeUp .5s ease forwards; }
+.fade-up { opacity:0; animation:fadeInUp .5s ease forwards; }
 .fd1{animation-delay:.05s} .fd2{animation-delay:.12s} .fd3{animation-delay:.20s}
 .fd4{animation-delay:.28s} .fd5{animation-delay:.36s} .fd6{animation-delay:.44s}
-.fd7{animation-delay:.52s} .fd8{animation-delay:.60s}
+.fd7{animation-delay:.52s} .fd8{animation-delay:.60s} .fd9{animation-delay:.68s}
+
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════
-     PAGE 1 — DASHBOARD
-═══════════════════════════════════════ -->
-<div class="page active" id="page-home">
-  <div class="scroll-area">
+<!-- ════════════════════════════════════════════
+     ██ LOGIN SCREEN
+════════════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-card">
+    <span class="login-leaf">🌿</span>
+    <div class="login-title">Guia do <em>Sono</em></div>
+    <div class="login-subtitle">Seu refúgio tranquilo para noites mais serenas</div>
 
-    <div class="app-header fade-up fd1">
-      <div>
-        <div class="header-greeting">Bom dia, mamãe ✦</div>
-        <div class="header-title">Como dormiu a <em>pequena?</em></div>
-      </div>
-      <div class="header-icons">
-        <div class="icon-btn">🔔</div>
-        <div class="icon-btn">⚙️</div>
-      </div>
+    <!-- GOOGLE -->
+    <button class="login-btn login-btn-google" onclick="simulateLogin()">
+      <!-- Google icon SVG -->
+      <svg class="login-btn-icon" viewBox="0 0 24 24">
+        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
+        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+      </svg>
+      Continuar com Google
+    </button>
+
+    <div class="login-divider">
+      <div class="login-divider-line"></div>
+      <div class="login-divider-txt">ou entre com</div>
+      <div class="login-divider-line"></div>
     </div>
 
-    <!-- PERFIL DO BEBÊ -->
-    <div class="baby-card fade-up fd2">
-      <div class="window-badge">
-        <div class="window-badge-val">90 min</div>
-        <div class="window-badge-lbl">janela atual</div>
-      </div>
-      <div class="baby-card-inner">
-        <div class="baby-avatar-wrap">
-          <div class="baby-avatar" id="babyAvatar">🌸</div>
-          <label class="avatar-add-btn" for="avatarInput">+</label>
-          <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="loadAvatar(event)">
+    <!-- APPLE -->
+    <button class="login-btn login-btn-apple" onclick="simulateLogin()">
+      <!-- Apple icon SVG -->
+      <svg class="login-btn-icon" viewBox="0 0 24 24" fill="white">
+        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+      </svg>
+      Continuar com Apple
+    </button>
+
+    <div class="login-terms">
+      Ao continuar, você aceita nossos <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a>.
+    </div>
+  </div>
+</div>
+<!--
+  === GANCHO PARA AUTENTICAÇÃO REAL ===
+  Para integrar com Supabase Auth:
+    1. Importe o client: import { createClient } from '@supabase/supabase-js'
+    2. No botão Google: supabase.auth.signInWithOAuth({ provider: 'google' })
+    3. No botão Apple: supabase.auth.signInWithOAuth({ provider: 'apple' })
+    4. Escute a sessão: supabase.auth.onAuthStateChange((event, session) => { ... })
+    5. Substitua simulateLogin() pela lógica de onAuthStateChange
+
+  Para Firebase Auth:
+    1. import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+    2. signInWithPopup(auth, new GoogleAuthProvider()).then(revealApp)
+    3. OAuthProvider('apple.com') para Apple
+-->
+
+
+<!-- ════════════════════════════════════════════
+     ██ APP SHELL
+════════════════════════════════════════════ -->
+<div id="app">
+
+  <!-- ══ PAGE: HOME ═══════════════════════════ -->
+  <div class="page active" id="page-home">
+    <div class="scroll-area">
+
+      <div class="app-header fade-up fd1">
+        <div>
+          <div class="header-greeting" id="greeting-text">Bom dia, mamãe ✦</div>
+          <div class="header-title">Como dormiu a <em>pequena?</em></div>
         </div>
-        <div class="baby-info">
-          <div class="baby-name">Sofia</div>
-          <div class="baby-age">4 meses e 12 dias</div>
-          <div class="baby-stats-row">
-            <div class="baby-stat"><div class="baby-stat-val">2</div><div class="baby-stat-lbl">cochilos</div></div>
-            <div class="baby-stat"><div class="baby-stat-val">4h20</div><div class="baby-stat-lbl">total</div></div>
-            <div class="baby-stat"><div class="baby-stat-val">10h</div><div class="baby-stat-lbl">noite</div></div>
+        <div class="header-icons">
+          <div class="icon-btn">🔔</div>
+          <div class="icon-btn">⚙️</div>
+        </div>
+      </div>
+
+      <!-- PERFIL DO BEBÊ -->
+      <div class="baby-card fade-up fd2">
+        <div class="window-badge">
+          <div class="window-badge-val">90 min</div>
+          <div class="window-badge-lbl">janela atual</div>
+        </div>
+        <div class="baby-card-inner">
+          <div class="baby-avatar-wrap">
+            <div class="baby-avatar" id="babyAvatar">🌸</div>
+            <label class="avatar-add-btn" for="avatarInput">+</label>
+            <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="loadAvatar(event)">
+          </div>
+          <div class="baby-info">
+            <div class="baby-name" id="baby-name-display">Sofia</div>
+            <div class="baby-age">4 meses e 12 dias</div>
+            <div class="baby-stats-row">
+              <div class="baby-stat"><div class="baby-stat-val">2</div><div class="baby-stat-lbl">cochilos</div></div>
+              <div class="baby-stat"><div class="baby-stat-val">4h20</div><div class="baby-stat-lbl">total</div></div>
+              <div class="baby-stat"><div class="baby-stat-val">10h</div><div class="baby-stat-lbl">noite</div></div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="baby-card-footer">
-        <div class="progress-label-row">
-          <span class="progress-lbl">Próxima janela</span>
-          <span class="progress-time">~14h30</span>
+        <div class="baby-card-footer">
+          <div class="progress-label-row">
+            <span class="progress-lbl">Próxima janela</span>
+            <span class="progress-time">~14h30</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
         </div>
-        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
       </div>
-    </div>
 
-    <!-- CHART -->
-    <div class="section-header fade-up fd3">
-      <div class="section-title">Sono da semana</div>
-      <div class="section-link">Ver tudo →</div>
+      <!-- MINI STATS -->
+      <div class="section-header fade-up fd3"><div class="section-title">Resumo de hoje</div></div>
+      <div class="mini-stats fade-up fd3">
+        <div class="mini-stat-card msc-sage">
+          <span class="mini-stat-icon">🌙</span>
+          <div class="mini-stat-val">10 <span>h 20</span></div>
+          <div class="mini-stat-lbl">Sono total</div>
+          <div class="mini-stat-trend trend-up">↑ +40min</div>
+        </div>
+        <div class="mini-stat-card msc-tc">
+          <span class="mini-stat-icon">☀️</span>
+          <div class="mini-stat-val">2 <span>cochilos</span></div>
+          <div class="mini-stat-lbl">Sonecas diurnas</div>
+          <div class="mini-stat-trend trend-same">= igual</div>
+        </div>
+        <div class="mini-stat-card msc-gold">
+          <span class="mini-stat-icon">⏱️</span>
+          <div class="mini-stat-val">82 <span>min</span></div>
+          <div class="mini-stat-lbl">Janela atual</div>
+          <div class="mini-stat-trend trend-up">✓ ok</div>
+        </div>
+        <div class="mini-stat-card msc-night">
+          <span class="mini-stat-icon">🌅</span>
+          <div class="mini-stat-val">06 <span>h14</span></div>
+          <div class="mini-stat-lbl">Acordou hoje</div>
+          <div class="mini-stat-trend trend-same">= regular</div>
+        </div>
+      </div>
+
+      <!-- SINAIS -->
+      <div class="section-header fade-up fd4"><div class="section-title">Registrar sinal agora</div></div>
+      <div class="sinal-row fade-up fd4">
+        <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">👁️</span><span class="sinal-chip-text">Olhar distante</span></div>
+        <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">😮</span><span class="sinal-chip-text">Bocejou</span></div>
+        <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">🐢</span><span class="sinal-chip-text">Desacelerou</span></div>
+        <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">👋</span><span class="sinal-chip-text">Esfregou olho</span></div>
+        <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">🔴</span><span class="sinal-chip-text">Olhos vermelhos</span></div>
+      </div>
+
+      <!-- TABELA DE GASTOS RÁPIDA -->
+      <div class="section-header fade-up fd5">
+        <div class="section-title">Gastos do mês</div>
+        <div class="section-link" onclick="goToTab('orcamento')">Ver tudo →</div>
+      </div>
+      <div class="budget-quick-card fade-up fd5">
+        <div class="bq-header">
+          <span class="bq-header-title">Itens da Sofia</span>
+          <span class="bq-total" id="home-budget-total">Calculando…</span>
+        </div>
+        <div id="home-budget-rows">
+          <div class="budget-row">
+            <div class="budget-row-left"><div class="budget-row-icon bri-sage">🍼</div><div><div class="budget-row-name">Fórmula</div><div class="budget-row-cat">Alimentação</div></div></div>
+            <div class="budget-row-val">R$ 320</div>
+          </div>
+          <div class="budget-row">
+            <div class="budget-row-left"><div class="budget-row-icon bri-tc">🛍️</div><div><div class="budget-row-name">Fraldas</div><div class="budget-row-cat">Higiene</div></div></div>
+            <div class="budget-row-val">R$ 180</div>
+          </div>
+          <div class="budget-row">
+            <div class="budget-row-left"><div class="budget-row-icon bri-gold">🎵</div><div><div class="budget-row-name">Ruído branco</div><div class="budget-row-cat">Sono</div></div></div>
+            <div class="budget-row-val">R$ 29,90</div>
+          </div>
+        </div>
+        <div class="bq-total-row">
+          <span class="bq-total-lbl">Total registrado</span>
+          <span class="bq-total-val" id="home-budget-total-val">carregando…</span>
+        </div>
+      </div>
+
+      <!-- CHAT ENTRY -->
+      <div class="section-header fade-up fd6"><div class="section-title">Apoio agora</div></div>
+      <div class="chat-entry-card fade-up fd6" onclick="goToTab('chat')">
+        <div class="pulse-dot"></div>
+        <div class="cec-icon">🌿</div>
+        <div class="cec-text">
+          <div class="cec-title">Falar com o Guia do Sono</div>
+          <div class="cec-sub">Disponível agora · método gentil · sem espera</div>
+        </div>
+        <div class="cec-arrow">›</div>
+      </div>
+
+      <div style="height:20px;"></div>
     </div>
-    <div class="chart-card fade-up fd3">
-      <div class="chart-top">
+  </div>
+
+  <!-- ══ PAGE: ORÇAMENTO ══════════════════════ -->
+  <div class="page" id="page-orcamento">
+    <div class="scroll-area">
+      <div class="app-header">
         <div>
-          <div class="chart-big-val">10<span class="chart-big-unit">h 20min</span></div>
-          <div class="chart-big-sub">sono total hoje · meta: 14–16h</div>
-        </div>
-        <div class="chart-legend">
-          <div class="legend-item"><div class="legend-dot" style="background:var(--night)"></div>Noite</div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--sage)"></div>Cochilo</div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div>Hoje</div>
+          <div class="header-greeting">Finanças do bebê</div>
+          <div class="header-title">Seu <em>Orçamento</em></div>
         </div>
       </div>
-      <div class="bars-container" id="barsContainer"></div>
-    </div>
 
-    <!-- MINI STATS -->
-    <div class="section-header fade-up fd4"><div class="section-title">Resumo de hoje</div></div>
-    <div class="mini-stats fade-up fd4">
-      <div class="mini-stat-card msc-sage">
-        <span class="mini-stat-icon">🌙</span>
-        <div class="mini-stat-val">10 <span>h 20</span></div>
-        <div class="mini-stat-lbl">Sono total</div>
-        <div class="mini-stat-trend trend-up">↑ +40min</div>
-      </div>
-      <div class="mini-stat-card msc-tc">
-        <span class="mini-stat-icon">☀️</span>
-        <div class="mini-stat-val">2 <span>cochilos</span></div>
-        <div class="mini-stat-lbl">Sonecas diurnas</div>
-        <div class="mini-stat-trend trend-same">= igual</div>
-      </div>
-      <div class="mini-stat-card msc-gold">
-        <span class="mini-stat-icon">⏱️</span>
-        <div class="mini-stat-val">82 <span>min</span></div>
-        <div class="mini-stat-lbl">Janela atual</div>
-        <div class="mini-stat-trend trend-up">✓ ok</div>
-      </div>
-      <div class="mini-stat-card msc-night">
-        <span class="mini-stat-icon">🌅</span>
-        <div class="mini-stat-val">06 <span>h14</span></div>
-        <div class="mini-stat-lbl">Acordou hoje</div>
-        <div class="mini-stat-trend trend-same">= regular</div>
-      </div>
-    </div>
-
-    <!-- TIMELINE -->
-    <div class="section-header fade-up fd5"><div class="section-title">Timeline de hoje</div></div>
-    <div class="timeline-card fade-up fd5">
-      <div class="timeline-label">Distribuição do sono · 00h–22h</div>
-      <div class="timeline-ruler">
-        <span class="ruler-mark">0h</span><span class="ruler-mark">6h</span>
-        <span class="ruler-mark">12h</span><span class="ruler-mark">18h</span><span class="ruler-mark">22h</span>
-      </div>
-      <div class="timeline-bar-bg">
-        <div class="timeline-sleep-block tsb-night" id="tsb1" style="left:0%;width:0%;"></div>
-        <div class="timeline-sleep-block tsb-nap1"  id="tsb2" style="left:36%;width:0%;"></div>
-        <div class="timeline-sleep-block tsb-nap2"  id="tsb3" style="left:57%;width:0%;"></div>
-        <div class="timeline-sleep-block tsb-nap3"  id="tsb4" style="left:73%;width:0%;"></div>
-      </div>
-      <div class="timeline-legend">
-        <div class="tl-leg-item"><div class="tl-leg-dot" style="background:var(--night)"></div>Noite 10h</div>
-        <div class="tl-leg-item"><div class="tl-leg-dot" style="background:var(--sage)"></div>Cochilo 1h30</div>
-        <div class="tl-leg-item"><div class="tl-leg-dot" style="background:var(--tc)"></div>Cochilo 1h30</div>
-        <div class="tl-leg-item"><div class="tl-leg-dot" style="background:var(--gold)"></div>Cochilo 1h</div>
-      </div>
-    </div>
-
-    <!-- SINAIS -->
-    <div class="section-header fade-up fd6"><div class="section-title">Registrar sinal agora</div></div>
-    <div class="sinal-row fade-up fd6">
-      <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">👁️</span><span class="sinal-chip-text">Olhar distante</span></div>
-      <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">😮</span><span class="sinal-chip-text">Bocejou</span></div>
-      <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">🐢</span><span class="sinal-chip-text">Desacelerou</span></div>
-      <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">👋</span><span class="sinal-chip-text">Esfregou olho</span></div>
-      <div class="sinal-chip" onclick="toggleChip(this)"><span class="sinal-chip-icon">🔴</span><span class="sinal-chip-text">Olhos vermelhos</span></div>
-    </div>
-
-    <!-- ORÇAMENTO MENSAL -->
-    <div class="section-header fade-up fd7">
-      <div class="section-title">Orçamento mensal</div>
-      <div class="section-link">Editar →</div>
-    </div>
-    <div class="budget-card fade-up fd7">
-      <div class="budget-header">
-        <span class="budget-header-title">Itens do bebê</span>
-        <span class="budget-header-total">Total: R$ 842</span>
-      </div>
-      <div class="budget-row">
-        <div class="budget-row-left">
-          <div class="budget-row-icon bri-sage">🍼</div>
-          <div><div class="budget-row-name">Fórmula / leite</div><div class="budget-row-cat">Alimentação</div></div>
+      <!-- ADICIONAR GASTO -->
+      <div class="section-header"><div class="section-title">Registrar gasto</div></div>
+      <div class="add-expense-card fade-up fd1">
+        <div class="expense-inputs">
+          <input class="expense-input" id="exp-name" type="text" placeholder="Nome do item (ex: Fraldas G)" />
         </div>
-        <div class="budget-row-val">R$ 320</div>
-      </div>
-      <div class="budget-row">
-        <div class="budget-row-left">
-          <div class="budget-row-icon bri-tc">🛍️</div>
-          <div><div class="budget-row-name">Fraldas</div><div class="budget-row-cat">Higiene</div></div>
+        <div class="expense-inputs-row2">
+          <input class="expense-input" id="exp-val" type="number" inputmode="decimal" placeholder="Valor R$" step="0.01" min="0" />
+          <input class="expense-input" id="exp-date" type="date" />
         </div>
-        <div class="budget-row-val">R$ 180</div>
+        <button class="btn-add-expense" onclick="addExpense()">+ Adicionar</button>
       </div>
-      <div class="budget-row">
-        <div class="budget-row-left">
-          <div class="budget-row-icon bri-gold">🎵</div>
-          <div><div class="budget-row-name">Ruído branco</div><div class="budget-row-cat">Sono · app Premium</div></div>
+
+      <!-- LISTA DE GASTOS -->
+      <div class="expense-summary">
+        <span class="expense-month-lbl" id="expense-month-lbl">Mês atual</span>
+        <span class="expense-total-lbl" id="expense-total-display">R$ 0,00</span>
+      </div>
+      <div class="expense-list" id="expense-list">
+        <div class="expense-empty">Nenhum gasto registrado ainda.<br>Adicione o primeiro item acima 🌿</div>
+      </div>
+
+      <!-- AFILIADOS -->
+      <div class="affiliate-section fade-up fd3">
+        <div class="affiliate-section-title">
+          🛒 Garimpado para a <em id="affiliate-baby-name">Sofia</em>
         </div>
-        <div class="budget-row-val">R$ 29,90</div>
-      </div>
-      <div class="budget-row">
-        <div class="budget-row-left">
-          <div class="budget-row-icon bri-night">💊</div>
-          <div><div class="budget-row-name">Vitaminas / saúde</div><div class="budget-row-cat">Saúde</div></div>
+
+        <div class="affiliate-grid">
+
+          <!-- Produto 1 -->
+          <div class="affiliate-card">
+            <div class="affiliate-img-placeholder">🍼</div>
+            <div class="affiliate-body">
+              <div class="affiliate-name">Mamadeira Anti-Cólica Philips Avent</div>
+              <div class="affiliate-price">R$ 89,90</div>
+              <!-- Coloque seu link de afiliado aqui -->
+              <a class="affiliate-btn" href="" target="_blank" rel="noopener">Ver na Loja</a>
+            </div>
+          </div>
+
+          <!-- Produto 2 -->
+          <div class="affiliate-card">
+            <div class="affiliate-img-placeholder">🎶</div>
+            <div class="affiliate-body">
+              <div class="affiliate-name">Máquina de Ruído Branco LectroFan</div>
+              <div class="affiliate-price">R$ 249,00</div>
+              <!-- Coloque seu link de afiliado aqui -->
+              <a class="affiliate-btn" href="" target="_blank" rel="noopener">Ver na Loja</a>
+            </div>
+          </div>
+
+          <!-- Produto 3 -->
+          <div class="affiliate-card">
+            <div class="affiliate-img-placeholder">🌙</div>
+            <div class="affiliate-body">
+              <div class="affiliate-name">Saco de Dormir Infantil Halo SleepSack</div>
+              <div class="affiliate-price">R$ 159,90</div>
+              <!-- Coloque seu link de afiliado aqui -->
+              <a class="affiliate-btn" href="" target="_blank" rel="noopener">Ver na Loja</a>
+            </div>
+          </div>
+
+          <!-- Produto 4 -->
+          <div class="affiliate-card">
+            <div class="affiliate-img-placeholder">🛏️</div>
+            <div class="affiliate-body">
+              <div class="affiliate-name">Berço Portátil Multikids Baby</div>
+              <div class="affiliate-price">R$ 319,00</div>
+              <!-- Coloque seu link de afiliado aqui -->
+              <a class="affiliate-btn" href="" target="_blank" rel="noopener">Ver na Loja</a>
+            </div>
+          </div>
+
         </div>
-        <div class="budget-row-val">R$ 90</div>
       </div>
-      <div class="budget-row">
-        <div class="budget-row-left">
-          <div class="budget-row-icon bri-sage">🧴</div>
-          <div><div class="budget-row-name">Produtos de banho</div><div class="budget-row-cat">Higiene</div></div>
-        </div>
-        <div class="budget-row-val">R$ 55</div>
-      </div>
-      <div class="budget-row">
-        <div class="budget-row-left">
-          <div class="budget-row-icon bri-tc">🛒</div>
-          <div><div class="budget-row-name">Outros / extras</div><div class="budget-row-cat">Variável</div></div>
-        </div>
-        <div class="budget-row-val">R$ 167,10</div>
-      </div>
-      <div class="budget-total-row">
-        <span class="budget-total-lbl">Total mensal</span>
-        <span class="budget-total-val">R$ 842,00</span>
-      </div>
+
+      <div style="height:20px;"></div>
     </div>
-
-    <!-- CHAT ENTRY CARD -->
-    <div class="section-header fade-up fd8"><div class="section-title">Apoio agora</div></div>
-    <div class="chat-entry-card fade-up fd8" onclick="goToTab('chat')">
-      <div class="pulse-dot"></div>
-      <div class="cec-icon">🌿</div>
-      <div class="cec-text">
-        <div class="cec-title">Falar com o Guia do Sono</div>
-        <div class="cec-sub">Disponível agora · sem espera</div>
-      </div>
-      <div class="cec-arrow">›</div>
-    </div>
-
-    <div style="height:20px;"></div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════
-     PAGE 2 — CHAT
-═══════════════════════════════════════ -->
-<div class="page" id="page-chat">
-
-  <!-- CHAT HEADER -->
-  <div class="chat-header">
-    <div class="chat-av">🌿</div>
-    <div class="chat-hd-info">
-      <div class="chat-hd-name">Guia do Sono</div>
-      <div class="chat-hd-status"><div class="online-dot"></div>sono gentil · disponível</div>
-    </div>
-    <div class="msg-counter-badge" id="msg-counter">3 mensagens hoje</div>
   </div>
 
-  <!-- LIMIT BANNER -->
-  <div id="limit-banner">
-    🌙 Suas 3 mensagens gratuitas de hoje foram usadas.<br>
-    <strong>Assine o Plano Plus</strong> para conversar sem limites.
+  <!-- ══ PAGE: CHAT ════════════════════════════ -->
+  <div class="page" id="page-chat">
+    <div class="chat-header">
+      <div class="chat-av">🌿</div>
+      <div class="chat-hd-info">
+        <div class="chat-hd-name">Guia do Sono</div>
+        <div class="chat-hd-status"><div class="online-dot"></div>sono gentil · disponível</div>
+      </div>
+      <div class="msg-counter-badge" id="msg-counter">3 mensagens hoje</div>
+    </div>
+    <div id="limit-banner">
+      🌙 Suas 3 mensagens gratuitas de hoje foram usadas.<br>
+      <strong>Assine o Plano Plus</strong> para conversar sem limites.
+    </div>
+    <div id="chat-messages"></div>
   </div>
 
-  <!-- MESSAGES -->
-  <div id="chat-messages"></div>
-
-  <!-- INPUT BAR (fixed bottom inside chat, shown only on chat tab) -->
-  <div class="chat-input-bar" id="chat-input-bar">
-    <textarea id="user-input" rows="1" placeholder="O que está acontecendo com o sono?"></textarea>
-    <!-- Mic button -->
-    <button class="input-action-btn" id="mic-btn" title="Usar microfone" onclick="toggleMic()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="9" y="2" width="6" height="11" rx="3"/>
-        <path d="M5 10a7 7 0 0 0 14 0"/>
-        <line x1="12" y1="19" x2="12" y2="22"/>
-        <line x1="8"  y1="22" x2="16" y2="22"/>
-      </svg>
-    </button>
-    <!-- Send button -->
-    <button class="input-action-btn" id="send-btn" onclick="sendMessage()">
-      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-    </button>
-  </div>
-
-</div>
-
-<!-- ═══════════════════════════════════════
-     PAGE 3 — GUIAS / E-BOOKS
-═══════════════════════════════════════ -->
-<div class="page" id="page-guias">
-  <div class="scroll-area">
-
-    <div class="app-header" style="padding-bottom:6px;">
-      <div>
-        <div class="header-greeting">Biblioteca</div>
-        <div class="header-title">Guias & <em>E-books</em></div>
-      </div>
-    </div>
-
-    <div class="section-header"><div class="section-title">Em destaque</div></div>
-    <div class="ebook-featured">
-      <div class="ef-badge">✨ Novo</div>
-      <div class="ef-title">Ritual de Ouro:<br>o sono do 4º trimestre</div>
-      <div class="ef-sub">Guia completo para os primeiros 3 meses com suavidade</div>
-      <div class="ef-cta">
-        <span class="ef-cta-txt">Ler agora</span>
-        <span>›</span>
-      </div>
-    </div>
-
-    <div class="section-header"><div class="section-title">Todos os guias</div></div>
-    <div class="ebook-grid">
-      <div class="ebook-card">
-        <div class="ec-tag tag-free">Grátis</div>
-        <span class="ec-emoji">🌙</span>
-        <div class="ec-title">Tabela Mestra do Sono</div>
-        <div class="ec-sub">Janelas por faixa etária</div>
-      </div>
-      <div class="ebook-card">
-        <div class="ec-tag tag-free">Grátis</div>
-        <span class="ec-emoji">👁️</span>
-        <div class="ec-title">Dicionário Sensorial</div>
-        <div class="ec-sub">Sinais de cansaço em bebês</div>
-      </div>
-      <div class="ebook-card">
-        <div class="ec-tag tag-plus">Plus</div>
-        <span class="ec-emoji">🤍</span>
-        <div class="ec-title">Autonomia com Afeto</div>
-        <div class="ec-sub">Independência sem choro</div>
-      </div>
-      <div class="ebook-card">
-        <div class="ec-tag tag-plus">Plus</div>
-        <span class="ec-emoji">📊</span>
-        <div class="ec-title">Protocolo das 2h</div>
-        <div class="ec-sub">Pressão de sono na prática</div>
-      </div>
-      <div class="ebook-card">
-        <div class="ec-tag tag-plus">Plus</div>
-        <span class="ec-emoji">🌿</span>
-        <div class="ec-title">Saltos de Desenvolvimento</div>
-        <div class="ec-sub">Por que o sono piora</div>
-      </div>
-      <div class="ebook-card">
-        <div class="ec-tag tag-plus">Plus</div>
-        <span class="ec-emoji">💆</span>
-        <div class="ec-title">Nervo Vago e Sono</div>
-        <div class="ec-sub">Calma para bebê e mãe</div>
-      </div>
-    </div>
-
-    <div style="height:20px;"></div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════
-     PAGE 4 — PROGRESSO
-═══════════════════════════════════════ -->
-<div class="page" id="page-progresso">
-  <div class="scroll-area">
-    <div class="app-header">
-      <div>
-        <div class="header-greeting">Evolução</div>
-        <div class="header-title">Seu <em>Progresso</em></div>
-      </div>
-    </div>
-    <div class="section-header"><div class="section-title">Esta semana</div></div>
-    <div class="chart-card">
-      <div class="chart-top">
+  <!-- ══ PAGE: GUIAS ═══════════════════════════ -->
+  <div class="page" id="page-guias">
+    <div class="scroll-area">
+      <div class="app-header">
         <div>
-          <div class="chart-big-val">68<span class="chart-big-unit">% meta</span></div>
-          <div class="chart-big-sub">média semanal de sono</div>
-        </div>
-        <div class="chart-legend">
-          <div class="legend-item"><div class="legend-dot" style="background:var(--sage)"></div>Meta atingida</div>
-          <div class="legend-item"><div class="legend-dot" style="background:var(--tc)"></div>Abaixo</div>
+          <div class="header-greeting">Biblioteca</div>
+          <div class="header-title">Guias & <em>E-books</em></div>
         </div>
       </div>
-      <div class="bars-container" id="barsContainerProg"></div>
+      <div class="section-header fade-up fd1"><div class="section-title">Em destaque</div></div>
+      <div class="ebook-featured fade-up fd2">
+        <div class="ef-badge">✨ Novo</div>
+        <div class="ef-title">Ritual de Ouro:<br>o sono do 4º trimestre</div>
+        <div class="ef-sub">Guia completo para os primeiros 3 meses com suavidade</div>
+        <div class="ef-cta"><span class="ef-cta-txt">Ler agora</span><span>›</span></div>
+      </div>
+      <div class="section-header fade-up fd3"><div class="section-title">Todos os guias</div></div>
+      <div class="ebook-grid fade-up fd4">
+        <div class="ebook-card"><div class="ec-tag tag-free">Grátis</div><span class="ec-emoji">🌙</span><div class="ec-title">Tabela Mestra do Sono</div><div class="ec-sub">Janelas por faixa etária</div></div>
+        <div class="ebook-card"><div class="ec-tag tag-free">Grátis</div><span class="ec-emoji">👁️</span><div class="ec-title">Dicionário Sensorial</div><div class="ec-sub">Sinais de cansaço em bebês</div></div>
+        <div class="ebook-card"><div class="ec-tag tag-plus">Plus</div><span class="ec-emoji">🤍</span><div class="ec-title">Autonomia com Afeto</div><div class="ec-sub">Independência sem choro</div></div>
+        <div class="ebook-card"><div class="ec-tag tag-plus">Plus</div><span class="ec-emoji">📊</span><div class="ec-title">Protocolo das 2h</div><div class="ec-sub">Pressão de sono na prática</div></div>
+        <div class="ebook-card"><div class="ec-tag tag-plus">Plus</div><span class="ec-emoji">🌿</span><div class="ec-title">Saltos de Desenvolvimento</div><div class="ec-sub">Por que o sono piora</div></div>
+        <div class="ebook-card"><div class="ec-tag tag-plus">Plus</div><span class="ec-emoji">💆</span><div class="ec-title">Nervo Vago e Sono</div><div class="ec-sub">Calma para bebê e mãe</div></div>
+      </div>
+      <div style="height:20px;"></div>
     </div>
-    <div class="section-header"><div class="section-title">Conquistas</div></div>
-    <div style="margin:0 16px; display:flex; flex-direction:column; gap:10px;">
-      <div class="perfil-item">
-        <div class="pi-left">
-          <div class="pi-icon pi-sage">🌟</div>
-          <div><div class="pi-lbl">7 dias consecutivos registrados</div><div class="pi-sub">Conquistado em 14/03</div></div>
-        </div>
-      </div>
-      <div class="perfil-item">
-        <div class="pi-left">
-          <div class="pi-icon pi-gold">🌙</div>
-          <div><div class="pi-lbl">Meta de sono noturno atingida</div><div class="pi-sub">Conquistado em 10/03</div></div>
-        </div>
-      </div>
-      <div class="perfil-item" style="opacity:.45;">
-        <div class="pi-left">
-          <div class="pi-icon pi-tc">⭐</div>
-          <div><div class="pi-lbl">30 dias de rotina estável</div><div class="pi-sub">Faltam 18 dias</div></div>
-        </div>
-      </div>
-    </div>
-    <div style="height:20px;"></div>
   </div>
+
+  <!-- ══ PAGE: PERFIL ══════════════════════════ -->
+  <div class="page" id="page-perfil">
+    <div class="scroll-area">
+      <div class="app-header">
+        <div>
+          <div class="header-greeting">Configurações</div>
+          <div class="header-title">Meu <em>Perfil</em></div>
+        </div>
+      </div>
+      <div class="perfil-hero fade-up fd1">
+        <div class="ph-avatar">👩</div>
+        <div class="ph-info">
+          <div class="ph-name">Mamãe da Sofia</div>
+          <div class="ph-plan"><span>✦ Plano Gratuito</span></div>
+        </div>
+      </div>
+      <div class="perfil-section fade-up fd2">
+        <div class="perfil-section-title">Bebê</div>
+        <div class="perfil-item"><div class="pi-left"><div class="pi-icon pi-sage">🌸</div><div><div class="pi-lbl">Sofia</div><div class="pi-sub">4 meses · Feminino</div></div></div><div class="pi-arrow">›</div></div>
+        <div class="perfil-item"><div class="pi-left"><div class="pi-icon pi-tc">📅</div><div><div class="pi-lbl">Data de nascimento</div><div class="pi-sub">14 de novembro de 2024</div></div></div><div class="pi-arrow">›</div></div>
+      </div>
+      <div class="perfil-section fade-up fd3">
+        <div class="perfil-section-title">Preferências</div>
+        <div class="perfil-item"><div class="pi-left"><div class="pi-icon pi-gold">🔔</div><div><div class="pi-lbl">Notificações</div><div class="pi-sub">Lembretes de janela de sono</div></div></div><div class="pi-arrow">›</div></div>
+        <div class="perfil-item"><div class="pi-left"><div class="pi-icon pi-lav">🎨</div><div><div class="pi-lbl">Tema visual</div><div class="pi-sub">Rústico cremoso · padrão</div></div></div><div class="pi-arrow">›</div></div>
+      </div>
+      <div class="plan-upgrade-card fade-up fd4">
+        <div class="puc-title">✨ Assine o Plano Plus</div>
+        <div class="puc-sub">Chat ilimitado, todos os e-books e acompanhamento semanal personalizado.</div>
+        <div class="puc-btn">Ver planos · a partir de R$29,90/mês</div>
+      </div>
+      <button class="logout-btn fade-up fd5" onclick="doLogout()">Sair da conta</button>
+      <div style="height:20px;"></div>
+    </div>
+  </div>
+
+  <!-- ══ BOTTOM NAV ════════════════════════════ -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-tab="home"      onclick="goToTab('home')">      <span class="nav-icon">🏠</span><span class="nav-lbl">Início</span></button>
+    <button class="nav-item"        data-tab="orcamento" onclick="goToTab('orcamento')"> <span class="nav-icon">💰</span><span class="nav-lbl">Orçamento</span></button>
+    <button class="nav-item"        data-tab="chat"      onclick="goToTab('chat')">      <span class="nav-icon">💬</span><span class="nav-lbl">Chat</span></button>
+    <button class="nav-item"        data-tab="guias"     onclick="goToTab('guias')">     <span class="nav-icon">📚</span><span class="nav-lbl">Guias</span></button>
+    <button class="nav-item"        data-tab="perfil"    onclick="goToTab('perfil')">    <span class="nav-icon">👤</span><span class="nav-lbl">Perfil</span></button>
+  </nav>
+
+</div><!-- /#app -->
+
+<!-- CHAT INPUT BAR (fixed, outside app flex) -->
+<div class="chat-input-bar" id="chat-input-bar">
+  <textarea id="user-input" rows="1" placeholder="O que está acontecendo com o sono?"></textarea>
+  <button class="input-action-btn" id="mic-btn" title="Usar microfone" onclick="toggleMic()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="9" y="2" width="6" height="11" rx="3"/>
+      <path d="M5 10a7 7 0 0 0 14 0"/>
+      <line x1="12" y1="19" x2="12" y2="22"/>
+      <line x1="8"  y1="22" x2="16" y2="22"/>
+    </svg>
+  </button>
+  <button class="input-action-btn" id="send-btn" onclick="sendMessage()">
+    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+  </button>
 </div>
 
-<!-- ═══════════════════════════════════════
-     PAGE 5 — PERFIL
-═══════════════════════════════════════ -->
-<div class="page" id="page-perfil">
-  <div class="scroll-area">
-    <div class="app-header">
-      <div>
-        <div class="header-greeting">Configurações</div>
-        <div class="header-title">Meu <em>Perfil</em></div>
-      </div>
-    </div>
-
-    <div class="perfil-hero">
-      <div class="ph-avatar">👩</div>
-      <div class="ph-info">
-        <div class="ph-name">Mamãe da Sofia</div>
-        <div class="ph-plan"><span>✦ Plano Gratuito</span></div>
-      </div>
-    </div>
-
-    <div class="perfil-section">
-      <div class="perfil-section-title">Bebê</div>
-      <div class="perfil-item">
-        <div class="pi-left">
-          <div class="pi-icon pi-sage">🌸</div>
-          <div><div class="pi-lbl">Sofia</div><div class="pi-sub">4 meses e 12 dias · Feminino</div></div>
-        </div>
-        <div class="pi-arrow">›</div>
-      </div>
-      <div class="perfil-item">
-        <div class="pi-left">
-          <div class="pi-icon pi-tc">📅</div>
-          <div><div class="pi-lbl">Data de nascimento</div><div class="pi-sub">14 de novembro de 2024</div></div>
-        </div>
-        <div class="pi-arrow">›</div>
-      </div>
-    </div>
-
-    <div class="perfil-section">
-      <div class="perfil-section-title">Preferências</div>
-      <div class="perfil-item">
-        <div class="pi-left">
-          <div class="pi-icon pi-gold">🔔</div>
-          <div><div class="pi-lbl">Notificações</div><div class="pi-sub">Lembretes de janela de sono</div></div>
-        </div>
-        <div class="pi-arrow">›</div>
-      </div>
-      <div class="perfil-item">
-        <div class="pi-left">
-          <div class="pi-icon pi-sage">🎨</div>
-          <div><div class="pi-lbl">Tema visual</div><div class="pi-sub">Rústico cremoso · padrão</div></div>
-        </div>
-        <div class="pi-arrow">›</div>
-      </div>
-    </div>
-
-    <div class="plan-upgrade-card">
-      <div class="puc-title">✨ Assine o Plano Plus</div>
-      <div class="puc-sub">Chat ilimitado, todos os e-books, acompanhamento personalizado e muito mais.</div>
-      <div class="puc-btn">Ver planos · a partir de R$29,90/mês</div>
-    </div>
-
-    <div style="height:20px;"></div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════
-     BOTTOM NAV
-═══════════════════════════════════════ -->
-<nav class="bottom-nav">
-  <button class="nav-item active" data-tab="home"      onclick="goToTab('home')">      <span class="nav-icon">🏠</span><span class="nav-lbl">Início</span></button>
-  <button class="nav-item"        data-tab="progresso" onclick="goToTab('progresso')"> <span class="nav-icon">📊</span><span class="nav-lbl">Progresso</span></button>
-  <button class="nav-item"        data-tab="chat"      onclick="goToTab('chat')">      <span class="nav-icon">💬</span><span class="nav-lbl">Chat</span></button>
-  <button class="nav-item"        data-tab="guias"     onclick="goToTab('guias')">     <span class="nav-icon">📚</span><span class="nav-lbl">Guias</span></button>
-  <button class="nav-item"        data-tab="perfil"    onclick="goToTab('perfil')">    <span class="nav-icon">👤</span><span class="nav-lbl">Perfil</span></button>
-</nav>
-
-<!-- ═══════════════════════════════════════
-     GLASSMORPHISM PRO MODAL
-═══════════════════════════════════════ -->
+<!-- PRO MODAL -->
 <div id="pro-overlay" onclick="closeProModal(event)">
   <div id="pro-modal">
     <div class="pm-handle"></div>
     <div class="pm-emoji">🌙</div>
     <div class="pm-title">Suas mensagens acabaram</div>
-    <div class="pm-sub">Você usou suas 3 mensagens gratuitas de hoje. Assine o Plano Plus para continuar dormindo melhor.</div>
+    <div class="pm-sub">Você usou suas 3 mensagens gratuitas de hoje. Assine o Plano Plus para continuar.</div>
     <div class="pm-perks">
-      <div class="pm-perk">
-        <div class="pm-perk-icon">💬</div>
-        <div class="pm-perk-txt"><strong>Chat ilimitado</strong> com a Guia do Sono, a qualquer hora</div>
-      </div>
-      <div class="pm-perk">
-        <div class="pm-perk-icon">📚</div>
-        <div class="pm-perk-txt"><strong>Todos os e-books</strong> e guias da biblioteca completa</div>
-      </div>
-      <div class="pm-perk">
-        <div class="pm-perk-icon">📊</div>
-        <div class="pm-perk-txt"><strong>Acompanhamento</strong> personalizado semana a semana</div>
-      </div>
+      <div class="pm-perk"><div class="pm-perk-icon">💬</div><div class="pm-perk-txt"><strong>Chat ilimitado</strong> com a Guia do Sono, a qualquer hora</div></div>
+      <div class="pm-perk"><div class="pm-perk-icon">📚</div><div class="pm-perk-txt"><strong>Todos os e-books</strong> e guias da biblioteca</div></div>
+      <div class="pm-perk"><div class="pm-perk-icon">📊</div><div class="pm-perk-txt"><strong>Acompanhamento</strong> personalizado semanal</div></div>
     </div>
     <button class="pm-btn" onclick="window.location.href='#planos'">Ver planos · a partir de R$29,90/mês</button>
     <span class="pm-skip" onclick="closeProModal()">Voltar · continuar amanhã</span>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     JAVASCRIPT
-═══════════════════════════════════════ -->
+
+<!-- ════════════════════════════════════════════
+     ██ JAVASCRIPT
+════════════════════════════════════════════ -->
 <script>
-/* ── TAB NAVIGATION ───────────────────── */
+'use strict';
+
+const BABY_NAME = 'Sofia';
+
+/* ═══════════════════════════════════════
+   LOGIN
+═══════════════════════════════════════ */
+function simulateLogin() {
+  /*
+    === AQUI: integre com Supabase ou Firebase Auth (ver comentário no HTML) ===
+    Após auth real, chame revealApp() no callback de sucesso.
+  */
+  const screen = document.getElementById('login-screen');
+  screen.classList.add('hidden');
+  setTimeout(() => {
+    screen.style.display = 'none';
+    revealApp();
+  }, 580);
+}
+
+function revealApp() {
+  const app = document.getElementById('app');
+  app.classList.add('visible');
+  initApp();
+}
+
+function doLogout() {
+  /*
+    === AQUI: supabase.auth.signOut() ou firebase auth.signOut() ===
+  */
+  if (!confirm('Sair da sua conta?')) return;
+  document.getElementById('app').classList.remove('visible');
+  const screen = document.getElementById('login-screen');
+  screen.style.display = 'flex';
+  requestAnimationFrame(() => screen.classList.remove('hidden'));
+}
+
+/* ═══════════════════════════════════════
+   INIT (after login)
+═══════════════════════════════════════ */
+function initApp() {
+  setGreeting();
+  animateProgress();
+  renderExpenses();
+  updateHomeBudgetTotal();
+}
+
+function setGreeting() {
+  const h = new Date().getHours();
+  const txt = h < 12 ? 'Bom dia, mamãe ✦' : h < 18 ? 'Boa tarde, mamãe ✦' : 'Boa noite, mamãe ✦';
+  document.getElementById('greeting-text').textContent = txt;
+}
+
+function animateProgress() {
+  setTimeout(() => {
+    const el = document.getElementById('progressFill');
+    if (el) el.style.width = '62%';
+  }, 400);
+}
+
+/* ═══════════════════════════════════════
+   TAB NAVIGATION
+═══════════════════════════════════════ */
 const inputBar = document.getElementById('chat-input-bar');
 
 function goToTab(tab) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => {
-    n.classList.toggle('active', n.dataset.tab === tab);
-  });
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.toggle('active', n.dataset.tab === tab));
   document.getElementById(`page-${tab}`).classList.add('active');
 
-  // Show/hide input bar only on chat tab
-  inputBar.style.display = tab === 'chat' ? 'flex' : 'none';
+  // Chat input bar visibility
+  inputBar.classList.toggle('active', tab === 'chat');
 
-  if (tab === 'home')      { buildBars('barsContainer'); animateProgress(); animateTimeline(); }
-  if (tab === 'progresso') { buildBars('barsContainerProg'); }
-  if (tab === 'chat' && !chatBooted) { bootChat(); }
+  if (tab === 'chat' && !chatBooted) bootChat();
+  if (tab === 'orcamento') renderExpenses();
 }
 
-/* init — hide input bar on load */
-inputBar.style.display = 'none';
-
-/* ── DASHBOARD ANIMATIONS ─────────────── */
-const weekData = [
-  {day:'Seg',pct:68,type:'sleep'},{day:'Ter',pct:72,type:'sleep'},
-  {day:'Qua',pct:55,type:'nap'}, {day:'Qui',pct:80,type:'sleep'},
-  {day:'Sex',pct:65,type:'nap'}, {day:'Sáb',pct:88,type:'sleep'},
-  {day:'Hoj',pct:73,type:'today'},
-];
-
-function buildBars(containerId) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-  container.innerHTML = '';
-  weekData.forEach((d, i) => {
-    const isToday = d.type === 'today';
-    const group = document.createElement('div'); group.className = 'bar-group';
-    const pctEl = document.createElement('div'); pctEl.className = 'bar-pct'; pctEl.textContent = d.pct + '%';
-    const wrap  = document.createElement('div'); wrap.className  = `bar-wrap${isToday?' active':''}`;
-    const fill  = document.createElement('div'); fill.className  = `bar-fill ${d.type}`; fill.style.height = '0%';
-    wrap.appendChild(fill);
-    const dayEl = document.createElement('div'); dayEl.className = `bar-day${isToday?' active':''}`; dayEl.textContent = d.day;
-    group.appendChild(pctEl); group.appendChild(wrap); group.appendChild(dayEl);
-    container.appendChild(group);
-    setTimeout(() => {
-      fill.style.height = d.pct + '%';
-      setTimeout(() => pctEl.classList.add('visible'), 600);
-    }, 200 + i * 80);
-  });
-}
-
-function animateProgress() {
-  setTimeout(() => { const el = document.getElementById('progressFill'); if(el) el.style.width='62%'; }, 400);
-}
-
-function animateTimeline() {
-  [{id:'tsb1',delay:300,w:'27%'},{id:'tsb2',delay:600,w:'7%'},
-   {id:'tsb3',delay:800,w:'7%'},{id:'tsb4',delay:1000,w:'4.5%'}].forEach(b => {
-    setTimeout(() => {
-      const el = document.getElementById(b.id);
-      if (!el) return;
-      el.classList.add('visible'); el.style.width = b.w;
-    }, b.delay);
-  });
-}
-
+/* ═══════════════════════════════════════
+   UTILS
+═══════════════════════════════════════ */
 function toggleChip(el) { el.classList.toggle('active'); }
 
 function loadAvatar(event) {
   const file = event.target.files[0]; if (!file) return;
   const reader = new FileReader();
-  reader.onload = e => { document.getElementById('babyAvatar').innerHTML = `<img src="${e.target.result}" alt="foto">`; };
+  reader.onload = e => {
+    document.getElementById('babyAvatar').innerHTML = `<img src="${e.target.result}" alt="foto">`;
+  };
   reader.readAsDataURL(file);
 }
 
-// Init dashboard animations
-buildBars('barsContainer');
-animateProgress();
-animateTimeline();
+/* ═══════════════════════════════════════
+   ██ ORÇAMENTO — localStorage
+═══════════════════════════════════════ */
+const EXP_KEY = 'guia_sono_expenses';
 
-/* ── CHAT: LIMIT LOGIC ────────────────── */
+function getExpenses() {
+  try { return JSON.parse(localStorage.getItem(EXP_KEY)) || []; }
+  catch { return []; }
+}
+function saveExpenses(arr) { localStorage.setItem(EXP_KEY, JSON.stringify(arr)); }
+
+function getCurrentMonthExpenses() {
+  const now = new Date();
+  const ym  = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  return getExpenses().filter(e => e.date && e.date.startsWith(ym));
+}
+
+function addExpense() {
+  const name = document.getElementById('exp-name').value.trim();
+  const val  = parseFloat(document.getElementById('exp-val').value);
+  const date = document.getElementById('exp-date').value || new Date().toISOString().split('T')[0];
+
+  if (!name) { document.getElementById('exp-name').focus(); return; }
+  if (isNaN(val) || val <= 0) { document.getElementById('exp-val').focus(); return; }
+
+  const expenses = getExpenses();
+  expenses.push({ id: Date.now(), name, val, date });
+  saveExpenses(expenses);
+
+  document.getElementById('exp-name').value = '';
+  document.getElementById('exp-val').value  = '';
+
+  renderExpenses();
+  updateHomeBudgetTotal();
+}
+
+function deleteExpense(id) {
+  const expenses = getExpenses().filter(e => e.id !== id);
+  saveExpenses(expenses);
+  renderExpenses();
+  updateHomeBudgetTotal();
+}
+
+function fmt(val) {
+  return val.toLocaleString('pt-BR', { style:'currency', currency:'BRL' });
+}
+
+function renderExpenses() {
+  const list = document.getElementById('expense-list');
+  const totalEl = document.getElementById('expense-total-display');
+  const monthLbl = document.getElementById('expense-month-lbl');
+  if (!list) return;
+
+  const items = getCurrentMonthExpenses();
+  const now   = new Date();
+  const months = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  if (monthLbl) monthLbl.textContent = `${months[now.getMonth()]} ${now.getFullYear()}`;
+
+  const total = items.reduce((s, e) => s + e.val, 0);
+  if (totalEl) totalEl.textContent = fmt(total);
+
+  const ICONS = ['🍼','🛍️','💊','🧴','🎵','🛒','🌙','☀️','🍎','👕'];
+  if (items.length === 0) {
+    list.innerHTML = '<div class="expense-empty">Nenhum gasto registrado ainda.<br>Adicione o primeiro item acima 🌿</div>';
+    return;
+  }
+  list.innerHTML = '';
+  [...items].reverse().forEach((e, i) => {
+    const el = document.createElement('div');
+    el.className = 'expense-item';
+    el.style.animationDelay = `${i * 0.04}s`;
+    const d = new Date(e.date + 'T00:00:00');
+    const dateStr = d.toLocaleDateString('pt-BR', { day:'2-digit', month:'short' });
+    el.innerHTML = `
+      <div class="expense-item-icon">${ICONS[i % ICONS.length]}</div>
+      <div class="expense-item-info">
+        <div class="expense-item-name">${e.name}</div>
+        <div class="expense-item-date">${dateStr}</div>
+      </div>
+      <div class="expense-item-val">${fmt(e.val)}</div>
+      <button class="expense-item-del" onclick="deleteExpense(${e.id})" title="Remover">✕</button>`;
+    list.appendChild(el);
+  });
+
+  // Update affiliate section baby name
+  const abn = document.getElementById('affiliate-baby-name');
+  if (abn) abn.textContent = BABY_NAME;
+}
+
+function updateHomeBudgetTotal() {
+  const items = getCurrentMonthExpenses();
+  const total = items.reduce((s, e) => s + e.val, 0);
+  const el = document.getElementById('home-budget-total-val');
+  const el2 = document.getElementById('home-budget-total');
+  if (el)  el.textContent  = fmt(total);
+  if (el2) el2.textContent = `Total: ${fmt(total)}`;
+}
+
+/* ═══════════════════════════════════════
+   ██ CHAT
+═══════════════════════════════════════ */
 const MAX_FREE    = 3;
 const STORAGE_KEY = 'guia_sono_usage';
 
 function todayKey() { return new Date().toISOString().split('T')[0]; }
 function getUsage() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return { date: todayKey(), count: 0 };
-    const p = JSON.parse(raw);
-    return p.date === todayKey() ? p : { date: todayKey(), count: 0 };
-  } catch { return { date: todayKey(), count: 0 }; }
+    const p = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    return p && p.date === todayKey() ? p : { date:todayKey(), count:0 };
+  } catch { return { date:todayKey(), count:0 }; }
 }
-function incrementUsage() { const u = getUsage(); u.count++; localStorage.setItem(STORAGE_KEY, JSON.stringify(u)); return u.count; }
-function getRemaining()   { return Math.max(0, MAX_FREE - getUsage().count); }
+function incrementUsage() {
+  const u = getUsage(); u.count++;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(u)); return u.count;
+}
+function getRemaining() { return Math.max(0, MAX_FREE - getUsage().count); }
 
 function refreshChatUI() {
   const rem     = getRemaining();
@@ -1217,15 +1453,13 @@ function refreshChatUI() {
   const banner  = document.getElementById('limit-banner');
   const input   = document.getElementById('user-input');
   const btn     = document.getElementById('send-btn');
-
   counter.textContent = rem > 0 ? `${rem} mensagem${rem===1?'':'s'} hoje` : 'Limite atingido';
   counter.classList.toggle('esgotado', rem === 0);
   banner.classList.toggle('visible', rem === 0);
-  input.disabled = rem === 0;
-  if (rem === 0) btn.disabled = true;
+  input.disabled   = rem === 0;
+  btn.disabled     = rem === 0;
 }
 
-/* ── CHAT: RENDER ─────────────────────── */
 const chatEl = document.getElementById('chat-messages');
 let chatBooted = false;
 
@@ -1257,12 +1491,12 @@ function bootChat() {
     const wb = document.createElement('div'); wb.className = 'welcome-bubble';
     wb.innerHTML = `
       <span class="wb-title">🌙 Olá! Sou a Guia do Sono</span>
-      Estou aqui para te ajudar com gentileza e sem julgamentos. O que está acontecendo com o sono da sua filha?
+      Estou aqui para te ajudar com gentileza e sem julgamentos. O que está acontecendo com o sono da ${BABY_NAME}?
       <div class="chips-row">
         <div class="chip-q" onclick="prefill('Meu bebê não dorme de noite')">Não dorme à noite</div>
         <div class="chip-q" onclick="prefill('Como criar uma rotina de sono?')">Criar rotina</div>
         <div class="chip-q" onclick="prefill('Regressão do sono 4 meses')">Regressão 4 meses</div>
-        <div class="chip-q" onclick="prefill('Estou muito cansada')">Estou exausta 💚</div>
+        <div class="chip-q" onclick="prefill('Estou muito cansada e precisando de apoio')">Estou exausta 💚</div>
       </div>`;
     chatEl.appendChild(wb);
   }
@@ -1273,7 +1507,6 @@ function prefill(text) {
   input.value = text; autoResize(input); input.focus();
 }
 
-/* ── CHAT: SEND ───────────────────────── */
 let chatHistory = [];
 let isLoading   = false;
 
@@ -1281,7 +1514,6 @@ async function sendMessage() {
   const input = document.getElementById('user-input');
   const btn   = document.getElementById('send-btn');
   const text  = input.value.trim();
-
   if (!text || isLoading) return;
   if (getRemaining() <= 0) { openProModal(); return; }
 
@@ -1292,12 +1524,15 @@ async function sendMessage() {
   chatHistory.push({ role:'user', content:text });
   incrementUsage();
   refreshChatUI();
-
-  if (getRemaining() === 0) { openProModal(); }
+  if (getRemaining() === 0) openProModal();
 
   showTyping();
 
   try {
+    /*
+      === GANCHO: fetch('/api/chat') chama sua Vercel serverless function ===
+      O /api/chat.js lê GROQ_API_KEY do process.env e envia para Groq.
+    */
     const res = await fetch('/api/chat', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
@@ -1309,10 +1544,10 @@ async function sendMessage() {
     const reply = data.reply || 'Não consegui responder agora. Tente novamente. 🌿';
     addBubble(reply, 'ai');
     chatHistory.push({ role:'assistant', content:reply });
-  } catch (err) {
+  } catch(err) {
     removeTyping();
     chatHistory.pop();
-    addBubble('Parece que a conexão foi interrompida. Verifique sua internet e tente de novo. 🌿', 'ai');
+    addBubble('Parece que a conexão falhou. Verifique sua internet e tente de novo. 🌿', 'ai');
     console.error('[Guia do Sono]', err);
   } finally {
     isLoading = false;
@@ -1320,42 +1555,44 @@ async function sendMessage() {
   }
 }
 
-/* ── MIC ──────────────────────────────── */
+/* ═══════════════════════════════════════
+   MIC
+═══════════════════════════════════════ */
 let recognition = null;
 let isListening = false;
 
 function toggleMic() {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SpeechRecognition) { alert('Seu navegador não suporta reconhecimento de voz.'); return; }
-
-  if (isListening) {
-    recognition.stop(); return;
-  }
-
-  recognition = new SpeechRecognition();
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { alert('Seu navegador não suporta reconhecimento de voz. Tente o Chrome.'); return; }
+  if (isListening) { recognition.stop(); return; }
+  recognition = new SR();
   recognition.lang = 'pt-BR'; recognition.continuous = false; recognition.interimResults = false;
-
   recognition.onstart  = () => { isListening = true;  document.getElementById('mic-btn').classList.add('listening'); };
   recognition.onresult = e  => {
-    const transcript = e.results[0][0].transcript;
-    const input = document.getElementById('user-input');
-    input.value = transcript; autoResize(input); input.focus();
+    const t = e.results[0][0].transcript;
+    const inp = document.getElementById('user-input');
+    inp.value = t; autoResize(inp); inp.focus();
   };
   recognition.onend    = () => { isListening = false; document.getElementById('mic-btn').classList.remove('listening'); };
   recognition.onerror  = () => { isListening = false; document.getElementById('mic-btn').classList.remove('listening'); };
-
   recognition.start();
 }
 
-/* ── INPUT EVENTS ─────────────────────── */
-function autoResize(el) { el.style.height='auto'; el.style.height = Math.min(el.scrollHeight,110)+'px'; }
-
+/* ═══════════════════════════════════════
+   INPUT EVENTS
+═══════════════════════════════════════ */
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 110) + 'px';
+}
 document.getElementById('user-input').addEventListener('input', function() { autoResize(this); });
 document.getElementById('user-input').addEventListener('keydown', e => {
   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
 });
 
-/* ── PRO MODAL ────────────────────────── */
+/* ═══════════════════════════════════════
+   PRO MODAL
+═══════════════════════════════════════ */
 function openProModal()  { document.getElementById('pro-overlay').classList.add('open'); }
 function closeProModal(e) {
   if (!e || e.target === document.getElementById('pro-overlay')) {
@@ -1363,10 +1600,20 @@ function closeProModal(e) {
   }
 }
 
-/* ── PWA ──────────────────────────────── */
+/* ═══════════════════════════════════════
+   PWA
+═══════════════════════════════════════ */
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').catch(() => {});
 }
+
+/* ═══════════════════════════════════════
+   DATE FIELD DEFAULT
+═══════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', () => {
+  const dateField = document.getElementById('exp-date');
+  if (dateField) dateField.value = new Date().toISOString().split('T')[0];
+});
 </script>
 </body>
 </html>
