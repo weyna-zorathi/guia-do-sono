@@ -265,27 +265,25 @@ const inputEl    = document.getElementById('msgInput');
 const sendBtn    = document.getElementById('sendBtn');
 const suggestEl  = document.getElementById('suggestions');
 
-// histórico de mensagens para o contexto
 let history = [];
 
 function getTime() {
-  return new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  return new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
 }
 
 function addBubble(text, role) {
-  const row  = document.createElement('div');
+  const row = document.createElement('div');
   row.className = `msg-row ${role}`;
-  const bbl  = document.createElement('div');
+  const bbl = document.createElement('div');
   bbl.className = `bubble ${role}`;
-  bbl.innerHTML = text.replace(/\n/g,'<br>');
+  bbl.innerHTML = text.replace(/\n/g, '<br>');
   const time = document.createElement('div');
-  time.className = `msg-time${role==='user'?' '+'':''}`; 
+  time.className = 'msg-time';
   time.textContent = getTime();
   row.appendChild(bbl);
   row.appendChild(time);
   messagesEl.appendChild(row);
   messagesEl.scrollTop = messagesEl.scrollHeight;
-  return bbl;
 }
 
 function showTyping() {
@@ -302,43 +300,57 @@ function showTyping() {
 
 function removeTyping() {
   const t = document.getElementById('typing');
-  if(t) t.remove();
+  if (t) t.remove();
 }
 
 async function sendMessage(text) {
   const msg = (text || inputEl.value).trim();
-  if(!msg) return;
+  if (!msg) return;
 
-  // esconde sugestões após 1ª mensagem
   suggestEl.style.display = 'none';
-
   inputEl.value = '';
   inputEl.style.height = 'auto';
   sendBtn.disabled = true;
 
   addBubble(msg, 'user');
-  history.push({ role:'user', content: msg });
+  history.push({ role: 'user', content: msg });
 
   showTyping();
 
   try {
-    const res = await fetch('/api/chat', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ messages: history })
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer gsk_sua_chave_aqui'   // ← COLOQUE SUA CHAVE AQUI
+      },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        messages: [
+          {
+            role: "system",
+            content: "Você é a Guia do Sono, uma assistente carinhosa e experiente em sono infantil gentil. Responda em português brasileiro, com empatia, sem julgamentos. Valide o cansaço da mãe primeiro. Nunca sugira deixar o bebê chorar."
+          },
+          ...history
+        ],
+        max_tokens: 900,
+        temperature: 0.7
+      })
     });
 
     removeTyping();
 
-    if(!res.ok) throw new Error('Erro na API');
+    if (!res.ok) throw new Error('Erro na API');
+
     const data = await res.json();
-    const reply = data.reply || data.content || data.message || 'Desculpe, não consegui responder agora. Tente novamente. 🌿';
+    const reply = data.choices[0]?.message?.content || 'Desculpe, não consegui responder agora. Tente novamente. 🌿';
 
     addBubble(reply, 'ai');
-    history.push({ role:'assistant', content: reply });
+    history.push({ role: 'assistant', content: reply });
 
-  } catch(err) {
+  } catch (err) {
     removeTyping();
+    console.error(err);
     addBubble('Ops, tive uma dificuldade de conexão. Tente novamente em instantes. 🌿', 'ai');
   }
 
@@ -347,25 +359,24 @@ async function sendMessage(text) {
 }
 
 function sendSuggestion(el) {
-  sendMessage(el.textContent.replace(/^[^\s]+\s/,''));
+  sendMessage(el.textContent.replace(/^[^\s]+\s/, ''));
 }
 
-// auto-resize textarea
+// Auto resize textarea
 inputEl.addEventListener('input', () => {
   inputEl.style.height = 'auto';
   inputEl.style.height = Math.min(inputEl.scrollHeight, 120) + 'px';
 });
 
-// Enter envia, Shift+Enter quebra linha
 inputEl.addEventListener('keydown', e => {
-  if(e.key === 'Enter' && !e.shiftKey) {
+  if (e.key === 'Enter' && !e.shiftKey) {
     e.preventDefault();
     sendMessage();
   }
 });
 
-if('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(()=>{});
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
 }
 </script>
 </body>
