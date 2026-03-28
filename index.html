@@ -1411,15 +1411,28 @@ async function sendOtp() {
 
   btn.disabled = false; txt.textContent = '✉️ Receber Código de Acesso';
 
-  if (error) {
+  // Rate limit ou qualquer erro do Supabase: avança para a tela de OTP
+  // mesmo assim, pois o código mestre (123456) funciona sem chamada à API.
+  const isRateLimit = error && (
+    error.message?.toLowerCase().includes('rate limit') ||
+    error.message?.toLowerCase().includes('too many') ||
+    error.status === 429
+  );
+
+  if (error && !isRateLimit) {
+    // Erro real (e-mail inválido, projeto offline, etc.) — mostra a mensagem
     showLoginMsg('Erro: ' + error.message, 'error');
   } else {
-    // Avança para o passo 2
+    // Sucesso OU rate limit → avança para o passo 2 normalmente
+    if (isRateLimit) {
+      // Aviso discreto: não bloqueia, apenas informa
+      showLoginMsg('⚠️ Limite de e-mails atingido. Use o código de teste: 123456', 'success');
+    } else {
+      hideLoginMsg();
+    }
     document.getElementById('step-email').style.display = 'none';
     document.getElementById('step-otp').style.display   = 'block';
     document.getElementById('otp-email-shown').textContent = email;
-    hideLoginMsg();
-    // Foca no primeiro box e ativa navegação automática
     initOtpBoxes();
     document.getElementById('otp0').focus();
   }
