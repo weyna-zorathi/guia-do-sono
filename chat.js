@@ -322,7 +322,7 @@ async function sendMessage(text) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer gsk_sua_chave_aqui'   // ← COLOQUE SUA CHAVE AQUI
+        'Authorization': 'Bearer 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'
       },
       body: JSON.stringify({
         model: "llama-3.3-70b-versatile",
