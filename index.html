@@ -143,7 +143,7 @@ body {
 .login-title em { color:var(--tc); font-style:italic; }
 .login-sub   { font-family:'Lora',serif; font-style:italic; font-size:13px; color:var(--brown-l); margin-bottom:32px; line-height:1.5; }
 
-/* Email form */
+/* Email + OTP form */
 .login-form { text-align:left; }
 .login-label {
   display:block; font-size:11px; font-weight:600; color:var(--brown-l);
@@ -159,6 +159,37 @@ body {
 }
 .login-input:focus { border-color:var(--sage); box-shadow:0 0 0 3px rgba(138,158,127,.18); }
 .login-input::placeholder { color:var(--brown-l); }
+
+/* OTP boxes */
+.otp-row {
+  display:flex; gap:10px; justify-content:center; margin-bottom:18px;
+}
+.otp-box {
+  width:46px; height:54px; border:1.5px solid var(--linen-d); border-radius:13px;
+  font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:#2c3e2d;
+  background:rgba(255,255,255,.85); text-align:center; outline:none;
+  transition:border-color .2s, box-shadow .2s, transform .15s;
+  caret-color:var(--sage);
+}
+.otp-box:focus { border-color:var(--sage); box-shadow:0 0 0 3px rgba(138,158,127,.18); transform:scale(1.05); }
+.otp-box.filled { border-color:var(--sage-l); background:var(--sage-p); }
+
+/* back link */
+.login-back {
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:12px; color:var(--brown-l); cursor:pointer;
+  margin-bottom:16px; background:none; border:none; padding:0;
+  font-family:'DM Sans',sans-serif; transition:color .15s;
+}
+.login-back:hover { color:var(--sage-d); }
+
+/* email hint */
+.login-email-hint {
+  font-size:12px; color:var(--text-sub); text-align:center;
+  margin-bottom:14px; font-family:'Lora',serif; font-style:italic;
+  background:var(--sage-p); border-radius:10px; padding:8px 12px;
+}
+.login-email-hint strong { color:var(--night); font-style:normal; }
 
 .login-btn-main {
   width:100%; padding:15px; border:none; border-radius:14px;
@@ -750,7 +781,7 @@ body {
 <body>
 
 <!-- ══════════════════════════════════════════
-     ██ LOGIN SCREEN — Magic Link
+     ██ LOGIN SCREEN — OTP (Código de 6 dígitos)
 ══════════════════════════════════════════ -->
 <div id="login-screen">
   <div class="login-card">
@@ -758,15 +789,40 @@ body {
     <div class="login-title">Guia do <em>Sono</em></div>
     <div class="login-sub">Seu refúgio tranquilo para noites mais serenas</div>
 
-    <div class="login-form">
-      <label class="login-label" for="login-email">Seu e-mail</label>
-      <input
-        class="login-input" id="login-email" type="email"
-        placeholder="mae@exemplo.com" autocomplete="email"
-        onkeydown="if(event.key==='Enter') sendMagicLink()"
-      />
-      <button class="login-btn-main" id="btn-magic" onclick="sendMagicLink()">
-        <span id="btn-magic-txt">✉️ Receber Link de Acesso</span>
+    <!-- PASSO 1: E-mail -->
+    <div id="step-email">
+      <div class="login-form">
+        <label class="login-label" for="login-email">Seu e-mail</label>
+        <input
+          class="login-input" id="login-email" type="email"
+          placeholder="mae@exemplo.com" autocomplete="email"
+          onkeydown="if(event.key==='Enter') sendOtp()"
+        />
+        <button class="login-btn-main" id="btn-otp" onclick="sendOtp()">
+          <span id="btn-otp-txt">✉️ Receber Código de Acesso</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- PASSO 2: Código OTP (oculto inicialmente) -->
+    <div id="step-otp" style="display:none;">
+      <button class="login-back" onclick="backToEmail()">← Voltar</button>
+      <div class="login-email-hint" id="otp-email-hint">
+        Código enviado para <strong id="otp-email-shown"></strong>
+      </div>
+      <label class="login-label" style="text-align:center;display:block;margin-bottom:12px;">
+        Digite o código de 6 dígitos
+      </label>
+      <div class="otp-row">
+        <input class="otp-box" id="otp0" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]">
+        <input class="otp-box" id="otp1" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]">
+        <input class="otp-box" id="otp2" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]">
+        <input class="otp-box" id="otp3" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]">
+        <input class="otp-box" id="otp4" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]">
+        <input class="otp-box" id="otp5" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]">
+      </div>
+      <button class="login-btn-main" id="btn-verify" onclick="verifyOtp()">
+        <span id="btn-verify-txt">🌿 Entrar no app</span>
       </button>
     </div>
 
@@ -1278,55 +1334,151 @@ let isDark = localStorage.getItem('gds_theme') === 'dark';
 let currentTab  = 'home';
 
 /* ═══════════════════════════════════════
-   MAGIC LINK LOGIN
+   OTP LOGIN  (2 passos, sem redirect)
 ═══════════════════════════════════════ */
-async function sendMagicLink() {
+
+// ── Passo 1: envia o código OTP ──
+async function sendOtp() {
   const email = document.getElementById('login-email').value.trim();
   if (!email || !email.includes('@')) {
-    showLoginMsg('Por favor, insira um e-mail válido.', 'error');
-    return;
+    showLoginMsg('Por favor, insira um e-mail válido.', 'error'); return;
   }
-  const btn = document.getElementById('btn-magic');
-  const txt = document.getElementById('btn-magic-txt');
-  btn.disabled = true;
-  txt.textContent = 'Enviando…';
+  const btn = document.getElementById('btn-otp');
+  const txt = document.getElementById('btn-otp-txt');
+  btn.disabled = true; txt.textContent = 'Enviando…';
+  hideLoginMsg();
 
+  // signInWithOtp sem shouldCreateUser=false para aceitar novos usuários também
   const { error } = await sb.auth.signInWithOtp({
     email,
-    options: {
-      emailRedirectTo: window.location.origin + window.location.pathname
-    }
+    options: { shouldCreateUser: true }
+    // Sem emailRedirectTo → Supabase envia código numérico no lugar do link
   });
 
-  btn.disabled = false;
-  txt.textContent = '✉️ Receber Link de Acesso';
+  btn.disabled = false; txt.textContent = '✉️ Receber Código de Acesso';
 
   if (error) {
     showLoginMsg('Erro: ' + error.message, 'error');
   } else {
-    showLoginMsg('✅ Link enviado! Verifique sua caixa de entrada e clique no link para entrar.', 'success');
+    // Avança para o passo 2
+    document.getElementById('step-email').style.display = 'none';
+    document.getElementById('step-otp').style.display   = 'block';
+    document.getElementById('otp-email-shown').textContent = email;
+    hideLoginMsg();
+    // Foca no primeiro box e ativa navegação automática
+    initOtpBoxes();
+    document.getElementById('otp0').focus();
   }
+}
+
+// ── Passo 2: verifica o código ──
+async function verifyOtp() {
+  const email = document.getElementById('login-email').value.trim();
+  const code  = [0,1,2,3,4,5].map(i => document.getElementById(`otp${i}`).value).join('').trim();
+
+  if (code.length < 6) {
+    showLoginMsg('Digite os 6 dígitos do código.', 'error'); return;
+  }
+
+  const btn = document.getElementById('btn-verify');
+  const txt = document.getElementById('btn-verify-txt');
+  btn.disabled = true; txt.textContent = 'Verificando…';
+  hideLoginMsg();
+
+  const { data, error } = await sb.auth.verifyOtp({
+    email,
+    token: code,
+    type: 'email',
+  });
+
+  btn.disabled = false; txt.textContent = '🌿 Entrar no app';
+
+  if (error) {
+    showLoginMsg('Código inválido ou expirado. Tente novamente.', 'error');
+    // Limpa os boxes para redigitar
+    [0,1,2,3,4,5].forEach(i => {
+      const b = document.getElementById(`otp${i}`);
+      b.value = ''; b.classList.remove('filled');
+    });
+    document.getElementById('otp0').focus();
+  } else if (data?.session) {
+    currentUser = data.session.user;
+    revealApp();
+  }
+}
+
+// ── Volta ao passo 1 ──
+function backToEmail() {
+  document.getElementById('step-otp').style.display   = 'none';
+  document.getElementById('step-email').style.display = 'block';
+  [0,1,2,3,4,5].forEach(i => {
+    const b = document.getElementById(`otp${i}`);
+    b.value=''; b.classList.remove('filled');
+  });
+  hideLoginMsg();
+}
+
+// ── Navegação automática entre os 6 boxes ──
+function initOtpBoxes() {
+  [0,1,2,3,4,5].forEach(i => {
+    const box = document.getElementById(`otp${i}`);
+    // Evita duplicar listeners
+    box.replaceWith(box.cloneNode(true));
+    const fresh = document.getElementById(`otp${i}`);
+
+    fresh.addEventListener('input', e => {
+      const v = e.target.value.replace(/\D/g,'');
+      e.target.value = v.slice(-1); // só 1 dígito
+      e.target.classList.toggle('filled', v !== '');
+      if (v && i < 5) document.getElementById(`otp${i+1}`).focus();
+      // Auto-verifica quando o 6º está preenchido
+      if (i === 5 && v) {
+        const full = [0,1,2,3,4,5].every(j => document.getElementById(`otp${j}`).value);
+        if (full) verifyOtp();
+      }
+    });
+
+    fresh.addEventListener('keydown', e => {
+      if (e.key === 'Backspace' && !e.target.value && i > 0)
+        document.getElementById(`otp${i-1}`).focus();
+      if (e.key === 'Enter') verifyOtp();
+    });
+
+    // Paste: distribui os dígitos pelos boxes
+    fresh.addEventListener('paste', e => {
+      e.preventDefault();
+      const digits = (e.clipboardData.getData('text') || '').replace(/\D/g,'').slice(0,6);
+      digits.split('').forEach((d, j) => {
+        const b = document.getElementById(`otp${j}`);
+        if (b) { b.value = d; b.classList.add('filled'); }
+      });
+      const next = Math.min(digits.length, 5);
+      document.getElementById(`otp${next}`)?.focus();
+      if (digits.length === 6) verifyOtp();
+    });
+  });
 }
 
 function showLoginMsg(msg, type) {
   const el = document.getElementById('login-msg');
-  el.textContent = msg;
-  el.className = 'login-msg ' + type;
+  el.textContent = msg; el.className = 'login-msg ' + type;
+}
+function hideLoginMsg() {
+  const el = document.getElementById('login-msg');
+  el.className = 'login-msg'; el.textContent = '';
 }
 
 /* ═══════════════════════════════════════
    AUTH STATE
 ═══════════════════════════════════════ */
 sb.auth.onAuthStateChange((event, session) => {
-  if (session?.user) {
+  if (session?.user && !currentUser) {
     currentUser = session.user;
     revealApp();
-  } else {
-    currentUser = null;
   }
 });
 
-// Handle redirect from magic link (token in URL hash)
+// Sessão existente (já logou antes)
 (async () => {
   const { data: { session } } = await sb.auth.getSession();
   if (session?.user) {
@@ -1346,13 +1498,20 @@ function revealApp() {
 async function doLogout() {
   if (!confirm('Sair da sua conta?')) return;
   await sb.auth.signOut();
+  currentUser = null;
   document.getElementById('app').classList.remove('on');
   chatBooted = false; chatHistory = [];
+  // Reset login para passo 1
+  document.getElementById('step-otp').style.display   = 'none';
+  document.getElementById('step-email').style.display = 'block';
+  document.getElementById('login-email').value = '';
+  [0,1,2,3,4,5].forEach(i => {
+    const b = document.getElementById(`otp${i}`); if(b){b.value='';b.classList.remove('filled');}
+  });
+  hideLoginMsg();
   const ls = document.getElementById('login-screen');
   ls.style.display = 'flex';
   requestAnimationFrame(() => ls.classList.remove('out'));
-  document.getElementById('login-email').value = '';
-  document.getElementById('login-msg').className = 'login-msg';
 }
 
 /* ═══════════════════════════════════════
