@@ -979,6 +979,34 @@ body {
 }
 .wm-done-btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(90,112,80,.4); }
 
+/* ── Welcome modal – input fields & field-steps ── */
+.wm-field { margin-bottom:14px; }
+.wm-field-label {
+  display:block; font-size:11px; font-weight:600; color:var(--text-sub);
+  letter-spacing:.06em; text-transform:uppercase; margin-bottom:5px;
+}
+.wm-field-input {
+  width:100%; padding:12px 14px; border:1.5px solid var(--border-d);
+  border-radius:13px; font-family:'DM Sans',sans-serif; font-size:14px;
+  color:var(--text); background:var(--bg-card); outline:none;
+  transition:border-color .2s, box-shadow .2s;
+}
+.wm-field-input:focus {
+  border-color:var(--sage); box-shadow:0 0 0 3px rgba(138,158,127,.14);
+}
+.wm-field-input::placeholder { color:var(--text-sub); }
+.wm-field-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.wm-section-tag {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--sage-d); background:var(--sage-p); border-radius:20px;
+  padding:3px 12px; margin-bottom:12px;
+}
+.wm-hint {
+  font-family:'Lora',serif; font-style:italic; font-size:12px;
+  color:var(--text-sub); line-height:1.5; margin-bottom:14px;
+}
+
 /* ── Guide Content Modal ────────────────────── */
 #guide-overlay {
   display:none; position:fixed; inset:0; z-index:9991;
@@ -2004,6 +2032,7 @@ function initApp() {
   fillUserUI();
   loadExpenses();
   loadRotina();
+  loadProfileCache();
   if (isDark) applyDark(false);
   // default date
   const df = document.getElementById('exp-date');
@@ -2575,6 +2604,27 @@ document.addEventListener('DOMContentLoaded', renderVitrine);
 
 
 /* ═══════════════════════════════════════
+   LOAD PROFILE CACHE → Dashboard
+═══════════════════════════════════════ */
+function loadProfileCache() {
+  try {
+    const cached = JSON.parse(localStorage.getItem('gds_profile_cache') || '{}');
+    if (cached.nome_bebe) {
+      const el = document.getElementById('bc-name-display');
+      if (el) el.textContent = cached.nome_bebe;
+    }
+    if (cached.peso) {
+      const el = document.getElementById('bc-peso');
+      if (el) el.textContent = cached.peso;
+    }
+    if (cached.altura) {
+      const el = document.getElementById('bc-altura');
+      if (el) el.textContent = cached.altura;
+    }
+  } catch {}
+}
+
+/* ═══════════════════════════════════════
    ROTINA DIÁRIA — salva localmente e no Supabase
    Tabela Supabase necessária (SQL Editor):
    create table if not exists rotina (
@@ -2662,140 +2712,252 @@ async function saveRotina() {
 }
 
 /* ═══════════════════════════════════════
-   WELCOME QUESTIONNAIRE
+   WELCOME QUESTIONNAIRE — 4 etapas
+   Etapa 1: Dados do Bebê (nome, nascimento, peso, altura)
+   Etapa 2: Rede de Apoio (múltipla escolha)
+   Etapa 3: Maior desafio com o sono (múltipla escolha)
+   Etapa 4: Conclusão + save no Supabase
 ═══════════════════════════════════════ */
-const WM_KEY = 'gds_welcome_done';
+const WM_KEY   = 'gds_welcome_done';
+const WM_TOTAL = 3;   // etapas reais (a 4ª é a tela de conclusão)
 
-const WM_QUESTIONS = [
-  {
-    num: 1, icon: '👶',
-    text: 'Qual é a idade do seu bebê?',
-    opts: [
-      { icon:'🌱', label:'0 a 3 meses' },
-      { icon:'🌸', label:'4 a 6 meses' },
-      { icon:'🌿', label:'7 a 12 meses' },
-      { icon:'🍃', label:'1 a 2 anos' },
-      { icon:'🌳', label:'2 a 5 anos' },
-    ]
-  },
-  {
-    num: 2, icon: '🌙',
-    text: 'Como está o sono noturno agora?',
-    opts: [
-      { icon:'😴', label:'Dorme bem (+6h)' },
-      { icon:'😪', label:'Acorda 1 a 2x' },
-      { icon:'😓', label:'Acorda 3 a 5x' },
-      { icon:'😰', label:'Acorda mais de 5x' },
-      { icon:'😭', label:'Não dorme de jeito nenhum' },
-    ]
-  },
-  {
-    num: 3, icon: '💭',
-    text: 'Qual é sua maior dificuldade agora?',
-    opts: [
-      { icon:'⏰', label:'Saber a hora certa de dormir' },
-      { icon:'😴', label:'Fazer o bebê dormir sozinho' },
-      { icon:'🔁', label:'Parar de despertar à noite' },
-      { icon:'😮‍💨', label:'Estou exausta e precisando de apoio' },
-      { icon:'📋', label:'Criar uma rotina estável' },
-    ]
-  },
-  {
-    num: 4, icon: '🏠',
-    text: 'Onde o bebê costuma dormir?',
-    opts: [
-      { icon:'🛏️', label:'No berço, no próprio quarto' },
-      { icon:'🤝', label:'No berço, no quarto dos pais' },
-      { icon:'👨‍👩‍👧', label:'Na cama junto (co-leito)' },
-      { icon:'💺', label:'No colo — ainda não conseguimos outro jeito' },
-    ]
-  },
-  {
-    num: 5, icon: '💚',
-    text: 'Como você está se sentindo hoje?',
-    opts: [
-      { icon:'🌟', label:'Bem! Só quero aprender mais' },
-      { icon:'🌤️', label:'Mais ou menos — tem dias melhores' },
-      { icon:'🌧️', label:'Cansada, mas seguindo em frente' },
-      { icon:'🆘', label:'No limite — preciso de ajuda agora' },
-    ]
-  },
-];
+/* Estado do questionário */
+let wmStep    = 0;
+let wmAnswers = {};   // objeto chave→valor para campos livres e seleções
 
-let wmStep = 0;
-let wmAnswers = [];
-
+/* ── checkWelcome: abre o modal se ainda não preencheu ── */
 function checkWelcome() {
-  const done = localStorage.getItem(WM_KEY);
-  if (!done) {
-    wmStep = 0; wmAnswers = [];
+  if (!localStorage.getItem(WM_KEY)) {
+    wmStep   = 0;
+    wmAnswers = {};
     renderWmStep();
     document.getElementById('welcome-overlay').classList.add('open');
   }
 }
 
-function renderWmStep() {
-  const body   = document.getElementById('wm-body');
-  const prog   = document.getElementById('wm-prog');
-  const lbl    = document.getElementById('wm-step-lbl');
-  const nxt    = document.getElementById('wm-next');
-  const total  = WM_QUESTIONS.length;
+/* ── Atualiza header progress bar e label ── */
+function wmSetProgress(step) {
+  const pct = Math.round((step / WM_TOTAL) * 100);
+  const prog = document.getElementById('wm-prog');
+  const lbl  = document.getElementById('wm-step-lbl');
+  if (prog) prog.style.width = pct + '%';
+  if (lbl)  lbl.textContent  = step < WM_TOTAL
+    ? 'Etapa ' + (step + 1) + ' de ' + WM_TOTAL
+    : 'Tudo certo! 🌿';
+}
 
-  if (wmStep >= total) {
-    // Done screen
-    prog.style.width = '100%';
-    lbl.textContent  = 'Concluído 🌿';
-    nxt.style.display = 'none';
+/* ── Renderiza a etapa atual ── */
+function renderWmStep() {
+  wmSetProgress(wmStep);
+  const body = document.getElementById('wm-body');
+  const nxt  = document.getElementById('wm-next');
+  if (!body || !nxt) return;
+
+  /* ── ETAPA 0: Dados do Bebê ── */
+  if (wmStep === 0) {
+    nxt.style.display  = 'block';
+    nxt.textContent    = 'Próxima →';
     body.innerHTML = `
-      <div class="wm-done">
-        <span class="wm-done-flower">🌸</span>
-        <div class="wm-done-title">Perfil criado com carinho!</div>
-        <div class="wm-done-sub">
-          Agora o Guia do Sono conhece você e pode te ajudar ainda melhor.<br>
-          Vá para o <strong>Chat</strong> e converse com a assistente a qualquer hora.
+      <div class="wm-step active">
+        <div class="wm-section-tag">🌸 Sobre o Bebê</div>
+        <p class="wm-hint">Vamos começar conhecendo quem chegou para transformar tudo. 💚</p>
+
+        <div class="wm-field">
+          <label class="wm-field-label">Nome do bebê</label>
+          <input class="wm-field-input" id="wm-nome-bebe"
+            type="text" placeholder="Como você chama seu pequeno?"
+            value="${wmAnswers['nome_bebe'] || ''}"
+            oninput="wmAnswers['nome_bebe']=this.value">
         </div>
-        <button class="wm-done-btn" onclick="closeWelcome()">Entrar no app 🌿</button>
+
+        <div class="wm-field">
+          <label class="wm-field-label">Data de nascimento (ou previsão)</label>
+          <input class="wm-field-input" id="wm-nasc"
+            type="date"
+            value="${wmAnswers['data_nascimento'] || ''}"
+            oninput="wmAnswers['data_nascimento']=this.value">
+        </div>
+
+        <div class="wm-field-row">
+          <div class="wm-field">
+            <label class="wm-field-label">Peso atual</label>
+            <input class="wm-field-input" id="wm-peso"
+              type="text" placeholder="ex: 6,2 kg"
+              value="${wmAnswers['peso'] || ''}"
+              oninput="wmAnswers['peso']=this.value">
+          </div>
+          <div class="wm-field">
+            <label class="wm-field-label">Altura atual</label>
+            <input class="wm-field-input" id="wm-altura"
+              type="text" placeholder="ex: 62 cm"
+              value="${wmAnswers['altura'] || ''}"
+              oninput="wmAnswers['altura']=this.value">
+          </div>
+        </div>
       </div>`;
     return;
   }
 
-  const q   = WM_QUESTIONS[wmStep];
-  const pct = Math.round((wmStep / total) * 100);
-  prog.style.width  = pct + '%';
-  lbl.textContent   = 'Pergunta ' + (wmStep + 1) + ' de ' + total;
-  nxt.style.display = 'block';
-  nxt.textContent   = wmStep < total - 1 ? 'Próxima →' : 'Concluir ✓';
+  /* ── ETAPA 1: Rede de Apoio ── */
+  if (wmStep === 1) {
+    nxt.style.display = 'block';
+    nxt.textContent   = 'Próxima →';
+    const apoioOpts = [
+      { icon:'💑', label:'Esposo / parceiro(a) presente',    key:'parceiro' },
+      { icon:'👵', label:'Avós e família por perto',          key:'avos' },
+      { icon:'🤝', label:'Rede de amigas / grupo de mães',    key:'rede' },
+      { icon:'🦅', label:'Seguindo solo com muito amor',      key:'solo' },
+      { icon:'💼', label:'Babá ou cuidador(a) de apoio',      key:'baba' },
+    ];
+    const sel = wmAnswers['apoio'] || [];
+    body.innerHTML = `
+      <div class="wm-step active">
+        <div class="wm-section-tag">🤝 Sua Rede de Apoio</div>
+        <p class="wm-q-text">Quem caminha ao seu lado nessa jornada?</p>
+        <p class="wm-hint">Pode marcar mais de uma opção. Isso nos ajuda a personalizar as sugestões para o seu contexto.</p>
+        <div class="wm-options">
+          ${apoioOpts.map(o => `
+            <button class="wm-opt${sel.includes(o.key) ? ' sel' : ''}"
+              onclick="wmToggleApoio('${o.key}', this)">
+              <span class="wm-opt-icon">${o.icon}</span>
+              ${o.label}
+            </button>`).join('')}
+        </div>
+      </div>`;
+    return;
+  }
 
-  const sel = wmAnswers[wmStep];
+  /* ── ETAPA 2: Desafio com o sono ── */
+  if (wmStep === 2) {
+    nxt.style.display = 'block';
+    nxt.textContent   = 'Concluir ✓';
+    const desafioOpts = [
+      { icon:'😴', label:'Fazer adormecer — choro, agitação, resistência' },
+      { icon:'🌙', label:'Despertares noturnos frequentes' },
+      { icon:'⏱️', label:'Sonecas muito curtas (menos de 30 min)' },
+      { icon:'🔁', label:'Dependência de movimento, colo ou amamentação' },
+      { icon:'📋', label:'Falta de rotina — não sei por onde começar' },
+      { icon:'😮‍💨', label:'Minha exaustão — preciso cuidar de mim também' },
+    ];
+    const sel = wmAnswers['desafio'];
+    body.innerHTML = `
+      <div class="wm-step active">
+        <div class="wm-section-tag">🌙 Rotina de Sono</div>
+        <p class="wm-q-text">Qual é o maior desafio com o sono hoje?</p>
+        <p class="wm-hint">Escolha o que mais te pesa agora. Não existe resposta certa.</p>
+        <div class="wm-options">
+          ${desafioOpts.map((o, i) => `
+            <button class="wm-opt${sel === i ? ' sel' : ''}"
+              onclick="wmSelDesafio(${i}, this)">
+              <span class="wm-opt-icon">${o.icon}</span>
+              ${o.label}
+            </button>`).join('')}
+        </div>
+      </div>`;
+    return;
+  }
+
+  /* ── ETAPA 3: Tela de conclusão ── */
+  nxt.style.display = 'none';
+  wmSetProgress(WM_TOTAL);
+  const nomeBebe = wmAnswers['nome_bebe'] || 'seu bebê';
   body.innerHTML = `
-    <div class="wm-step active">
-      <div class="wm-q-num">${q.icon} Pergunta ${q.num} de ${total}</div>
-      <div class="wm-q-text">${q.text}</div>
-      <div class="wm-options">
-        ${q.opts.map((o, i) => `
-          <button class="wm-opt${sel === i ? ' sel' : ''}" onclick="selectWmOpt(${i})">
-            <span class="wm-opt-icon">${o.icon}</span>
-            ${o.label}
-          </button>`).join('')}
+    <div class="wm-done">
+      <span class="wm-done-flower">🌸</span>
+      <div class="wm-done-title">Perfil criado com carinho!</div>
+      <div class="wm-done-sub">
+        Agora o Guia do Sono conhece <strong>${nomeBebe}</strong> e pode te ajudar ainda mais.<br><br>
+        Vá para o <strong>Chat</strong> e converse com a assistente a qualquer hora. 💚
       </div>
+      <button class="wm-done-btn" onclick="closeWelcome()">Entrar no app 🌿</button>
     </div>`;
+  // Salva no Supabase ao chegar na tela de conclusão
+  saveWelcomeProfile();
 }
 
-function selectWmOpt(idx) {
-  wmAnswers[wmStep] = idx;
+/* ── Seleção múltipla: rede de apoio ── */
+function wmToggleApoio(key, btn) {
+  let sel = wmAnswers['apoio'] || [];
+  if (sel.includes(key)) {
+    sel = sel.filter(k => k !== key);
+    btn.classList.remove('sel');
+  } else {
+    sel.push(key);
+    btn.classList.add('sel');
+  }
+  wmAnswers['apoio'] = sel;
+}
+
+/* ── Seleção única: desafio ── */
+function wmSelDesafio(idx, btn) {
+  wmAnswers['desafio'] = idx;
   document.querySelectorAll('.wm-opt').forEach((b, i) => b.classList.toggle('sel', i === idx));
 }
 
+/* ── Avança para próxima etapa ── */
 function wmNext() {
-  if (wmAnswers[wmStep] === undefined) {
-    // Gentle nudge if nothing selected
-    document.querySelectorAll('.wm-opt')[0]?.classList.add('sel');
-    wmAnswers[wmStep] = 0;
+  // Etapa 0: nome obrigatório
+  if (wmStep === 0) {
+    const nome = (document.getElementById('wm-nome-bebe')?.value || '').trim();
+    wmAnswers['nome_bebe'] = nome;
+    wmAnswers['data_nascimento'] = document.getElementById('wm-nasc')?.value || '';
+    wmAnswers['peso']   = document.getElementById('wm-peso')?.value   || '';
+    wmAnswers['altura'] = document.getElementById('wm-altura')?.value || '';
+    if (!nome) {
+      const inp = document.getElementById('wm-nome-bebe');
+      if (inp) {
+        inp.style.borderColor = 'var(--tc)';
+        inp.focus();
+        inp.placeholder = 'Por favor, diga o nome do seu bebê 🌸';
+      }
+      return;
+    }
   }
   wmStep++;
   renderWmStep();
 }
 
+/* ── Salva perfil no Supabase ── */
+async function saveWelcomeProfile() {
+  // Atualiza o dashboard com os dados coletados
+  const nome = wmAnswers['nome_bebe'] || '';
+  const peso   = wmAnswers['peso']   || '';
+  const altura = wmAnswers['altura'] || '';
+  if (nome) {
+    const el = document.getElementById('bc-name-display');
+    if (el) el.textContent = nome;
+  }
+  if (peso)   { const el = document.getElementById('bc-peso');   if (el) el.textContent = peso; }
+  if (altura) { const el = document.getElementById('bc-altura'); if (el) el.textContent = altura; }
+
+  // Salva no localStorage como backup
+  localStorage.setItem('gds_profile_cache', JSON.stringify(wmAnswers));
+
+  // Salva no Supabase (tabela profile já criada)
+  if (currentUser && !modoTeste) {
+    const apoioStr   = (wmAnswers['apoio']    || []).join(',');
+    const desafioIdx = wmAnswers['desafio'];
+    const desafios   = [
+      'Fazer adormecer','Despertares noturnos','Sonecas curtas',
+      'Dependência de colo','Falta de rotina','Exaustão materna'
+    ];
+    const row = {
+      user_id:         currentUser.id,
+      nome_bebe:       wmAnswers['nome_bebe']       || null,
+      data_nascimento: wmAnswers['data_nascimento'] || null,
+      peso_atual:      wmAnswers['peso']            || null,
+      altura_atual:    wmAnswers['altura']          || null,
+      rede_apoio:      apoioStr                     || null,
+      desafio_sono:    desafioIdx !== undefined ? desafios[desafioIdx] : null,
+    };
+    const { error } = await sb
+      .from('profile')
+      .upsert(row, { onConflict: 'user_id' });
+    if (error) console.warn('[GDS] profile save error:', error.message);
+  }
+}
+
+/* ── Fecha e marca como concluído ── */
 function closeWelcome() {
   localStorage.setItem(WM_KEY, '1');
   document.getElementById('welcome-overlay').classList.remove('open');
@@ -2821,17 +2983,17 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catc
 <div id="welcome-overlay">
   <div id="welcome-modal">
     <div class="wm-header">
-      <span class="wm-flower">🌸</span>
+      <span class="wm-flower">🌿</span>
       <div class="wm-title">Bem-vinda ao <em>Guia do Sono</em></div>
-      <div class="wm-sub">5 perguntas rápidas para personalizar sua experiência</div>
+      <div class="wm-sub">3 etapas rápidas para personalizar sua experiência</div>
       <div class="wm-progress-bar">
         <div class="wm-progress-fill" id="wm-prog" style="width:0%"></div>
       </div>
     </div>
-    <div class="wm-body" id="wm-body"><!-- steps injected by JS --></div>
+    <div class="wm-body" id="wm-body"><!-- etapas injetadas pelo JS --></div>
     <div class="wm-footer">
       <button class="wm-skip" onclick="skipWelcome()">Pular por agora</button>
-      <span class="wm-step-lbl" id="wm-step-lbl">Pergunta 1 de 5</span>
+      <span class="wm-step-lbl" id="wm-step-lbl">Etapa 1 de 3</span>
       <button class="wm-btn-next" id="wm-next" onclick="wmNext()">Próxima →</button>
     </div>
   </div>
