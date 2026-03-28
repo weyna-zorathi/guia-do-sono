@@ -1,4 +1,4 @@
-// chat.js - Versão simples com Groq (atualizada)
+// chat.js - Frontend atualizado para chamar /api/chat
 
 const messagesEl = document.getElementById('messages');
 const inputEl    = document.getElementById('msgInput');
@@ -58,24 +58,10 @@ async function sendMessage(text) {
   showTyping();
 
   try {
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const res = await fetch('/api/chat', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': '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'   // ← TROQUE AQUI PELA SUA CHAVE REAL
-      },
-      body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
-        messages: [
-          { 
-            role: "system", 
-            content: "Você é a Guia do Sono. Uma assistente carinhosa, experiente e acolhedora sobre sono de bebês. Responda em português brasileiro, com empatia. Valide o cansaço da mãe primeiro. Nunca sugira deixar o bebê chorar." 
-          },
-          ...history
-        ],
-        max_tokens: 800,
-        temperature: 0.7
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: history })
     });
 
     removeTyping();
@@ -83,8 +69,7 @@ async function sendMessage(text) {
     if (!res.ok) throw new Error('Erro na API');
 
     const data = await res.json();
-    const reply = data.choices?.[0]?.message?.content || 
-      "Desculpe mamãe, tive um probleminha agora. Pode tentar de novo? 🌿";
+    const reply = data.reply || "Desculpe mamãe, não consegui responder agora. Tente de novo 🌿";
 
     addBubble(reply, 'ai');
     history.push({ role: 'assistant', content: reply });
@@ -103,7 +88,7 @@ function sendSuggestion(el) {
   sendMessage(el.textContent.replace(/^[^\s]+\s/, ''));
 }
 
-// Auto resize do textarea
+// Auto resize textarea
 inputEl.addEventListener('input', () => {
   inputEl.style.height = 'auto';
   inputEl.style.height = Math.min(inputEl.scrollHeight, 120) + 'px';
