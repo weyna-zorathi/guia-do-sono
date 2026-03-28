@@ -656,19 +656,83 @@ body {
 .lt-val { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:var(--sage-d); }
 .exp-empty { text-align:center; padding:28px 16px; font-family:'Lora',serif; font-style:italic; font-size:13px; color:var(--text-sub); }
 
-/* Affiliates */
-.aff-title { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:var(--text); margin-bottom:12px; }
-.aff-title em { color:var(--tc); font-style:italic; }
-.aff-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.aff-card { background:var(--bg-card); border:1px solid var(--border); border-radius:18px; overflow:hidden; cursor:pointer; transition:transform .18s, box-shadow .18s; box-shadow:0 2px 8px var(--shadow); }
-.aff-card:hover { box-shadow:0 6px 20px var(--shadow-lg); }
+/* ── Vitrine de Afiliados ── */
+.vitrine-header { margin-bottom:20px; }
+.vitrine-eyebrow {
+  font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--sage); margin-bottom:8px; display:flex; align-items:center; gap:8px;
+}
+.vitrine-eyebrow::before, .vitrine-eyebrow::after {
+  content:''; flex:1; height:1px; background:var(--border);
+}
+.vitrine-title {
+  font-family:'Playfair Display',serif; font-size:18px; font-weight:700;
+  color:var(--text); line-height:1.25; margin-bottom:5px;
+}
+.vitrine-title em { color:var(--tc); font-style:italic; }
+.vitrine-tagline {
+  font-family:'Lora',serif; font-style:italic; font-size:12px;
+  color:var(--text-sub); line-height:1.5;
+}
+.aff-grid {
+  display:grid; grid-template-columns:1fr; gap:14px;
+}
+@media(min-width:500px) and (max-width:919px) { .aff-grid { grid-template-columns:1fr 1fr; } }
+@media(min-width:920px)  { .orc-right .aff-grid { grid-template-columns:1fr; } }
+@media(min-width:1200px) { .orc-right .aff-grid { grid-template-columns:1fr 1fr; } }
+.aff-card {
+  background:#faf6ef;
+  border:1.5px solid var(--border); border-radius:22px; overflow:hidden;
+  cursor:pointer; box-shadow:0 3px 14px var(--shadow);
+  transition:transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
+  display:flex; flex-direction:column;
+}
+[data-theme="dark"] .aff-card { background:var(--bg-card); }
+.aff-card:hover  { transform:translateY(-3px); box-shadow:0 10px 28px var(--shadow-md); }
 .aff-card:active { transform:scale(.97); }
-.aff-img  { width:100%; height:86px; display:flex; align-items:center; justify-content:center; font-size:34px; background:var(--linen); }
-.aff-body { padding:10px 12px 12px; }
-.aff-name { font-size:11px; font-weight:600; color:var(--text); margin-bottom:3px; line-height:1.3; }
-.aff-price{ font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:var(--tc); margin-bottom:8px; }
-.aff-btn  { display:block; width:100%; padding:8px; background:linear-gradient(135deg, var(--sage), var(--sage-d)); color:#fff; border:none; border-radius:10px; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:600; cursor:pointer; text-align:center; text-decoration:none; transition:opacity .18s; }
-.aff-btn:active { opacity:.85; }
+.aff-img-wrap {
+  width:100%; height:110px;
+  background:linear-gradient(135deg, var(--linen) 0%, var(--lav-p) 100%);
+  display:flex; align-items:center; justify-content:center; font-size:44px;
+  position:relative; overflow:hidden; flex-shrink:0;
+}
+.aff-img-wrap::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(180deg, transparent 55%, rgba(250,246,239,.6) 100%);
+}
+[data-theme="dark"] .aff-img-wrap::after {
+  background:linear-gradient(180deg, transparent 55%, rgba(33,46,33,.6) 100%);
+}
+.aff-body { padding:14px 16px 16px; flex:1; display:flex; flex-direction:column; }
+.aff-name {
+  font-family:'Playfair Display',serif; font-size:13px; font-weight:700;
+  color:var(--text); line-height:1.35; margin-bottom:4px;
+}
+.aff-tag {
+  font-family:'Lora',serif; font-style:italic; font-size:11px;
+  color:var(--text-sub); line-height:1.4; margin-bottom:10px; flex:1;
+}
+.aff-price {
+  font-family:'Playfair Display',serif; font-size:16px; font-weight:700;
+  color:var(--tc); margin-bottom:12px; line-height:1;
+}
+.aff-price small {
+  font-family:'DM Sans',sans-serif; font-size:10px; font-weight:400;
+  color:var(--text-sub); margin-left:3px;
+}
+.aff-btn {
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  width:100%; padding:11px 14px;
+  background:linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%);
+  color:#fff; border:none; border-radius:13px;
+  font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600;
+  cursor:pointer; text-decoration:none; text-align:center;
+  box-shadow:0 3px 12px rgba(90,112,80,.28);
+  transition:transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s, opacity .18s;
+}
+.aff-btn:hover  { transform:translateY(-1px); box-shadow:0 6px 18px rgba(90,112,80,.36); }
+.aff-btn:active { transform:scale(.96); opacity:.9; }
+.aff-btn svg    { width:13px; height:13px; fill:none; stroke:#fff; stroke-width:2.5; flex-shrink:0; }
 
 /* ════════════════════════════════════════════
    ██ GUIAS PAGE
@@ -1058,46 +1122,15 @@ body {
             </div>
           </div>
 
-          <!-- RIGHT: affiliates -->
+          <!-- RIGHT: vitrine de afiliados (renderizada via JS do array PRODUTOS) -->
           <div class="orc-right fu d3">
-            <div class="aff-title">🛒 Garimpado para a <em>Sofia</em></div>
-            <div class="aff-grid">
-              <div class="aff-card">
-                <div class="aff-img">🍼</div>
-                <div class="aff-body">
-                  <div class="aff-name">Mamadeira Anti-Cólica Philips Avent</div>
-                  <div class="aff-price">R$ 89,90</div>
-                  <!-- Coloque seu link de afiliado aqui -->
-                  <a class="aff-btn" href="" target="_blank" rel="noopener">Ver na Loja</a>
-                </div>
-              </div>
-              <div class="aff-card">
-                <div class="aff-img">🎶</div>
-                <div class="aff-body">
-                  <div class="aff-name">Máquina de Ruído Branco LectroFan</div>
-                  <div class="aff-price">R$ 249,00</div>
-                  <!-- Coloque seu link de afiliado aqui -->
-                  <a class="aff-btn" href="" target="_blank" rel="noopener">Ver na Loja</a>
-                </div>
-              </div>
-              <div class="aff-card">
-                <div class="aff-img">🌙</div>
-                <div class="aff-body">
-                  <div class="aff-name">Saco de Dormir Halo SleepSack</div>
-                  <div class="aff-price">R$ 159,90</div>
-                  <!-- Coloque seu link de afiliado aqui -->
-                  <a class="aff-btn" href="" target="_blank" rel="noopener">Ver na Loja</a>
-                </div>
-              </div>
-              <div class="aff-card">
-                <div class="aff-img">🛏️</div>
-                <div class="aff-body">
-                  <div class="aff-name">Berço Portátil Multikids Baby</div>
-                  <div class="aff-price">R$ 319,00</div>
-                  <!-- Coloque seu link de afiliado aqui -->
-                  <a class="aff-btn" href="" target="_blank" rel="noopener">Ver na Loja</a>
-                </div>
-              </div>
+            <div class="vitrine-header">
+              <div class="vitrine-eyebrow">curadoria</div>
+              <div class="vitrine-title">🛒 Garimpado para a <em>Sofia</em></div>
+              <div class="vitrine-tagline">Curadoria de mestre para o sono do seu pequeno</div>
+            </div>
+            <div class="aff-grid" id="vitrine-grid">
+              <!-- preenchido por renderVitrine() no JS -->
             </div>
           </div>
         </div>
@@ -1599,7 +1632,7 @@ function goTo(tab) {
   document.getElementById(`page-${tab}`)?.classList.add('active');
   syncChatInput();
   if (tab === 'chat' && !chatBooted) bootChat();
-  if (tab === 'orcamento') loadExpenses();
+  if (tab === 'orcamento') { loadExpenses(); renderVitrine(); }
 }
 
 function syncChatInput() {
@@ -1954,6 +1987,83 @@ function closePro() { document.getElementById('pro-ov').classList.remove('on'); 
 /* ═══════════════════════════════════════
    PWA
 ═══════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════
+   VITRINE DE AFILIADOS
+   ─────────────────────────────────────────────────────────
+   Para trocar os links: edite o campo `url` de cada produto.
+   Para adicionar produtos: copie um objeto e cole no array.
+   Ícones: use qualquer emoji no campo `emoji`.
+═══════════════════════════════════════════════════════════ */
+const PRODUTOS = [
+  {
+    emoji:  '🍼',
+    nome:   'Mamadeira Anti-Cólica Philips Avent',
+    tag:    'Dormir como um anjo começa pela barriga feliz',
+    preco:  'R$ 89,90',
+    url:    '', // ← coloque aqui seu link de associada Amazon
+  },
+  {
+    emoji:  '🎶',
+    nome:   'Máquina de Ruído Branco LectroFan',
+    tag:    'O som que acalma e mantém o sono profundo',
+    preco:  'R$ 249,00',
+    url:    '', // ← coloque aqui seu link de associada Amazon
+  },
+  {
+    emoji:  '🌙',
+    nome:   'Saco de Dormir Halo SleepSack',
+    tag:    'Segurança e quentinho a noite toda',
+    preco:  'R$ 159,90',
+    url:    '', // ← coloque aqui seu link de associada Amazon
+  },
+  {
+    emoji:  '🛏️',
+    nome:   'Berço Portátil Multikids Baby',
+    tag:    'Rotina de sono em qualquer lugar da casa',
+    preco:  'R$ 319,00',
+    url:    '', // ← coloque aqui seu link de associada Amazon
+  },
+  {
+    emoji:  '🌿',
+    nome:   'Umidificador de Ar Ultrassônico',
+    tag:    'Ambiente ideal para o sono do bebê',
+    preco:  'R$ 189,90',
+    url:    '', // ← coloque aqui seu link de associada Amazon
+  },
+  {
+    emoji:  '🔆',
+    nome:   'Abajur Luminária Noturna Touch',
+    tag:    'Luz âmbar que não atrapalha a melatonina',
+    preco:  'R$ 79,90',
+    url:    '', // ← coloque aqui seu link de associada Amazon
+  },
+];
+
+function renderVitrine() {
+  const grid = document.getElementById('vitrine-grid');
+  if (!grid) return;
+  grid.innerHTML = PRODUTOS.map(p => `
+    <div class="aff-card">
+      <div class="aff-img-wrap">${p.emoji}</div>
+      <div class="aff-body">
+        <div class="aff-name">${p.nome}</div>
+        <div class="aff-tag">${p.tag}</div>
+        <div class="aff-price">${p.preco} <small>aprox.</small></div>
+        <a class="aff-btn"
+           href="${p.url || '#'}"
+           target="_blank" rel="noopener sponsored"
+           onclick="${p.url ? '' : 'event.preventDefault()'}">
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Ver na Loja
+        </a>
+      </div>
+    </div>`).join('');
+}
+
+// Render on load and whenever the orcamento tab is opened
+document.addEventListener('DOMContentLoaded', renderVitrine);
+
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 
 </script>
