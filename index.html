@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="light">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -39,43 +39,62 @@
   --lav-l:    #c8c0dc;
   --lav-p:    #f0edf8;
 
-  --bg:        #faf6ef;
-  --bg-card:   #fff9f2;
+  --bg:        #fdfbf7;
+  --bg-card:   #ffffff;
   --bg-card2:  #ffffff;
-  --border:    #ede5d8;
-  --border-d:  #d8ccb8;
-  --text:      #2c3e2d;
-  --text-sub:  #a07850;
-  --shadow:    rgba(44,62,45,.08);
-  --shadow-md: rgba(44,62,45,.14);
-  --shadow-lg: rgba(44,62,45,.20);
-  --nav-bg:    rgba(250,246,239,.97);
+  --border:    #e8e0d4;
+  --border-d:  #d4c8b8;
+  --text:      #1e2a1e;
+  --text-sub:  #7a6a55;
+  --shadow:    rgba(30,42,30,.07);
+  --shadow-md: rgba(30,42,30,.13);
+  --shadow-lg: rgba(30,42,30,.20);
+  --nav-bg:    #1a2e1a;
 }
 
-/* TOKENS – DARK */
-[data-theme="dark"] {
-  --bg:        #181f18;
-  --bg-card:   #212e21;
-  --bg-card2:  #283228;
-  --border:    rgba(255,255,255,.08);
-  --border-d:  rgba(255,255,255,.14);
-  --text:      #dff0db;
-  --text-sub:  #87a882;
-  --shadow:    rgba(0,0,0,.28);
-  --shadow-md: rgba(0,0,0,.40);
-  --shadow-lg: rgba(0,0,0,.55);
-  --nav-bg:    rgba(24,31,24,.97);
-  --cream:     #181f18;
-  --warm:      #212e21;
-  --linen:     rgba(255,255,255,.08);
-  --linen-d:   rgba(255,255,255,.14);
-  --night:     #dff0db;
-  --brown-l:   #87a882;
-  --gold-p:    #252008;
-  --sage-p:    #182418;
-  --tc-p:      #2a140e;
-  --lav-p:     #1a1828;
+/* ── Fixed Elegant Palette (no dark mode toggle) ── */
+
+/* App background: warm cream, easy on night-time eyes */
+:root {
+  --bg:         #fdfbf7;
+  --bg-card:    #ffffff;
+  --bg-card2:   #ffffff;
+  --border:     #e8e0d4;
+  --border-d:   #d4c8b8;
+  --text:       #1e2a1e;
+  --text-sub:   #7a6a55;
+  --shadow:     rgba(30,42,30,.07);
+  --shadow-md:  rgba(30,42,30,.13);
+  --shadow-lg:  rgba(30,42,30,.20);
+  --nav-bg:     #1a2e1a;   /* dark green nav bar on mobile */
 }
+
+/* Sidebar: always dark forest green */
+.sidebar {
+  background: #1a2e1a !important;
+  border-right: 1px solid rgba(255,255,255,.07) !important;
+}
+.sb-brand        { border-bottom-color: rgba(255,255,255,.1) !important; }
+.sb-brand-name   { color: #e8f0e5 !important; }
+.sb-brand-name small { color: rgba(255,255,255,.45) !important; }
+.sn-item         { color: rgba(255,255,255,.5) !important; }
+.sn-item:hover   { background: rgba(138,158,127,.2) !important; color: #c8e0c0 !important; }
+.sn-item.active  { background: rgba(138,158,127,.25) !important; color: #e8f5e0 !important; }
+.sb-footer       { border-top-color: rgba(255,255,255,.09) !important; }
+.sb-user-name    { color: #e8f0e5 !important; }
+.sb-user-email   { color: rgba(255,255,255,.4) !important; }
+
+/* Bottom nav: dark green on mobile */
+.bottom-nav {
+  background: #1a2e1a !important;
+  border-top: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.nav-lbl  { color: rgba(255,255,255,.45) !important; }
+.nav-item.active { background: rgba(138,158,127,.25) !important; }
+.nav-item.active .nav-lbl { color: #b5c9a8 !important; }
+.nav-icon { filter: brightness(1.6); }
 
 /* ════════════════════════════════════════════
    RESET & BASE
@@ -89,7 +108,6 @@ body {
   min-height:100dvh;
   display:flex; flex-direction:column;
   overflow:hidden;
-  transition:background .3s, color .3s;
 }
 ::-webkit-scrollbar { width:4px; }
 ::-webkit-scrollbar-thumb { background:var(--border-d); border-radius:4px; }
@@ -268,11 +286,7 @@ body {
 .sb-user-av img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
 .sb-user-name  { font-size:12px; font-weight:600; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .sb-user-email { font-size:10px; color:var(--text-sub); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.theme-row { display:flex; align-items:center; justify-content:space-between; font-size:11px; color:var(--text-sub); }
-.t-switch { width:36px; height:20px; border-radius:20px; background:var(--border-d); position:relative; border:none; cursor:pointer; transition:background .3s; flex-shrink:0; }
-.t-switch::after { content:''; position:absolute; top:3px; left:3px; width:14px; height:14px; border-radius:50%; background:#fff; transition:transform .3s; }
-.t-switch.on { background:var(--night); }
-.t-switch.on::after { transform:translateX(16px); }
+/* theme toggle removed — fixed palette */
 
 /* ────── Content area ────── */
 .content-area { flex:1; display:flex; flex-direction:column; overflow:hidden; min-width:0; }
@@ -715,7 +729,6 @@ body {
   transition:transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
   display:flex; flex-direction:column;
 }
-[data-theme="dark"] .aff-card { background:var(--bg-card); }
 .aff-card:hover  { transform:translateY(-3px); box-shadow:0 10px 28px var(--shadow-md); }
 .aff-card:active { transform:scale(.97); }
 .aff-img-wrap {
@@ -727,9 +740,6 @@ body {
 .aff-img-wrap::after {
   content:''; position:absolute; inset:0;
   background:linear-gradient(180deg, transparent 55%, rgba(250,246,239,.6) 100%);
-}
-[data-theme="dark"] .aff-img-wrap::after {
-  background:linear-gradient(180deg, transparent 55%, rgba(33,46,33,.6) 100%);
 }
 .aff-body { padding:14px 16px 16px; flex:1; display:flex; flex-direction:column; }
 .aff-name {
@@ -1331,10 +1341,7 @@ body {
           <div class="sb-user-email" id="sb-email"></div>
         </div>
       </div>
-      <div class="theme-row">
-        <span>🌙 Modo noturno</span>
-        <button class="t-switch" id="t-switch" onclick="toggleTheme()"></button>
-      </div>
+      <!-- fixed palette — no dark mode toggle -->
       <div class="test-badge" id="test-badge">
         <div class="test-badge-dot"></div>
         Modo de Teste Ativo
@@ -1355,7 +1362,6 @@ body {
             <div class="hdr-title">Como dormiu a <em>pequena?</em></div>
           </div>
           <div class="hdr-actions">
-            <div class="icon-btn" onclick="toggleTheme()">🌙</div>
             <div class="icon-btn">🔔</div>
           </div>
         </div>
@@ -1798,7 +1804,7 @@ body {
 
           <div class="pf-section fu d4">
             <div class="pf-sec-lbl">Preferências</div>
-            <div class="pf-item" onclick="toggleTheme()"><div class="pf-left"><div class="pf-icon pi-lav">🎨</div><div><div class="pf-lbl">Modo Noturno</div><div class="pf-sub" id="theme-lbl">Claro ativo</div></div></div><div class="pf-arr">›</div></div>
+            <div class="pf-item"><div class="pf-left"><div class="pf-icon pi-lav">🤝</div><div><div class="pf-lbl">Rede de apoio</div><div class="pf-sub" id="pf-apoio-display">–</div></div></div></div>
             <div class="pf-item"><div class="pf-left"><div class="pf-icon pi-gold">🔔</div><div><div class="pf-lbl">Notificações</div><div class="pf-sub">Lembretes de janela de sono</div></div></div><div class="pf-arr">›</div></div>
           </div>
 
@@ -1926,7 +1932,7 @@ let isLoading   = false;
 let chatHistory = [];
 let recognition = null;
 let isListening = false;
-let isDark = localStorage.getItem('gds_theme') === 'dark';
+// Fixed palette — no dark mode
 let currentTab  = 'home';
 
 /* ═══════════════════════════════════════
@@ -2169,7 +2175,7 @@ function initApp() {
   loadExpenses();
   loadRotina();
   loadProfileCache();
-  if (isDark) applyDark(false);
+  // fixed palette — no theme init needed
   // default date
   const df = document.getElementById('exp-date');
   if (df) df.value = new Date().toISOString().split('T')[0];
@@ -2212,24 +2218,7 @@ function fillUserUI() {
   }
 }
 
-/* ═══════════════════════════════════════
-   THEME
-═══════════════════════════════════════ */
-function toggleTheme() { isDark ? applyLight() : applyDark(true); }
-function applyDark(save) {
-  isDark = true;
-  document.documentElement.setAttribute('data-theme','dark');
-  document.getElementById('t-switch')?.classList.add('on');
-  document.getElementById('theme-lbl').textContent = 'Escuro ativo';
-  if (save) localStorage.setItem('gds_theme','dark');
-}
-function applyLight() {
-  isDark = false;
-  document.documentElement.setAttribute('data-theme','light');
-  document.getElementById('t-switch')?.classList.remove('on');
-  document.getElementById('theme-lbl').textContent = 'Claro ativo';
-  localStorage.setItem('gds_theme','light');
-}
+/* theme functions removed — fixed palette */
 
 /* ═══════════════════════════════════════
    NAVIGATION
@@ -3138,7 +3127,7 @@ async function saveWelcomeProfile() {
       data_nascimento: wmAnswers['data_nascimento'] || null,
       peso_atual:      wmAnswers['peso']            || null,
       altura_atual:    wmAnswers['altura']          || null,
-      rede_apoio:      apoioStr                     || null,
+      rede_apoio:      apoioStr || null,
       desafio_sono:    desafioIdx !== undefined ? desafios[desafioIdx] : null,
     };
     const { error } = await sb
@@ -3263,6 +3252,18 @@ function applyPerfilCache(cache) {
   if (cache.mae_foto) {
     const el = document.getElementById('p-av');
     if (el) el.innerHTML = `<img src="${cache.mae_foto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+  }
+  // Show rede de apoio in perfil tab
+  if (cache.apoio || cache.rede_apoio) {
+    const apoioEl = document.getElementById('pf-apoio-display');
+    if (apoioEl) {
+      const apoioLabels = {
+        parceiro: 'Esposo/parceiro', avos: 'Avós/família',
+        rede: 'Rede de amigas', solo: 'Solo com amor', baba: 'Babá/cuidador'
+      };
+      const arr = cache.apoio || (cache.rede_apoio ? cache.rede_apoio.split(',') : []);
+      apoioEl.textContent = arr.map(k => apoioLabels[k] || k).filter(Boolean).join(', ') || '–';
+    }
   }
   // Rebuild soneca grid if on home tab (rotina may already be rendered)
   if (typeof buildSonecasGrid === 'function') buildSonecasGrid();
