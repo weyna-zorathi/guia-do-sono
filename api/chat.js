@@ -1,53 +1,38 @@
-// api/chat.js - Guia do Sono • Powered by Groq
+// api/chat.js
+import Groq from 'groq-sdk';
+
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-  if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'POST') return res.status(405).json({ reply: "Método não permitido" });
-
-  const { messages, system } = req.body;
-
-  if (!process.env.GROQ_API_KEY) {
-    return res.status(500).json({ reply: "Chave GROQ_API_KEY não configurada no Vercel." });
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Método não permitido' });
   }
 
+  const { messages } = req.body;
+
+  if (!messages || !Array.isArray(messages)) {
+    return res.status(400).json({ error: 'Mensagens inválidas' });
+  }
+
+  const groq = new Groq({
+    apiKey: process.env.GROQ_API_KEY,
+  });
+
   try {
-    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.GROQ_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: "llama-3.1-8b-instant",
-        max_tokens: 1024,
-        temperature: 0.75,
-        messages: [
-          { role: "system", content: system || "Você é a Guia do Sono." },
-          ...(messages || []).map(m => ({
-            role: m.role === 'assistant' ? 'assistant' : 'user',
-            content: m.content
-          }))
-        ]
-      })
+    const completion = await groq.chat.completions.create({
+      model: "llama-3.3-70b-versatile",   // modelo bom e rápido
+      messages: messages,
+      max_tokens: 1000,
+      temperature: 0.7,
     });
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      console.error("Groq erro:", JSON.stringify(data));
-      return res.status(500).json({ reply: "Tive um momento de dificuldade. Pode tentar novamente? ❤️" });
-    }
-
-    const reply = data.choices?.[0]?.message?.content
-      || "Não consegui responder agora. Tente novamente 🌿";
+    const reply = completion.choices[0]?.message?.content || 
+      "Desculpe, tive um probleminha agora. Pode tentar de novo? 🌿";
 
     return res.status(200).json({ reply });
 
-  } catch (err) {
-    console.error("Erro:", err);
-    return res.status(500).json({ reply: "Erro de conexão. Pode tentar novamente? ❤️" });
+  } catch (error) {
+    console.error('Groq Error:', error);
+    return res.status(500).json({ 
+      error: 'Erro ao conectar com a IA. Tente novamente em instantes. 🌿' 
+    });
   }
 }
