@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Guia do Sono">
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon192.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -570,8 +570,8 @@ body {
       <div class="header-title">Como dormiu a <em>pequena?</em></div>
     </div>
     <div class="header-icons">
-      <div class="icon-btn">🔔</div>
-      <div class="icon-btn">⚙️</div>
+      <div class="icon-btn" onclick="showNotifToast()" title="Notificações">🔔</div>
+      <div class="icon-btn" onclick="showSettings()" title="Configurações">⚙️</div>
     </div>
   </div>
 
@@ -620,7 +620,7 @@ body {
   <!-- CHART -->
   <div class="section-header fade-up fade-up-3">
     <div class="section-title">Sono da semana</div>
-    <div class="section-link">Ver tudo →</div>
+    <div class="section-link" onclick="window.location.href='progresso.html'">Ver tudo →</div>
   </div>
   <div class="chart-card fade-up fade-up-3">
     <div class="chart-top">
@@ -642,25 +642,25 @@ body {
     <div class="section-title">Resumo de hoje</div>
   </div>
   <div class="mini-stats fade-up fade-up-4">
-    <div class="mini-stat-card msc-sage">
+    <div class="mini-stat-card msc-sage" onclick="window.location.href='progresso.html'">
       <span class="mini-stat-icon">🌙</span>
       <div class="mini-stat-val">10 <span>h 20</span></div>
       <div class="mini-stat-lbl">Sono total</div>
       <div class="mini-stat-trend trend-up">↑ +40min</div>
     </div>
-    <div class="mini-stat-card msc-tc">
+    <div class="mini-stat-card msc-tc" onclick="window.location.href='progresso.html'">
       <span class="mini-stat-icon">☀️</span>
       <div class="mini-stat-val">2 <span>cochilos</span></div>
       <div class="mini-stat-lbl">Sonecas diurnas</div>
       <div class="mini-stat-trend trend-same">= igual</div>
     </div>
-    <div class="mini-stat-card msc-gold">
+    <div class="mini-stat-card msc-gold" onclick="window.location.href='progresso.html'">
       <span class="mini-stat-icon">⏱️</span>
       <div class="mini-stat-val">82 <span>min</span></div>
       <div class="mini-stat-lbl">Janela atual</div>
       <div class="mini-stat-trend trend-up">✓ ok</div>
     </div>
-    <div class="mini-stat-card msc-night">
+    <div class="mini-stat-card msc-night" onclick="window.location.href='progresso.html'">
       <span class="mini-stat-icon">🌅</span>
       <div class="mini-stat-val">06 <span>h14</span></div>
       <div class="mini-stat-lbl">Acordou hoje</div>
@@ -730,6 +730,7 @@ body {
   <a class="nav-item" href="progresso.html"><span class="nav-icon">📊</span><span class="nav-lbl">Progresso</span></a>
   <a class="nav-item" href="chat.html"><span class="nav-icon">💬</span><span class="nav-lbl">Chat</span></a>
   <a class="nav-item" href="guias.html"><span class="nav-icon">📚</span><span class="nav-lbl">Guias</span></a>
+  <a class="nav-item" href="ritual-de-som.html"><span class="nav-icon">🌙</span><span class="nav-lbl">Ritual</span></a>
   <a class="nav-item" href="perfil.html"><span class="nav-icon">👤</span><span class="nav-lbl">Perfil</span></a>
 </div>
 
@@ -815,6 +816,130 @@ document.querySelectorAll('.nav-item').forEach(item => {
 buildBars();
 animateProgress();
 animateTimeline();
+
+// ── LOAD BABY DATA FROM LOCALSTORAGE ──
+(function loadBabyData() {
+  const babyName = localStorage.getItem('gs_baby_name') || 'Sofia';
+  // Update baby name display
+  const nameEl = document.querySelector('.baby-name');
+  if (nameEl) nameEl.textContent = babyName;
+
+  // Update greeting with time of day
+  const hour = new Date().getHours();
+  const greetingEl = document.querySelector('.header-greeting');
+  const titleEl = document.querySelector('.header-title');
+  const session = JSON.parse(localStorage.getItem('gs_session') || '{}');
+
+  if (greetingEl) {
+    const greet = hour < 12 ? 'Bom dia' : hour < 18 ? 'Boa tarde' : 'Boa noite';
+    greetingEl.textContent = greet + ' ✦';
+  }
+  if (titleEl) {
+    const ageRange = localStorage.getItem('gs_age_range') || '';
+    const msgs = {
+      '0-3': 'Como dormiu o <em>pequenininho?</em>',
+      '4-6': 'Como dormiu a <em>pequena?</em>',
+      '7-12': 'Como foi a noite do <em>bebê?</em>',
+      '1-2': 'Como dormiu o <em>gafanhoto?</em>',
+    };
+    titleEl.innerHTML = msgs[ageRange] || 'Como dormiu a <em>pequena?</em>';
+  }
+
+  // Window badge: calculate from age
+  const windows = {
+    '0-3': '45–60 min', '4-6': '90–120 min',
+    '7-12': '2–3h', '1-2': '3–4h', '2-3': '4–5h', '3-5': '5–6h'
+  };
+  const ageRange = localStorage.getItem('gs_age_range') || '4-6';
+  const windowEl = document.querySelector('.window-badge-val');
+  if (windowEl) windowEl.textContent = windows[ageRange] || '90–120 min';
+})();
+
+// ── NOTIFICATION TOAST ──
+function showNotifToast() {
+  const t = document.createElement('div');
+  t.style.cssText = \`
+    position:fixed;top:60px;left:50%;transform:translateX(-50%) translateY(-10px);
+    background:var(--night);color:#fff;padding:12px 20px;border-radius:100px;
+    font-size:.85rem;z-index:999;transition:all .3s;opacity:0;
+    box-shadow:0 8px 24px rgba(0,0,0,.25);white-space:nowrap;
+  \`;
+  t.textContent = '🔔 Notificações em breve!';
+  document.body.appendChild(t);
+  requestAnimationFrame(() => { t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; });
+  setTimeout(() => {
+    t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(-10px)';
+    setTimeout(() => t.remove(), 300);
+  }, 2500);
+}
+
+// ── SETTINGS ──
+function showSettings() {
+  const overlay = document.createElement('div');
+  overlay.style.cssText = \`
+    position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;
+    display:flex;align-items:flex-end;animation:fadeIn .2s ease;
+  \`;
+  overlay.innerHTML = \`
+    <div style="
+      width:100%;background:var(--warm);border-radius:28px 28px 0 0;
+      padding:24px 20px 36px;animation:slideUp .3s ease;
+    ">
+      <div style="width:40px;height:4px;background:var(--linen-d);border-radius:2px;margin:0 auto 20px;"></div>
+      <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--night);margin-bottom:16px;">Configurações</div>
+      <div onclick="window.location.href='perfil.html'" style="
+        display:flex;align-items:center;gap:12px;padding:14px 0;
+        border-bottom:1px solid var(--linen);cursor:pointer;
+      ">
+        <span style="font-size:20px;">👤</span>
+        <span style="font-size:.9rem;color:var(--night);">Editar perfil do bebê</span>
+        <span style="margin-left:auto;color:var(--brown-l);">›</span>
+      </div>
+      <div onclick="window.location.href='ritual-de-som.html'" style="
+        display:flex;align-items:center;gap:12px;padding:14px 0;
+        border-bottom:1px solid var(--linen);cursor:pointer;
+      ">
+        <span style="font-size:20px;">🌙</span>
+        <span style="font-size:.9rem;color:var(--night);">Ritual de Som</span>
+        <span style="margin-left:auto;color:var(--brown-l);">›</span>
+      </div>
+      <div onclick="doLogout()" style="
+        display:flex;align-items:center;gap:12px;padding:14px 0;
+        cursor:pointer;
+      ">
+        <span style="font-size:20px;">🚪</span>
+        <span style="font-size:.9rem;color:var(--tc);">Sair da conta</span>
+      </div>
+      <button onclick="this.parentElement.parentElement.remove()" style="
+        width:100%;padding:13px;background:var(--night);color:#fff;
+        border:none;border-radius:100px;font-size:.9rem;font-weight:600;
+        cursor:pointer;margin-top:12px;font-family:'DM Sans',sans-serif;
+      ">Fechar</button>
+    </div>
+  \`;
+  overlay.addEventListener('click', e => { if(e.target===overlay) overlay.remove(); });
+  document.body.appendChild(overlay);
+}
+
+async function doLogout() {
+  localStorage.removeItem('gs_session');
+  // Tenta logout Supabase
+  try {
+    const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
+    const cfg = await fetch('/api/config').then(r=>r.json());
+    const sb = createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+    await sb.auth.signOut();
+  } catch(e) {}
+  window.location.href = 'index.html';
+}
+
+// ── BABY CARD → PROFILE ──
+document.getElementById('babyCard').addEventListener('click', function(e) {
+  // Só navega se clicou no card, não no label do avatar
+  if (!e.target.closest('label') && !e.target.closest('input')) {
+    window.location.href = 'perfil.html';
+  }
+});
 
 // PWA
 if ('serviceWorker' in navigator) {
