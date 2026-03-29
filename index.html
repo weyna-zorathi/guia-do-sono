@@ -125,38 +125,45 @@ body {
 #login-screen {
   position:fixed; inset:0; z-index:9999;
   display:flex; align-items:center; justify-content:center; padding:20px;
-  background:
-    radial-gradient(ellipse 80% 55% at 15% 5%,  rgba(138,158,127,.30) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 50% at 88% 95%,  rgba(196,122,82,.20) 0%, transparent 50%),
-    radial-gradient(ellipse 65% 55% at 50% 50%,  rgba(155,141,181,.12) 0%, transparent 58%),
-    var(--cream);
+  overflow:hidden;
+  /* Deep botanical green base */
+  background: #0d1f0d;
   transition: opacity .5s, transform .5s;
 }
 #login-screen.out { opacity:0; transform:scale(1.04); pointer-events:none; }
 
-/* botanical blobs */
+/* SVG botanical pattern — tulips & lily silhouettes in green tones */
 #login-screen::before {
-  content:''; position:absolute; border-radius:50%; pointer-events:none;
-  width:260px; height:260px; top:-60px; left:-60px;
-  background:radial-gradient(circle, rgba(138,158,127,.16) 0%,transparent 70%);
-  animation:blob 9s ease-in-out infinite;
+  content:'';
+  position:absolute; inset:0; pointer-events:none; z-index:0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.07'%3E%3C!-- Stems --%3E%3Cpath stroke-width='1.5' d='M80 400 Q82 320 78 260 Q76 220 80 180'/%3E%3Cpath stroke-width='1.5' d='M200 400 Q198 340 202 280 Q204 240 200 200'/%3E%3Cpath stroke-width='1.5' d='M320 400 Q322 330 318 270 Q316 230 320 190'/%3E%3Cpath stroke-width='1.5' d='M140 400 Q138 360 142 300 Q144 260 140 220'/%3E%3Cpath stroke-width='1.5' d='M260 400 Q262 350 258 290 Q256 250 260 210'/%3E%3C!-- Tulip heads --%3E%3Cellipse cx='80' cy='170' rx='14' ry='22' stroke-width='1.5'/%3E%3Cpath stroke-width='1.5' d='M66 175 Q60 150 80 145 Q100 150 94 175'/%3E%3Cellipse cx='200' cy='190' rx='14' ry='22' stroke-width='1.5'/%3E%3Cpath stroke-width='1.5' d='M186 195 Q180 170 200 165 Q220 170 214 195'/%3E%3Cellipse cx='320' cy='180' rx='14' ry='22' stroke-width='1.5'/%3E%3Cpath stroke-width='1.5' d='M306 185 Q300 160 320 155 Q340 160 334 185'/%3E%3C!-- Lily petals --%3E%3Cellipse cx='140' cy='210' rx='8' ry='20' transform='rotate(-20 140 210)' stroke-width='1'/%3E%3Cellipse cx='140' cy='210' rx='8' ry='20' transform='rotate(20 140 210)' stroke-width='1'/%3E%3Cellipse cx='140' cy='210' rx='8' ry='20' stroke-width='1'/%3E%3Cellipse cx='260' cy='200' rx='8' ry='20' transform='rotate(-20 260 200)' stroke-width='1'/%3E%3Cellipse cx='260' cy='200' rx='8' ry='20' transform='rotate(20 260 200)' stroke-width='1'/%3E%3Cellipse cx='260' cy='200' rx='8' ry='20' stroke-width='1'/%3E%3C!-- Leaves --%3E%3Cpath stroke-width='1' d='M76 300 Q60 280 55 260 Q70 265 76 300'/%3E%3Cpath stroke-width='1' d='M84 300 Q100 280 105 260 Q90 265 84 300'/%3E%3Cpath stroke-width='1' d='M196 310 Q180 290 175 270 Q190 275 196 310'/%3E%3Cpath stroke-width='1' d='M204 310 Q220 290 225 270 Q210 275 204 310'/%3E%3Cpath stroke-width='1' d='M316 305 Q300 285 295 265 Q310 270 316 305'/%3E%3Cpath stroke-width='1' d='M324 305 Q340 285 345 265 Q330 270 324 305'/%3E%3C!-- Small accent flowers --%3E%3Ccircle cx='40' cy='100' r='6' stroke-width='1'/%3E%3Ccircle cx='40' cy='100' r='3' stroke-width='1'/%3E%3Cpath stroke-width='1' d='M34 94 Q40 86 46 94'/%3E%3Cpath stroke-width='1' d='M34 106 Q40 114 46 106'/%3E%3Ccircle cx='360' cy='120' r='6' stroke-width='1'/%3E%3Ccircle cx='360' cy='120' r='3' stroke-width='1'/%3E%3Cpath stroke-width='1' d='M354 114 Q360 106 366 114'/%3E%3Cpath stroke-width='1' d='M354 126 Q360 134 366 126'/%3E%3C!-- Top flowers --%3E%3Ccircle cx='120' cy='40' r='8' stroke-width='1'/%3E%3Cpath stroke-width='1' d='M112 40 Q120 28 128 40 Q120 52 112 40'/%3E%3Ccircle cx='280' cy='60' r='8' stroke-width='1'/%3E%3Cpath stroke-width='1' d='M272 60 Q280 48 288 60 Q280 72 272 60'/%3E%3C/g%3E%3C!-- Green color wash --%3E%3Crect width='400' height='400' fill='%23193d19' fill-opacity='0.6'/%3E%3C/svg%3E");
+  background-size: 400px 400px;
+  animation: botanicalDrift 30s linear infinite;
 }
+@keyframes botanicalDrift {
+  from { background-position: 0 0; }
+  to   { background-position: 400px 400px; }
+}
+
+/* Green gradient overlay for depth */
 #login-screen::after {
-  content:''; position:absolute; border-radius:50%; pointer-events:none;
-  width:200px; height:200px; bottom:-40px; right:-40px;
-  background:radial-gradient(circle, rgba(196,122,82,.12) 0%,transparent 70%);
-  animation:blob 12s ease-in-out infinite reverse;
+  content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
+  background:
+    radial-gradient(ellipse 70% 60% at 20% 10%, rgba(46,90,46,.55) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 80% 90%, rgba(26,46,26,.65) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 80% at 50% 50%, rgba(13,31,13,.30) 0%, transparent 70%);
 }
 @keyframes blob { 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(12px,-16px) scale(1.06);} }
 
 .login-card {
   width:100%; max-width:400px;
-  background:rgba(255,249,242,.88);
-  backdrop-filter:blur(32px) saturate(180%);
-  -webkit-backdrop-filter:blur(32px) saturate(180%);
-  border:1px solid rgba(255,255,255,.78);
+  position:relative; z-index:2;  /* above the botanical overlays */
+  background:rgba(253,251,247,.93);
+  backdrop-filter:blur(28px) saturate(180%);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);
+  border:1px solid rgba(255,255,255,.75);
   border-radius:28px; padding:44px 36px 40px;
-  box-shadow:0 12px 48px rgba(90,112,80,.14), inset 0 1px 0 rgba(255,255,255,.9);
+  box-shadow:0 20px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.9);
   text-align:center;
   animation:cardIn .65s cubic-bezier(.34,1.56,.64,1) both;
 }
@@ -1879,7 +1886,7 @@ body {
                 <div class="box-surprise">
                   <div class="box-surprise-badge">✦ Exclusivo Premium</div>
                   <div class="box-surprise-title">Deixe o Guia do Sono<br>te <em>surpreender!</em></div>
-                  <div class="box-surprise-sub">Selecionamos itens essenciais e mimos exclusivos para a fase atual do seu bebê. Cada box é montada com amor para o momento que vocês estão vivendo.</div>
+                  <div class="box-surprise-sub">Selecionamos itens essenciais e mimos exclusivos para a fase atual do seu bebê. Cada box é montada com amor — inclui achados da <strong style="color:var(--gold-l)">L&apos;Occitane</strong>, artesanato local e os amados <strong style="color:var(--gold-l)">Suspiros do Céu</strong>. 🌸</div>
                   <button class="box-surprise-btn" id="btn-box-surpresa" onclick="handleBoxSurpresa()">
                     <span class="bsb-icon">🎁</span>
                     <span class="bsb-text">Quero minha Box Surpresa</span>
@@ -1951,6 +1958,7 @@ body {
             <div class="f-chip" onclick="filterGuias(this,'1-3')">1–3 meses</div>
             <div class="f-chip" onclick="filterGuias(this,'4-6')">4–6 meses</div>
             <div class="f-chip" onclick="filterGuias(this,'regressao')">Regressões</div>
+            <div class="f-chip" onclick="filterGuias(this,'alimentacao')">🥣 Alimentação</div>
           </div>
         </div>
 
@@ -2004,6 +2012,27 @@ body {
                 <div class="g-title">O Segredo da 1ª Janela de Sono</div>
                 <div class="g-sub">Entenda a janela de sono e como acertá-la para transformar as noites do seu bebê.</div>
                 <div class="g-meta"><div class="g-tag tg-free">Grátis</div><span style="font-size:10px;color:var(--text-sub)">· 6 min</span></div>
+              </div>
+              <div class="g-arr">›</div>
+            </div>
+
+            <!-- ── GUIAS DE ALIMENTAÇÃO ── -->
+            <div class="guide-card" onclick="openGuideAlimentar()" data-cat="todos alimentacao 4-6" style="cursor:pointer;">
+              <div class="g-icon" style="background:var(--tc-p);">🥣</div>
+              <div class="g-info">
+                <div class="g-title">Introdução Alimentar Sensacional</div>
+                <div class="g-sub">Prontidão, BLW vs. Papinhas e como conciliar refeições com janelas de sono.</div>
+                <div class="g-meta"><div class="g-tag tg-new">Novo</div><span style="font-size:10px;color:var(--text-sub)">· 10 min</span></div>
+              </div>
+              <div class="g-arr">›</div>
+            </div>
+
+            <div class="guide-card" onclick="openGuideToddler()" data-cat="todos alimentacao" style="cursor:pointer;">
+              <div class="g-icon" style="background:var(--gold-p);">🌽</div>
+              <div class="g-info">
+                <div class="g-title">Nutrição Avançada &amp; Toddler</div>
+                <div class="g-sub">Receitas nutritivas, cardápios semanais e truques para a seletividade alimentar.</div>
+                <div class="g-meta"><div class="g-tag" style="background:var(--gold-p);color:#7a6010;">Plus</div><span style="font-size:10px;color:var(--text-sub)">· 12 min</span></div>
               </div>
               <div class="g-arr">›</div>
             </div>
@@ -2369,12 +2398,14 @@ async function verifyOtp() {
     currentUser = {
       id:    'test-user-local',
       email: email || 'teste@guiadosono.com',
-      user_metadata: {
-        full_name: 'Weyna (Teste)',
-      },
+      user_metadata: { full_name: 'Weyna (Teste)' },
     };
+    // Persist test session so user doesn't need to log in again on reload
+    localStorage.setItem('gds_persist', JSON.stringify({
+      ts: Date.now(), mode: 'test',
+      email: email || 'teste@guiadosono.com'
+    }));
     revealApp();
-    // Mostra badge visual discreto no sidebar e no header mobile
     document.getElementById('test-badge')?.classList.add('on');
     return;
   }
@@ -2489,13 +2520,33 @@ sb.auth.onAuthStateChange((event, session) => {
   }
 });
 
-// Sessão existente (já logou antes)
+// ── Persistent session check ──
+// 1. Check Supabase real session
+// 2. Check localStorage for test/master-code session
 (async () => {
+  // Supabase real session takes priority
   const { data: { session } } = await sb.auth.getSession();
   if (session?.user) {
     currentUser = session.user;
     revealApp();
+    return;
   }
+  // Check localStorage persist (for CODIGO_MESTRE users)
+  try {
+    const saved = JSON.parse(localStorage.getItem('gds_persist') || 'null');
+    // Valid for 30 days
+    if (saved && saved.mode === 'test' && (Date.now() - saved.ts) < 30 * 24 * 60 * 60 * 1000) {
+      modoTeste = true;
+      currentUser = {
+        id: 'test-user-local',
+        email: saved.email || 'teste@guiadosono.com',
+        user_metadata: { full_name: 'Weyna (Teste)' },
+      };
+      revealApp();
+      setTimeout(() => document.getElementById('test-badge')?.classList.add('on'), 200);
+      return;
+    }
+  } catch {}
 })();
 
 function revealApp() {
@@ -2522,6 +2573,7 @@ async function doLogout() {
   document.getElementById('step-otp').style.display   = 'none';
   document.getElementById('step-email').style.display = 'block';
   document.getElementById('login-email').value = '';
+  localStorage.removeItem('gds_persist');
   const siEl = document.getElementById('otp-single'); if(siEl) siEl.value='';
   [0,1,2,3,4,5].forEach(i => {
     const b = document.getElementById('otp'+i); if(b){b.value='';b.classList.remove('filled');}
@@ -4012,9 +4064,164 @@ function updateBoxUI() {
   if (lock) lock.style.display = prem ? 'none' : 'inline-flex';
 }
 
+
+/* ═══════════════════════════════════════
+   GUIAS DE ALIMENTAÇÃO
+═══════════════════════════════════════ */
+function openGuideAlimentar() {
+  const overlay = document.getElementById('guide-food-overlay');
+  const body    = document.getElementById('guide-food-body');
+  if (!overlay || !body) return;
+  const icon = document.getElementById('guide-food-icon');
+  const title = document.getElementById('guide-food-title');
+  if (icon) icon.textContent = '🥣';
+  if (title) title.textContent = 'Introdução Alimentar Sensacional';
+  body.innerHTML = guideAlimentarContent();
+  overlay.style.display = 'flex';
+  requestAnimationFrame(() => overlay.classList.add('open'));
+}
+
+function openGuideToddler() {
+  if (typeof isPlus === 'function' && !isPlus()) {
+    if (confirm('O Guia Nutrição Avançada & Toddler é exclusivo do Plano Plus.\nQuer conhecer o plano?')) goTo('perfil');
+    return;
+  }
+  const overlay = document.getElementById('guide-food-overlay');
+  const body    = document.getElementById('guide-food-body');
+  if (!overlay || !body) return;
+  const icon = document.getElementById('guide-food-icon');
+  const title = document.getElementById('guide-food-title');
+  if (icon) icon.textContent = '🌽';
+  if (title) title.textContent = 'Nutrição Avançada & Toddler';
+  body.innerHTML = guideToddlerContent();
+  overlay.style.display = 'flex';
+  requestAnimationFrame(() => overlay.classList.add('open'));
+}
+
+function closeFoodGuide() {
+  const o = document.getElementById('guide-food-overlay');
+  if (o) { o.classList.remove('open'); setTimeout(() => o.style.display = 'none', 300); }
+}
+
+function guideAlimentarContent() {
+  return `
+    <div class="gm-section">
+      <div class="gm-section-title">🌱 Quando começa a aventura?</div>
+      <div class="gm-text">
+        A <strong>Introdução Alimentar</strong> inicia por volta dos <strong>6 meses</strong> — quando o bebê demonstra três sinais de prontidão:
+        sustento da cabeça com firmeza, interesse real por comida e perda do reflexo de protrusão da língua.
+        <br><br>
+        Bebês amamentados exclusivamente até os 6 meses têm o sistema digestivo mais maduro para esse início. Não há pressa.
+        Cada bebê tem seu ritmo — e respeitar isso é parte do método gentil.
+      </div>
+    </div>
+    <div class="gm-section">
+      <div class="gm-section-title">🥣 BLW ou Papinhas? Os dois!</div>
+      <div class="gm-text">
+        <strong>BLW (Baby-Led Weaning):</strong> o bebê se alimenta sozinho com pedaços macios no tamanho do punho. Desenvolve autonomia, coordenação e relação positiva com a comida.
+        <br><br>
+        <strong>Papinhas:</strong> permitem controle de textura e garantem que o bebê consuma porções adequadas. Ideais para famílias com pouco tempo ou bebês que precisam de estímulo extra.
+        <br><br>
+        <strong>Abordagem Combinada (recomendada):</strong> ofereça pedaços E purês. Sem pressão, sem brigas. A variedade expõe o bebê a mais texturas e sabores desde cedo.
+      </div>
+    </div>
+    <div class="gm-section">
+      <div class="gm-section-title">🌙 Alimentação & Janelas de Sono</div>
+      <div class="gm-text">
+        A refeição principal deve acontecer <strong>dentro da janela de vigília</strong>, nunca próximo ao sono. Um bebê com fome leve adormece mais rápido e dorme melhor.
+        <br><br>
+        <strong>Dica prática:</strong><br>
+        • Ofereça sólidos <strong>30–45 min após acordar</strong> da soneca (energia alta, humor bom)<br>
+        • Evite alimentos muito doces ou estimulantes antes da janela de sono noturno<br>
+        • Leite materno ou fórmula segue sendo a <strong>principal fonte nutricional</strong> até os 12 meses — a comida é exploração!
+      </div>
+    </div>
+    <div class="gm-section">
+      <div class="gm-section-title">🌟 Primeiros alimentos sugeridos</div>
+      <div class="gm-text">
+        <strong>Semana 1–2:</strong> Batata-doce amassada, abóbora, banana<br>
+        <strong>Semana 3–4:</strong> Mamão, pera, aveia cozida<br>
+        <strong>Mês 2:</strong> Frango desfiado, ovo (gema), legumes variados<br>
+        <strong>Mês 3+:</strong> Feijão, carne moída, peixes brancos (sem espinhas)<br><br>
+        Sempre um alimento novo por vez, com 3 dias de intervalo. Observe reações alérgicas.
+      </div>
+    </div>
+    <div class="gm-placeholder" style="margin-top:8px;">
+      🌿 <strong>[ ADICIONE MAIS CONTEÚDO AQUI ]</strong><br><br>
+      Cole receitas, cardápios ou orientações específicas para o bebê da Sofia.
+    </div>`;
+}
+
+function guideToddlerContent() {
+  return `
+    <div class="gm-section">
+      <div class="gm-section-title">🌽 Nutrição para Toddlers (1–3 anos)</div>
+      <div class="gm-text">
+        O toddler come em <strong>ciclos</strong> — um dia devora tudo, no outro recusa tudo. Isso é completamente normal. O apetite regula sozinho quando o ambiente é de leveza, sem pressão.
+        <br><br>
+        <strong>Meta nutricional diária simplificada:</strong><br>
+        • 3 refeições principais + 2 lanches<br>
+        • Ao menos 1 fonte de proteína, 1 de ferro, 1 de carboidrato complexo<br>
+        • Frutas e vegetais em todas as refeições (mesmo que em porções mínimas)<br>
+        • Água! Muitas mães esquecem — ofereça a cada hora.
+      </div>
+    </div>
+    <div class="gm-section">
+      <div class="gm-section-title">📋 Cardápio Semanal Prático</div>
+      <div class="gm-text">
+        <strong>Segunda:</strong> Arroz, feijão, frango grelhado, brócolis<br>
+        <strong>Terça:</strong> Macarrão integral, molho de tomate caseiro, ovo mexido<br>
+        <strong>Quarta:</strong> Batata-doce assada, carne moída, cenoura ralada<br>
+        <strong>Quinta:</strong> Sopa de legumes com carne, pão integral<br>
+        <strong>Sexta:</strong> Peixe assado, arroz, salada de pepino<br>
+        <strong>Sábado:</strong> Panqueca de aveia com banana, iogurte natural<br>
+        <strong>Domingo:</strong> Refeição da família — mesma comida, textura adaptada
+      </div>
+    </div>
+    <div class="gm-section">
+      <div class="gm-section-title">🎯 Truques para Seletividade</div>
+      <div class="gm-text">
+        <strong>1. Divisão de responsabilidade (Ellyn Satter):</strong> você decide O QUE e QUANDO; o bebê decide SE e QUANTO come.<br><br>
+        <strong>2. Exposição repetida:</strong> um alimento rejeitado hoje pode ser aceito na 15ª apresentação. Continue oferecendo sem pressão.<br><br>
+        <strong>3. Contexto social:</strong> toddlers comem melhor quando veem adultos e outras crianças comendo a mesma coisa.<br><br>
+        <strong>4. Envolvimento:</strong> leve-o ao mercado, deixe-o "ajudar" na cozinha. Crianças comem melhor o que ajudaram a preparar.<br><br>
+        <strong>5. Formato importa:</strong> a mesma comida em formatos diferentes pode ser aceita. Cenoura crua pode ser rejeitada, mas cenoura em palitinho com "molhinho" pode virar favorita.
+      </div>
+    </div>
+    <div class="gm-section">
+      <div class="gm-section-title">🌙 Alimentação & Sono do Toddler</div>
+      <div class="gm-text">
+        O toddler tem janelas de sono maiores (4–6h de vigília), então as refeições ficam mais espaçadas.
+        <br><br>
+        <strong>Evite antes de dormir:</strong> açúcar, suco, alimentos ultraprocessados, cafeína (chocolate em excesso)<br>
+        <strong>Favorece o sono:</strong> carboidratos complexos no jantar (batata, arroz, aveia), triptofano (banana, leite, ovo)<br><br>
+        O jantar deve terminar <strong>1–1,5h antes</strong> do sono noturno para evitar desconfortos digestivos.
+      </div>
+    </div>
+    <div class="gm-placeholder" style="margin-top:8px;">
+      🌿 <strong>[ ADICIONE RECEITAS AQUI ]</strong><br><br>
+      Cole receitas rápidas e nutritivas para o cardápio semanal da Sofia.
+    </div>`;
+}
+
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 
 </script>
+<!-- ══ FOOD GUIDE MODAL ══════════════════════════════ -->
+<div id="guide-food-overlay" onclick="if(event.target===this)closeFoodGuide()" style="display:none;position:fixed;inset:0;z-index:9991;background:rgba(44,62,45,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;">
+  <div id="guide-food-modal" style="width:100%;max-width:540px;max-height:88dvh;background:var(--bg);border-radius:26px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px var(--shadow-lg);animation:wModalIn .4s cubic-bezier(.34,1.56,.64,1) both;">
+    <div class="gm-header">
+      <div class="gm-icon" id="guide-food-icon">🥣</div>
+      <div style="flex:1;">
+        <div class="gm-title" id="guide-food-title">Guia de Alimentação</div>
+        <div class="gm-meta">Nutrição gentil · sem pressão</div>
+      </div>
+      <button class="gm-close" onclick="closeFoodGuide()">✕</button>
+    </div>
+    <div class="gm-body" id="guide-food-body"></div>
+  </div>
+</div>
+
 <!-- ══ WELCOME QUESTIONNAIRE MODAL ══════════════════ -->
 <div id="welcome-overlay">
   <div id="welcome-modal">
