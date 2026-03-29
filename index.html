@@ -588,11 +588,11 @@ body {
   gap:11px;
   scroll-behavior:smooth;
   scrollbar-width:none;
-  /* Mobile: leave room for fixed input (≈60px) above safe area */
-  padding-bottom:calc(64px + env(safe-area-inset-bottom, 0px));
+  /* Mobile: clear input bar (~54px) + bottom-nav (~60px) + gap */
+  padding-bottom:calc(120px + env(safe-area-inset-bottom, 0px));
 }
 @media(min-width:800px) {
-  /* Desktop: input is inline, no fixed bar */
+  /* Desktop: input is inline inside the flex column */
   #chat-msgs { padding-bottom:12px; }
 }
 #chat-msgs::-webkit-scrollbar { display:none; }
@@ -606,24 +606,24 @@ body {
 /* Mobile fixed input — ONLY visible on chat tab */
 #chat-input-mobile {
   position:fixed;
-  bottom:0; left:0; right:0;
-  z-index:110;          /* above bottom-nav (100) */
+  /* sit just above the bottom-nav bar */
+  bottom:calc(60px + env(safe-area-inset-bottom, 0px));
+  left:0; right:0;
+  z-index:110;
   display:none;
   background:#fdfbf7;
   border-top:1px solid var(--border);
-  padding:10px 14px;
-  padding-bottom:max(env(safe-area-inset-bottom,10px),10px);
+  border-bottom:1px solid var(--border);
+  padding:8px 12px;
   gap:8px;
   align-items:flex-end;
 }
 #chat-input-mobile.on { display:flex; }
 
-/* Slide bottom-nav down when chat is open on mobile */
-body.chat-active .bottom-nav {
-  transform: translateY(100%);
-  pointer-events:none;
-}
-.bottom-nav { transition: transform .25s ease; }
+/* Chat active on mobile: nav stays visible but input floats above it */
+/* The input has z-index:110 > nav z-index:100, so it sits on top */
+/* We only need to add bottom padding to chat-msgs to clear both bars */
+.bottom-nav { transition: none; }
 
 #u-input {
   flex:1; border:1.5px solid var(--border-d); border-radius:20px;
@@ -1784,7 +1784,7 @@ body.chat-active .bottom-nav {
       <!-- Desktop + Mobile input inside page — always rendered, shown/hidden by JS -->
       <div id="chat-input-desktop" style="flex-shrink:0;">
         <div class="chat-input-wrap">
-          <textarea id="u-input" rows="1" placeholder="O que está acontecendo com o sono?"></textarea>
+          <textarea id="u-input" rows="1" placeholder="Escreva sua dúvida sobre o sono…"></textarea>
           <button class="ia-btn" id="mic-btn" onclick="toggleMic()" title="Microfone">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="9" y="2" width="6" height="11" rx="3"/>
@@ -2094,7 +2094,7 @@ body.chat-active .bottom-nav {
 
 <!-- Mobile chat input (fixed bottom, only on chat tab via .on class) -->
 <div id="chat-input-mobile">
-  <textarea id="u-input-m" rows="1" placeholder="O que está acontecendo com o sono?"
+  <textarea id="u-input-m" rows="1" placeholder="Escreva sua dúvida sobre o sono…"
     style="flex:1;border:1.5px solid var(--border-d);border-radius:20px;padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);background:#fff;resize:none;outline:none;max-height:110px;line-height:1.5;transition:border-color .2s, box-shadow .2s;"
   ></textarea>
   <button class="ia-btn" id="mic-btn-m" onclick="toggleMic()"
@@ -2494,8 +2494,7 @@ function syncChatInput() {
       mob.classList.remove('on');
     }
   }
-  // body class used by CSS to slide bottom-nav away
-  document.body.classList.toggle('chat-active', !isDesk && onChat);
+  // body.chat-active no longer hides the nav (user must be able to navigate away)
 
   // ── Desktop ─────────────────────────────────
   // Inline input inside the flex column of page-chat
@@ -2725,7 +2724,18 @@ function refreshChatUI() {
   const rem = remaining();
   const badge = document.getElementById('msg-badge');
   const bar   = document.getElementById('limit-bar');
-  if (badge) { badge.textContent = rem > 0 ? `${rem} mensagem${rem===1?'':'s'} hoje` : 'Limite atingido'; badge.classList.toggle('out', rem===0); }
+  if (badge) {
+    let badgeText;
+    if (isPlus && isPlus()) {
+      badgeText = '✦ Ilimitadas';
+    } else if (rem > 0) {
+      badgeText = rem === 1 ? '1 mensagem hoje' : `${rem} mensagens hoje`;
+    } else {
+      badgeText = 'Limite atingido';
+    }
+    badge.textContent = badgeText;
+    badge.classList.toggle('out', !isPlus() && rem === 0);
+  }
   if (bar)   bar.classList.toggle('on', rem===0);
   ['u-input','u-input-m'].forEach(id => { const e=document.getElementById(id); if(e) e.disabled=rem===0; });
   ['send-btn','send-btn-m'].forEach(id => { const e=document.getElementById(id); if(e) e.disabled=rem===0; });
