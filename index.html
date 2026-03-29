@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 <title>Guia do Sono</title>
 <meta name="theme-color" content="#faf6ef">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -111,6 +111,13 @@ body {
 }
 ::-webkit-scrollbar { width:4px; }
 ::-webkit-scrollbar-thumb { background:var(--border-d); border-radius:4px; }
+
+/* Prevent iOS auto-zoom on input focus (font-size must be ≥ 16px) */
+@media(max-width:799px) {
+  input, textarea, select {
+    font-size:16px !important;
+  }
+}
 
 /* ════════════════════════════════════════════
    ██ LOGIN SCREEN
@@ -888,6 +895,145 @@ body.chat-active .bottom-nav {
 .d7{animation-delay:.52s}
 .sp { height:20px; }
 
+/* ── Plan subscription cards ── */
+.planos-section { margin-top:4px; }
+.planos-title {
+  font-family:'Playfair Display',serif; font-size:15px; font-weight:700;
+  color:var(--text); margin-bottom:14px; display:flex; align-items:center; gap:8px;
+}
+.planos-grid {
+  display:flex; flex-direction:column; gap:12px;
+}
+@media(min-width:640px) { .planos-grid { flex-direction:row; } }
+.plano-card {
+  flex:1; border-radius:20px; overflow:hidden;
+  border:1.5px solid var(--border-d);
+  background:var(--bg-card);
+  box-shadow:0 2px 12px var(--shadow);
+  transition:transform .18s, box-shadow .18s;
+  position:relative;
+}
+.plano-card:hover { transform:translateY(-2px); box-shadow:0 8px 24px var(--shadow-md); }
+.plano-card.current-plan { border-color:var(--sage); box-shadow:0 4px 20px rgba(90,112,80,.2); }
+.plano-card.plano-premium { border-color:var(--gold); background:linear-gradient(160deg, #2c3e2d 0%, #1a2e1a 100%); }
+.plano-hdr {
+  padding:16px 18px 12px;
+  border-bottom:1px solid var(--border);
+}
+.plano-card.plano-premium .plano-hdr { border-bottom-color:rgba(255,255,255,.1); }
+.plano-badge-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
+.plano-badge {
+  font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+  padding:3px 10px; border-radius:20px;
+}
+.pb-free    { background:var(--sage-p); color:var(--sage-d); }
+.pb-plus    { background:var(--tc-p);   color:var(--tc); }
+.pb-premium { background:rgba(201,168,76,.22); color:var(--gold); }
+.plano-popular {
+  font-size:9px; font-weight:700; letter-spacing:.5px;
+  background:var(--tc); color:#fff; padding:3px 8px; border-radius:10px;
+}
+.plano-name {
+  font-family:'Playfair Display',serif; font-size:16px; font-weight:700;
+  color:var(--text); margin-bottom:2px;
+}
+.plano-card.plano-premium .plano-name { color:#fdfbf7; }
+.plano-tagline {
+  font-family:'Lora',serif; font-style:italic; font-size:11px;
+  color:var(--text-sub); line-height:1.45;
+}
+.plano-card.plano-premium .plano-tagline { color:rgba(255,255,255,.5); }
+.plano-price {
+  margin-top:8px; font-family:'Playfair Display',serif;
+  font-size:22px; font-weight:700; color:var(--tc); line-height:1;
+}
+.plano-card.plano-premium .plano-price { color:var(--gold-l); }
+.plano-price small {
+  font-family:'DM Sans',sans-serif; font-size:11px; font-weight:400;
+  color:var(--text-sub); margin-left:2px;
+}
+.plano-card.plano-premium .plano-price small { color:rgba(255,255,255,.35); }
+.plano-body { padding:12px 18px 16px; }
+.plano-features { list-style:none; display:flex; flex-direction:column; gap:7px; }
+.plano-features li {
+  display:flex; align-items:flex-start; gap:8px;
+  font-size:12px; color:var(--text-sub); line-height:1.4;
+}
+.plano-card.plano-premium .plano-features li { color:rgba(255,255,255,.6); }
+.pf-check {
+  width:16px; height:16px; border-radius:50%; flex-shrink:0; margin-top:1px;
+  display:flex; align-items:center; justify-content:center; font-size:9px;
+}
+.pfc-free    { background:var(--sage-p);             color:var(--sage-d); }
+.pfc-plus    { background:var(--tc-p);               color:var(--tc); }
+.pfc-premium { background:rgba(201,168,76,.2);        color:var(--gold); }
+.plano-btn {
+  display:block; margin:14px 18px 16px; padding:11px;
+  border-radius:12px; border:none; text-align:center; cursor:pointer;
+  font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600;
+  transition:transform .18s, box-shadow .18s, opacity .18s;
+}
+.plano-btn:active { transform:scale(.97); opacity:.9; }
+.pb-btn-free    { background:var(--sage-p); color:var(--sage-d); cursor:default; }
+.pb-btn-plus    { background:linear-gradient(135deg, var(--tc), #a05038); color:#fff; box-shadow:0 3px 12px rgba(196,122,82,.3); }
+.pb-btn-premium { background:linear-gradient(135deg, var(--gold), #a07828); color:#fff; box-shadow:0 3px 12px rgba(201,168,76,.35); }
+.plan-current-tag {
+  position:absolute; top:-1px; left:50%; transform:translateX(-50%);
+  background:var(--sage); color:#fff; font-size:9px; font-weight:700;
+  letter-spacing:1px; text-transform:uppercase; padding:3px 12px;
+  border-radius:0 0 10px 10px; white-space:nowrap;
+}
+
+/* ── Plan lock overlay ── */
+.plan-lock-wrap { position:relative; }
+.plan-lock-overlay {
+  position:absolute; inset:0; z-index:10; border-radius:inherit;
+  background:rgba(253,251,247,.82); backdrop-filter:blur(3px);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:8px; padding:16px; text-align:center;
+  animation:fadeUp .3s ease both;
+}
+.plo-icon  { font-size:26px; }
+.plo-title { font-family:'Playfair Display',serif; font-size:14px; font-weight:700; color:var(--text); }
+.plo-sub   { font-size:11px; color:var(--text-sub); line-height:1.4; font-family:'Lora',serif; font-style:italic; }
+.plo-btn {
+  background:linear-gradient(135deg, var(--sage), var(--sage-d));
+  color:#fff; border:none; border-radius:10px; padding:8px 18px;
+  font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; cursor:pointer;
+  box-shadow:0 3px 10px rgba(90,112,80,.25); transition:transform .15s;
+}
+.plo-btn:active { transform:scale(.96); }
+
+/* ── Memory card (Plus/Premium) ── */
+.memory-card {
+  background:linear-gradient(135deg, var(--sage-p) 0%, var(--gold-p) 100%);
+  border:1.5px solid var(--sage-l); border-radius:20px; padding:18px;
+  position:relative; overflow:hidden;
+}
+.memory-card::before {
+  content:'🌿'; position:absolute; right:14px; top:12px;
+  font-size:28px; opacity:.18;
+}
+.mc-title {
+  font-family:'Playfair Display',serif; font-size:14px; font-weight:700;
+  color:var(--text); margin-bottom:4px;
+}
+.mc-sub {
+  font-size:11px; color:var(--text-sub); font-family:'Lora',serif;
+  font-style:italic; margin-bottom:12px; line-height:1.5;
+}
+.mc-items { display:flex; flex-direction:column; gap:7px; }
+.mc-item {
+  display:flex; align-items:center; gap:10px; padding:9px 12px;
+  background:rgba(255,255,255,.7); border-radius:11px;
+  font-size:12px; color:var(--text); cursor:pointer;
+  transition:background .15s;
+}
+.mc-item:active { background:rgba(255,255,255,.9); }
+.mc-item-icon { font-size:16px; flex-shrink:0; }
+.mc-item-lbl  { flex:1; font-weight:500; }
+.mc-item-date { font-size:10px; color:var(--text-sub); }
+
 /* ── Plan Differentiation Cards ────────────────────── */
 .plans-diff {
   display:flex; flex-direction:column; gap:10px;
@@ -1631,8 +1777,8 @@ body.chat-active .bottom-nav {
         <div class="msg-badge" id="msg-badge">3 mensagens hoje</div>
       </div>
       <div id="limit-bar">
-        🌙 Suas 3 mensagens gratuitas de hoje foram usadas.<br>
-        <strong>Assine o Plano Plus</strong> para conversar sem limites.
+        🔒 Suas 3 mensagens do Plano Essencial foram usadas hoje.<br>
+        <strong><span style="cursor:pointer;text-decoration:underline;" onclick="goTo('perfil')">Conheça o Plano Plus</span></strong> e converse sem limites.
       </div>
       <div id="chat-msgs"></div>
       <!-- Desktop + Mobile input inside page — always rendered, shown/hidden by JS -->
@@ -1825,58 +1971,105 @@ body.chat-active .bottom-nav {
             <div class="pf-item"><div class="pf-left"><div class="pf-icon pi-gold">🔔</div><div><div class="pf-lbl">Notificações</div><div class="pf-sub">Lembretes de janela de sono</div></div></div><div class="pf-arr">›</div></div>
           </div>
 
-          <div class="upgrade-card fu d5">
-            <div class="uc-title">✨ Assine o Plano Plus</div>
-            <div class="uc-sub">Chat ilimitado, todos os e-books e acompanhamento semanal.</div>
-            <div class="uc-btn">Ver planos · a partir de R$29,90/mês</div>
+          <!-- ── Assinatura ── -->
+          <div class="planos-section fu d5">
+            <div class="planos-title">🌿 Sua Assinatura</div>
+            <div class="planos-grid" id="planos-grid">
+
+              <!-- GRÁTIS -->
+              <div class="plano-card plano-free" id="card-free">
+                <div id="current-tag-free"></div>
+                <div class="plano-hdr">
+                  <div class="plano-badge-row">
+                    <span class="plano-badge pb-free">Essencial</span>
+                  </div>
+                  <div class="plano-name">Ferramentas de<br>Boas-Vindas</div>
+                  <div class="plano-tagline">Primeiros passos para noites mais tranquilas</div>
+                  <div class="plano-price">R$ 0</div>
+                </div>
+                <div class="plano-body">
+                  <ul class="plano-features">
+                    <li><span class="pf-check pfc-free">✓</span>Questionário de Boas-Vindas</li>
+                    <li><span class="pf-check pfc-free">✓</span>Resumo de Hoje (básico)</li>
+                    <li><span class="pf-check pfc-free">✓</span>Curadoria de Afiliados</li>
+                    <li><span class="pf-check pfc-free">✓</span>3 mensagens de Chat IA por dia</li>
+                    <li><span class="pf-check pfc-free">✓</span>Tabela de Janelas de Sono</li>
+                  </ul>
+                </div>
+                <div class="plano-btn pb-btn-free" id="btn-plano-free">Seu plano atual</div>
+              </div>
+
+              <!-- PLUS -->
+              <div class="plano-card plano-plus" id="card-plus">
+                <div id="current-tag-plus"></div>
+                <div class="plano-popular">⭐ Mais escolhido</div>
+                <div class="plano-hdr">
+                  <div class="plano-badge-row">
+                    <span class="plano-badge pb-plus">Plus</span>
+                  </div>
+                  <div class="plano-name">Sua Família na<br>Palma da Mão</div>
+                  <div class="plano-tagline">Acesso total ao app e todas as ferramentas</div>
+                  <div class="plano-price">R$ 29,90<small>/mês</small></div>
+                </div>
+                <div class="plano-body">
+                  <ul class="plano-features">
+                    <li><span class="pf-check pfc-plus">✓</span>Chat IA <strong>ilimitado</strong></li>
+                    <li><span class="pf-check pfc-plus">✓</span>Cálculo de Saltos de Desenvolvimento</li>
+                    <li><span class="pf-check pfc-plus">✓</span>Histórico Salvo (Arquivo de Memórias)</li>
+                    <li><span class="pf-check pfc-plus">✓</span>Todos os Guias de Sono</li>
+                    <li><span class="pf-check pfc-plus">✓</span>Gestão Familiar completa</li>
+                    <li><span class="pf-check pfc-plus">✓</span>Orçamento e Afiliados</li>
+                    <li><span class="pf-check pfc-plus">✓</span>Suporte prioritário</li>
+                  </ul>
+                </div>
+                <button class="plano-btn pb-btn-plus" id="btn-plano-plus" onclick="handlePlanClick('plus')">Assinar Plus</button>
+              </div>
+
+              <!-- PREMIUM -->
+              <div class="plano-card plano-premium" id="card-premium">
+                <div id="current-tag-premium"></div>
+                <div class="plano-hdr">
+                  <div class="plano-badge-row">
+                    <span class="plano-badge pb-premium">Premium</span>
+                  </div>
+                  <div class="plano-name" style="color:#fdfbf7;">Cuidado em<br>cada Fase</div>
+                  <div class="plano-tagline">Tudo do Plus + Experiência Box física</div>
+                  <div class="plano-price">R$ 79,90<small>/mês</small></div>
+                </div>
+                <div class="plano-body">
+                  <ul class="plano-features">
+                    <li><span class="pf-check pfc-premium">✓</span>Tudo do Plano Plus</li>
+                    <li><span class="pf-check pfc-premium">✓</span>Box de Produtos Curados por fase</li>
+                    <li><span class="pf-check pfc-premium">✓</span>Consultoria individual por vídeo</li>
+                    <li><span class="pf-check pfc-premium">✓</span>Grupo VIP exclusivo de mães</li>
+                    <li><span class="pf-check pfc-premium">✓</span>Plano personalizado do bebê</li>
+                    <li><span class="pf-check pfc-premium">✓</span>Acesso vitalício a todos os guias</li>
+                  </ul>
+                </div>
+                <button class="plano-btn pb-btn-premium" id="btn-plano-premium" onclick="handlePlanClick('premium')">Assinar Premium</button>
+              </div>
+
+            </div>
           </div>
 
-          <!-- Diferenciação de Planos -->
-          <div class="pf-section fu d5" style="margin-top:20px;">
-            <div class="pf-sec-lbl">🌿 O que cada plano oferece</div>
-            <div class="plans-diff">
-              <div class="plan-diff-card plan-free">
-                <div class="pd-header">
-                  <span class="pd-badge pd-badge-free">Gratuito</span>
-                  <div class="pd-name">Explorar</div>
-                  <div class="pd-price">R$ 0</div>
-                </div>
-                <ul class="pd-list">
-                  <li>✓ 3 mensagens de chat por dia</li>
-                  <li>✓ Tabela Mestra de Janelas</li>
-                  <li>✓ Dicionário Sensorial</li>
-                  <li>✓ Registro de sinais de sono</li>
-                </ul>
+          <!-- ── Arquivo de Memórias (Plus/Premium) ── -->
+          <div class="pf-section fu d5" id="memory-section" style="margin-top:4px; position:relative;">
+            <div class="pf-sec-lbl">📦 Arquivo de Memórias e Dados</div>
+            <div class="memory-card" id="memory-card">
+              <div class="mc-title">Histórico do seu bebê</div>
+              <div class="mc-sub">Rotinas, relatos e marcos salvos para sempre.</div>
+              <div class="mc-items" id="mc-items">
+                <div class="mc-item"><span class="mc-item-icon">🌅</span><span class="mc-item-lbl">Rotina de hoje</span><span class="mc-item-date">Salvo agora</span></div>
+                <div class="mc-item"><span class="mc-item-icon">💬</span><span class="mc-item-lbl">Conversa com a IA</span><span class="mc-item-date">Hoje</span></div>
+                <div class="mc-item"><span class="mc-item-icon">📊</span><span class="mc-item-lbl">Gastos do mês</span><span class="mc-item-date">Atualizado</span></div>
               </div>
-              <div class="plan-diff-card plan-plus">
-                <div class="pd-popular">⭐ Mais popular</div>
-                <div class="pd-header">
-                  <span class="pd-badge pd-badge-plus">Plus</span>
-                  <div class="pd-name">Transformar</div>
-                  <div class="pd-price">R$ 29,90<small>/mês</small></div>
-                </div>
-                <ul class="pd-list">
-                  <li>✓ Chat ilimitado com a IA</li>
-                  <li>✓ Todos os guias e e-books</li>
-                  <li>✓ Orçamento com Supabase</li>
-                  <li>✓ Relatórios de progresso</li>
-                  <li>✓ Suporte prioritário</li>
-                </ul>
-              </div>
-              <div class="plan-diff-card plan-premium">
-                <div class="pd-header">
-                  <span class="pd-badge pd-badge-premium">Premium</span>
-                  <div class="pd-name">Dominar</div>
-                  <div class="pd-price">R$ 79,90<small>/mês</small></div>
-                </div>
-                <ul class="pd-list">
-                  <li>✓ Tudo do Plus</li>
-                  <li>✓ Consultoria por vídeo</li>
-                  <li>✓ Plano personalizado</li>
-                  <li>✓ Grupo VIP de mães</li>
-                  <li>✓ Acesso vitalício aos guias</li>
-                </ul>
-              </div>
+            </div>
+            <!-- Lock overlay for free users -->
+            <div class="plan-lock-overlay" id="memory-lock">
+              <div class="plo-icon">🔒</div>
+              <div class="plo-title">Arquivo de Memórias</div>
+              <div class="plo-sub">Guarde o histórico do seu bebê para sempre.<br>Disponível no Plano Plus.</div>
+              <button class="plo-btn" onclick="handlePlanClick('plus')">Quero Conhecer</button>
             </div>
           </div>
 
@@ -1953,6 +2146,16 @@ let recognition = null;
 let isListening = false;
 // Fixed palette — no dark mode
 let currentTab  = 'home';
+
+/* ── User role: 'free' | 'plus' | 'premium' ──────────────
+   In production this would come from Supabase subscriptions.
+   During testing with CODIGO_MESTRE, defaults to 'plus'
+   so all features are accessible.
+   To simulate free: set localStorage key below.
+   ─────────────────────────────────────────────────────── */
+let userRole = localStorage.getItem('gds_role') || 'free';
+function isPlus()    { return userRole === 'plus' || userRole === 'premium'; }
+function isPremium() { return userRole === 'premium'; }
 
 /* ═══════════════════════════════════════
    OTP LOGIN  (2 passos, sem redirect)
@@ -2170,6 +2373,8 @@ function revealApp() {
   setTimeout(() => ls.style.display = 'none', 520);
   document.getElementById('app').classList.add('on');
   initApp();
+  // modoTeste users get plus access
+  setTimeout(() => { initUserRole(); }, 100);
   // Show welcome questionnaire on first login
   setTimeout(checkWelcome, 900);
 }
@@ -3500,6 +3705,97 @@ function buildSonecasGrid() {
   }
   html += '</div>';
   container.innerHTML = html;
+}
+
+
+/* ═══════════════════════════════════════
+   PLAN SYSTEM
+═══════════════════════════════════════ */
+
+// In modoTeste, grant plus access automatically
+function initUserRole() {
+  if (modoTeste) {
+    userRole = 'plus';
+    localStorage.setItem('gds_role', 'plus');
+  }
+  updatePlanUI();
+  applyPlanLocks();
+}
+
+function handlePlanClick(plan) {
+  // In production: redirect to Stripe checkout
+  // For now: show confirmation and simulate upgrade
+  const names = { plus:'Plus (R$29,90/mês)', premium:'Premium (R$79,90/mês)' };
+  const ok = confirm(`Assinar o Plano ${names[plan]}?
+
+(Em produção, abrirá o checkout seguro via Stripe.)
+
+Durante o teste, vamos liberar o acesso agora.`);
+  if (ok) {
+    userRole = plan;
+    localStorage.setItem('gds_role', plan);
+    updatePlanUI();
+    applyPlanLocks();
+    showToast('✨ Plano ' + (plan === 'plus' ? 'Plus' : 'Premium') + ' ativado!');
+  }
+}
+
+function updatePlanUI() {
+  // Update hero plan badge
+  const planEl = document.querySelector('.p-plan span');
+  if (planEl) {
+    const labels = { free:'✦ Plano Essencial', plus:'⭐ Plano Plus', premium:'💎 Plano Premium' };
+    planEl.textContent = labels[userRole] || labels.free;
+  }
+  // Highlight current plan card
+  ['free','plus','premium'].forEach(p => {
+    const card = document.getElementById('card-' + p);
+    const tag  = document.getElementById('current-tag-' + p);
+    const btn  = document.getElementById('btn-plano-' + p);
+    if (!card) return;
+    card.classList.toggle('current-plan', p === userRole);
+    if (tag) {
+      tag.innerHTML = p === userRole
+        ? '<div class="plan-current-tag">✓ Seu plano atual</div>'
+        : '';
+    }
+    if (btn && p !== 'free') {
+      btn.textContent = p === userRole ? 'Plano atual ✓' : (p === 'plus' ? 'Assinar Plus' : 'Assinar Premium');
+      btn.style.opacity = p === userRole ? '.6' : '1';
+      btn.style.cursor  = p === userRole ? 'default' : 'pointer';
+    }
+  });
+  // Chat limit: Plus/Premium users get unlimited
+  if (isPlus()) {
+    const bar = document.getElementById('limit-bar');
+    if (bar) bar.style.display = 'none';
+  }
+}
+
+function applyPlanLocks() {
+  // Memory archive: lock for free
+  const memLock = document.getElementById('memory-lock');
+  if (memLock) memLock.style.display = isPlus() ? 'none' : 'flex';
+}
+
+// remaining() override: Plus/Premium = unlimited
+const _originalRemaining = remaining;
+function remaining() {
+  if (isPlus()) return 999;
+  return _originalRemaining();
+}
+
+function showToast(msg) {
+  let t = document.getElementById('gds-toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'gds-toast';
+    t.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--night);color:#fff;padding:10px 20px;border-radius:100px;font-size:13px;font-weight:600;z-index:9000;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)';
+  setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(20px)'; }, 2800);
 }
 
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
