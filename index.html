@@ -895,6 +895,101 @@ body {
 .d7{animation-delay:.52s}
 .sp { height:20px; }
 
+/* ── Monte sua Box ── */
+.box-section { margin-top:20px; }
+.box-section-title {
+  font-family:'Playfair Display',serif; font-size:15px; font-weight:700;
+  color:var(--text); margin-bottom:14px; display:flex; align-items:center; gap:8px;
+}
+.box-cards { display:flex; flex-direction:column; gap:12px; }
+@media(min-width:640px) { .box-cards { flex-direction:row; } }
+
+/* Box Personalizada */
+.box-custom {
+  flex:1; background:var(--bg-card); border:1.5px solid var(--border-d);
+  border-radius:20px; padding:18px;
+  box-shadow:0 2px 10px var(--shadow);
+}
+.box-custom-title {
+  font-family:'Playfair Display',serif; font-size:14px; font-weight:700;
+  color:var(--text); margin-bottom:4px;
+}
+.box-custom-sub {
+  font-size:11px; color:var(--text-sub); font-family:'Lora',serif;
+  font-style:italic; margin-bottom:12px; line-height:1.5;
+}
+.cart-items { display:flex; flex-direction:column; gap:6px; margin-bottom:12px; }
+.cart-item {
+  display:flex; align-items:center; gap:8px; padding:8px 10px;
+  border:1px solid var(--border); border-radius:11px; background:var(--bg);
+  font-size:12px; color:var(--text); cursor:pointer;
+  transition:border-color .15s, background .15s;
+}
+.cart-item:hover { border-color:var(--sage); background:var(--sage-p); }
+.cart-item input[type=checkbox] { accent-color:var(--sage); width:15px; height:15px; flex-shrink:0; cursor:pointer; }
+.cart-item-emoji { font-size:16px; flex-shrink:0; }
+.cart-item-name  { flex:1; font-weight:500; }
+.cart-btn {
+  display:flex; align-items:center; justify-content:center; gap:7px;
+  width:100%; padding:11px; border:none; border-radius:12px;
+  background:linear-gradient(135deg, var(--sage), var(--sage-d));
+  color:#fff; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600;
+  cursor:pointer; box-shadow:0 3px 10px rgba(90,112,80,.25);
+  transition:transform .18s, box-shadow .18s, opacity .18s;
+  text-decoration:none;
+}
+.cart-btn:hover  { transform:translateY(-1px); box-shadow:0 5px 16px rgba(90,112,80,.35); }
+.cart-btn:active { transform:scale(.97); opacity:.9; }
+.cart-counter {
+  background:#fff; color:var(--sage-d); border-radius:20px;
+  padding:1px 8px; font-size:11px; font-weight:700; min-width:20px; text-align:center;
+}
+
+/* Box Surpresa */
+.box-surprise {
+  flex:1; position:relative; overflow:hidden; border-radius:20px;
+  background:linear-gradient(135deg, #1a2e1a 0%, #2c4a2c 100%);
+  padding:20px;
+  box-shadow:0 6px 24px rgba(26,46,26,.35);
+}
+.box-surprise::before {
+  content:'🎁'; position:absolute; right:-8px; bottom:-10px;
+  font-size:80px; opacity:.12; line-height:1;
+}
+.box-surprise-badge {
+  display:inline-block; font-size:9px; font-weight:700; letter-spacing:2px;
+  text-transform:uppercase; color:var(--gold-l);
+  background:rgba(201,168,76,.2); border:1px solid rgba(201,168,76,.3);
+  border-radius:20px; padding:3px 12px; margin-bottom:12px;
+}
+.box-surprise-title {
+  font-family:'Playfair Display',serif; font-size:16px; font-weight:700;
+  color:#fff; margin-bottom:6px; line-height:1.25;
+}
+.box-surprise-title em { color:var(--tc-l); font-style:italic; }
+.box-surprise-sub {
+  font-family:'Lora',serif; font-style:italic; font-size:11px;
+  color:rgba(255,255,255,.5); line-height:1.6; margin-bottom:16px;
+}
+.box-surprise-btn {
+  display:flex; align-items:center; gap:8px; width:100%; padding:12px 16px;
+  background:linear-gradient(135deg, var(--tc), #a84a28);
+  border:none; border-radius:12px; cursor:pointer;
+  font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; color:#fff;
+  box-shadow:0 4px 14px rgba(196,122,82,.4);
+  transition:transform .18s, box-shadow .18s, opacity .18s;
+}
+.box-surprise-btn:hover  { transform:translateY(-1px); box-shadow:0 6px 20px rgba(196,122,82,.5); }
+.box-surprise-btn:active { transform:scale(.97); opacity:.9; }
+.box-surprise-btn.locked { background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.15); box-shadow:none; cursor:default; }
+.bsb-icon { font-size:18px; flex-shrink:0; }
+.bsb-text { flex:1; text-align:left; }
+.bsb-arr  { font-size:18px; opacity:.6; }
+.box-lock-tag {
+  display:inline-flex; align-items:center; gap:5px; margin-top:10px;
+  font-size:10px; color:rgba(255,255,255,.35); font-family:'Lora',serif; font-style:italic;
+}
+
 /* ── Plan subscription cards ── */
 .planos-section { margin-top:4px; }
 .planos-title {
@@ -1746,8 +1841,8 @@ body {
           <!-- RIGHT: vitrine de afiliados com abas por categoria -->
           <div class="orc-right fu d3">
             <div class="vitrine-header">
-              <div class="vitrine-eyebrow">curadoria</div>
-              <div class="vitrine-title">🛒 Garimpado para a <em>Sofia</em></div>
+              <div class="vitrine-eyebrow">favoritos da Weyna</div>
+              <div class="vitrine-title">🛒 Curadoria de <em>Produtos</em></div>
               <div class="vitrine-tagline">Curadoria de mestre para o sono do seu pequeno</div>
             </div>
             <div class="vitrine-tabs" id="vitrine-tabs">
@@ -1760,6 +1855,42 @@ body {
             <div class="aff-grid" id="vitrine-grid">
               <!-- preenchido por renderVitrine() no JS -->
             </div>
+
+            <!-- ── Monte sua Box ── -->
+            <div class="box-section">
+              <div class="box-section-title">📦 Monte sua Box do Mês</div>
+              <div class="box-cards">
+
+                <!-- Box Personalizada -->
+                <div class="box-custom">
+                  <div class="box-custom-title">🛍️ Box Personalizada</div>
+                  <div class="box-custom-sub">Selecione os itens que você quer e leve direto para a Amazon com um clique.</div>
+                  <div class="cart-items" id="cart-items">
+                    <!-- renderizado por buildCartItems() -->
+                  </div>
+                  <a class="cart-btn" id="cart-btn" href="#" target="_blank" rel="noopener sponsored" onclick="buildCartLink(event)">
+                    <span>🛒</span>
+                    <span style="flex:1">Ver seleção na Amazon</span>
+                    <span class="cart-counter" id="cart-counter">0</span>
+                  </a>
+                </div>
+
+                <!-- Box Surpresa Premium -->
+                <div class="box-surprise">
+                  <div class="box-surprise-badge">✦ Exclusivo Premium</div>
+                  <div class="box-surprise-title">Deixe o Guia do Sono<br>te <em>surpreender!</em></div>
+                  <div class="box-surprise-sub">Selecionamos itens essenciais e mimos exclusivos para a fase atual do seu bebê. Cada box é montada com amor para o momento que vocês estão vivendo.</div>
+                  <button class="box-surprise-btn" id="btn-box-surpresa" onclick="handleBoxSurpresa()">
+                    <span class="bsb-icon">🎁</span>
+                    <span class="bsb-text">Quero minha Box Surpresa</span>
+                    <span class="bsb-arr">›</span>
+                  </button>
+                  <div class="box-lock-tag" id="box-surpresa-lock">🔒 Disponível no Plano Premium</div>
+                </div>
+
+              </div>
+            </div>
+
           </div>
         </div>
         <div class="sp"></div>
@@ -2477,7 +2608,7 @@ function goTo(tab) {
   }
   syncChatInput();
   if (tab === 'chat' && !chatBooted) bootChat();
-  if (tab === 'orcamento') { loadExpenses(); renderVitrine(); }
+  if (tab === 'orcamento') { loadExpenses(); renderVitrine(); buildCartItems(); updateBoxUI(); }
 }
 
 function syncChatInput() {
@@ -2718,7 +2849,7 @@ const USAGE_KEY = 'gds_usage';
 function todayKey() { return new Date().toISOString().split('T')[0]; }
 function getUsage()    { try { const p=JSON.parse(localStorage.getItem(USAGE_KEY)); return (p&&p.d===todayKey())?p:{d:todayKey(),n:0}; } catch{return{d:todayKey(),n:0};} }
 function incUsage()    { const u=getUsage();u.n++;localStorage.setItem(USAGE_KEY,JSON.stringify(u));return u.n; }
-function remaining()   { return Math.max(0, MAX_FREE - getUsage().n); }
+function remaining()   { if (typeof isPlus === 'function' && isPlus()) return 999; return Math.max(0, MAX_FREE - getUsage().n); }
 
 function refreshChatUI() {
   const rem = remaining();
@@ -2866,87 +2997,91 @@ function closePro() { document.getElementById('pro-ov').classList.remove('on'); 
    Ícones: use qualquer emoji no campo `emoji`.
 ═══════════════════════════════════════════════════════════ */
 /* ═══════════════════════════════════════
-   VITRINE DE AFILIADOS
-   ─────────────────────────────────────
-   Campos: emoji, nome, tag, preco, categoria, url
-   Categorias disponíveis: Higiene | Bem-estar | Alimentação | Segurança
-   Para adicionar: copie um objeto e ajuste os campos.
-   Para ativar o link: coloque o URL de afiliada Amazon no campo `url`.
+   VITRINE — Favoritos da Weyna
+   Links reais de afiliada Amazon.
+   Para adicionar produtos: copie um objeto no array.
 ═══════════════════════════════════════ */
 const PRODUTOS = [
   // ── HIGIENE ────────────────────────
   {
-    emoji:'🛁', categoria:'Higiene',
-    nome:'Banheira Ergonômica Safety 1st',
-    tag:'Banho seguro e relaxante antes de dormir',
-    preco:'R$ 129,90',
-    url:'', // ← link de afiliada Amazon
+    emoji:'🌸', categoria:'Higiene',
+    nome:'Fralda MamyPoko Pants Azul XG',
+    tag:'Proteção máxima para o sono da madrugada',
+    preco:'Ver na Amazon',
+    url:'https://amzn.to/3NLWhIq',
   },
   {
-    emoji:'🧴', categoria:'Higiene',
-    nome:"Sabonete Líquido Johnson's Baby",
-    tag:'Fórmula suave que acalma antes da soneca',
-    preco:'R$ 24,90',
-    url:'', // ← link de afiliada Amazon
+    emoji:'💛', categoria:'Higiene',
+    nome:'Bepantol Baby Pomada',
+    tag:'Previne e trata assaduras com carinho',
+    preco:'Ver na Amazon',
+    url:'https://amzn.to/48hxmDo',
+  },
+  {
+    emoji:'🫧', categoria:'Higiene',
+    nome:'Lenço Umedecido',
+    tag:'Suave para a pele sensível do bebê',
+    preco:'Ver na Amazon',
+    url:'https://amzn.to/4bJYHis',
+  },
+  {
+    emoji:'🌼', categoria:'Higiene',
+    nome:'Pomada Cicatrizante Mustela',
+    tag:'Protege e cicatriza a pele delicada',
+    preco:'Ver na Amazon',
+    url:'https://amzn.to/4lXtdub',
+  },
+  {
+    emoji:'🍃', categoria:'Higiene',
+    nome:"Sabonete Johnson's Baby Recém-Nascido",
+    tag:'Fórmula ultra suave para os primeiros dias',
+    preco:'Ver na Amazon',
+    url:'https://amzn.to/4bGgXuB',
+  },
+  {
+    emoji:'✨', categoria:'Higiene',
+    nome:'Hidratante Johnson Baby (Todas as Idades)',
+    tag:'Pele macia e protegida em cada fase',
+    preco:'Ver na Amazon',
+    url:'https://amzn.to/4bJYQT2',
   },
   // ── BEM-ESTAR ──────────────────────
   {
     emoji:'🎶', categoria:'Bem-estar',
-    nome:'Máquina de Ruído Branco LectroFan',
+    nome:'Máquina de Ruído Branco',
     tag:'O som que acalma e mantém o sono profundo',
-    preco:'R$ 249,00',
-    url:'', // ← link de afiliada Amazon
+    preco:'Ver na Amazon',
+    url:'',
   },
   {
     emoji:'🌙', categoria:'Bem-estar',
-    nome:'Saco de Dormir Halo SleepSack',
+    nome:'Saco de Dormir Bebê (SleepSack)',
     tag:'Segurança e quentinho a noite toda',
-    preco:'R$ 159,90',
-    url:'', // ← link de afiliada Amazon
+    preco:'Ver na Amazon',
+    url:'',
   },
   {
     emoji:'🔆', categoria:'Bem-estar',
     nome:'Abajur Luminária Noturna Touch',
     tag:'Luz âmbar que não atrapalha a melatonina',
-    preco:'R$ 79,90',
-    url:'', // ← link de afiliada Amazon
-  },
-  {
-    emoji:'🌿', categoria:'Bem-estar',
-    nome:'Umidificador de Ar Ultrassônico',
-    tag:'Ambiente ideal para o sono do bebê',
-    preco:'R$ 189,90',
-    url:'', // ← link de afiliada Amazon
+    preco:'Ver na Amazon',
+    url:'',
   },
   // ── ALIMENTAÇÃO ────────────────────
   {
     emoji:'🍼', categoria:'Alimentação',
     nome:'Mamadeira Anti-Cólica Philips Avent',
     tag:'Barriga feliz, sono tranquilo',
-    preco:'R$ 89,90',
-    url:'', // ← link de afiliada Amazon
-  },
-  {
-    emoji:'🥄', categoria:'Alimentação',
-    nome:'Kit Introdução Alimentar Oxo Tot',
-    tag:'Primeiras colheradas com segurança',
-    preco:'R$ 149,90',
-    url:'', // ← link de afiliada Amazon
+    preco:'Ver na Amazon',
+    url:'',
   },
   // ── SEGURANÇA ──────────────────────
   {
     emoji:'🛏️', categoria:'Segurança',
     nome:'Berço Portátil Multikids Baby',
     tag:'Rotina de sono em qualquer lugar',
-    preco:'R$ 319,00',
-    url:'', // ← link de afiliada Amazon
-  },
-  {
-    emoji:'🛡️', categoria:'Segurança',
-    nome:'Monitor de Bebê com Vídeo HD',
-    tag:'Durma tranquila, ele está bem',
-    preco:'R$ 399,00',
-    url:'', // ← link de afiliada Amazon
+    preco:'Ver na Amazon',
+    url:'',
   },
 ];
 
@@ -2988,7 +3123,7 @@ function renderVitrine() {
     </div>`).join('');
 }
 
-document.addEventListener('DOMContentLoaded', renderVitrine);
+document.addEventListener('DOMContentLoaded', () => { renderVitrine(); buildCartItems(); });
 
 
 
@@ -3788,12 +3923,8 @@ function applyPlanLocks() {
   if (memLock) memLock.style.display = isPlus() ? 'none' : 'flex';
 }
 
-// remaining() override: Plus/Premium = unlimited
-const _originalRemaining = remaining;
-function remaining() {
-  if (isPlus()) return 999;
-  return _originalRemaining();
-}
+// remaining(): returns unlimited for Plus/Premium, otherwise counts usage
+// (replaces the original single-line remaining() defined above)
 
 function showToast(msg) {
   let t = document.getElementById('gds-toast');
@@ -3806,6 +3937,79 @@ function showToast(msg) {
   t.textContent = msg;
   t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)';
   setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(20px)'; }, 2800);
+}
+
+
+/* ═══════════════════════════════════════
+   MONTE SUA BOX — Cart logic
+═══════════════════════════════════════ */
+let cartSelected = new Set();
+
+function buildCartItems() {
+  const container = document.getElementById('cart-items');
+  if (!container) return;
+  // Only show Higiene products that have real links (Weyna's favorites)
+  const favs = PRODUTOS.filter(p => p.url && p.url.length > 0);
+  if (!favs.length) return;
+  container.innerHTML = favs.map((p, i) => `
+    <label class="cart-item">
+      <input type="checkbox" value="${i}" onchange="toggleCart(${i}, this.checked)">
+      <span class="cart-item-emoji">${p.emoji}</span>
+      <span class="cart-item-name">${p.nome}</span>
+    </label>`).join('');
+  updateCartCounter();
+}
+
+function toggleCart(idx, checked) {
+  if (checked) cartSelected.add(idx);
+  else cartSelected.delete(idx);
+  updateCartCounter();
+}
+
+function updateCartCounter() {
+  const el = document.getElementById('cart-counter');
+  if (el) el.textContent = cartSelected.size;
+}
+
+function buildCartLink(e) {
+  e.preventDefault();
+  const favs = PRODUTOS.filter(p => p.url && p.url.length > 0);
+  const selected = [...cartSelected].map(i => favs[i]).filter(Boolean);
+  if (!selected.length) {
+    showToast('Selecione pelo menos um item 🌿');
+    return;
+  }
+  if (selected.length === 1) {
+    window.open(selected[0].url, '_blank', 'noopener,noreferrer');
+  } else {
+    // Open first item, then show toast about others
+    window.open(selected[0].url, '_blank', 'noopener,noreferrer');
+    if (selected.length > 1) {
+      setTimeout(() => showToast(`Abrindo ${selected.length} itens — verifique as abas abertas 🛍️`), 400);
+      selected.slice(1).forEach((p, i) => {
+        setTimeout(() => window.open(p.url, '_blank', 'noopener,noreferrer'), 300 * (i + 1));
+      });
+    }
+  }
+}
+
+function handleBoxSurpresa() {
+  if (typeof isPremium === 'function' && isPremium()) {
+    showToast('🎁 Em breve! Sua Box Surpresa está sendo preparada com amor.');
+  } else {
+    const ok = confirm('A Box Surpresa é exclusiva do Plano Premium. Quer conhecer o plano e garantir sua box mensal personalizada?');
+    if (ok) goTo('perfil');
+  }
+}
+
+// Update box surprise button based on role
+function updateBoxUI() {
+  const btn  = document.getElementById('btn-box-surpresa');
+  const lock = document.getElementById('box-surpresa-lock');
+  if (!btn) return;
+  const prem = typeof isPremium === 'function' && isPremium();
+  if (btn) btn.classList.toggle('locked', !prem);
+  if (lock) lock.style.display = prem ? 'none' : 'inline-flex';
 }
 
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
