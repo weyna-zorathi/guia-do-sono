@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nutrição Avançada Toddler · 12–36 meses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fdfbf7;
+    --cream-dark: #f5f0e8;
+    --sage: #7a9e7e;
+    --sage-light: #a8c5ac;
+    --sage-dark: #4d7352;
+    --sage-pale: #eaf2eb;
+    --warm-brown: #8b6f47;
+    --terracotta: #c4714a;
+    --gold: #c9a84c;
+    --text-dark: #2d2a26;
+    --text-mid: #5a5248;
+    --text-light: #8c8278;
+    --white: #ffffff;
+    --shadow-sm: 0 2px 12px rgba(77,115,82,0.08);
+    --shadow-md: 0 8px 32px rgba(77,115,82,0.12);
+    --shadow-lg: 0 20px 60px rgba(77,115,82,0.15);
+    --radius: 20px;
+    --radius-sm: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-dark);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #2d4a30 0%, #4d7352 40%, #7a9e7e 80%, #a8c5ac 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden; padding: 60px 20px;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 20% 30%, rgba(201,168,76,0.15) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 70%, rgba(196,113,74,0.1) 0%, transparent 50%);
+  }
+
+  .hero-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.2;
+    animation: float 8s ease-in-out infinite alternate;
+  }
+  .hero-blob:nth-child(1) { width: 500px; height: 500px; background: #c9a84c; top: -100px; right: -100px; animation-delay: 0s; }
+  .hero-blob:nth-child(2) { width: 350px; height: 350px; background: #c4714a; bottom: -80px; left: -80px; animation-delay: 3s; }
+
+  @keyframes float {
+    from { transform: translate(0,0) scale(1); }
+    to   { transform: translate(30px, 20px) scale(1.1); }
+  }
+
+  .hero-content {
+    position: relative; z-index: 2; text-align: center; max-width: 760px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.9);
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 8px 20px; border-radius: 50px; margin-bottom: 28px;
+    backdrop-filter: blur(8px);
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 7vw, 5rem);
+    color: #fff; line-height: 1.1; margin-bottom: 20px;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+
+  .hero h1 em { font-style: italic; color: #f0d98c; }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: rgba(255,255,255,0.8); max-width: 560px; margin: 0 auto 40px;
+  }
+
+  .hero-stats {
+    display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;
+  }
+
+  .hero-stat {
+    text-align: center;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 16px 24px; border-radius: 16px;
+    backdrop-filter: blur(8px);
+  }
+
+  .hero-stat strong { display: block; font-size: 1.8rem; font-weight: 700; color: #f0d98c; }
+  .hero-stat span { font-size: 0.82rem; color: rgba(255,255,255,0.75); }
+
+  .scroll-hint {
+    margin-top: 20px;
+    display: inline-flex; flex-direction: column; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.5); font-size: 0.78rem; letter-spacing: 0.08em;
+  }
+
+  .scroll-arrow {
+    width: 32px; height: 32px; border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(6px); }
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+  section { padding: 72px 0; }
+
+  .section-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--sage-dark); margin-bottom: 12px;
+  }
+
+  .section-label::before {
+    content: ''; width: 24px; height: 2px; background: var(--sage);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--text-dark); line-height: 1.2; margin-bottom: 16px;
+  }
+
+  .section-intro { font-size: 1.05rem; color: var(--text-mid); max-width: 640px; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 36px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(122,158,126,0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+
+  .card-grid { display: grid; gap: 20px; }
+  .card-grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .card-grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+  /* ── SECTION 1: MENTE DO TODDLER ── */
+  .mente-section { background: var(--cream-dark); }
+
+  .phase-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 40px; }
+
+  .phase-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow-sm);
+    border-top: 4px solid var(--sage);
+    position: relative; overflow: hidden;
+  }
+
+  .phase-card::after {
+    content: '';
+    position: absolute; top: -30px; right: -30px;
+    width: 100px; height: 100px;
+    background: var(--sage-pale);
+    border-radius: 50%;
+  }
+
+  .phase-card .icon { font-size: 2rem; margin-bottom: 12px; position: relative; z-index: 1; }
+  .phase-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 8px; color: var(--text-dark); }
+  .phase-card p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.6; }
+
+  .neofobia-box {
+    background: linear-gradient(135deg, #eaf2eb 0%, #f5f0e8 100%);
+    border-radius: var(--radius);
+    padding: 36px;
+    margin-top: 32px;
+    border-left: 5px solid var(--sage);
+    display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start;
+  }
+
+  .neofobia-box .big-icon { font-size: 3rem; }
+  .neofobia-box h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 10px; color: var(--sage-dark); }
+  .neofobia-box ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .neofobia-box li { font-size: 0.93rem; color: var(--text-mid); display: flex; gap: 10px; }
+  .neofobia-box li::before { content: '✦'; color: var(--sage); flex-shrink: 0; margin-top: 2px; }
+
+  /* ── SECTION 2: TRUQUES ── */
+  .truques-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 40px; }
+
+  .truque-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(122,158,126,0.15);
+    position: relative;
+  }
+
+  .truque-num {
+    position: absolute; top: -14px; left: 28px;
+    background: var(--sage-dark);
+    color: #fff; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+    padding: 4px 14px; border-radius: 50px;
+  }
+
+  .truque-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin: 8px 0 12px; color: var(--text-dark); }
+  .truque-card p { font-size: 0.9rem; color: var(--text-mid); }
+  .truque-card .tip-tag {
+    display: inline-block; margin-top: 12px;
+    background: var(--sage-pale); color: var(--sage-dark);
+    font-size: 0.78rem; font-weight: 600; padding: 4px 12px; border-radius: 50px;
+  }
+
+  /* ── SECTION 3: CARDÁPIO ── */
+  .cardapio-section { background: var(--cream-dark); }
+
+  .meal-legend {
+    display: flex; flex-wrap: wrap; gap: 16px; margin: 28px 0;
+  }
+
+  .legend-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.85rem; color: var(--text-mid);
+  }
+
+  .legend-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+  }
+
+  .legend-dot.cafe { background: #f0d98c; }
+  .legend-dot.almoco { background: var(--sage); }
+  .legend-dot.lanche { background: #c4714a; }
+  .legend-dot.jantar { background: #6b8f71; }
+
+  .cardapio-wrapper {
+    overflow-x: auto;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(122,158,126,0.15);
+  }
+
+  .cardapio-table {
+    width: 100%; border-collapse: collapse;
+    background: var(--white);
+    font-size: 0.88rem;
+    min-width: 700px;
+  }
+
+  .cardapio-table thead {
+    background: var(--sage-dark);
+    color: #fff;
+  }
+
+  .cardapio-table thead th {
+    padding: 16px 18px; text-align: left;
+    font-weight: 600; font-size: 0.82rem; letter-spacing: 0.04em;
+  }
+
+  .cardapio-table thead th:first-child { border-radius: 0; }
+
+  .cardapio-table tbody tr {
+    border-bottom: 1px solid rgba(122,158,126,0.1);
+    transition: background 0.2s;
+  }
+
+  .cardapio-table tbody tr:hover { background: var(--sage-pale); }
+
+  .cardapio-table tbody td { padding: 14px 18px; vertical-align: top; }
+
+  .cardapio-table .dia-col {
+    font-weight: 700; color: var(--sage-dark); white-space: nowrap;
+    font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  .meal-cell { line-height: 1.5; }
+  .meal-cell strong { display: block; color: var(--text-dark); }
+  .meal-cell span { color: var(--text-light); font-size: 0.82rem; }
+
+  .meal-tag {
+    display: inline-block;
+    padding: 2px 8px; border-radius: 50px;
+    font-size: 0.72rem; font-weight: 600; margin-bottom: 4px;
+  }
+
+  .meal-tag.cafe { background: #fdf3c8; color: #8a6c00; }
+  .meal-tag.almoco { background: var(--sage-pale); color: var(--sage-dark); }
+  .meal-tag.lanche { background: #fde8de; color: #a04a25; }
+  .meal-tag.jantar { background: #ddeede; color: #2d5c33; }
+
+  /* ── SECTION 4: RECEITAS (ACCORDION) ── */
+  .receitas-section {}
+
+  .acc-list { display: flex; flex-direction: column; gap: 16px; margin-top: 40px; }
+
+  .acc-item {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(122,158,126,0.15);
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+  }
+
+  .acc-item.open { box-shadow: var(--shadow-md); }
+
+  .acc-trigger {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 28px; cursor: pointer;
+    background: none; border: none; width: 100%; text-align: left;
+    gap: 16px;
+  }
+
+  .acc-trigger:hover { background: var(--sage-pale); }
+
+  .acc-left { display: flex; align-items: center; gap: 16px; }
+  .acc-emoji { font-size: 2rem; width: 48px; height: 48px; background: var(--sage-pale); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .acc-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--text-dark); }
+  .acc-sub { font-size: 0.82rem; color: var(--text-mid); margin-top: 2px; }
+
+  .acc-badge {
+    display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+  }
+
+  .badge-tag {
+    display: inline-block;
+    background: var(--sage-pale); color: var(--sage-dark);
+    font-size: 0.72rem; font-weight: 600; padding: 4px 12px; border-radius: 50px;
+  }
+
+  .acc-arrow {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--sage-pale); color: var(--sage-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; transition: transform 0.3s ease; flex-shrink: 0;
+  }
+
+  .acc-item.open .acc-arrow { transform: rotate(180deg); }
+
+  .acc-body {
+    display: none;
+    padding: 0 28px 28px;
+    border-top: 1px solid rgba(122,158,126,0.12);
+  }
+
+  .acc-item.open .acc-body { display: block; }
+
+  .recipe-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 20px; }
+  @media(max-width:560px) { .recipe-grid { grid-template-columns: 1fr; } }
+
+  .recipe-col h4 { font-weight: 600; font-size: 0.9rem; color: var(--sage-dark); margin-bottom: 12px; letter-spacing: 0.04em; text-transform: uppercase; }
+
+  .ing-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .ing-list li { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--text-mid); }
+
+  .ing-icon {
+    width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; flex-shrink: 0;
+  }
+
+  .ing-icon.proteina { background: #fde8de; }
+  .ing-icon.vegetal  { background: #ddf0de; }
+  .ing-icon.carbo    { background: #fdf3c8; }
+  .ing-icon.gordura  { background: #ede8f8; }
+  .ing-icon.outro    { background: #f0f0f0; }
+
+  .step-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .step-list li { display: flex; gap: 14px; font-size: 0.9rem; color: var(--text-mid); }
+  .step-num { width: 24px; height: 24px; background: var(--sage); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+
+  .nutrition-bar {
+    display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px;
+    padding-top: 20px; border-top: 1px solid rgba(122,158,126,0.12);
+  }
+
+  .nutr-item { text-align: center; }
+  .nutr-label { font-size: 0.72rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.06em; }
+  .nutr-val { font-size: 1rem; font-weight: 700; color: var(--sage-dark); }
+
+  /* ── SECTION 5: SUPLEMENTAÇÃO ── */
+  .supl-section { background: var(--cream-dark); }
+
+  .supl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 40px; }
+
+  .supl-card {
+    border-radius: var(--radius);
+    padding: 36px;
+    position: relative; overflow: hidden;
+    color: #fff;
+  }
+
+  .supl-card.ferro { background: linear-gradient(135deg, #c4714a, #a05030); }
+  .supl-card.omega { background: linear-gradient(135deg, #4d7352, #2d4a30); }
+
+  .supl-card::before {
+    content: '';
+    position: absolute; bottom: -30px; right: -30px;
+    width: 140px; height: 140px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .supl-card .supl-icon { font-size: 2.8rem; margin-bottom: 16px; }
+  .supl-card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 12px; }
+  .supl-card p { font-size: 0.9rem; opacity: 0.85; line-height: 1.6; }
+
+  .supl-food-list {
+    margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px;
+  }
+
+  .supl-food-tag {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    font-size: 0.78rem; padding: 4px 12px; border-radius: 50px;
+  }
+
+  .supl-warn {
+    background: #fff8ec; border: 1px solid #f0d98c;
+    border-radius: var(--radius-sm); padding: 20px 24px; margin-top: 24px;
+    display: flex; gap: 14px; align-items: start;
+    font-size: 0.9rem; color: #7a5c00;
+  }
+
+  .supl-warn .warn-icon { font-size: 1.4rem; flex-shrink: 0; }
+
+  /* ── SECTION 6: SONO ── */
+  .sono-section {}
+
+  .sono-intro {
+    background: linear-gradient(135deg, #2d4a30 0%, #4d7352 100%);
+    border-radius: var(--radius); padding: 40px;
+    color: #fff; margin-top: 40px;
+    display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
+  }
+
+  @media(max-width:560px) { .sono-intro { grid-template-columns: 1fr; } }
+
+  .sono-intro h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 10px; }
+  .sono-intro p { font-size: 0.93rem; opacity: 0.85; }
+  .sono-moon { font-size: 5rem; opacity: 0.4; }
+
+  .sono-foods { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 24px; }
+
+  .sono-food-card {
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(122,158,126,0.15);
+    text-align: center;
+  }
+
+  .sono-food-card .food-emoji { font-size: 2.2rem; margin-bottom: 10px; }
+  .sono-food-card h4 { font-size: 0.95rem; font-weight: 600; color: var(--text-dark); margin-bottom: 6px; }
+  .sono-food-card p { font-size: 0.82rem; color: var(--text-mid); }
+  .sono-food-card .melatonin-tag { display: inline-block; margin-top: 10px; background: #e8f0e8; color: var(--sage-dark); font-size: 0.72rem; font-weight: 600; padding: 3px 10px; border-radius: 50px; }
+
+  .jantar-modelo {
+    background: linear-gradient(135deg, #eaf2eb 0%, #f5f0e8 100%);
+    border-radius: var(--radius); padding: 32px; margin-top: 24px;
+    border: 1px solid rgba(122,158,126,0.2);
+  }
+
+  .jantar-modelo h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--sage-dark); margin-bottom: 16px; }
+
+  .jantar-steps { display: flex; flex-direction: column; gap: 12px; }
+  .jantar-step { display: flex; align-items: center; gap: 14px; }
+  .jantar-step-time { font-weight: 700; font-size: 0.82rem; color: var(--sage-dark); white-space: nowrap; min-width: 52px; }
+  .jantar-step-line { width: 2px; height: 40px; background: rgba(122,158,126,0.2); }
+  .jantar-step-text { font-size: 0.9rem; color: var(--text-mid); }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--text-dark);
+    color: rgba(255,255,255,0.5);
+    text-align: center; padding: 48px 20px;
+    font-size: 0.85rem;
+  }
+
+  .footer strong { color: rgba(255,255,255,0.8); display: block; font-size: 1rem; margin-bottom: 8px; }
+  .footer .disclaimer { max-width: 560px; margin: 16px auto 0; line-height: 1.6; }
+
+  /* ── NAV ── */
+  .toc {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(253,251,247,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(122,158,126,0.15);
+    padding: 12px 20px;
+    display: flex; gap: 24px; align-items: center; justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .toc a {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--text-mid); text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc a:hover { color: var(--sage-dark); }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width: 700px) {
+    .neofobia-box { grid-template-columns: 1fr; }
+    .toc { gap: 14px; }
+    .acc-badge .badge-tag { display: none; }
+    .sono-moon { display: none; }
+    .card { padding: 24px; }
+    section { padding: 48px 0; }
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-blob"></div>
+  <div class="hero-blob"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Nutrição Funcional &amp; Comportamento Alimentar</div>
+    <h1>O Guia <em>Completo</em><br>do Toddler Bem Nutrido</h1>
+    <p class="hero-sub">Tudo o que você precisa saber para alimentar seu bebê de 12 a 36 meses com ciência, amor e receitas que eles realmente comem.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>12–36</strong><span>meses de idade</span></div>
+      <div class="hero-stat"><strong>7+</strong><span>receitas práticas</span></div>
+      <div class="hero-stat"><strong>21</strong><span>refeições no cardápio</span></div>
+    </div>
+    <div class="scroll-hint">
+      EXPLORE
+      <div class="scroll-arrow">↓</div>
+    </div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav class="toc">
+  <a href="#mente">A Mente Toddler</a>
+  <a href="#truques">Truques de Mestre</a>
+  <a href="#cardapio">Cardápio</a>
+  <a href="#receitas">Receitas</a>
+  <a href="#suplementacao">Suplementação</a>
+  <a href="#sono">Sono</a>
+</nav>
+
+<!-- SECTION 1: MENTE DO TODDLER -->
+<section id="mente" class="mente-section">
+  <div class="container">
+    <span class="section-label">Capítulo 01</span>
+    <h2 class="section-title">A Mente do Toddler</h2>
+    <p class="section-intro">Por que seu filho comia tudo e de repente virou um crítico gastronômico de 1 ano? A resposta está no cérebro — e é completamente normal.</p>
+
+    <div class="phase-cards">
+      <div class="phase-card fade-in">
+        <div class="icon">🧠</div>
+        <h3>12–18 meses: Grande Explorador</h3>
+        <p>A autonomia desperta. O toddler começa a entender que tem preferências próprias. A recusa alimentar é um exercício de identidade, não birra.</p>
+      </div>
+      <div class="phase-card fade-in">
+        <div class="icon">🌱</div>
+        <h3>18–24 meses: A Neofobia Pica</h3>
+        <p>O medo de alimentos novos atinge o pico. É um mecanismo evolutivo: nossos ancestrais ensinavam os filhos a desconfiar de plantas desconhecidas.</p>
+      </div>
+      <div class="phase-card fade-in">
+        <div class="icon">⚡</div>
+        <h3>24–36 meses: Saltos Cognitivos</h3>
+        <p>Períodos de explosão de linguagem e habilidades motoras reduzem o apetite. O cérebro prioriza e o estômago espera. É passageiro.</p>
+      </div>
+    </div>
+
+    <div class="neofobia-box fade-in">
+      <div class="big-icon">🔬</div>
+      <div>
+        <h3>O que é Neofobia Alimentar?</h3>
+        <p style="font-size:0.92rem; color:var(--text-mid); margin-bottom:14px;">É a resistência natural a alimentos novos ou desconhecidos — presente em <strong>76% dos toddlers</strong> entre 18 e 24 meses. Não é frescura: é neurociência.</p>
+        <ul>
+          <li>Um alimento novo precisa ser oferecido <strong>10 a 15 vezes</strong> antes que o toddler o aceite.</li>
+          <li>Forçar comer aumenta a aversão e cria memórias negativas associadas ao alimento.</li>
+          <li>Comer junto com a família acelera a aceitação — o espelho neuronal trabalha a seu favor.</li>
+          <li>Variar a <em>apresentação</em> do mesmo alimento (amassado, inteiro, colorido) facilita a aceitação.</li>
+          <li>O apetite reduzido entre 12–36 meses é fisiológico: o crescimento desacelera após o primeiro ano.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: TRUQUES DE MESTRE -->
+<section id="truques">
+  <div class="container">
+    <span class="section-label">Capítulo 02</span>
+    <h2 class="section-title">Truques de Mestre</h2>
+    <p class="section-intro">Como esconder nutrientes sem enganar o paladar — porque transparência e criatividade podem andar juntas.</p>
+
+    <div class="truques-grid">
+      <div class="truque-card fade-in">
+        <div class="truque-num">Truque 01</div>
+        <h3>🥣 O Molho que Alimenta</h3>
+        <p>Refogue cebola, alho, cenoura e beterraba com tomates. Bata tudo no liquidificador. O molho vermelho intenso esconde vegetais sem mascarar o sabor — pelo contrário, intensifica.</p>
+        <span class="tip-tag">↑ Betacaroteno + Licopeno</span>
+      </div>
+      <div class="truque-card fade-in">
+        <div class="truque-num">Truque 02</div>
+        <h3>🎨 A Cor como Convite</h3>
+        <p>Toddlers comem com os olhos antes da boca. Prato colorido = prato aceito. Use beterraba no arroz, açafrão no frango, espinafre na massa. A cor gera curiosidade, não suspeita.</p>
+        <span class="tip-tag">Neurologia visual</span>
+      </div>
+      <div class="truque-card fade-in">
+        <div class="truque-num">Truque 03</div>
+        <h3>🖐️ A Textura que Convence</h3>
+        <p>Entre 12–18 meses: pastoso com pedaços. Entre 18–36 meses: finger foods moles. O controle de segurar o alimento com a mão aumenta a aceitação em até 60%.</p>
+        <span class="tip-tag">Autonomia alimentar</span>
+      </div>
+      <div class="truque-card fade-in">
+        <div class="truque-num">Truque 04</div>
+        <h3>🥣 A "Destruição Nutritiva"</h3>
+        <p>Abóbora assada vira o creme do macarrão. Couve-flor cozida entra no purê de batata. Fígado bovino ralado fino muda de sabor quando refogado com cebola e misturado ao arroz.</p>
+        <span class="tip-tag">Ferro + Zinco + B12</span>
+      </div>
+      <div class="truque-card fade-in">
+        <div class="truque-num">Truque 05</div>
+        <h3>🌿 Gordura = Aliada</h3>
+        <p>Legumes no vapor têm absorção de carotenoides de 5%. Com azeite extravirgem: até 98%. A gordura boa aumenta a absorção de vitaminas lipossolúveis A, D, E e K.</p>
+        <span class="tip-tag">Biodisponibilidade</span>
+      </div>
+      <div class="truque-card fade-in">
+        <div class="truque-num">Truque 06</div>
+        <h3>🎉 O Ritual da Mesa</h3>
+        <p>Toddlers comem mais quando a refeição é evento social. Mesa posta, família sentada, TV desligada. O ambiente calmo e previsível reduz a seletividade alimentar.</p>
+        <span class="tip-tag">Psicologia alimentar</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: CARDÁPIO SEMANAL -->
+<section id="cardapio" class="cardapio-section">
+  <div class="container">
+    <span class="section-label">Capítulo 03</span>
+    <h2 class="section-title">Cardápio Semanal Prático</h2>
+    <p class="section-intro">Uma semana completa com alimentos reais, ancestrais e pensados para a fase toddler. Sem ultraprocessados, sem culpa.</p>
+
+    <div class="meal-legend">
+      <div class="legend-item"><div class="legend-dot cafe"></div> Café da manhã</div>
+      <div class="legend-item"><div class="legend-dot almoco"></div> Almoço</div>
+      <div class="legend-item"><div class="legend-dot lanche"></div> Lanche</div>
+      <div class="legend-item"><div class="legend-dot jantar"></div> Jantar</div>
+    </div>
+
+    <div class="cardapio-wrapper fade-in">
+      <table class="cardapio-table">
+        <thead>
+          <tr>
+            <th>Dia</th>
+            <th>☀️ Café da Manhã</th>
+            <th>🌿 Almoço</th>
+            <th>🍊 Lanche</th>
+            <th>🌙 Jantar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="dia-col">SEG</td>
+            <td><div class="meal-cell"><span class="meal-tag cafe">Café</span><strong>Vitamina de banana</strong><span>com aveia e chia</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag almoco">Almoço</span><strong>Arroz, feijão</strong><span>+ frango desfiado + cenoura</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag lanche">Lanche</span><strong>Maçã amassada</strong><span>com canela</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag jantar">Jantar</span><strong>Creme de abóbora</strong><span>+ ovo mexido</span></div></td>
+          </tr>
+          <tr>
+            <td class="dia-col">TER</td>
+            <td><div class="meal-cell"><span class="meal-tag cafe">Café</span><strong>Omelete de espinafre</strong><span>+ mamão papaia</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag almoco">Almoço</span><strong>Macarrão integral</strong><span>+ molho de legumes + carne moída</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag lanche">Lanche</span><strong>Biscoito amanteigado</strong><span>caseiro (receita no e-book)</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag jantar">Jantar</span><strong>Sopa de mandioca</strong><span>+ frango em pedaços</span></div></td>
+          </tr>
+          <tr>
+            <td class="dia-col">QUA</td>
+            <td><div class="meal-cell"><span class="meal-tag cafe">Café</span><strong>Pão integral</strong><span>+ pasta de amendoim natural</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag almoco">Almoço</span><strong>Bolinho de ferro</strong><span>(espinafre + carne — receita inclusa)</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag lanche">Lanche</span><strong>Banana amassada</strong><span>com coco ralado</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag jantar">Jantar</span><strong>Arroz com leite</strong><span>de coco + cenoura ralada</span></div></td>
+          </tr>
+          <tr>
+            <td class="dia-col">QUI</td>
+            <td><div class="meal-cell"><span class="meal-tag cafe">Café</span><strong>Mingau de aveia</strong><span>com tâmaras e canela</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag almoco">Almoço</span><strong>Peixe assado</strong><span>+ batata doce + brócolis</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag lanche">Lanche</span><strong>Nugget caseiro</strong><span>de frango e mandioca</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag jantar">Jantar</span><strong>Caldo de mandioquinha</strong><span>+ frango desfiado</span></div></td>
+          </tr>
+          <tr>
+            <td class="dia-col">SEX</td>
+            <td><div class="meal-cell"><span class="meal-tag cafe">Café</span><strong>Panqueca de banana</strong><span>com ovo (2 ingredientes)</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag almoco">Almoço</span><strong>Feijão tropeiro</strong><span>+ arroz + couve refogada</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag lanche">Lanche</span><strong>Gelatina de suco</strong><span>natural de maracujá</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag jantar">Jantar</span><strong>Purê de batata</strong><span>+ ovo cozido + cenoura</span></div></td>
+          </tr>
+          <tr>
+            <td class="dia-col">SAB</td>
+            <td><div class="meal-cell"><span class="meal-tag cafe">Café</span><strong>Tapioca</strong><span>+ queijo minas + mamão</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag almoco">Almoço</span><strong>Frango no molho</strong><span>de tomate + aipim cozido</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag lanche">Lanche</span><strong>Vitamina de manga</strong><span>com leite de amêndoas</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag jantar">Jantar</span><strong>Risoto de abóbora</strong><span>com parmesão</span></div></td>
+          </tr>
+          <tr>
+            <td class="dia-col">DOM</td>
+            <td><div class="meal-cell"><span class="meal-tag cafe">Café</span><strong>Beiju</strong><span>+ creme de abacate</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag almoco">Almoço</span><strong>Arroz, feijão, bife</strong><span>+ salada de legumes cozidos</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag lanche">Lanche</span><strong>Biscoito amanteigado</strong><span>+ suco de laranja</span></div></td>
+            <td><div class="meal-cell"><span class="meal-tag jantar">Jantar</span><strong>Sopa de legumes</strong><span>variados + carne</span></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: RECEITAS -->
+<section id="receitas" class="receitas-section">
+  <div class="container">
+    <span class="section-label">Capítulo 04</span>
+    <h2 class="section-title">Receitas Sucesso Garantido</h2>
+    <p class="section-intro">Testadas, aprovadas e adoradas por toddlers de norte a sul. Clique para expandir cada receita.</p>
+
+    <div class="acc-list">
+
+      <!-- RECEITA 1 -->
+      <div class="acc-item" onclick="toggleAcc(this)">
+        <button class="acc-trigger">
+          <div class="acc-left">
+            <div class="acc-emoji">🥩</div>
+            <div>
+              <div class="acc-title">O "Bolinho de Ferro"</div>
+              <div class="acc-sub">Espinafre + Carne bovina · Alto teor de ferro biodisponível</div>
+            </div>
+          </div>
+          <div class="acc-badge">
+            <span class="badge-tag">⏱ 30 min</span>
+            <span class="badge-tag">8–10 unidades</span>
+            <div class="acc-arrow">▾</div>
+          </div>
+        </button>
+        <div class="acc-body">
+          <div class="recipe-grid">
+            <div class="recipe-col">
+              <h4>Ingredientes</h4>
+              <ul class="ing-list">
+                <li><div class="ing-icon proteina">🥩</div>200g de carne moída patinho</li>
+                <li><div class="ing-icon vegetal">🥬</div>1 xícara de espinafre cozido e espremido</li>
+                <li><div class="ing-icon carbo">🥚</div>1 ovo inteiro</li>
+                <li><div class="ing-icon carbo">🫘</div>3 col. sopa de farinha de aveia</li>
+                <li><div class="ing-icon gordura">🧄</div>1 dente de alho espremido</li>
+                <li><div class="ing-icon outro">🧂</div>Pitada de sal (sem excesso)</li>
+                <li><div class="ing-icon gordura">🫒</div>Azeite extravirgem para untar</li>
+              </ul>
+            </div>
+            <div class="recipe-col">
+              <h4>Modo de Preparo</h4>
+              <ol class="step-list">
+                <li><div class="step-num">1</div>Pré-aqueça o forno a 200°C. Unte uma forma com azeite.</li>
+                <li><div class="step-num">2</div>Cozinhe e esprema bem o espinafre para retirar o excesso de água.</li>
+                <li><div class="step-num">3</div>Misture todos os ingredientes até formar uma massa homogênea.</li>
+                <li><div class="step-num">4</div>Molde bolinhos do tamanho de uma noz e disponha na forma.</li>
+                <li><div class="step-num">5</div>Asse por 20–25 minutos até dourar levemente.</li>
+                <li><div class="step-num">6</div>Deixe esfriar um pouco antes de servir como finger food.</li>
+              </ol>
+            </div>
+          </div>
+          <div class="nutrition-bar">
+            <div class="nutr-item"><div class="nutr-label">Ferro/bolinho</div><div class="nutr-val">~1.2mg</div></div>
+            <div class="nutr-item"><div class="nutr-label">Proteína</div><div class="nutr-val">Alta</div></div>
+            <div class="nutr-item"><div class="nutr-label">Vitamina C</div><div class="nutr-val">✓ absorção</div></div>
+            <div class="nutr-item"><div class="nutr-label">Glúten</div><div class="nutr-val">Isento*</div></div>
+          </div>
+          <p style="font-size:0.78rem;color:var(--text-light);margin-top:8px;">*Usando farinha de aveia sem contaminação cruzada</p>
+        </div>
+      </div>
+
+      <!-- RECEITA 2 -->
+      <div class="acc-item" onclick="toggleAcc(this)">
+        <button class="acc-trigger">
+          <div class="acc-left">
+            <div class="acc-emoji">🍗</div>
+            <div>
+              <div class="acc-title">"Nuggets" Caseiros de Frango e Mandioca</div>
+              <div class="acc-sub">Sem fritura · Sem ultraprocessados · Alta aprovação</div>
+            </div>
+          </div>
+          <div class="acc-badge">
+            <span class="badge-tag">⏱ 45 min</span>
+            <span class="badge-tag">12–15 unidades</span>
+            <div class="acc-arrow">▾</div>
+          </div>
+        </button>
+        <div class="acc-body">
+          <div class="recipe-grid">
+            <div class="recipe-col">
+              <h4>Ingredientes</h4>
+              <ul class="ing-list">
+                <li><div class="ing-icon proteina">🍗</div>250g de peito de frango cozido e desfiado</li>
+                <li><div class="ing-icon carbo">🌿</div>150g de mandioca (aipim) cozida e amassada</li>
+                <li><div class="ing-icon carbo">🥚</div>1 ovo para ligar a massa</li>
+                <li><div class="ing-icon gordura">🧄</div>Alho, salsinha e cebolinha a gosto</li>
+                <li><div class="ing-icon outro">🌽</div>Farinha de milho fina para empanar</li>
+                <li><div class="ing-icon gordura">🫒</div>Azeite para pincelar</li>
+              </ul>
+            </div>
+            <div class="recipe-col">
+              <h4>Modo de Preparo</h4>
+              <ol class="step-list">
+                <li><div class="step-num">1</div>Cozinhe e desfie o frango. Reserve.</li>
+                <li><div class="step-num">2</div>Amasse bem a mandioca cozida (sem grumos).</li>
+                <li><div class="step-num">3</div>Misture frango, mandioca, ovo e temperos.</li>
+                <li><div class="step-num">4</div>Modele em formato de nugget. Passe na farinha de milho.</li>
+                <li><div class="step-num">5</div>Pincele com azeite. Asse a 200°C por 25 min, virando na metade.</li>
+                <li><div class="step-num">6</div>Sirva com molho de tomate caseiro (sem açúcar).</li>
+              </ol>
+            </div>
+          </div>
+          <div class="nutrition-bar">
+            <div class="nutr-item"><div class="nutr-label">Proteína</div><div class="nutr-val">Alta</div></div>
+            <div class="nutr-item"><div class="nutr-label">Gordura</div><div class="nutr-val">Saudável</div></div>
+            <div class="nutr-item"><div class="nutr-label">Açúcar</div><div class="nutr-val">Zero</div></div>
+            <div class="nutr-item"><div class="nutr-label">Sódio</div><div class="nutr-val">Baixo</div></div>
+          </div>
+          <p style="font-size:0.88rem;color:var(--text-mid);margin-top:16px;background:var(--sage-pale);padding:12px 16px;border-radius:10px;">💡 <strong>Dica:</strong> Pode congelar cru (após empanar) por até 30 dias. Asse direto do freezer adicionando 10 min ao tempo.</p>
+        </div>
+      </div>
+
+      <!-- RECEITA 3 BÔNUS -->
+      <div class="acc-item" onclick="toggleAcc(this)">
+        <button class="acc-trigger">
+          <div class="acc-left">
+            <div class="acc-emoji">🍪</div>
+            <div>
+              <div class="acc-title">🌟 Bônus: Biscoitos Amanteigados da Mamãe</div>
+              <div class="acc-sub">Versão nutritiva, sem açúcar refinado · Estilo "Suspiros do Céu"</div>
+            </div>
+          </div>
+          <div class="acc-badge">
+            <span class="badge-tag">⏱ 35 min</span>
+            <span class="badge-tag">20 biscoitos</span>
+            <div class="acc-arrow">▾</div>
+          </div>
+        </button>
+        <div class="acc-body">
+          <div class="recipe-grid">
+            <div class="recipe-col">
+              <h4>Ingredientes</h4>
+              <ul class="ing-list">
+                <li><div class="ing-icon carbo">🌾</div>1½ xícara de farinha de aveia fina</div></li>
+                <li><div class="ing-icon gordura">🧈</div>3 col. sopa de manteiga ghee (ou manteiga sem sal)</li>
+                <li><div class="ing-icon outro">🍯</div>3 col. sopa de mel de abelha puro</li>
+                <li><div class="ing-icon carbo">🥚</div>1 gema de ovo</li>
+                <li><div class="ing-icon outro">🌰</div>1 col. chá de extrato de baunilha puro</li>
+                <li><div class="ing-icon outro">🟤</div>½ col. chá de canela em pó</li>
+                <li><div class="ing-icon gordura">🫘</div>Opcional: gotas de chocolate 70%</li>
+              </ul>
+            </div>
+            <div class="recipe-col">
+              <h4>Modo de Preparo</h4>
+              <ol class="step-list">
+                <li><div class="step-num">1</div>Bata a manteiga ghee com o mel até formar creme leve.</li>
+                <li><div class="step-num">2</div>Adicione a gema e a baunilha. Misture bem.</li>
+                <li><div class="step-num">3</div>Acrescente a farinha de aveia e a canela aos poucos.</li>
+                <li><div class="step-num">4</div>Envolva em filme e leve à geladeira por 20 min.</li>
+                <li><div class="step-num">5</div>Abra a massa (5mm), corte com forminhas divertidas.</li>
+                <li><div class="step-num">6</div>Asse a 170°C por 12–15 min até dourar nas bordas.</li>
+              </ol>
+            </div>
+          </div>
+          <div class="nutrition-bar">
+            <div class="nutr-item"><div class="nutr-label">Açúcar refinado</div><div class="nutr-val">Zero</div></div>
+            <div class="nutr-item"><div class="nutr-label">Fibras</div><div class="nutr-val">Beta-glucana</div></div>
+            <div class="nutr-item"><div class="nutr-label">Conservantes</div><div class="nutr-val">Nenhum</div></div>
+            <div class="nutr-item"><div class="nutr-label">Validade</div><div class="nutr-val">5 dias</div></div>
+          </div>
+          <div style="margin-top:16px;background:linear-gradient(135deg,#fdf3c8,#fff8ec);border-radius:12px;padding:16px 20px;border:1px solid #f0d98c;">
+            <p style="font-size:0.9rem;color:#7a5c00;"><strong>✨ Por que é nutritivo?</strong> A aveia fornece beta-glucana (fibra prebiótica que alimenta a microbiota). O mel cru contém enzimas e minerais. A canela estabiliza a glicemia — sem os picos que biscoitos industriais provocam.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: SUPLEMENTAÇÃO -->
+<section id="suplementacao" class="supl-section">
+  <div class="container">
+    <span class="section-label">Capítulo 05</span>
+    <h2 class="section-title">Suplementação &amp; Energia</h2>
+    <p class="section-intro">Dois nutrientes que fazem a diferença — e que muitos toddlers não ingerem em quantidade suficiente pela alimentação.</p>
+
+    <div class="supl-grid fade-in">
+      <div class="supl-card ferro">
+        <div class="supl-icon">🩸</div>
+        <h3>Ferro: o Combustível do Cérebro</h3>
+        <p>O ferro é essencial para o transporte de oxigênio e para o desenvolvimento cognitivo. A deficiência afeta a atenção, o aprendizado e o comportamento — mesmo sem anemia clínica.</p>
+        <p style="margin-top:12px;"><strong>Necessidade diária:</strong> 7–11mg para crianças de 1–3 anos.</p>
+        <div class="supl-food-list">
+          <span class="supl-food-tag">Carne vermelha</span>
+          <span class="supl-food-tag">Fígado bovino</span>
+          <span class="supl-food-tag">Feijão + vit. C</span>
+          <span class="supl-food-tag">Espinafre</span>
+          <span class="supl-food-tag">Lentilha</span>
+        </div>
+      </div>
+
+      <div class="supl-card omega">
+        <div class="supl-icon">🐟</div>
+        <h3>Ômega-3: Arquiteto Neural</h3>
+        <p>O DHA é o principal componente estrutural do cérebro e da retina. Entre 12–36 meses, o cérebro cresce a uma velocidade impressionante — e precisa de DHA para construir novas conexões.</p>
+        <p style="margin-top:12px;"><strong>Necessidade diária:</strong> 150–250mg DHA para crianças de 1–3 anos.</p>
+        <div class="supl-food-list">
+          <span class="supl-food-tag">Sardinha</span>
+          <span class="supl-food-tag">Salmão cozido</span>
+          <span class="supl-food-tag">Atum (2x/sem)</span>
+          <span class="supl-food-tag">Chia moída</span>
+          <span class="supl-food-tag">Linhaça</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="supl-warn fade-in">
+      <div class="warn-icon">⚠️</div>
+      <div>
+        <strong style="display:block;margin-bottom:4px;">Sobre Suplementação</strong>
+        A suplementação de ferro e ômega-3 deve ser sempre <strong>indicada e dosada pelo pediatra</strong> após avaliação clínica e, idealmente, exame de hemograma. Este e-book tem fins educativos — a preferência é sempre pela alimentação como fonte primária.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: SONO -->
+<section id="sono" class="sono-section">
+  <div class="container">
+    <span class="section-label">Capítulo 06</span>
+    <h2 class="section-title">O Jantar e o Sono</h2>
+    <p class="section-intro">O que seu filho come à noite pode transformar a qualidade do sono de toda a família. A ciência da melatonina alimentar.</p>
+
+    <div class="sono-intro fade-in">
+      <div>
+        <h3>Por que o jantar importa para o sono?</h3>
+        <p>A melatonina — o hormônio do sono — é produzida a partir do triptofano, um aminoácido presente em vários alimentos. Ao oferecer os alimentos certos entre 17h–19h, você "pré-programa" o sistema nervoso do toddler para um relaxamento mais fácil e um sono mais profundo.</p>
+      </div>
+      <div class="sono-moon">🌙</div>
+    </div>
+
+    <div class="sono-foods fade-in">
+      <div class="sono-food-card">
+        <div class="food-emoji">🍌</div>
+        <h4>Banana</h4>
+        <p>Rica em triptofano e magnésio, relaxa a musculatura e facilita a produção de serotonina.</p>
+        <span class="melatonin-tag">↑ Melatonina</span>
+      </div>
+      <div class="sono-food-card">
+        <div class="food-emoji">🌾</div>
+        <h4>Aveia</h4>
+        <p>Fonte de carboidrato de liberação lenta e triptofano. Evita picos glicêmicos noturnos.</p>
+        <span class="melatonin-tag">↑ Serotonina</span>
+      </div>
+      <div class="sono-food-card">
+        <div class="food-emoji">🐄</div>
+        <h4>Leite Integral</h4>
+        <p>Contém triptofano e cálcio. O leite morno antes de dormir tem base científica real.</p>
+        <span class="melatonin-tag">↑ Triptofano</span>
+      </div>
+      <div class="sono-food-card">
+        <div class="food-emoji">🍠</div>
+        <h4>Batata Doce</h4>
+        <p>Carboidrato complexo que estabiliza a glicemia e potencializa a conversão de triptofano.</p>
+        <span class="melatonin-tag">Estabilizador</span>
+      </div>
+      <div class="sono-food-card">
+        <div class="food-emoji">🥚</div>
+        <h4>Ovo</h4>
+        <p>Proteína completa com triptofano. O ovo no jantar sacia sem sobrecarregar a digestão.</p>
+        <span class="melatonin-tag">Proteína + Trp</span>
+      </div>
+      <div class="sono-food-card">
+        <div class="food-emoji">🍒</div>
+        <h4>Cereja (quando disponível)</h4>
+        <p>Uma das poucas fontes alimentares naturais de melatonina pré-formada.</p>
+        <span class="melatonin-tag">Melatonina direta</span>
+      </div>
+    </div>
+
+    <div class="jantar-modelo fade-in">
+      <h3>🌙 Jantar Modelo para uma Noite Tranquila</h3>
+      <div class="jantar-steps">
+        <div class="jantar-step">
+          <span class="jantar-step-time">17h30</span>
+          <div style="flex:1"><div class="jantar-step-text"><strong>Jantar leve</strong>: purê de batata doce + ovo mexido + abobrinha cozida</div></div>
+        </div>
+        <div class="jantar-step">
+          <span class="jantar-step-time">18h15</span>
+          <div style="flex:1"><div class="jantar-step-text"><strong>Banho morno</strong>: reduz a temperatura corporal e sinaliza ao cérebro que é hora de dormir</div></div>
+        </div>
+        <div class="jantar-step">
+          <span class="jantar-step-time">18h45</span>
+          <div style="flex:1"><div class="jantar-step-text"><strong>Lanche opcional</strong>: mamadeira ou xícara de leite morno (antes de escovar os dentes)</div></div>
+        </div>
+        <div class="jantar-step">
+          <span class="jantar-step-time">19h00</span>
+          <div style="flex:1"><div class="jantar-step-text"><strong>Rotina de sono</strong>: luz baixa, história, canção de ninar — o ritual ensina o corpo a adormecer</div></div>
+        </div>
+        <div class="jantar-step">
+          <span class="jantar-step-time">19h30</span>
+          <div style="flex:1"><div class="jantar-step-text"><strong>😴 Sono</strong>: com o sistema nervoso nutrido e a rotina estabelecida, o adormecimento tende a ser suave</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <strong>Nutrição Avançada Toddler · 12–36 meses</strong>
+    <p>Elaborado com base em evidências científicas e diretrizes do Ministério da Saúde e OPAS/OMS.</p>
+    <p class="disclaimer">⚠️ Este e-book tem caráter educativo e informativo. Não substitui consulta com nutricionista pediátrico ou pediatra. Cada criança tem necessidades individuais que devem ser avaliadas por profissional de saúde habilitado.</p>
+    <p style="margin-top:20px;font-size:0.78rem;">© 2025 · Todos os direitos reservados · Conteúdo baseado em evidências</p>
+  </div>
+</footer>
+
+<script>
+  // ACCORDION
+  function toggleAcc(item) {
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.acc-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // FADE IN ON SCROLL
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // stagger children
+        const children = e.target.querySelectorAll('.fade-in');
+        children.forEach((child, i) => {
+          setTimeout(() => child.classList.add('visible'), i * 100);
+        });
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Open first accordion by default
+  document.querySelectorAll('.acc-item')[0]?.classList.add('open');
+</script>
+</body>
+</html>

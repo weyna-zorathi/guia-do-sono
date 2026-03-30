@@ -1,0 +1,2164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introdução Alimentar Sensacional — Guia do Sono</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf6ef;
+    --warm-white: #fff9f2;
+    --sage: #8a9e7f;
+    --sage-light: #b5c9a8;
+    --sage-dark: #5a7050;
+    --terracotta: #c47a52;
+    --terracotta-light: #e8a97e;
+    --terracotta-pale: #f5e0d0;
+    --brown: #7a5c3e;
+    --brown-light: #a07850;
+    --linen: #ede5d8;
+    --linen-dark: #d8ccb8;
+    --night: #2c3e2d;
+    --gold: #c9a84c;
+    --gold-light: #e8cc7e;
+    --sky: #7a9eb5;
+    --sky-light: #b0cdd9;
+    --rose: #c47a8a;
+    --rose-light: #e8b5bf;
+    --rose-pale: #f5e0e4;
+
+    --ch1: #8a9e7f;
+    --ch2: #c47a52;
+    --ch3: #c9a84c;
+    --ch4: #7a9eb5;
+    --ch5: #5a7050;
+    --ch6: #c47a8a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--brown);
+    line-height: 1.75;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 8% 12%, rgba(196,122,82,0.07) 0%, transparent 48%),
+      radial-gradient(ellipse at 92% 88%, rgba(138,158,127,0.09) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.04) 0%, transparent 65%),
+      url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c47a52' fill-opacity='0.018'%3E%3Cpath d='M50 50v-6h-2v6h-6v2h6v6h2v-6h6v-2h-6zm0-40V4h-2v6h-6v2h6v6h2v-6h6V4h-6zM10 50v-6H8v6H2v2h6v6h2v-6h6v-2h-6zM10 10V4H8v6H2v2h6v6h2v-6h6V4h-6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  /* ═══════════════════════════════════
+     BACK BUTTON
+  ═══════════════════════════════════ */
+  .back-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250,246,239,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--linen);
+    padding: 12px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--sage-dark);
+    text-decoration: none;
+    background: var(--warm-white);
+    border: 1.5px solid var(--linen-dark);
+    border-radius: 30px;
+    padding: 8px 18px;
+    transition: all 0.2s ease;
+  }
+  .back-btn:hover {
+    background: var(--sage);
+    color: white;
+    border-color: var(--sage);
+  }
+  .back-btn svg { width: 14px; height: 14px; }
+  .back-bar-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.82rem;
+    font-style: italic;
+    color: var(--brown-light);
+  }
+
+  /* ═══════════════════════════════════
+     COVER
+  ═══════════════════════════════════ */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 32px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(138,158,127,0.1) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 80% at 20% 80%, rgba(196,122,82,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(201,168,76,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .cover-ornament {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.06;
+    font-size: 200px;
+    top: -20px; right: -10px;
+    line-height: 1;
+    transform: rotate(15deg);
+    filter: blur(2px);
+  }
+  .cover-ornament-2 {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.05;
+    font-size: 150px;
+    bottom: 30px; left: -10px;
+    line-height: 1;
+    transform: rotate(-10deg);
+    filter: blur(1px);
+  }
+  .cover-line-top {
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--sage));
+    margin: 0 auto 32px;
+    animation: growLine 1.2s ease 0.3s both;
+  }
+  @keyframes growLine {
+    from { height: 0; opacity: 0; }
+    to { height: 60px; opacity: 1; }
+  }
+  .cover-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(138,158,127,0.12);
+    border: 1px solid rgba(138,158,127,0.35);
+    color: var(--sage-dark);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2.8px;
+    text-transform: uppercase;
+    padding: 7px 20px;
+    border-radius: 30px;
+    margin-bottom: 36px;
+    animation: fadeUp 0.8s ease 0.5s both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .cover-eyebrow {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--brown-light);
+    margin-bottom: 16px;
+    animation: fadeUp 0.8s ease 0.6s both;
+  }
+  .cover h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 7vw, 4.8rem);
+    color: var(--night);
+    line-height: 1.08;
+    font-weight: 700;
+    margin-bottom: 20px;
+    animation: fadeUp 0.9s ease 0.7s both;
+  }
+  .cover h1 em {
+    color: var(--terracotta);
+    font-style: italic;
+    display: block;
+  }
+  .cover h1 .sage-word {
+    color: var(--sage-dark);
+    font-style: normal;
+  }
+  .cover-subtitle {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--brown-light);
+    max-width: 520px;
+    margin: 0 auto 44px;
+    line-height: 1.9;
+    animation: fadeUp 0.9s ease 0.8s both;
+  }
+  .cover-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    max-width: 580px;
+    margin: 0 auto 52px;
+    animation: fadeUp 0.9s ease 1s both;
+  }
+  .cover-topic-tag {
+    background: var(--warm-white);
+    border: 1.5px solid var(--linen-dark);
+    border-radius: 30px;
+    padding: 7px 16px;
+    font-size: 0.8rem;
+    color: var(--brown-light);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .cover-topic-tag .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .cover-from {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--sage-dark);
+    animation: fadeUp 0.9s ease 1.1s both;
+  }
+  .cover-line-bottom {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--sage), transparent);
+    margin: 24px auto 0;
+    animation: growLine 1.2s ease 1.3s both;
+  }
+
+  /* ═══════════════════════════════════
+     INDEX / TABLE OF CONTENTS
+  ═══════════════════════════════════ */
+  .toc-section {
+    background: var(--night);
+    border-radius: 24px;
+    padding: 48px 44px;
+    margin: 0 0 80px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+  .toc-section::before {
+    content: '📋';
+    position: absolute;
+    top: -10px; right: 24px;
+    font-size: 120px;
+    opacity: 0.06;
+    filter: blur(1px);
+  }
+  .toc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--gold-light);
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+  .toc-sub {
+    font-size: 0.8rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(250,246,239,0.4);
+    font-weight: 600;
+    margin-bottom: 32px;
+  }
+  .toc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    padding: 12px 16px;
+    border-radius: 12px;
+    transition: background 0.2s ease;
+  }
+  .toc-item:hover { background: rgba(255,255,255,0.06); }
+  .toc-num {
+    flex-shrink: 0;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .toc-item-text { flex: 1; }
+  .toc-item-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    color: rgba(250,246,239,0.9);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .toc-item-sub {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: rgba(250,246,239,0.45);
+  }
+  .toc-arrow {
+    color: rgba(250,246,239,0.25);
+    font-size: 0.9rem;
+  }
+  @media(max-width:600px) {
+    .toc-section { padding: 36px 24px; }
+  }
+
+  /* ═══════════════════════════════════
+     WRAPPER
+  ═══════════════════════════════════ */
+  .wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 28px 100px;
+  }
+
+  /* ═══════════════════════════════════
+     LETTER / INTRO
+  ═══════════════════════════════════ */
+  .letter {
+    background: var(--night);
+    border-radius: 24px;
+    padding: 56px 52px;
+    margin: 60px 0 80px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+  .letter::before {
+    content: '"';
+    position: absolute;
+    top: -10px; left: 32px;
+    font-family: 'Playfair Display', serif;
+    font-size: 160px;
+    color: rgba(138,158,127,0.15);
+    line-height: 1;
+  }
+  .letter-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--gold-light);
+    margin-bottom: 28px;
+    font-style: italic;
+    padding-top: 12px;
+  }
+  .letter p {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1.02rem;
+    color: rgba(250,246,239,0.85);
+    line-height: 1.95;
+    margin-bottom: 18px;
+    max-width: 640px;
+  }
+  .letter .signature {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--sage-light);
+    margin-top: 26px;
+    display: block;
+  }
+  @media(max-width:600px) { .letter { padding: 36px 24px; } }
+
+  /* ═══════════════════════════════════
+     CHAPTER STRUCTURE
+  ═══════════════════════════════════ */
+  .chapter {
+    margin-bottom: 80px;
+    animation: fadeUp 0.7s ease both;
+  }
+  .chapter:nth-child(1) { animation-delay: 0.1s; }
+  .chapter:nth-child(2) { animation-delay: 0.15s; }
+  .chapter:nth-child(3) { animation-delay: 0.2s; }
+  .chapter:nth-child(4) { animation-delay: 0.25s; }
+  .chapter:nth-child(5) { animation-delay: 0.3s; }
+  .chapter:nth-child(6) { animation-delay: 0.35s; }
+
+  .chapter-number-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  .chapter-number {
+    flex-shrink: 0;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid;
+    position: relative;
+  }
+  .chapter-number .ch-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .chapter-number .ch-label {
+    font-size: 7px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    opacity: 0.7;
+    margin-top: 1px;
+  }
+  .chapter-rule { flex: 1; height: 1px; }
+  .chapter-emoji-badge {
+    flex-shrink: 0;
+    font-size: 1.4rem;
+    width: 44px; height: 44px;
+    background: var(--warm-white);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 1.5px solid var(--linen-dark);
+  }
+
+  /* Per-chapter colors */
+  .chapter-1 .chapter-number { border-color: var(--ch1); background: rgba(138,158,127,0.1); }
+  .chapter-1 .chapter-number .ch-num { color: var(--ch1); }
+  .chapter-1 .chapter-number .ch-label { color: var(--ch1); }
+  .chapter-1 .chapter-rule { background: linear-gradient(to right, var(--ch1), transparent); }
+
+  .chapter-2 .chapter-number { border-color: var(--ch2); background: rgba(196,122,82,0.1); }
+  .chapter-2 .chapter-number .ch-num { color: var(--ch2); }
+  .chapter-2 .chapter-number .ch-label { color: var(--ch2); }
+  .chapter-2 .chapter-rule { background: linear-gradient(to right, var(--ch2), transparent); }
+
+  .chapter-3 .chapter-number { border-color: var(--ch3); background: rgba(201,168,76,0.1); }
+  .chapter-3 .chapter-number .ch-num { color: var(--ch3); }
+  .chapter-3 .chapter-number .ch-label { color: var(--ch3); }
+  .chapter-3 .chapter-rule { background: linear-gradient(to right, var(--ch3), transparent); }
+
+  .chapter-4 .chapter-number { border-color: var(--ch4); background: rgba(122,158,181,0.1); }
+  .chapter-4 .chapter-number .ch-num { color: var(--ch4); }
+  .chapter-4 .chapter-number .ch-label { color: var(--ch4); }
+  .chapter-4 .chapter-rule { background: linear-gradient(to right, var(--ch4), transparent); }
+
+  .chapter-5 .chapter-number { border-color: var(--ch5); background: rgba(90,112,80,0.1); }
+  .chapter-5 .chapter-number .ch-num { color: var(--ch5); }
+  .chapter-5 .chapter-number .ch-label { color: var(--ch5); }
+  .chapter-5 .chapter-rule { background: linear-gradient(to right, var(--ch5), transparent); }
+
+  .chapter-6 .chapter-number { border-color: var(--ch6); background: rgba(196,122,138,0.1); }
+  .chapter-6 .chapter-number .ch-num { color: var(--ch6); }
+  .chapter-6 .chapter-number .ch-label { color: var(--ch6); }
+  .chapter-6 .chapter-rule { background: linear-gradient(to right, var(--ch6), transparent); }
+
+  .chapter-heading { margin-bottom: 36px; }
+  .chapter-heading .eyebrow {
+    font-size: 9.5px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .chapter-heading .eyebrow::before {
+    content: '';
+    width: 18px; height: 2px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+  .chapter-1 .chapter-heading .eyebrow { color: var(--ch1); }
+  .chapter-1 .chapter-heading .eyebrow::before { background: var(--ch1); }
+  .chapter-2 .chapter-heading .eyebrow { color: var(--ch2); }
+  .chapter-2 .chapter-heading .eyebrow::before { background: var(--ch2); }
+  .chapter-3 .chapter-heading .eyebrow { color: var(--ch3); }
+  .chapter-3 .chapter-heading .eyebrow::before { background: var(--ch3); }
+  .chapter-4 .chapter-heading .eyebrow { color: var(--ch4); }
+  .chapter-4 .chapter-heading .eyebrow::before { background: var(--ch4); }
+  .chapter-5 .chapter-heading .eyebrow { color: var(--ch5); }
+  .chapter-5 .chapter-heading .eyebrow::before { background: var(--ch5); }
+  .chapter-6 .chapter-heading .eyebrow { color: var(--ch6); }
+  .chapter-6 .chapter-heading .eyebrow::before { background: var(--ch6); }
+
+  .chapter-heading h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: var(--night);
+    line-height: 1.15;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .chapter-heading h2 em { font-style: italic; }
+  .chapter-1 .chapter-heading h2 em { color: var(--ch1); }
+  .chapter-2 .chapter-heading h2 em { color: var(--ch2); }
+  .chapter-3 .chapter-heading h2 em { color: var(--ch3); }
+  .chapter-4 .chapter-heading h2 em { color: var(--ch4); }
+  .chapter-5 .chapter-heading h2 em { color: var(--ch5); }
+  .chapter-6 .chapter-heading h2 em { color: var(--ch6); }
+
+  .chapter-heading .tagline {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--brown-light);
+    line-height: 1.8;
+  }
+  .chapter-body { display: flex; flex-direction: column; gap: 24px; }
+  .chapter-body p {
+    font-family: 'Lora', serif;
+    font-size: 1.02rem;
+    color: var(--brown);
+    line-height: 1.95;
+  }
+  .chapter-body p strong {
+    font-weight: 600;
+    color: var(--night);
+    font-style: normal;
+  }
+
+  /* ═══════════════════════════════════
+     PULL QUOTE
+  ═══════════════════════════════════ */
+  .pull-quote {
+    border-radius: 16px;
+    padding: 28px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .pull-quote::before {
+    content: '"';
+    position: absolute;
+    top: -8px; left: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 80px;
+    line-height: 1;
+    opacity: 0.2;
+  }
+  .pull-quote p {
+    font-family: 'Playfair Display', serif !important;
+    font-style: italic !important;
+    font-size: 1.15rem !important;
+    line-height: 1.75 !important;
+    padding-left: 10px;
+  }
+  .chapter-1 .pull-quote { background: rgba(138,158,127,0.1); border-left: 4px solid var(--ch1); }
+  .chapter-1 .pull-quote::before { color: var(--ch1); }
+  .chapter-1 .pull-quote p { color: var(--sage-dark) !important; }
+  .chapter-2 .pull-quote { background: var(--terracotta-pale); border-left: 4px solid var(--ch2); }
+  .chapter-2 .pull-quote::before { color: var(--ch2); }
+  .chapter-2 .pull-quote p { color: var(--brown) !important; }
+  .chapter-3 .pull-quote { background: rgba(201,168,76,0.1); border-left: 4px solid var(--ch3); }
+  .chapter-3 .pull-quote::before { color: var(--ch3); }
+  .chapter-3 .pull-quote p { color: var(--brown) !important; }
+  .chapter-4 .pull-quote { background: rgba(122,158,181,0.1); border-left: 4px solid var(--ch4); }
+  .chapter-4 .pull-quote::before { color: var(--ch4); }
+  .chapter-4 .pull-quote p { color: var(--brown) !important; }
+  .chapter-5 .pull-quote { background: rgba(90,112,80,0.08); border-left: 4px solid var(--ch5); }
+  .chapter-5 .pull-quote::before { color: var(--ch5); }
+  .chapter-5 .pull-quote p { color: var(--sage-dark) !important; }
+  .chapter-6 .pull-quote { background: rgba(196,122,138,0.1); border-left: 4px solid var(--ch6); }
+  .chapter-6 .pull-quote::before { color: var(--ch6); }
+  .chapter-6 .pull-quote p { color: var(--brown) !important; }
+
+  /* ═══════════════════════════════════
+     PRACTICE / TIP BOXES
+  ═══════════════════════════════════ */
+  .practice-box {
+    background: var(--warm-white);
+    border: 1.5px solid var(--linen-dark);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  .practice-header {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--linen);
+  }
+  .practice-header .ph-icon {
+    font-size: 1.2rem;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .chapter-1 .practice-header { background: rgba(138,158,127,0.08); }
+  .chapter-1 .practice-header .ph-icon { background: rgba(138,158,127,0.2); }
+  .chapter-2 .practice-header { background: rgba(196,122,82,0.08); }
+  .chapter-2 .practice-header .ph-icon { background: rgba(196,122,82,0.2); }
+  .chapter-3 .practice-header { background: rgba(201,168,76,0.08); }
+  .chapter-3 .practice-header .ph-icon { background: rgba(201,168,76,0.2); }
+  .chapter-4 .practice-header { background: rgba(122,158,181,0.08); }
+  .chapter-4 .practice-header .ph-icon { background: rgba(122,158,181,0.2); }
+  .chapter-5 .practice-header { background: rgba(90,112,80,0.08); }
+  .chapter-5 .practice-header .ph-icon { background: rgba(90,112,80,0.2); }
+  .chapter-6 .practice-header { background: rgba(196,122,138,0.08); }
+  .chapter-6 .practice-header .ph-icon { background: rgba(196,122,138,0.2); }
+  .practice-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.98rem;
+    color: var(--night);
+    font-weight: 600;
+  }
+  .practice-header .ph-sub {
+    font-size: 0.78rem;
+    color: var(--brown-light);
+    font-style: italic;
+    font-family: 'Lora', serif;
+  }
+  .practice-body {
+    padding: 22px 24px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .practice-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 0.9rem;
+    color: var(--brown);
+    line-height: 1.65;
+  }
+  .pi-num {
+    flex-shrink: 0;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .chapter-1 .pi-num { background: rgba(138,158,127,0.18); color: var(--sage-dark); }
+  .chapter-2 .pi-num { background: rgba(196,122,82,0.18); color: var(--terracotta); }
+  .chapter-3 .pi-num { background: rgba(201,168,76,0.18); color: #8a6e1e; }
+  .chapter-4 .pi-num { background: rgba(122,158,181,0.18); color: #3d6e8a; }
+  .chapter-5 .pi-num { background: rgba(90,112,80,0.18); color: var(--ch5); }
+  .chapter-6 .pi-num { background: rgba(196,122,138,0.18); color: var(--ch6); }
+  .pi-text { font-family: 'Lora', serif; }
+  .pi-text strong { font-weight: 600; color: var(--night); font-family: 'DM Sans', sans-serif; font-size: 0.88rem; }
+
+  /* ═══════════════════════════════════
+     SCIENCE PANEL
+  ═══════════════════════════════════ */
+  .science-panel {
+    border-radius: 16px;
+    padding: 26px 28px;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .science-icon {
+    flex-shrink: 0;
+    font-size: 1.5rem;
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .science-panel .sp-content h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.98rem;
+    color: var(--night);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .science-panel .sp-content p {
+    font-family: 'Lora', serif !important;
+    font-size: 0.88rem !important;
+    color: var(--brown-light) !important;
+    line-height: 1.75 !important;
+  }
+  .chapter-1 .science-panel { background: var(--linen); }
+  .chapter-1 .science-panel .science-icon { background: rgba(138,158,127,0.2); }
+  .chapter-2 .science-panel { background: var(--terracotta-pale); border: 1px solid rgba(196,122,82,0.2); }
+  .chapter-2 .science-panel .science-icon { background: rgba(196,122,82,0.2); }
+  .chapter-3 .science-panel { background: rgba(201,168,76,0.07); border: 1px solid rgba(201,168,76,0.2); }
+  .chapter-3 .science-panel .science-icon { background: rgba(201,168,76,0.2); }
+  .chapter-4 .science-panel { background: rgba(122,158,181,0.08); border: 1px solid rgba(122,158,181,0.2); }
+  .chapter-4 .science-panel .science-icon { background: rgba(122,158,181,0.2); }
+  .chapter-5 .science-panel { background: rgba(90,112,80,0.07); border: 1px solid rgba(90,112,80,0.18); }
+  .chapter-5 .science-panel .science-icon { background: rgba(90,112,80,0.18); }
+  .chapter-6 .science-panel { background: rgba(196,122,138,0.07); border: 1px solid rgba(196,122,138,0.18); }
+  .chapter-6 .science-panel .science-icon { background: rgba(196,122,138,0.2); }
+
+  /* ═══════════════════════════════════
+     SIGNAL CARDS (prontidão)
+  ═══════════════════════════════════ */
+  .signal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .signal-card {
+    background: var(--warm-white);
+    border: 1.5px solid var(--linen-dark);
+    border-radius: 16px;
+    padding: 22px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .signal-card .sc-icon {
+    font-size: 1.6rem;
+    width: 48px; height: 48px;
+    background: rgba(138,158,127,0.12);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .signal-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    color: var(--night);
+    font-weight: 600;
+  }
+  .signal-card p {
+    font-family: 'Lora', serif !important;
+    font-size: 0.84rem !important;
+    color: var(--brown-light) !important;
+    line-height: 1.65 !important;
+  }
+
+  /* ═══════════════════════════════════
+     BLW vs TRADITIONAL comparison
+  ═══════════════════════════════════ */
+  .method-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media(max-width:600px) { .method-compare { grid-template-columns: 1fr; } }
+  .method-card {
+    border-radius: 18px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .method-card.blw {
+    background: var(--terracotta-pale);
+    border: 1.5px solid rgba(196,122,82,0.25);
+  }
+  .method-card.trad {
+    background: rgba(138,158,127,0.1);
+    border: 1.5px solid rgba(138,158,127,0.25);
+  }
+  .method-card .mc-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 4px;
+  }
+  .method-card .mc-icon {
+    font-size: 1.4rem;
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .blw .mc-icon { background: rgba(196,122,82,0.2); }
+  .trad .mc-icon { background: rgba(138,158,127,0.2); }
+  .method-card .mc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--night);
+  }
+  .method-card .mc-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .method-card .mc-list li {
+    font-family: 'Lora', serif;
+    font-size: 0.86rem;
+    color: var(--brown);
+    line-height: 1.6;
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .method-card .mc-list li::before {
+    content: '✦';
+    font-size: 0.6rem;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .blw .mc-list li::before { color: var(--terracotta); }
+  .trad .mc-list li::before { color: var(--sage-dark); }
+  .method-verdict {
+    background: var(--night);
+    border-radius: 16px;
+    padding: 24px 28px;
+    text-align: center;
+    margin-top: 8px;
+  }
+  .method-verdict p {
+    font-family: 'Playfair Display', serif !important;
+    font-style: italic !important;
+    font-size: 1rem !important;
+    color: rgba(250,246,239,0.9) !important;
+    line-height: 1.8 !important;
+  }
+  .method-verdict strong { color: var(--gold-light) !important; font-style: normal; }
+
+  /* ═══════════════════════════════════
+     CUT GUIDES
+  ═══════════════════════════════════ */
+  .cut-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .cut-item {
+    background: var(--warm-white);
+    border: 1.5px solid var(--linen-dark);
+    border-radius: 14px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .cut-item .cut-icon {
+    font-size: 1.3rem;
+    width: 42px; height: 42px;
+    background: rgba(201,168,76,0.12);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .cut-item .cut-content h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.92rem;
+    color: var(--night);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .cut-item .cut-content p {
+    font-family: 'Lora', serif !important;
+    font-size: 0.84rem !important;
+    color: var(--brown-light) !important;
+    line-height: 1.65 !important;
+  }
+  .cut-alert {
+    background: rgba(196,122,82,0.1);
+    border: 1.5px solid rgba(196,122,82,0.25);
+    border-radius: 14px;
+    padding: 18px 22px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .cut-alert .ca-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .cut-alert .ca-text h4 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--terracotta);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .cut-alert .ca-text p {
+    font-family: 'Lora', serif !important;
+    font-size: 0.84rem !important;
+    color: var(--brown) !important;
+    line-height: 1.65 !important;
+  }
+
+  /* ═══════════════════════════════════
+     PLATE FORMULA
+  ═══════════════════════════════════ */
+  .plate-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  .plate-circle {
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    border: 3px solid var(--linen-dark);
+    position: relative;
+    background: conic-gradient(
+      rgba(122,158,181,0.5) 0deg 108deg,
+      rgba(138,158,127,0.5) 108deg 180deg,
+      rgba(201,168,76,0.45) 180deg 252deg,
+      rgba(196,122,82,0.4) 252deg 360deg
+    );
+    box-shadow: 0 8px 32px rgba(44,62,45,0.1);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .plate-center {
+    width: 90px; height: 90px;
+    background: var(--warm-white);
+    border-radius: 50%;
+    border: 2px solid var(--linen-dark);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+  }
+  .plate-center .pc-icon { font-size: 1.5rem; }
+  .plate-center .pc-label {
+    font-size: 0.58rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--brown-light);
+    margin-top: 2px;
+  }
+  .plate-legend {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+  }
+  .pl-item {
+    background: var(--warm-white);
+    border: 1.5px solid var(--linen-dark);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .pl-swatch {
+    width: 14px; height: 14px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+  .pl-content h4 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--night);
+    margin-bottom: 2px;
+  }
+  .pl-content p {
+    font-family: 'Lora', serif !important;
+    font-size: 0.78rem !important;
+    color: var(--brown-light) !important;
+    line-height: 1.55 !important;
+  }
+
+  /* ═══════════════════════════════════
+     SLEEP IMPACT TIMELINE
+  ═══════════════════════════════════ */
+  .sleep-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+  .sleep-timeline::before {
+    content: '';
+    position: absolute;
+    left: 23px;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--ch5), rgba(90,112,80,0.1));
+  }
+  .st-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 0 0 28px 0;
+    position: relative;
+  }
+  .st-item:last-child { padding-bottom: 0; }
+  .st-dot {
+    flex-shrink: 0;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--warm-white);
+    border: 2px solid var(--linen-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    position: relative;
+    z-index: 1;
+  }
+  .st-content {
+    background: var(--warm-white);
+    border: 1.5px solid var(--linen-dark);
+    border-radius: 14px;
+    padding: 16px 20px;
+    flex: 1;
+    margin-top: 4px;
+  }
+  .st-content h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.92rem;
+    color: var(--night);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .st-content p {
+    font-family: 'Lora', serif !important;
+    font-size: 0.84rem !important;
+    color: var(--brown-light) !important;
+    line-height: 1.65 !important;
+  }
+  .st-time {
+    display: inline-block;
+    background: rgba(90,112,80,0.12);
+    color: var(--ch5);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 30px;
+    margin-bottom: 6px;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.5px;
+  }
+
+  /* ═══════════════════════════════════
+     RECIPE CARDS
+  ═══════════════════════════════════ */
+  .recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .recipe-card {
+    background: var(--warm-white);
+    border: 1.5px solid var(--linen-dark);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .recipe-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(44,62,45,0.1);
+  }
+  .recipe-card-header {
+    padding: 20px 22px 16px;
+    border-bottom: 1px solid var(--linen);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .recipe-card-header .rh-icon {
+    font-size: 1.6rem;
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .papinha .rh-icon { background: rgba(196,122,82,0.15); }
+  .blw-rec .rh-icon { background: rgba(138,158,127,0.15); }
+  .recipe-card-header .rh-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--night);
+    margin-bottom: 2px;
+  }
+  .recipe-card-header .rh-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+  .papinha .rh-tag { background: rgba(196,122,82,0.15); color: var(--terracotta); }
+  .blw-rec .rh-tag { background: rgba(138,158,127,0.15); color: var(--sage-dark); }
+  .recipe-card-body {
+    padding: 18px 22px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .recipe-section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--brown-light);
+    margin-bottom: 6px;
+  }
+  .recipe-ingr { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .recipe-ingr li {
+    font-family: 'Lora', serif;
+    font-size: 0.84rem;
+    color: var(--brown);
+    display: flex; align-items: flex-start; gap: 8px;
+    line-height: 1.55;
+  }
+  .recipe-ingr li::before { content: '·'; color: var(--terracotta); font-size: 1.1rem; line-height: 1.2; flex-shrink: 0; }
+  .recipe-steps { display: flex; flex-direction: column; gap: 6px; }
+  .recipe-step {
+    font-family: 'Lora', serif;
+    font-size: 0.84rem;
+    color: var(--brown);
+    line-height: 1.6;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .recipe-step .rs-num {
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    font-size: 0.68rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+  }
+  .papinha .rs-num { background: rgba(196,122,82,0.18); color: var(--terracotta); }
+  .blw-rec .rs-num { background: rgba(138,158,127,0.18); color: var(--sage-dark); }
+  .recipe-tip {
+    background: var(--linen);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: var(--brown-light);
+    line-height: 1.6;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+
+  /* ═══════════════════════════════════
+     CLOSING
+  ═══════════════════════════════════ */
+  .closing-card {
+    background: var(--night);
+    border-radius: 24px;
+    padding: 56px 52px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-top: 60px;
+  }
+  .closing-card::before {
+    content: '🌱';
+    position: absolute;
+    font-size: 160px;
+    opacity: 0.05;
+    top: -20px; right: -10px;
+    filter: blur(2px);
+  }
+  .closing-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: var(--gold-light);
+    font-style: italic;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+  .closing-card p {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(250,246,239,0.8);
+    line-height: 1.95;
+    max-width: 580px;
+    margin: 0 auto 32px;
+  }
+  .closing-card .closing-sig {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--sage-light);
+  }
+  @media(max-width:600px) { .closing-card { padding: 36px 24px; } }
+
+  /* ═══════════════════════════════════
+     UTILITY
+  ═══════════════════════════════════ */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 20px 0 40px;
+  }
+  .section-divider .div-line { flex: 1; height: 1px; background: var(--linen-dark); }
+  .section-divider .div-icon { font-size: 1.1rem; color: var(--brown-light); opacity: 0.5; }
+
+  @media(max-width:480px) {
+    .wrapper { padding: 0 18px 80px; }
+    .signal-grid { grid-template-columns: 1fr; }
+    .plate-legend { grid-template-columns: 1fr; }
+    .recipe-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- BACK BAR -->
+<div class="back-bar">
+  <a href="guias.html" class="back-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+    Voltar aos Guias
+  </a>
+  <span class="back-bar-brand">Guia do Sono</span>
+</div>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="cover-ornament">🥕</div>
+  <div class="cover-ornament-2">🌿</div>
+  <div class="cover-line-top"></div>
+
+  <div class="cover-badge">
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+    Guia do Sono · Nutrição Materno-Infantil
+  </div>
+
+  <p class="cover-eyebrow">O material que você sempre quis ter</p>
+
+  <h1>
+    Introdução Alimentar
+    <em>Sensacional</em>
+    <span class="sage-word" style="font-size:0.55em;display:block;margin-top:8px;letter-spacing:1px;">da primeira colherada à mesa da família</span>
+  </h1>
+
+  <p class="cover-subtitle">
+    Um guia acolhedor, sem julgamentos e baseado em evidências para você navegar essa fase com leveza — e fazer isso do seu jeito.
+  </p>
+
+  <div class="cover-topics">
+    <span class="cover-topic-tag"><span class="dot" style="background:#8a9e7f"></span>Sinais de Prontidão</span>
+    <span class="cover-topic-tag"><span class="dot" style="background:#c47a52"></span>BLW vs. Tradicional</span>
+    <span class="cover-topic-tag"><span class="dot" style="background:#c9a84c"></span>Cortes Seguros</span>
+    <span class="cover-topic-tag"><span class="dot" style="background:#7a9eb5"></span>Prato Perfeito</span>
+    <span class="cover-topic-tag"><span class="dot" style="background:#5a7050"></span>Sono & Digestão</span>
+    <span class="cover-topic-tag"><span class="dot" style="background:#c47a8a"></span>6 Receitas</span>
+  </div>
+
+  <span class="cover-from">Guia do Sono · 2025</span>
+  <div class="cover-line-bottom"></div>
+</section>
+
+<!-- WRAPPER -->
+<div class="wrapper">
+
+  <!-- LETTER -->
+  <div class="letter">
+    <p class="letter-heading">Para você, mãe corajosa,</p>
+    <p>Sei que esse momento chega cheio de dúvidas e de uma ansiedade que ninguém conta. A prateleira cheia de potes coloridos, a avó que insiste no frango desfiado, o pediatra que fala "comece quando ela sentar", e você no meio de tudo isso, tentando fazer a coisa certa.</p>
+    <p>A introdução alimentar não é uma prova que você precisa passar. É um convite gentil ao seu bebê para conhecer o mundo pelos sabores — e isso leva tempo, bagunça, carinha feia e muita repetição. Está tudo certo.</p>
+    <p>Este guia foi feito para ser seu companheiro nessa jornada, não seu juiz. Use o que fizer sentido para a sua família, e deixe o resto de lado sem culpa.</p>
+    <span class="signature">Com carinho — Guia do Sono 🌿</span>
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc-section" id="indice">
+    <p class="toc-title">Índice do Guia</p>
+    <p class="toc-sub">Toque para navegar até a seção</p>
+    <div class="toc-list">
+      <a href="#cap1" class="toc-item">
+        <div class="toc-num" style="background:rgba(138,158,127,0.2);color:#8a9e7f;">1</div>
+        <div class="toc-item-text">
+          <span class="toc-item-title">A Janela de Oportunidade</span>
+          <span class="toc-item-sub">Os sinais reais de prontidão — físicos e motores</span>
+        </div>
+        <span class="toc-arrow">›</span>
+      </a>
+      <a href="#cap2" class="toc-item">
+        <div class="toc-num" style="background:rgba(196,122,82,0.2);color:#c47a52;">2</div>
+        <div class="toc-item-text">
+          <span class="toc-item-title">BLW vs. Tradicional</span>
+          <span class="toc-item-sub">Como escolher sem culpa o método certo para vocês</span>
+        </div>
+        <span class="toc-arrow">›</span>
+      </a>
+      <a href="#cap3" class="toc-item">
+        <div class="toc-num" style="background:rgba(201,168,76,0.2);color:#c9a84c;">3</div>
+        <div class="toc-item-text">
+          <span class="toc-item-title">Cortes de Segurança</span>
+          <span class="toc-item-sub">Como cortar frutas, legumes e carnes com segurança</span>
+        </div>
+        <span class="toc-arrow">›</span>
+      </a>
+      <a href="#cap4" class="toc-item">
+        <div class="toc-num" style="background:rgba(122,158,181,0.2);color:#7a9eb5;">4</div>
+        <div class="toc-item-text">
+          <span class="toc-item-title">A Fórmula do Prato Perfeito</span>
+          <span class="toc-item-sub">Ferro, zinco, fibras e energia em equilíbrio</span>
+        </div>
+        <span class="toc-arrow">›</span>
+      </a>
+      <a href="#cap5" class="toc-item">
+        <div class="toc-num" style="background:rgba(90,112,80,0.2);color:#5a7050;">5</div>
+        <div class="toc-item-text">
+          <span class="toc-item-title">O Impacto no Sono</span>
+          <span class="toc-item-sub">Como a digestão influencia as janelas de sono do dia</span>
+        </div>
+        <span class="toc-arrow">›</span>
+      </a>
+      <a href="#cap6" class="toc-item">
+        <div class="toc-num" style="background:rgba(196,122,138,0.2);color:#c47a8a;">6</div>
+        <div class="toc-item-text">
+          <span class="toc-item-title">Receitas Iniciais</span>
+          <span class="toc-item-sub">3 papinhas e 3 preparos BLW para começar agora</span>
+        </div>
+        <span class="toc-arrow">›</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ═══════════ CHAPTER 1 ═══════════ -->
+  <section id="cap1" class="chapter chapter-1">
+    <div class="chapter-number-row">
+      <div class="chapter-number">
+        <span class="ch-num">1</span>
+        <span class="ch-label">Capítulo</span>
+      </div>
+      <div class="chapter-rule"></div>
+      <div class="chapter-emoji-badge">🌱</div>
+    </div>
+
+    <div class="chapter-heading">
+      <div class="eyebrow">A janela de oportunidade</div>
+      <h2>Os Sinais <em>Reais</em> de Prontidão</h2>
+      <p class="tagline">Nem muito cedo, nem muito tarde — o corpo do seu bebê vai avisar quando chegar a hora.</p>
+    </div>
+
+    <div class="chapter-body">
+      <p>A Organização Mundial da Saúde recomenda iniciar a introdução alimentar <strong>aos 6 meses completos</strong> para bebês amamentados, ou a partir dos 4 meses para bebês em fórmula, com orientação do pediatra. Mas a data do calendário é só um ponto de partida — o que realmente importa são os sinais que o próprio bebê vai mostrar.</p>
+
+      <div class="science-panel">
+        <div class="science-icon">🧠</div>
+        <div class="sp-content">
+          <h4>Por que esperar os sinais?</h4>
+          <p>O sistema digestivo de um bebê de 4 meses ainda produz pouquíssima amilase salivar — a enzima que digere amido. Iniciar antes da maturidade intestinal aumenta o risco de alergias, cólicas intensas e má absorção de nutrientes do leite. Esperar salva a barriga — e o sono — de vocês dois.</p>
+        </div>
+      </div>
+
+      <p>Observar esses sinais juntos — nunca isoladamente — é a chave para uma introdução tranquila. Um bebê que se encaixa na maioria deles está pronto para explorar.</p>
+
+      <div class="signal-grid">
+        <div class="signal-card">
+          <div class="sc-icon">🪑</div>
+          <h4>Senta com apoio mínimo</h4>
+          <p>Consegue se manter sentado com pouco suporte, sem tombar para frente. O controle do tronco é essencial para deglutir com segurança.</p>
+        </div>
+        <div class="signal-card">
+          <div class="sc-icon">👅</div>
+          <h4>Reflexo de extrusão ausente</h4>
+          <p>Para de empurrar objetos para fora da boca automaticamente com a língua. Esse reflexo protetor diminui naturalmente entre 4 e 6 meses.</p>
+        </div>
+        <div class="signal-card">
+          <div class="sc-icon">👀</div>
+          <h4>Interesse real pelos alimentos</h4>
+          <p>Acompanha a comida com os olhos, abre a boca quando vê alguém comer, tenta alcançar o prato. Curiosidade genuína, não só imitação.</p>
+        </div>
+        <div class="signal-card">
+          <div class="sc-icon">🖐</div>
+          <h4>Coordenação mão-boca</h4>
+          <p>Leva objetos à boca com certa precisão e intenção. Esse movimento é o prenúncio do BLW — o bebê se alimentará da mesma forma.</p>
+        </div>
+        <div class="signal-card">
+          <div class="sc-icon">⚖️</div>
+          <h4>Dobrou o peso ao nascer</h4>
+          <p>Um indicativo de crescimento saudável que sinaliza que o organismo tem maturidade suficiente para processar novos nutrientes.</p>
+        </div>
+        <div class="signal-card">
+          <div class="sc-icon">🍼</div>
+          <h4>Leite parece insuficiente</h4>
+          <p>Bebê que mama com frequência maior que o habitual e parece insatisfeito pode estar sinalizando uma necessidade calórica crescente.</p>
+        </div>
+      </div>
+
+      <div class="pull-quote">
+        <p>A introdução alimentar começa quando o bebê está pronto — não quando o calendário manda. Confie nos sinais do corpo dele tanto quanto você confia no seu instinto materno.</p>
+      </div>
+
+      <div class="practice-box">
+        <div class="practice-header">
+          <div class="ph-icon">📝</div>
+          <div>
+            <h3>Checklist de Prontidão</h3>
+            <div class="ph-sub">Marque mentalmente antes de começar</div>
+          </div>
+        </div>
+        <div class="practice-body">
+          <div class="practice-item">
+            <div class="pi-num">✓</div>
+            <div class="pi-text"><strong>Tem 6 meses completos</strong> (ou 4–6 com orientação do pediatra)</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">✓</div>
+            <div class="pi-text"><strong>Senta com apoio mínimo</strong> — o controle do tronco é inegociável para a segurança</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">✓</div>
+            <div class="pi-text"><strong>Reflexo de extrusão diminuído</strong> — não empurra tudo para fora automaticamente</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">✓</div>
+            <div class="pi-text"><strong>Demonstra interesse pela comida</strong> dos adultos com curiosidade e atenção</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">✓</div>
+            <div class="pi-text"><strong>Aval do pediatra</strong> — a validação profissional traz segurança para toda a família</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><div class="div-line"></div><div class="div-icon">✦</div><div class="div-line"></div></div>
+
+  <!-- ═══════════ CHAPTER 2 ═══════════ -->
+  <section id="cap2" class="chapter chapter-2">
+    <div class="chapter-number-row">
+      <div class="chapter-number">
+        <span class="ch-num">2</span>
+        <span class="ch-label">Capítulo</span>
+      </div>
+      <div class="chapter-rule"></div>
+      <div class="chapter-emoji-badge">🥄</div>
+    </div>
+
+    <div class="chapter-heading">
+      <div class="eyebrow">Métodos de introdução</div>
+      <h2>BLW vs. <em>Tradicional</em></h2>
+      <p class="tagline">Não existe método superior — existe o que funciona para a sua família, no seu momento.</p>
+    </div>
+
+    <div class="chapter-body">
+      <p>A sigla BLW vem do inglês <em>Baby-Led Weaning</em> — e significa, em essência, que o bebê lidera o processo. Em vez de colher na boca, você oferece pedaços de alimentos macios que ele mesmo manipula e experimenta. Já o método tradicional (também chamado de papinha) propõe texturas progressivas partindo do purê até os pedaços. Ambos têm evidências científicas de qualidade por trás — e ambos chegam ao mesmo lugar: um bebê que come.</p>
+
+      <div class="method-compare">
+        <div class="method-card blw">
+          <div class="mc-header">
+            <div class="mc-icon">🤲</div>
+            <div>
+              <div class="mc-title">BLW</div>
+              <div style="font-size:0.75rem;color:var(--terracotta);font-style:italic;font-family:'Lora',serif;">Baby-Led Weaning</div>
+            </div>
+          </div>
+          <ul class="mc-list">
+            <li>Bebê controla quanto e o quê come — autoregulação natural</li>
+            <li>Desenvolve coordenação motora fina e habilidade de mastigação</li>
+            <li>Favorece a aceitação de diferentes texturas a longo prazo</li>
+            <li>Refeições em família desde o início, favorecendo vínculo</li>
+            <li>Exige pedaços macios no formato adequado (ver cap. 3)</li>
+            <li>Pode causar mais bagunça — e isso é normal e saudável</li>
+          </ul>
+        </div>
+        <div class="method-card trad">
+          <div class="mc-header">
+            <div class="mc-icon">🥄</div>
+            <div>
+              <div class="mc-title">Tradicional</div>
+              <div style="font-size:0.75rem;color:var(--sage-dark);font-style:italic;font-family:'Lora',serif;">Papinhas & Texturas</div>
+            </div>
+          </div>
+          <ul class="mc-list">
+            <li>Texturas progressivas: purê → amassado → pedaços → família</li>
+            <li>Controle maior sobre a quantidade ingerida a cada refeição</li>
+            <li>Mais indicado para bebês com atraso no desenvolvimento motor</li>
+            <li>Transição mais gradual para bebês com menor tolerância sensorial</li>
+            <li>Facilita a percepção exata do que o bebê está comendo</li>
+            <li>Importante evoluir as texturas até os 9–10 meses</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="method-verdict">
+        <p>Você não precisa escolher apenas um. O <strong>método combinado (BLISS)</strong> oferece colher com purê e pedaços ao mesmo tempo — é o mais praticado pelas famílias brasileiras e tem excelente respaldo científico. O melhor método é aquele que traz paz para a hora da refeição.</p>
+      </div>
+
+      <div class="science-panel">
+        <div class="science-icon">📊</div>
+        <div class="sp-content">
+          <h4>O que a ciência diz?</h4>
+          <p>Uma revisão de 2019 no periódico Nutrients mostrou que bebês introduzidos via BLW apresentam menor risco de sobrepeso na infância, pois desenvolvem autoregulação do apetite de forma mais natural. Já uma revisão de 2021 no BMJ Open concluiu que, quando bem orientado, o método tradicional com evolução rápida de texturas produz resultados nutricionais equivalentes. O fator mais importante em ambos os métodos é a <em>evolução de textura até os 12 meses</em>.</p>
+        </div>
+      </div>
+
+      <div class="pull-quote">
+        <p>A culpa não tem lugar à mesa. Cada colherada dada com amor — seja purê ou pedaço — é uma raiz de memória afetiva plantada no coração do seu filho.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><div class="div-line"></div><div class="div-icon">✦</div><div class="div-line"></div></div>
+
+  <!-- ═══════════ CHAPTER 3 ═══════════ -->
+  <section id="cap3" class="chapter chapter-3">
+    <div class="chapter-number-row">
+      <div class="chapter-number">
+        <span class="ch-num">3</span>
+        <span class="ch-label">Capítulo</span>
+      </div>
+      <div class="chapter-rule"></div>
+      <div class="chapter-emoji-badge">🔪</div>
+    </div>
+
+    <div class="chapter-heading">
+      <div class="eyebrow">Segurança em primeiro lugar</div>
+      <h2>Guia de Cortes <em>Seguros</em></h2>
+      <p class="tagline">O tamanho e o formato do alimento importam tanto quanto o alimento em si — saiba como cortar cada coisa.</p>
+    </div>
+
+    <div class="chapter-body">
+      <p>O engasgo é o maior medo das mães que iniciam a introdução alimentar — e é um medo legítimo. A boa notícia é que <strong>formatos e texturas corretos reduzem drasticamente esse risco</strong>. A regra de ouro: para bebês de 6 a 9 meses, tudo deve ser macio o suficiente para ser amassado entre os dedos, e grande o suficiente para o bebê segurar sem levar todo o alimento à boca de uma vez.</p>
+
+      <div class="cut-alert">
+        <div class="ca-icon">⚠️</div>
+        <div class="ca-text">
+          <h4>Regra de Ouro dos Cortes BLW</h4>
+          <p>Para bebês de 6 a 9 meses: corte em formato de "dedinho" — comprimento de cerca de 6–7 cm (tamanho do punho fechado do bebê) e largura suficiente para ele segurar. Evite formas esféricas inteiras como uva, cereja e tomate-cereja — sempre corte ao meio no sentido do comprimento.</p>
+        </div>
+      </div>
+
+      <p><strong>Frutas</strong></p>
+      <div class="cut-group">
+        <div class="cut-item">
+          <div class="cut-icon">🍌</div>
+          <div class="cut-content">
+            <h4>Banana</h4>
+            <p>6–9 meses: corte no sentido do comprimento, em metades ou quartos. Pode deixar um pedaço da casca como cabo — facilita a preensão. 9+ meses: rodelas ao meio ou pedaços menores.</p>
+          </div>
+        </div>
+        <div class="cut-item">
+          <div class="cut-icon">🍐</div>
+          <div class="cut-content">
+            <h4>Pera e Maçã</h4>
+            <p>Cozinhe levemente no vapor até amolecer. 6–9 meses: em fatias compridas tipo "batata palito grossa". Retire sempre o caroço e a semente. Maçã crua só depois dos 10 meses ralada ou cozida.</p>
+          </div>
+        </div>
+        <div class="cut-item">
+          <div class="cut-icon">🍇</div>
+          <div class="cut-content">
+            <h4>Uva e Tomate-cereja</h4>
+            <p>NUNCA ofereça inteiro até os 4 anos — risco altíssimo de engasgo. Sempre corte ao meio no sentido do comprimento (formando dois "barquinhos"), ou em quartos para bebês menores.</p>
+          </div>
+        </div>
+        <div class="cut-item">
+          <div class="cut-icon">🍓</div>
+          <div class="cut-content">
+            <h4>Morango e Frutas Vermelhas</h4>
+            <p>Morangos grandes: corte ao meio ou em quartos. Mirtilos (blueberry): amasse levemente com o dedo para quebrar a pele e alterar a textura esférica — essa pele fina é um risco.</p>
+          </div>
+        </div>
+      </div>
+
+      <p style="margin-top:8px"><strong>Legumes e Verduras</strong></p>
+      <div class="cut-group">
+        <div class="cut-item">
+          <div class="cut-icon">🥦</div>
+          <div class="cut-content">
+            <h4>Brócolis e Couve-flor</h4>
+            <p>Cozinhe no vapor até que o talo ceda facilmente à pressão dos dedos. Mantenha um talo longo como "cabo natural" — o bebê segura pelo talo e come a florzinha. Formato perfeito para BLW.</p>
+          </div>
+        </div>
+        <div class="cut-item">
+          <div class="cut-icon">🥕</div>
+          <div class="cut-content">
+            <h4>Cenoura e Beterraba</h4>
+            <p>Crua é dura demais e perigosa. Cozinhe até amolecer bem e corte em palitos compridos ou rodelas grossas (1 cm). A cenoura baby cozida inteira é ótima opção de cabo natural.</p>
+          </div>
+        </div>
+        <div class="cut-item">
+          <div class="cut-icon">🥒</div>
+          <div class="cut-content">
+            <h4>Abobrinha e Pepino</h4>
+            <p>Abobrinha: cozida no vapor e cortada em palitos. Pepino cru (com casca): a casca dá firmeza para segurar e a polpa mole é segura — retire as sementes. Bom para dentição dolorida.</p>
+          </div>
+        </div>
+        <div class="cut-item">
+          <div class="cut-icon">🌽</div>
+          <div class="cut-content">
+            <h4>Milho na espiga</h4>
+            <p>A espiga inteira cozida é um excelente alimento BLW — o bebê morde os grãos da espiga e dificilmente se engasga com eles. Evite milho solto em grãos inteiros até os 2 anos.</p>
+          </div>
+        </div>
+      </div>
+
+      <p style="margin-top:8px"><strong>Carnes e Proteínas</strong></p>
+      <div class="cut-group">
+        <div class="cut-item">
+          <div class="cut-icon">🍗</div>
+          <div class="cut-content">
+            <h4>Frango</h4>
+            <p>Coxinha da asa cozida ou assada: o bebê segura o ossinho (osso tubular é seguro — nunca osso pequeno ou de costela) e roí a carne. Para desfiado: fibras compridas e macias. Evite pedaços transversais que formam bolas.</p>
+          </div>
+        </div>
+        <div class="cut-item">
+          <div class="cut-icon">🥩</div>
+          <div class="cut-content">
+            <h4>Carne Bovina</h4>
+            <p>Ofereça em tiras compridas no sentido das fibras — o bebê "extrai" a carne mastigando sem destacar um pedaço grande. A patinha de costela bovina cozida é excelente. Evite carne moída em bolinhos que podem formar bloco.</p>
+          </div>
+        </div>
+        <div class="cut-item">
+          <div class="cut-icon">🐟</div>
+          <div class="cut-content">
+            <h4>Peixe</h4>
+            <p>Sempre debone com extremo cuidado — passe a polpa pelos dedos em busca de espinhas finas. Ofereça em lâminas, pois o peixe se desmancha naturalmente. Tilápla e atum em lata (baixo sódio) são boas opções iniciais.</p>
+          </div>
+        </div>
+        <div class="cut-item">
+          <div class="cut-icon">🥚</div>
+          <div class="cut-content">
+            <h4>Ovo</h4>
+            <p>Mexido bem cozido: macios e fáceis de agarrar. Omelete mole em tiras. Ovo cozido: corte em quartos. Evite ovo cru ou gema crua. Introduza com atenção a reações — é um dos principais alérgenos.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pull-quote">
+        <p>Engasgo e sufocamento são coisas diferentes. O engasgo é barulhento, reflexivo e faz parte do aprendizado. Sufocamento é silencioso e é emergência. Aprenda a diferença — e considere fazer um curso de primeiros socorros pediátricos.</p>
+      </div>
+
+      <div class="practice-box">
+        <div class="practice-header">
+          <div class="ph-icon">🚫</div>
+          <div>
+            <h3>Alimentos a Evitar no 1º Ano</h3>
+            <div class="ph-sub">Sem exceções — segurança acima de tudo</div>
+          </div>
+        </div>
+        <div class="practice-body">
+          <div class="practice-item">
+            <div class="pi-num">!</div>
+            <div class="pi-text"><strong>Mel</strong> — risco de botulismo infantil até os 12 meses</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">!</div>
+            <div class="pi-text"><strong>Leite de vaca como bebida</strong> — introduza só após 1 ano (queijo e iogurte são permitidos antes)</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">!</div>
+            <div class="pi-text"><strong>Sal adicionado</strong> — os rins do bebê não estão maduros para processar sódio extra</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">!</div>
+            <div class="pi-text"><strong>Açúcar</strong> — cria preferências por doce que dificultam a aceitação alimentar futura</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">!</div>
+            <div class="pi-text"><strong>Amendoim inteiro, nozes inteiras, pipoca</strong> — alto risco de engasgo e sufocamento</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><div class="div-line"></div><div class="div-icon">✦</div><div class="div-line"></div></div>
+
+  <!-- ═══════════ CHAPTER 4 ═══════════ -->
+  <section id="cap4" class="chapter chapter-4">
+    <div class="chapter-number-row">
+      <div class="chapter-number">
+        <span class="ch-num">4</span>
+        <span class="ch-label">Capítulo</span>
+      </div>
+      <div class="chapter-rule"></div>
+      <div class="chapter-emoji-badge">🍽</div>
+    </div>
+
+    <div class="chapter-heading">
+      <div class="eyebrow">Nutrição inteligente</div>
+      <h2>A Fórmula do <em>Prato Perfeito</em></h2>
+      <p class="tagline">Cada refeição bem montada é uma carta de amor para o desenvolvimento do seu bebê.</p>
+    </div>
+
+    <div class="chapter-body">
+      <p>O bebê em introdução alimentar não precisa comer muito — mas o que come precisa ser nutritivo. O leite materno (ou fórmula) continua sendo a <strong>principal fonte calórica até os 12 meses</strong>, e os alimentos sólidos entram para complementar nutrientes específicos que o leite já não supre em quantidade suficiente, especialmente o ferro.</p>
+
+      <div class="plate-visual">
+        <div class="plate-circle">
+          <div class="plate-center">
+            <div class="pc-icon">🍽</div>
+            <div class="pc-label">Prato<br>Completo</div>
+          </div>
+        </div>
+        <div class="plate-legend">
+          <div class="pl-item">
+            <div class="pl-swatch" style="background:#7a9eb5"></div>
+            <div class="pl-content">
+              <h4>30% · Ferro & Zinco</h4>
+              <p>Carnes, fígado, ovo, leguminosas. Essencial para o desenvolvimento cerebral e imunidade.</p>
+            </div>
+          </div>
+          <div class="pl-item">
+            <div class="pl-swatch" style="background:#8a9e7f"></div>
+            <div class="pl-content">
+              <h4>20% · Fibras & Vitaminas</h4>
+              <p>Legumes e verduras variados. Alimentam a microbiota e fornecem micronutrientes.</p>
+            </div>
+          </div>
+          <div class="pl-item">
+            <div class="pl-swatch" style="background:#c9a84c"></div>
+            <div class="pl-content">
+              <h4>20% · Energia Saudável</h4>
+              <p>Cereais integrais, tubérculos, raízes. Combustível para o crescimento acelerado.</p>
+            </div>
+          </div>
+          <div class="pl-item">
+            <div class="pl-swatch" style="background:#c47a52"></div>
+            <div class="pl-content">
+              <h4>30% · Combinados</h4>
+              <p>Frutas, laticínios (iogurte/queijo), gorduras boas (azeite, abacate, coco).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="science-panel">
+        <div class="science-icon">🩸</div>
+        <div class="sp-content">
+          <h4>Por que o ferro é a prioridade número 1?</h4>
+          <p>O bebê nasce com reservas de ferro que duram até os 6 meses. Depois disso, o leite materno supre apenas 10% das necessidades diárias. A deficiência de ferro no primeiro ano está associada a atrasos no desenvolvimento cognitivo e motor que podem ser irreversíveis. Por isso, toda refeição principal deve conter uma fonte de ferro de origem animal — a melhor biodisponibilidade disponível.</p>
+        </div>
+      </div>
+
+      <div class="practice-box">
+        <div class="practice-header">
+          <div class="ph-icon">🌿</div>
+          <div>
+            <h3>Potencializadores de Absorção</h3>
+            <div class="ph-sub">Combinações que maximizam o ferro não-heme</div>
+          </div>
+        </div>
+        <div class="practice-body">
+          <div class="practice-item">
+            <div class="pi-num">+</div>
+            <div class="pi-text"><strong>Vitamina C + Ferro vegetal:</strong> feijão com limão espremido, lentilha com tomate, grão-de-bico com pimentão. A vitamina C triplica a absorção do ferro de origem vegetal.</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">+</div>
+            <div class="pi-text"><strong>Carne + Leguminosa:</strong> o "fator carne" potencializa a absorção do ferro do feijão quando consumidos juntos na mesma refeição.</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">–</div>
+            <div class="pi-text"><strong>Chá e leite inibem o ferro:</strong> evite chás (mesmo de ervas) e leite de vaca no intervalo de 1h após a refeição rica em ferro — eles bloqueiam a absorção.</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">+</div>
+            <div class="pi-text"><strong>Azeite de oliva:</strong> adicione sempre ao prato — as gorduras boas são essenciais para absorção das vitaminas lipossolúveis A, D, E e K presentes nos legumes.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pull-quote">
+        <p>Variedade de cores no prato é variedade de nutrientes. Um prato colorido — laranja, verde, vermelho, amarelo — é um prato nutritivo. Você não precisa memorizar tabelas; só precisa pintar o prato.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><div class="div-line"></div><div class="div-icon">✦</div><div class="div-line"></div></div>
+
+  <!-- ═══════════ CHAPTER 5 ═══════════ -->
+  <section id="cap5" class="chapter chapter-5">
+    <div class="chapter-number-row">
+      <div class="chapter-number">
+        <span class="ch-num">5</span>
+        <span class="ch-label">Capítulo</span>
+      </div>
+      <div class="chapter-rule"></div>
+      <div class="chapter-emoji-badge">🌙</div>
+    </div>
+
+    <div class="chapter-heading">
+      <div class="eyebrow">Digestão e sono infantil</div>
+      <h2>O Impacto <em>no Sono</em></h2>
+      <p class="tagline">O que entra no prato ao meio-dia pode fazer toda a diferença na noite que virá.</p>
+    </div>
+
+    <div class="chapter-body">
+      <p>A introdução alimentar traz uma dualidade comum que pega muitas mães de surpresa: você começa os sólidos esperando que o bebê durma mais — e, no início, ele às vezes dorme menos. Isso acontece porque o <strong>sistema digestivo está se adaptando</strong> a uma química completamente nova, e esse processo pode gerar desconforto, gases e acordar noturno aumentado nas primeiras semanas.</p>
+
+      <div class="science-panel">
+        <div class="science-icon">🔬</div>
+        <div class="sp-content">
+          <h4>O eixo intestino-cérebro e o sono</h4>
+          <p>O intestino produz cerca de 90% da serotonina do corpo — o precursor da melatonina, hormônio do sono. Uma microbiota intestinal saudável, alimentada por fibras e prebióticos, favorece a produção de serotonina e, consequentemente, a qualidade do sono. Feijões, aveia, banana levemente verde e vegetais coloridos são alimentos que nutrem essa microbiota em formação.</p>
+        </div>
+      </div>
+
+      <p>Entender o timing das refeições é tão importante quanto o conteúdo delas. Veja como o relógio da alimentação se conecta com as janelas de sono:</p>
+
+      <div class="sleep-timeline">
+        <div class="st-item">
+          <div class="st-dot">☀️</div>
+          <div class="st-content">
+            <div class="st-time">Desjejum — logo após acordar</div>
+            <h4>Mama primeiro, come depois</h4>
+            <p>Nos primeiros meses de IA, o leite continua sendo a primeira oferta ao acordar. O sólido pode vir 30–45 minutos depois, quando o bebê ainda está bem acordado e alerta — não no final da janela, quando já está sonolento.</p>
+          </div>
+        </div>
+        <div class="st-item">
+          <div class="st-dot">🌤</div>
+          <div class="st-content">
+            <div class="st-time">Almoço — janela de vigília do meio do dia</div>
+            <h4>A refeição mais importante</h4>
+            <p>O almoço deve ser a refeição mais completa — com fonte de ferro, vegetal e cereal. Ofereça pelo menos 30–40 minutos antes da sesta do meio-dia para dar tempo de digestão inicial. Alimentos com alto teor de triptofano (ovo, aves, feijão) nessa refeição favorecem a produção de serotonina ao longo da tarde.</p>
+          </div>
+        </div>
+        <div class="st-item">
+          <div class="st-dot">🌅</div>
+          <div class="st-content">
+            <div class="st-time">Lanche da tarde — antes da última sesta</div>
+            <h4>Energia leve para o fim do dia</h4>
+            <p>Frutas macias, iogurte integral, banana com aveia — alimentos de digestão fácil que evitam que o bebê chegue ao jantar com fome aguda, o que geralmente causa irritabilidade e dificuldade de regular o sono.</p>
+          </div>
+        </div>
+        <div class="st-item">
+          <div class="st-dot">🌙</div>
+          <div class="st-content">
+            <div class="st-time">Jantar — 1h a 1h30 antes de dormir</div>
+            <h4>Jantar digestivo, sono tranquilo</h4>
+            <p>O jantar deve ser mais leve que o almoço. Evite alimentos que gerem gases à noite — brócolis, couve-flor, feijão — a digestão em decúbito (deitado) amplifica o desconforto. Priorize carboidratos complexos e proteínas magras. O ritual de sono começa <em>aqui</em>.</p>
+          </div>
+        </div>
+        <div class="st-item">
+          <div class="st-dot">🍼</div>
+          <div class="st-content">
+            <div class="st-time">Última mama — parte do ritual</div>
+            <h4>O leite segue sendo âncora</h4>
+            <p>Não substitua a última mamada pelo jantar — elas têm funções diferentes. O leite noturno tem composição diferente do diurno, com concentrações maiores de nucleotídeos relacionados ao sono. Ele continua sendo parte do ritual de adormecimento enquanto fizer sentido para vocês.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pull-quote">
+        <p>Se o sono do seu bebê piorou logo depois de começar os sólidos, não desanime. O intestino precisa de 2 a 6 semanas para adaptar sua microbiota aos novos alimentos. Isso também passa.</p>
+      </div>
+
+      <div class="practice-box">
+        <div class="practice-header">
+          <div class="ph-icon">😴</div>
+          <div>
+            <h3>Alimentos Amigos do Sono</h3>
+            <div class="ph-sub">Ricos em triptofano, magnésio e melatonina natural</div>
+          </div>
+        </div>
+        <div class="practice-body">
+          <div class="practice-item">
+            <div class="pi-num">🍌</div>
+            <div class="pi-text"><strong>Banana madura:</strong> rica em triptofano e vitamina B6 — combinação que favorece a síntese de serotonina</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">🥣</div>
+            <div class="pi-text"><strong>Aveia:</strong> fonte de melatonina natural e magnésio — mineral relaxante muscular que favorece o adormecimento</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">🥚</div>
+            <div class="pi-text"><strong>Ovo (especialmente a gema):</strong> excelente fonte de triptofano e colina — essencial para o desenvolvimento neurológico e qualidade do sono</div>
+          </div>
+          <div class="practice-item">
+            <div class="pi-num">🍒</div>
+            <div class="pi-text"><strong>Cerejas e morangos:</strong> fontes naturais de melatonina — uma das poucas frutas com esse hormônio na forma direta</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><div class="div-line"></div><div class="div-icon">✦</div><div class="div-line"></div></div>
+
+  <!-- ═══════════ CHAPTER 6 ═══════════ -->
+  <section id="cap6" class="chapter chapter-6">
+    <div class="chapter-number-row">
+      <div class="chapter-number">
+        <span class="ch-num">6</span>
+        <span class="ch-label">Capítulo</span>
+      </div>
+      <div class="chapter-rule"></div>
+      <div class="chapter-emoji-badge">👩‍🍳</div>
+    </div>
+
+    <div class="chapter-heading">
+      <div class="eyebrow">Mãos na massa</div>
+      <h2>6 Receitas para <em>Começar Agora</em></h2>
+      <p class="tagline">Simples, nutritivas e prontas em poucos minutos — porque você já tem muita coisa para fazer.</p>
+    </div>
+
+    <div class="chapter-body">
+      <p>Todas as receitas abaixo são <strong>sem sal, sem açúcar e sem mel</strong>, adequadas para bebês a partir de 6 meses. São ricas em ferro, têm boa densidade calórica e podem ser preparadas em 20 minutos ou menos.</p>
+
+      <div style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--night);font-weight:600;margin:8px 0 16px;">🥣 Papinhas</div>
+
+      <div class="recipe-grid">
+        <!-- Papinha 1 -->
+        <div class="recipe-card papinha">
+          <div class="recipe-card-header">
+            <div class="rh-icon">🥕</div>
+            <div>
+              <div class="rh-title">Papinha de Ferro e Força</div>
+              <span class="rh-tag">Papinha · 15 min</span>
+            </div>
+          </div>
+          <div class="recipe-card-body">
+            <div>
+              <div class="recipe-section-label">Ingredientes</div>
+              <ul class="recipe-ingr">
+                <li>2 col. sopa de frango desfiado cozido</li>
+                <li>1 cenoura pequena (cozida)</li>
+                <li>2 col. sopa de feijão cozido sem casca</li>
+                <li>1 col. chá de azeite de oliva extra-virgem</li>
+                <li>Água do cozimento q.b.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="recipe-section-label">Preparo</div>
+              <div class="recipe-steps">
+                <div class="recipe-step">
+                  <div class="rs-num">1</div>
+                  <span>Cozinhe o frango sem sal, desfie fino. Reserve.</span>
+                </div>
+                <div class="recipe-step">
+                  <div class="rs-num">2</div>
+                  <span>Amasse cenoura e feijão com garfo — textura de "amassado" (não purê liso).</span>
+                </div>
+                <div class="recipe-step">
+                  <div class="rs-num">3</div>
+                  <span>Misture o frango desfiado, adicione o azeite e uma colher de água do feijão para ajustar a textura.</span>
+                </div>
+              </div>
+            </div>
+            <div class="recipe-tip">🌿 Dica: o caldo do feijão é rico em ferro solúvel — use-o sempre para amolecer a papinha.</div>
+          </div>
+        </div>
+
+        <!-- Papinha 2 -->
+        <div class="recipe-card papinha">
+          <div class="recipe-card-header">
+            <div class="rh-icon">🥦</div>
+            <div>
+              <div class="rh-title">Papinha Verde Nutritiva</div>
+              <span class="rh-tag">Papinha · 20 min</span>
+            </div>
+          </div>
+          <div class="recipe-card-body">
+            <div>
+              <div class="recipe-section-label">Ingredientes</div>
+              <ul class="recipe-ingr">
+                <li>1 filé de tilápia pequeno (sem espinha)</li>
+                <li>2 col. sopa de abobrinha cozida</li>
+                <li>1 col. sopa de ervilha fresca cozida</li>
+                <li>1 raminho de salsa picada (sem sal)</li>
+                <li>1 col. chá de azeite</li>
+              </ul>
+            </div>
+            <div>
+              <div class="recipe-section-label">Preparo</div>
+              <div class="recipe-steps">
+                <div class="recipe-step">
+                  <div class="rs-num">1</div>
+                  <span>Cozinhe o peixe no vapor por 8 minutos. Desfie com atenção às espinhas.</span>
+                </div>
+                <div class="recipe-step">
+                  <div class="rs-num">2</div>
+                  <span>Amasse abobrinha e ervilha juntas até textura pastosa mas não lisa.</span>
+                </div>
+                <div class="recipe-step">
+                  <div class="rs-num">3</div>
+                  <span>Misture tudo com o peixe, adicione a salsa e o azeite. Sirva morno.</span>
+                </div>
+              </div>
+            </div>
+            <div class="recipe-tip">🐟 Peixe + salsa é combinação clássica — e a salsa é rica em vitamina C, potencializando o ferro do peixe.</div>
+          </div>
+        </div>
+
+        <!-- Papinha 3 -->
+        <div class="recipe-card papinha">
+          <div class="recipe-card-header">
+            <div class="rh-icon">🎃</div>
+            <div>
+              <div class="rh-title">Creme de Abóbora com Ovo</div>
+              <span class="rh-tag">Papinha · 15 min</span>
+            </div>
+          </div>
+          <div class="recipe-card-body">
+            <div>
+              <div class="recipe-section-label">Ingredientes</div>
+              <ul class="recipe-ingr">
+                <li>3 col. sopa de abóbora cabotiá cozida</li>
+                <li>1 ovo inteiro cozido</li>
+                <li>1 col. chá de azeite</li>
+                <li>Canela em pó (pitada — opcional)</li>
+              </ul>
+            </div>
+            <div>
+              <div class="recipe-section-label">Preparo</div>
+              <div class="recipe-steps">
+                <div class="recipe-step">
+                  <div class="rs-num">1</div>
+                  <span>Amasse a abóbora cozida com garfo até textura homogênea.</span>
+                </div>
+                <div class="recipe-step">
+                  <div class="rs-num">2</div>
+                  <span>Pique o ovo cozido bem fininho e misture à abóbora.</span>
+                </div>
+                <div class="recipe-step">
+                  <div class="rs-num">3</div>
+                  <span>Finalize com azeite e uma pitada de canela, que tem propriedades anti-inflamatórias.</span>
+                </div>
+              </div>
+            </div>
+            <div class="recipe-tip">🥚 A gema do ovo é uma das fontes mais completas de nutrientes para o cérebro do bebê — inclua-a desde o início.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--night);font-weight:600;margin:32px 0 16px;">🤲 Preparos BLW</div>
+
+      <div class="recipe-grid">
+        <!-- BLW 1 -->
+        <div class="recipe-card blw-rec">
+          <div class="recipe-card-header">
+            <div class="rh-icon">🍌</div>
+            <div>
+              <div class="rh-title">Palito de Banana com Aveia</div>
+              <span class="rh-tag">BLW · 5 min</span>
+            </div>
+          </div>
+          <div class="recipe-card-body">
+            <div>
+              <div class="recipe-section-label">Ingredientes</div>
+              <ul class="recipe-ingr">
+                <li>1 banana madura (não mole demais)</li>
+                <li>2 col. sopa de aveia em flocos finos</li>
+                <li>1 col. chá de canela (opcional)</li>
+              </ul>
+            </div>
+            <div>
+              <div class="recipe-section-label">Preparo</div>
+              <div class="recipe-steps">
+                <div class="recipe-step">
+                  <div class="rs-num">1</div>
+                  <span>Corte a banana ao meio no sentido do comprimento e depois ao meio novamente — você terá 4 palitos.</span>
+                </div>
+                <div class="recipe-step">
+                  <div class="rs-num">2</div>
+                  <span>Role cada palito na aveia — ela cria textura anti-escorregamento, perfeita para as mãozinhas do bebê segurar.</span>
+                </div>
+                <div class="recipe-step">
+                  <div class="rs-num">3</div>
+                  <span>Sirva imediatamente. Não precisa de refrigeração — o ideal é fresco.</span>
+                </div>
+              </div>
+            </div>
+            <div class="recipe-tip">🍌 A aveia cria uma "casca" que impede o palito de escorregar, tornando o BLW mais fácil para o bebê desde o início.</div>
+          </div>
+        </div>
+
+        <!-- BLW 2 -->
+        <div class="recipe-card blw-rec">
+          <div class="recipe-card-header">
+            <div class="rh-icon">🥦</div>
+            <div>
+              <div class="rh-title">Floretes de Brócolis no Vapor</div>
+              <span class="rh-tag">BLW · 12 min</span>
+            </div>
+          </div>
+          <div class="recipe-card-body">
+            <div>
+              <div class="recipe-section-label">Ingredientes</div>
+              <ul class="recipe-ingr">
+                <li>4 floretes de brócolis com talo longo</li>
+                <li>Gotinhas de limão (opcional, pós-cozimento)</li>
+                <li>Fio de azeite extra-virgem</li>
+              </ul>
+            </div>
+            <div>
+              <div class="recipe-section-label">Preparo</div>
+              <div class="recipe-steps">
+                <div class="recipe-step">
+                  <div class="rs-num">1</div>
+                  <span>Cozinhe no vapor por 8–10 minutos — teste apertando a florzinha entre os dedos. Deve ceder facilmente.</span>
+                </div>
+                <div class="recipe-step">
+                  <div class="rs-num">2</div>
+                  <span>Deixe esfriar até morno. Regue com azeite (melhora o sabor e ajuda na absorção de vitaminas).</span>
+                </div>
+                <div class="recipe-step">
+                  <div class="rs-num">3</div>
+                  <span>Sirva pelo talo — o bebê usa como cabo natural e morde a florzinha. Perfeito!</span>
+                </div>
+              </div>
+            </div>
+            <div class="recipe-tip">🥦 O brócolis com talo longo é o alimento BLW mais intuitivo. Bebês adoram segurar e mordiscar.</div>
+          </div>
+        </div>
+
+        <!-- BLW 3 -->
+        <div class="recipe-card blw-rec">
+          <div class="recipe-card-header">
+            <div class="rh-icon">🍗</div>
+            <div>
+              <div class="rh-title">Coxinha da Asa Temperada</div>
+              <span class="rh-tag">BLW · 35 min</span>
+            </div>
+          </div>
+          <div class="recipe-card-body">
+            <div>
+              <div class="recipe-section-label">Ingredientes</div>
+              <ul class="recipe-ingr">
+                <li>2 coxinhas da asa de frango</li>
+                <li>Alho amassado (1 dente)</li>
+                <li>Suco de limão (1/2)</li>
+                <li>Cúrcuma em pó (pitada)</li>
+                <li>Azeite para untar</li>
+              </ul>
+            </div>
+            <div>
+              <div class="recipe-section-label">Preparo</div>
+              <div class="recipe-steps">
+                <div class="recipe-step">
+                  <div class="rs-num">1</div>
+                  <span>Marine o frango com alho, limão e cúrcuma por 15 minutos (sem sal).</span>
+                </div>
+                <div class="recipe-step">
+                  <div class="rs-num">2</div>
+                  <span>Asse em forno a 200°C por 25 minutos ou até bem cozido (a carne deve soltar facilmente do osso).</span>
+                </div>
+                <div class="recipe-step">
+                  <div class="rs-num">3</div>
+                  <span>Deixe esfriar. O bebê segura pelo osso tubular e rói a carne — supervise sempre.</span>
+                </div>
+              </div>
+            </div>
+            <div class="recipe-tip">🍗 O osso tubular da asa é seguro — nunca ofereça ossos de costela ou pequenos. A cúrcuma tem propriedades anti-inflamatórias e é bem aceita pelos bebês.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pull-quote">
+        <p>Não precisa cozinhar separado para o bebê. A maioria das refeições da família pode ser separada antes de adicionar sal — e o bebê come junto à mesa, pertencendo ao ritual alimentar da família desde o início.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <div class="closing-card">
+    <h2>A Mesa é um lugar de amor,<br>não de batalha</h2>
+    <p>Cada recusa é um aprendizado. Cada nova textura aceita é uma conquista. Cada refeição compartilhada, mesmo que o bebê tenha comido só duas colherinhas, é um momento de vínculo que nenhum nutriente supre.</p>
+    <p>Você está fazendo certo. Mesmo nos dias em que parece que não está. A introdução alimentar gentil — sem força, sem ansiedade, sem comparação — é o alicerce de uma criança que um dia vai amar comer.</p>
+    <span class="closing-sig">Guia do Sono · Com você em cada fase 🌿</span>
+  </div>
+
+</div><!-- /wrapper -->
+
+</body>
+</html>

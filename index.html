@@ -899,7 +899,36 @@ body {
 .fu { opacity:0; animation:fadeUp .5s ease forwards; }
 .d1{animation-delay:.05s}.d2{animation-delay:.12s}.d3{animation-delay:.2s}
 .d4{animation-delay:.28s}.d5{animation-delay:.36s}.d6{animation-delay:.44s}
-.d7{animation-delay:.52s}
+.d7{animation-delay:.52s}.d8{animation-delay:.60s}
+
+/* ── Sons de Ninar ── */
+.sound-chip {
+  padding:10px 12px; border-radius:13px; font-size:13px; font-weight:500;
+  cursor:pointer; border:1.5px solid var(--border-d);
+  background:var(--bg-card); color:var(--text);
+  transition:all .18s; text-align:left;
+  display:flex; align-items:center; gap:8px;
+  font-family:'DM Sans',sans-serif;
+}
+.sound-chip:hover  { border-color:var(--sage-l); background:var(--sage-p); }
+.sound-chip.active { background:var(--night); border-color:var(--night); color:#fff; }
+.sound-chip:active { transform:scale(.96); }
+
+/* ── Timer de Sono ── */
+.timer-option {
+  display:block; cursor:pointer; border-radius:12px;
+  border:1.5px solid var(--border-d); background:var(--bg-card);
+  padding:10px 14px; transition:all .18s;
+}
+.timer-option:hover  { border-color:var(--sage-l); background:var(--sage-p); }
+.timer-option.active { border-color:var(--sage); background:var(--sage-p); box-shadow:0 0 0 2px rgba(138,158,127,.2); }
+.timer-option:active { transform:scale(.98); }
+.timer-opt-inner { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.timer-opt-label { font-size:13px; font-weight:600; color:var(--text); }
+.timer-opt-plan  { font-size:10px; font-weight:600; letter-spacing:.04em; padding:2px 8px; border-radius:8px; flex-shrink:0; }
+.timer-free   { background:var(--sage-p); color:var(--sage-d); }
+.timer-plus   { background:var(--gold-p); color:#7a6010; }
+.timer-master { background:var(--lav-p);  color:var(--lav); }
 .sp { height:20px; }
 
 /* ── Monte sua Box ── */
@@ -1500,127 +1529,6 @@ body {
 .vt-tab.active { background:var(--night); border-color:var(--night); color:#fff; }
 .vt-tab:active  { transform:scale(.95); }
 
-/* ════════════════════════════════════════════
-   RITUAL DE SOM — estilos integrados
-════════════════════════════════════════════ */
-
-/* Now Playing Bar */
-.np-bar {
-  display:none; margin:0 0 16px;
-  background:var(--night); border-radius:20px; padding:13px 15px;
-  position:relative; overflow:hidden; align-items:center; gap:11px;
-}
-.np-bar.visible { display:flex; }
-.np-bar::before {
-  content:''; position:absolute; inset:0;
-  background:radial-gradient(ellipse 80% 100% at 0% 50%,rgba(138,158,127,.22) 0%,transparent 60%);
-  pointer-events:none;
-}
-.np-wave { display:flex; gap:2px; align-items:center; height:18px; position:relative; z-index:1; }
-.np-wave span { display:block; width:3px; border-radius:2px; background:var(--sage-l); animation:npWave 1s ease-in-out infinite; }
-.np-wave span:nth-child(1){height:6px;animation-delay:0s;}
-.np-wave span:nth-child(2){height:12px;animation-delay:.1s;}
-.np-wave span:nth-child(3){height:18px;animation-delay:.2s;}
-.np-wave span:nth-child(4){height:10px;animation-delay:.3s;}
-.np-wave span:nth-child(5){height:14px;animation-delay:.15s;}
-@keyframes npWave { 0%,100%{transform:scaleY(.4);} 50%{transform:scaleY(1);} }
-.np-info { flex:1; position:relative; z-index:1; min-width:0; }
-.np-label { font-size:9px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.4); margin-bottom:2px; }
-.np-title { font-family:'Lora',serif; font-size:13px; font-style:italic; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.np-stop { width:32px; height:32px; border-radius:50%; border:none; cursor:pointer; background:rgba(255,255,255,.12); color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; position:relative; z-index:1; transition:background .2s; }
-.np-stop:active { background:rgba(255,255,255,.25); }
-
-/* Sound Tip Card */
-.rs-tip {
-  background:var(--tc-p); border:1px solid rgba(196,122,82,.2); border-radius:18px;
-  padding:14px 16px; margin-bottom:20px; display:flex; gap:11px; align-items:flex-start;
-}
-.rs-tip-icon { font-size:20px; flex-shrink:0; margin-top:1px; }
-.rs-tip-text { font-family:'Lora',serif; font-style:italic; font-size:12px; color:var(--brown); line-height:1.6; }
-.rs-tip-text strong { font-style:normal; font-weight:600; color:var(--tc); }
-
-/* Section Header for Ritual */
-.rs-sec-hdr { padding:6px 0 11px; }
-.rs-sec-title {
-  font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:var(--text);
-  display:flex; align-items:center; gap:8px;
-}
-.rs-sec-title::after { content:''; flex:1; height:1px; background:var(--border-d); }
-.rs-sec-sub { font-family:'Lora',serif; font-style:italic; font-size:11px; color:var(--text-sub); margin-top:3px; }
-
-/* Sound Cards */
-.rs-grid { display:flex; flex-direction:column; gap:9px; margin-bottom:22px; }
-.rs-card {
-  background:var(--bg-card); border:1px solid var(--border); border-radius:18px;
-  padding:14px 16px; display:flex; align-items:center; gap:12px;
-  cursor:pointer; transition:all .2s; position:relative; overflow:hidden;
-}
-.rs-card:active { transform:scale(.99); }
-.rs-card.rs-playing { border-color:var(--sage-l); background:var(--sage-p); box-shadow:0 0 0 2px rgba(138,158,127,.3); }
-.rs-card-emoji {
-  width:48px; height:48px; border-radius:14px; display:flex; align-items:center;
-  justify-content:center; font-size:22px; flex-shrink:0; background:var(--bg);
-  transition:background .2s; border:1px solid var(--border);
-}
-.rs-card.rs-playing .rs-card-emoji { background:var(--sage-l); border-color:var(--sage); }
-.rs-card-info { flex:1; min-width:0; }
-.rs-card-title { font-family:'Lora',serif; font-weight:500; font-size:14px; color:var(--text); margin-bottom:2px; }
-.rs-card-sub { font-size:11px; color:var(--text-sub); }
-.rs-vol-row {
-  display:none; margin-top:11px; padding-top:10px;
-  border-top:1px solid rgba(0,0,0,.06); gap:9px; align-items:center;
-}
-.rs-card.rs-playing .rs-vol-row { display:flex; }
-.rs-vol-icon { font-size:13px; color:var(--text-sub); }
-.rs-vol-slider {
-  flex:1; -webkit-appearance:none; appearance:none; height:4px; border-radius:4px;
-  background:var(--border-d); outline:none; cursor:pointer;
-}
-.rs-vol-slider::-webkit-slider-thumb { -webkit-appearance:none; width:15px; height:15px; border-radius:50%; background:var(--sage); cursor:pointer; }
-.rs-play-btn {
-  width:38px; height:38px; border-radius:50%; display:flex; align-items:center;
-  justify-content:center; font-size:16px; flex-shrink:0;
-  background:var(--bg); border:1px solid var(--border); cursor:pointer; transition:all .2s;
-}
-.rs-card.rs-playing .rs-play-btn { background:var(--sage); color:#fff; border-color:var(--sage); }
-
-/* Story Cards */
-.rs-story {
-  background:var(--bg-card); border:1px solid var(--border); border-radius:18px;
-  overflow:hidden; margin-bottom:10px; transition:all .2s; cursor:pointer;
-}
-.rs-story.rs-playing { border-color:var(--gold-l); background:var(--gold-p); }
-.rs-story-hdr { display:flex; align-items:center; gap:12px; padding:14px 16px; }
-.rs-story-cover {
-  width:52px; height:52px; border-radius:13px; display:flex; align-items:center;
-  justify-content:center; font-size:24px; flex-shrink:0; position:relative; overflow:hidden;
-}
-.rs-story-cover-bg { position:absolute; inset:0; border-radius:13px; }
-.rs-story-cover-em { position:relative; z-index:1; }
-.rs-story-info { flex:1; min-width:0; }
-.rs-story-title { font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:var(--text); margin-bottom:3px; line-height:1.3; }
-.rs-story-meta { display:flex; gap:9px; align-items:center; }
-.rs-story-dur { font-size:10px; color:var(--text-sub); }
-.rs-story-age { font-size:10px; background:var(--sage-p); color:var(--sage-d); padding:2px 7px; border-radius:20px; font-weight:500; }
-.rs-story-btn {
-  width:38px; height:38px; border-radius:50%; background:var(--night); color:#fff;
-  display:flex; align-items:center; justify-content:center; font-size:15px;
-  flex-shrink:0; border:none; cursor:pointer; transition:all .2s;
-}
-.rs-story.rs-playing .rs-story-btn { background:var(--gold); color:var(--night); }
-.rs-prog-wrap { display:none; padding:0 16px 12px; gap:9px; align-items:center; }
-.rs-story.rs-playing .rs-prog-wrap { display:flex; }
-.rs-prog {
-  flex:1; -webkit-appearance:none; appearance:none; height:4px; border-radius:4px;
-  background:var(--border-d); outline:none; cursor:pointer;
-}
-.rs-story.rs-playing .rs-prog { background:var(--gold-l); }
-.rs-prog::-webkit-slider-thumb { -webkit-appearance:none; width:13px; height:13px; border-radius:50%; background:var(--gold); cursor:pointer; }
-.rs-time { font-size:10px; color:var(--text-sub); flex-shrink:0; }
-
-/* Moon accent */
-.rs-moon { font-size:28px; filter:drop-shadow(0 0 10px rgba(201,168,76,.4)); }
-
 /* ── Modo de Teste ── */
 .test-badge {
   display:none;
@@ -1717,7 +1625,6 @@ body {
       <button class="sn-item"        data-tab="orcamento" onclick="goTo('orcamento')"> <span class="sn-icon">💰</span> Orçamento</button>
       <button class="sn-item"        data-tab="chat"      onclick="goTo('chat')">      <span class="sn-icon">💬</span> Chat IA</button>
       <button class="sn-item"        data-tab="guias"     onclick="goTo('guias')">     <span class="sn-icon">📚</span> Guias</button>
-      <button class="sn-item"        data-tab="ritual"    onclick="goTo('ritual')">    <span class="sn-icon">🌙</span> Ritual de Som</button>
       <button class="sn-item"        data-tab="perfil"    onclick="goTo('perfil')">    <span class="sn-icon">👤</span> Perfil</button>
     </nav>
     <div class="sb-footer">
@@ -1879,9 +1786,88 @@ body {
           </div>
         </div>
 
-        <!-- SINAIS -->
-        <div class="sec-hdr fu d5"><div class="sec-title">Registrar sinal agora</div></div>
+        <!-- SONS DE NINAR -->
+        <div class="sec-hdr fu d5"><div class="sec-title">Sons de Ninar</div></div>
         <div class="px fu d5">
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:18px;box-shadow:0 2px 10px var(--shadow);">
+
+            <!-- Player -->
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+              <button id="sound-play-btn" onclick="toggleSound()"
+                style="width:50px;height:50px;border-radius:50%;border:none;cursor:pointer;
+                       background:linear-gradient(135deg,var(--sage),var(--sage-d));
+                       color:#fff;font-size:22px;flex-shrink:0;display:flex;align-items:center;
+                       justify-content:center;box-shadow:0 3px 12px rgba(90,112,80,.35);
+                       transition:transform .18s cubic-bezier(.34,1.56,.64,1);"
+                title="Reproduzir/Pausar">▶</button>
+              <div style="flex:1;min-width:0;">
+                <div id="sound-name" style="font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px;">Escolha um som…</div>
+                <div id="sound-status" style="font-family:'Lora',serif;font-style:italic;font-size:11px;color:var(--text-sub);">Selecione um ambiente sonoro abaixo</div>
+              </div>
+              <!-- Volume -->
+              <input type="range" id="sound-vol" min="0" max="1" step="0.05" value="0.7"
+                oninput="setVolume(this.value)"
+                style="width:70px;accent-color:var(--sage);">
+            </div>
+
+            <!-- Sons disponíveis -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">
+              <button class="sound-chip" onclick="selectSound(this,'Chuva Suave','https://cdn.pixabay.com/audio/2022/01/18/audio_d0c6ff1bab.mp3')" data-key="chuva">
+                🌧️ Chuva Suave
+              </button>
+              <button class="sound-chip" onclick="selectSound(this,'Ruído Branco','https://cdn.pixabay.com/audio/2022/03/10/audio_1e32d59580.mp3')" data-key="branco">
+                ☁️ Ruído Branco
+              </button>
+              <button class="sound-chip" onclick="selectSound(this,'Ondas do Mar','https://cdn.pixabay.com/audio/2022/01/20/audio_d57b6bfa38.mp3')" data-key="ondas">
+                🌊 Ondas do Mar
+              </button>
+              <button class="sound-chip" onclick="selectSound(this,'Vento nas Folhas','https://cdn.pixabay.com/audio/2022/02/27/audio_d99ee55d24.mp3')" data-key="vento">
+                🍃 Vento nas Folhas
+              </button>
+            </div>
+
+            <!-- Timer de sono -->
+            <div style="border-top:1px solid var(--border);padding-top:14px;">
+              <div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-sub);margin-bottom:10px;">⏱️ Timer de Sono</div>
+              <div style="display:flex;flex-direction:column;gap:6px;" id="timer-options">
+
+                <label class="timer-option" onclick="selectTimer(this,30,'free')">
+                  <input type="radio" name="sleeptimer" style="display:none">
+                  <div class="timer-opt-inner">
+                    <span class="timer-opt-label">30 Minutos</span>
+                    <span class="timer-opt-plan timer-free">Grátis</span>
+                  </div>
+                </label>
+
+                <label class="timer-option" onclick="selectTimer(this,120,'plus')">
+                  <input type="radio" name="sleeptimer" style="display:none">
+                  <div class="timer-opt-inner">
+                    <span class="timer-opt-label">2 Horas</span>
+                    <span class="timer-opt-plan timer-plus">Requer Plano Plus</span>
+                  </div>
+                </label>
+
+                <label class="timer-option" onclick="selectTimer(this,0,'master')">
+                  <input type="radio" name="sleeptimer" style="display:none">
+                  <div class="timer-opt-inner">
+                    <span class="timer-opt-label">Sem Parar</span>
+                    <span class="timer-opt-plan timer-master">Requer Plano Mestre (Infinito)</span>
+                  </div>
+                </label>
+
+              </div>
+              <div id="timer-countdown" style="margin-top:10px;font-family:'Lora',serif;font-style:italic;font-size:12px;color:var(--sage-d);min-height:16px;text-align:center;"></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- AUDIO element oculto (reprodução contínua mesmo com tela bloqueada) -->
+        <audio id="sleep-audio" loop preload="none" style="display:none"></audio>
+
+        <!-- SINAIS -->
+        <div class="sec-hdr fu d7"><div class="sec-title">Registrar sinal agora</div></div>
+        <div class="px fu d7">
           <div class="chips-scroll">
             <div class="s-chip" onclick="this.classList.toggle('on')"><span class="s-chip-icon">👁️</span><span class="s-chip-text">Olhar distante</span></div>
             <div class="s-chip" onclick="this.classList.toggle('on')"><span class="s-chip-icon">😮</span><span class="s-chip-text">Bocejou</span></div>
@@ -1892,8 +1878,8 @@ body {
         </div>
 
         <!-- CHAT ENTRY -->
-        <div class="sec-hdr fu d6"><div class="sec-title">Apoio agora</div></div>
-        <div class="px fu d6">
+        <div class="sec-hdr fu d8"><div class="sec-title">Apoio agora</div></div>
+        <div class="px fu d8">
           <div class="chat-entry" onclick="goTo('chat')">
             <div class="pulse-dot"></div>
             <div class="ce-icon">🌿</div>
@@ -2108,22 +2094,22 @@ body {
               <div class="g-arr">›</div>
             </a>
 
-            <a class="guide-card" href="dicionario-sensorial-bebe.html" target="_blank" data-cat="todos recem 1-3 4-6">
-              <div class="g-icon gi-tc">📖</div>
+            <a class="guide-card" href="seguranca-e-socorros.html" target="_blank" data-cat="todos recem 1-3 4-6">
+              <div class="g-icon gi-tc">🚨</div>
               <div class="g-info">
-                <div class="g-title">Dicionário Sensorial do Bebê</div>
-                <div class="g-sub">O que cada tipo de choro e sinal quer dizer — como responder com calma.</div>
-                <div class="g-meta"><div class="g-tag tg-new">Novo</div><span style="font-size:10px;color:var(--text-sub)">· 8 min</span></div>
+                <div class="g-title">Segurança &amp; Primeiros Socorros</div>
+                <div class="g-sub">Prevenção de engasgo, sono seguro e o que fazer em emergências com o bebê.</div>
+                <div class="g-meta"><div class="g-tag tg-pop">Essencial</div><span style="font-size:10px;color:var(--text-sub)">· 8 min</span></div>
               </div>
               <div class="g-arr">›</div>
             </a>
 
-            <a class="guide-card" href="autonomia-com-afeto.html" target="_blank" data-cat="todos 4-6">
+            <a class="guide-card" href="desmame-gentil.html" target="_blank" data-cat="todos 4-6">
               <div class="g-icon gi-sage">🌱</div>
               <div class="g-info">
-                <div class="g-title">Autonomia com Afeto</div>
-                <div class="g-sub">Como ajudar seu bebê a desenvolver independência no sono de forma gentil.</div>
-                <div class="g-meta"><div class="g-tag tg-free">10 min</div></div>
+                <div class="g-title">Desmame Gentil</div>
+                <div class="g-sub">Como conduzir a transição do aleitamento de forma acolhedora — sem culpa, sem pressa.</div>
+                <div class="g-meta"><div class="g-tag tg-new">Novo</div><span style="font-size:10px;color:var(--text-sub)">· 10 min</span></div>
               </div>
               <div class="g-arr">›</div>
             </a>
@@ -2139,7 +2125,7 @@ body {
             </div>
 
             <!-- ── GUIAS DE ALIMENTAÇÃO ── -->
-            <div class="guide-card" onclick="openGuideAlimentar()" data-cat="todos alimentacao 4-6" style="cursor:pointer;">
+            <a class="guide-card" href="introducao-alimentar-ebook__1_.html" target="_blank" data-cat="todos alimentacao 4-6">
               <div class="g-icon" style="background:var(--tc-p);">🥣</div>
               <div class="g-info">
                 <div class="g-title">Introdução Alimentar Sensacional</div>
@@ -2147,9 +2133,9 @@ body {
                 <div class="g-meta"><div class="g-tag tg-new">Novo</div><span style="font-size:10px;color:var(--text-sub)">· 10 min</span></div>
               </div>
               <div class="g-arr">›</div>
-            </div>
+            </a>
 
-            <div class="guide-card" onclick="openGuideToddler()" data-cat="todos alimentacao" style="cursor:pointer;">
+            <a class="guide-card" href="nutricao-avancada-toddler.html" target="_blank" data-cat="todos alimentacao">
               <div class="g-icon" style="background:var(--gold-p);">🌽</div>
               <div class="g-info">
                 <div class="g-title">Nutrição Avançada &amp; Toddler</div>
@@ -2157,7 +2143,7 @@ body {
                 <div class="g-meta"><div class="g-tag" style="background:var(--gold-p);color:#7a6010;">Plus</div><span style="font-size:10px;color:var(--text-sub)">· 12 min</span></div>
               </div>
               <div class="g-arr">›</div>
-            </div>
+            </a>
 
           </div>
         </div>
@@ -2361,241 +2347,6 @@ body {
       </div>
     </div><!-- /perfil -->
 
-    <!-- ══ RITUAL DE SOM ═══════════════════════════ -->
-    <div class="page" id="page-ritual">
-      <div class="scroll-area">
-
-        <!-- HEADER -->
-        <div class="page-hdr fu d1">
-          <div>
-            <div class="hdr-greeting">✦ ambiente sonoro para o sono</div>
-            <div class="hdr-title"><span class="rs-moon">🌙</span> Ritual de <em>Som</em></div>
-          </div>
-        </div>
-
-        <!-- NOW PLAYING BAR -->
-        <div class="np-bar" id="rs-nowPlayingBar">
-          <div class="np-wave"><span></span><span></span><span></span><span></span><span></span></div>
-          <div class="np-info">
-            <div class="np-label">Tocando agora</div>
-            <div class="np-title" id="rs-npTitle">—</div>
-          </div>
-          <button class="np-stop" onclick="rsStopAll()" title="Parar tudo">⏹</button>
-        </div>
-
-        <!-- TIP -->
-        <div class="rs-tip fu d2">
-          <div class="rs-tip-icon">🌿</div>
-          <div class="rs-tip-text">O som continua tocando mesmo enquanto você navega nas outras abas. <strong>Volume ideal:</strong> parecido com o chuveiro ligado no quarto ao lado — suave, constante, acolhedor.</div>
-        </div>
-
-        <!-- RUÍDO BRANCO -->
-        <div class="rs-sec-hdr fu d3">
-          <div class="rs-sec-title">🌧️ Ruído Branco</div>
-          <div class="rs-sec-sub">Sons contínuos que imitam o útero e acalmam o sistema nervoso</div>
-        </div>
-
-        <div class="rs-grid fu d3">
-          <div class="rs-card" id="rs-card-chuva" onclick="rsToggleSound('chuva')">
-            <div class="rs-card-emoji">🌧️</div>
-            <div class="rs-card-info">
-              <div class="rs-card-title">Chuva Suave</div>
-              <div class="rs-card-sub">Gotinhas em janela · relaxa e induz o sono</div>
-              <div class="rs-vol-row">
-                <span class="rs-vol-icon">🔈</span>
-                <input type="range" class="rs-vol-slider" min="0" max="100" value="70"
-                       oninput="rsSetVolume('chuva',this.value)" onclick="event.stopPropagation()">
-                <span class="rs-vol-icon">🔊</span>
-              </div>
-            </div>
-            <button class="rs-play-btn">▶</button>
-          </div>
-
-          <div class="rs-card" id="rs-card-utero" onclick="rsToggleSound('utero')">
-            <div class="rs-card-emoji">🤰</div>
-            <div class="rs-card-info">
-              <div class="rs-card-title">Som do Útero</div>
-              <div class="rs-card-sub">Batimento cardíaco + whoosh · ideal para RN até 4m</div>
-              <div class="rs-vol-row">
-                <span class="rs-vol-icon">🔈</span>
-                <input type="range" class="rs-vol-slider" min="0" max="100" value="70"
-                       oninput="rsSetVolume('utero',this.value)" onclick="event.stopPropagation()">
-                <span class="rs-vol-icon">🔊</span>
-              </div>
-            </div>
-            <button class="rs-play-btn">▶</button>
-          </div>
-
-          <div class="rs-card" id="rs-card-branco" onclick="rsToggleSound('branco')">
-            <div class="rs-card-emoji">📻</div>
-            <div class="rs-card-info">
-              <div class="rs-card-title">Ruído Branco Puro</div>
-              <div class="rs-card-sub">Estático contínuo · mascara ruídos da casa</div>
-              <div class="rs-vol-row">
-                <span class="rs-vol-icon">🔈</span>
-                <input type="range" class="rs-vol-slider" min="0" max="100" value="70"
-                       oninput="rsSetVolume('branco',this.value)" onclick="event.stopPropagation()">
-                <span class="rs-vol-icon">🔊</span>
-              </div>
-            </div>
-            <button class="rs-play-btn">▶</button>
-          </div>
-
-          <div class="rs-card" id="rs-card-mar" onclick="rsToggleSound('mar')">
-            <div class="rs-card-emoji">🌊</div>
-            <div class="rs-card-info">
-              <div class="rs-card-title">Ondas do Mar</div>
-              <div class="rs-card-sub">Vagas rítmicas · regulam a respiração</div>
-              <div class="rs-vol-row">
-                <span class="rs-vol-icon">🔈</span>
-                <input type="range" class="rs-vol-slider" min="0" max="100" value="70"
-                       oninput="rsSetVolume('mar',this.value)" onclick="event.stopPropagation()">
-                <span class="rs-vol-icon">🔊</span>
-              </div>
-            </div>
-            <button class="rs-play-btn">▶</button>
-          </div>
-
-          <div class="rs-card" id="rs-card-vento" onclick="rsToggleSound('vento')">
-            <div class="rs-card-emoji">🍃</div>
-            <div class="rs-card-info">
-              <div class="rs-card-title">Vento nas Folhas</div>
-              <div class="rs-card-sub">Sussurro da natureza · suave e reconfortante</div>
-              <div class="rs-vol-row">
-                <span class="rs-vol-icon">🔈</span>
-                <input type="range" class="rs-vol-slider" min="0" max="100" value="70"
-                       oninput="rsSetVolume('vento',this.value)" onclick="event.stopPropagation()">
-                <span class="rs-vol-icon">🔊</span>
-              </div>
-            </div>
-            <button class="rs-play-btn">▶</button>
-          </div>
-        </div>
-
-        <!-- HISTÓRIAS -->
-        <div class="rs-sec-hdr fu d4">
-          <div class="rs-sec-title">📖 Histórias para Sonhar</div>
-          <div class="rs-sec-sub">Narrativas curtas e calmantes para a hora de dormir</div>
-        </div>
-
-        <div class="fu d5">
-          <div class="rs-story" id="rs-story-0">
-            <div class="rs-story-hdr" onclick="rsToggleStory(0)">
-              <div class="rs-story-cover">
-                <div class="rs-story-cover-bg" style="background:linear-gradient(135deg,#a8d5a2,#5a9e5a);"></div>
-                <div class="rs-story-cover-em">🌳</div>
-              </div>
-              <div class="rs-story-info">
-                <div class="rs-story-title">A Árvore que Abraçava a Lua</div>
-                <div class="rs-story-meta">
-                  <span class="rs-story-dur">🕐 ~6 min</span>
-                  <span class="rs-story-age">0–3 anos</span>
-                </div>
-              </div>
-              <button class="rs-story-btn" onclick="event.stopPropagation();rsToggleStory(0)">▶</button>
-            </div>
-            <div class="rs-prog-wrap">
-              <input type="range" class="rs-prog" id="rs-prog-0" min="0" max="100" value="0"
-                     oninput="rsSeekStory(0,this.value)" onclick="event.stopPropagation()">
-              <span class="rs-time" id="rs-time-0">0:00</span>
-            </div>
-          </div>
-
-          <div class="rs-story" id="rs-story-1">
-            <div class="rs-story-hdr" onclick="rsToggleStory(1)">
-              <div class="rs-story-cover">
-                <div class="rs-story-cover-bg" style="background:linear-gradient(135deg,#f4c97a,#e8883a);"></div>
-                <div class="rs-story-cover-em">⭐</div>
-              </div>
-              <div class="rs-story-info">
-                <div class="rs-story-title">O Passarinho que Guardava Estrelas</div>
-                <div class="rs-story-meta">
-                  <span class="rs-story-dur">🕐 ~5 min</span>
-                  <span class="rs-story-age">1–4 anos</span>
-                </div>
-              </div>
-              <button class="rs-story-btn" onclick="event.stopPropagation();rsToggleStory(1)">▶</button>
-            </div>
-            <div class="rs-prog-wrap">
-              <input type="range" class="rs-prog" id="rs-prog-1" min="0" max="100" value="0"
-                     oninput="rsSeekStory(1,this.value)" onclick="event.stopPropagation()">
-              <span class="rs-time" id="rs-time-1">0:00</span>
-            </div>
-          </div>
-
-          <div class="rs-story" id="rs-story-2">
-            <div class="rs-story-hdr" onclick="rsToggleStory(2)">
-              <div class="rs-story-cover">
-                <div class="rs-story-cover-bg" style="background:linear-gradient(135deg,#b8d4f0,#6a9fd8);"></div>
-                <div class="rs-story-cover-em">☁️</div>
-              </div>
-              <div class="rs-story-info">
-                <div class="rs-story-title">A Nuvem que Queria Virar Chuva</div>
-                <div class="rs-story-meta">
-                  <span class="rs-story-dur">🕐 ~7 min</span>
-                  <span class="rs-story-age">2–5 anos</span>
-                </div>
-              </div>
-              <button class="rs-story-btn" onclick="event.stopPropagation();rsToggleStory(2)">▶</button>
-            </div>
-            <div class="rs-prog-wrap">
-              <input type="range" class="rs-prog" id="rs-prog-2" min="0" max="100" value="0"
-                     oninput="rsSeekStory(2,this.value)" onclick="event.stopPropagation()">
-              <span class="rs-time" id="rs-time-2">0:00</span>
-            </div>
-          </div>
-
-          <div class="rs-story" id="rs-story-3">
-            <div class="rs-story-hdr" onclick="rsToggleStory(3)">
-              <div class="rs-story-cover">
-                <div class="rs-story-cover-bg" style="background:linear-gradient(135deg,#dbb8f5,#9966cc);"></div>
-                <div class="rs-story-cover-em">🦋</div>
-              </div>
-              <div class="rs-story-info">
-                <div class="rs-story-title">A Borboleta do Sonho Bom</div>
-                <div class="rs-story-meta">
-                  <span class="rs-story-dur">🕐 ~5 min</span>
-                  <span class="rs-story-age">0–3 anos</span>
-                </div>
-              </div>
-              <button class="rs-story-btn" onclick="event.stopPropagation();rsToggleStory(3)">▶</button>
-            </div>
-            <div class="rs-prog-wrap">
-              <input type="range" class="rs-prog" id="rs-prog-3" min="0" max="100" value="0"
-                     oninput="rsSeekStory(3,this.value)" onclick="event.stopPropagation()">
-              <span class="rs-time" id="rs-time-3">0:00</span>
-            </div>
-          </div>
-
-          <div class="rs-story" id="rs-story-4">
-            <div class="rs-story-hdr" onclick="rsToggleStory(4)">
-              <div class="rs-story-cover">
-                <div class="rs-story-cover-bg" style="background:linear-gradient(135deg,#f5b8c4,#e87a8a);"></div>
-                <div class="rs-story-cover-em">🐰</div>
-              </div>
-              <div class="rs-story-info">
-                <div class="rs-story-title">O Coelhinho que Não Conseguia Dormir</div>
-                <div class="rs-story-meta">
-                  <span class="rs-story-dur">🕐 ~6 min</span>
-                  <span class="rs-story-age">1–4 anos</span>
-                </div>
-              </div>
-              <button class="rs-story-btn" onclick="event.stopPropagation();rsToggleStory(4)">▶</button>
-            </div>
-            <div class="rs-prog-wrap">
-              <input type="range" class="rs-prog" id="rs-prog-4" min="0" max="100" value="0"
-                     oninput="rsSeekStory(4,this.value)" onclick="event.stopPropagation()">
-              <span class="rs-time" id="rs-time-4">0:00</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Hidden audio container -->
-        <div id="rs-audio-container" style="position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden;left:-9999px;top:-9999px;"></div>
-        <div class="sp"></div>
-      </div>
-    </div><!-- /ritual -->
-
   </div><!-- /content-area -->
 
   <!-- BOTTOM NAV (mobile) -->
@@ -2604,7 +2355,6 @@ body {
     <button class="nav-item"        data-tab="orcamento" onclick="goTo('orcamento')"> <span class="nav-icon">💰</span><span class="nav-lbl">Orçamento</span></button>
     <button class="nav-item"        data-tab="chat"      onclick="goTo('chat')">      <span class="nav-icon">💬</span><span class="nav-lbl">Chat</span></button>
     <button class="nav-item"        data-tab="guias"     onclick="goTo('guias')">     <span class="nav-icon">📚</span><span class="nav-lbl">Guias</span></button>
-    <button class="nav-item"        data-tab="ritual"    onclick="goTo('ritual')">    <span class="nav-icon">🌙</span><span class="nav-lbl">Ritual</span></button>
     <button class="nav-item"        data-tab="perfil"    onclick="goTo('perfil')">    <span class="nav-icon">👤</span><span class="nav-lbl">Perfil</span></button>
   </nav>
 
@@ -2650,8 +2400,38 @@ body {
    SUPABASE
 ═══════════════════════════════════════ */
 const SUPA_URL = 'https://ddyonglfjuryeucmpnqt.supabase.co';
-const SUPA_KEY = 'sb_publishable_fzjuIev_nXgty9LvWj1J1g_D0TSgqbm';
-const sb = supabase.createClient(SUPA_URL, SUPA_KEY);
+// anon/public key — nunca exponha a service_role key no frontend
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRkeW9uZ2xmanVyeWV1Y21wbnF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0OTI2MDEsImV4cCI6MjA2MjA2ODYwMX0.I7QSJlUlHCcnqFIpBvLbTkNpF2lZNMZxfmOSvP71OlE';
+
+let sb;
+try {
+  sb = supabase.createClient(SUPA_URL, SUPA_KEY);
+} catch(e) {
+  console.warn('[GDS] Supabase init failed:', e);
+  // Fallback stub so the rest of the app doesn't crash
+  sb = {
+    auth: {
+      signInWithOtp: async () => ({ error: { message: 'Supabase indisponível' } }),
+      verifyOtp:     async () => ({ data: null, error: { message: 'Supabase indisponível' } }),
+      getSession:    async () => ({ data: { session: null } }),
+      onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
+      signOut:       async () => ({}),
+    },
+    from: () => ({
+      select:  () => ({ eq: () => ({ maybeSingle: async () => ({ data: null, error: null }) }) }),
+      insert:  async () => ({ error: null }),
+      upsert:  async () => ({ error: null }),
+      delete:  () => ({ eq: () => ({}) }),
+    }),
+  };
+}
+
+/* ── E-mails com acesso Mestre automático ──────────────────
+   Para estes e-mails, ao entrar com o código OTP real OU
+   com o código 123456, o app concede acesso Mestre (Plus+Premium).
+   Adicione e-mails conforme necessário.
+   ─────────────────────────────────────────────────────── */
+const MASTER_EMAILS = ['azorathi@gmail.com'];
 
 /* ═══════════════════════════════════════
    GLOBALS
@@ -2681,41 +2461,65 @@ function isPremium() { return userRole === 'premium'; }
 
 // ── Passo 1: envia o código OTP ──
 async function sendOtp() {
-  const email = document.getElementById('login-email').value.trim();
+  const emailEl = document.getElementById('login-email');
+  if (!emailEl) return;
+  const email = emailEl.value.trim().toLowerCase();
   if (!email || !email.includes('@')) {
     showLoginMsg('Por favor, insira um e-mail válido.', 'error'); return;
   }
   const btn = document.getElementById('btn-otp');
   const txt = document.getElementById('btn-otp-txt');
-  btn.disabled = true; txt.textContent = 'Enviando…';
+  if (btn) btn.disabled = true;
+  if (txt) txt.textContent = 'Enviando…';
   hideLoginMsg();
 
-  // signInWithOtp sem shouldCreateUser=false para aceitar novos usuários também
-  const { error } = await sb.auth.signInWithOtp({
-    email,
-    options: { shouldCreateUser: true }
-    // Sem emailRedirectTo → Supabase envia código numérico no lugar do link
-  });
+  // Para e-mails mestre: não precisa de OTP real — vai para tela de código
+  // com instrução de usar 123456
+  if (MASTER_EMAILS.includes(email)) {
+    if (btn) btn.disabled = false;
+    if (txt) txt.textContent = '✉️ Receber Código de Acesso';
+    showLoginMsg('✅ E-mail reconhecido. Use o código 123456 para entrar.', 'success');
+    document.getElementById('step-email').style.display = 'none';
+    document.getElementById('step-otp').style.display   = 'block';
+    const shownEl = document.getElementById('otp-email-shown');
+    if (shownEl) shownEl.textContent = email;
+    initOtpBoxes();
+    const si = document.getElementById('otp-single');
+    if (si) si.focus();
+    return;
+  }
 
-  btn.disabled = false; txt.textContent = '✉️ Receber Código de Acesso';
+  // Para outros e-mails: tenta Supabase OTP real
+  let error;
+  try {
+    ({ error } = await sb.auth.signInWithOtp({
+      email,
+      options: { shouldCreateUser: true }
+    }));
+  } catch (err) {
+    error = { message: 'Erro de rede: ' + (err.message || 'tente novamente.') };
+  }
 
-  // SEMPRE avança para a tela OTP — erro ou sucesso.
-  // O código mestre 123456 funciona localmente sem e-mail.
+  if (btn) btn.disabled = false;
+  if (txt) txt.textContent = '✉️ Receber Código de Acesso';
+
   if (error) {
-    // Aviso discreto (não bloqueia)
-    const msg = error.message?.toLowerCase() || '';
+    const msg = (error.message || '').toLowerCase();
     const hint = msg.includes('rate') || msg.includes('many')
-      ? '⚠️ Limite de e-mails atingido.'
-      : '⚠️ ' + error.message;
-    showLoginMsg(hint + ' Use o código 123456 para entrar.', 'success');
+      ? '⚠️ Limite de e-mails atingido. Use o código 123456 para entrar.'
+      : '⚠️ ' + error.message + ' — Use o código 123456 para entrar.';
+    showLoginMsg(hint, 'success');
   } else {
     hideLoginMsg();
   }
+
   document.getElementById('step-email').style.display = 'none';
   document.getElementById('step-otp').style.display   = 'block';
-  document.getElementById('otp-email-shown').textContent = email;
+  const shownEl = document.getElementById('otp-email-shown');
+  if (shownEl) shownEl.textContent = email;
   initOtpBoxes();
-  document.getElementById('otp0').focus();
+  const si = document.getElementById('otp-single');
+  if (si) si.focus();
 }
 
 // ── Passo 2: verifica o código ──
@@ -2750,19 +2554,22 @@ async function verifyOtp() {
   // code6: first 6 digits — used for CODIGO_MESTRE and as fallback for Supabase
   const code6 = code.slice(0, 6);
 
-  // ── Código mestre: acesso de teste sem Supabase ──────
-  if (code6 === CODIGO_MESTRE) {
+  // ── Código mestre OU e-mail mestre: acesso total ──────
+  const emailLower = email.toLowerCase();
+  if (code6 === CODIGO_MESTRE || MASTER_EMAILS.includes(emailLower)) {
     modoTeste = true;
     currentUser = {
       id:    'test-user-local',
       email: email || 'teste@guiadosono.com',
-      user_metadata: { full_name: 'Weyna (Teste)' },
+      user_metadata: { full_name: MASTER_EMAILS.includes(emailLower) ? 'Luiz Felipe' : 'Weyna (Teste)' },
     };
-    // Persist test session so user doesn't need to log in again on reload
+    // Acesso Mestre — salva no localStorage por 30 dias
     localStorage.setItem('gds_persist', JSON.stringify({
       ts: Date.now(), mode: 'test',
       email: email || 'teste@guiadosono.com'
     }));
+    localStorage.setItem('gds_role', 'premium');
+    userRole = 'premium';
     revealApp();
     document.getElementById('test-badge')?.classList.add('on');
     return;
@@ -3399,8 +3206,127 @@ function closePro() { document.getElementById('pro-ov').classList.remove('on'); 
    PWA
 ═══════════════════════════════════════ */
 
-/* ═══════════════════════════════════════════════════════════
-   VITRINE DE AFILIADOS
+/* ═══════════════════════════════════════
+   SONS DE NINAR + TIMER DE SONO
+═══════════════════════════════════════ */
+let soundPlaying  = false;
+let soundTimerRef = null;
+let selectedTimer = 30; // minutos (padrão: 30 = Grátis)
+let timerPlan     = 'free';
+let timerSeconds  = 0;
+let timerInterval = null;
+
+const audioEl = () => document.getElementById('sleep-audio');
+
+function selectSound(btn, name, url) {
+  // deselect all chips
+  document.querySelectorAll('.sound-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  const audio = audioEl();
+  const wasPlaying = soundPlaying;
+  // update source
+  audio.src = url;
+  audio.loop = true;
+  document.getElementById('sound-name').textContent   = name;
+  document.getElementById('sound-status').textContent  = wasPlaying ? '▶ Tocando…' : 'Som selecionado — pressione ▶';
+  // resume if already playing
+  if (wasPlaying) {
+    audio.play().catch(() => {});
+  }
+}
+
+function toggleSound() {
+  const audio  = audioEl();
+  const btn    = document.getElementById('sound-play-btn');
+  const status = document.getElementById('sound-status');
+  if (!audio.src || audio.src === window.location.href) {
+    status.textContent = 'Selecione um som primeiro 🌿';
+    return;
+  }
+  if (soundPlaying) {
+    audio.pause();
+    soundPlaying = false;
+    btn.textContent = '▶';
+    btn.style.background = 'linear-gradient(135deg,var(--sage),var(--sage-d))';
+    status.textContent = 'Pausado';
+    stopSoundTimer();
+  } else {
+    audio.play().catch(e => {
+      status.textContent = 'Erro ao carregar áudio. Verifique conexão.';
+      console.warn('[GDS sound]', e);
+    });
+    soundPlaying = true;
+    btn.textContent = '⏸';
+    btn.style.background = 'linear-gradient(135deg,var(--tc),#a85f3a)';
+    status.textContent = '▶ Tocando…';
+    startSoundTimer();
+  }
+}
+
+function setVolume(v) {
+  const audio = audioEl();
+  if (audio) audio.volume = parseFloat(v);
+}
+
+function selectTimer(label, minutes, plan) {
+  selectedTimer = minutes;
+  timerPlan     = plan;
+  document.querySelectorAll('.timer-option').forEach(l => l.classList.remove('active'));
+  label.classList.add('active');
+  // If already playing, restart timer
+  if (soundPlaying) {
+    stopSoundTimer();
+    startSoundTimer();
+  }
+}
+
+function startSoundTimer() {
+  stopSoundTimer();
+  // Plan check — for now all plans unlock (Stripe will gate later)
+  if (selectedTimer === 0) {
+    // Sem parar — no timer
+    document.getElementById('timer-countdown').textContent = '∞ Tocando até você parar';
+    return;
+  }
+  timerSeconds = selectedTimer * 60;
+  updateCountdown();
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateCountdown();
+    if (timerSeconds <= 0) {
+      stopSoundTimer();
+      const audio = audioEl();
+      audio.pause();
+      soundPlaying = false;
+      const btn = document.getElementById('sound-play-btn');
+      if (btn) { btn.textContent = '▶'; btn.style.background = 'linear-gradient(135deg,var(--sage),var(--sage-d))'; }
+      const status = document.getElementById('sound-status');
+      if (status) status.textContent = 'Timer concluído 🌙';
+      document.getElementById('timer-countdown').textContent = '✓ Tempo encerrado';
+    }
+  }, 1000);
+}
+
+function stopSoundTimer() {
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+  document.getElementById('timer-countdown').textContent = '';
+}
+
+function updateCountdown() {
+  const el = document.getElementById('timer-countdown');
+  if (!el) return;
+  const m = Math.floor(timerSeconds / 60);
+  const s = timerSeconds % 60;
+  el.textContent = `⏱ Desligando em ${m}:${String(s).padStart(2,'0')}`;
+}
+
+// Auto-select 30 min timer as default on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const first = document.querySelector('.timer-option');
+  if (first) first.classList.add('active');
+});
+
+
    ─────────────────────────────────────────────────────────
    Para trocar os links: edite o campo `url` de cada produto.
    Para adicionar produtos: copie um objeto e cole no array.
@@ -3414,84 +3340,95 @@ function closePro() { document.getElementById('pro-ov').classList.remove('on'); 
 const PRODUTOS = [
   // ── HIGIENE ────────────────────────
   {
-    emoji:'🌸', categoria:'Higiene',
-    nome:'Fralda MamyPoko Pants Azul XG',
+    img: 'https://m.media-amazon.com/images/I/71yXzHNpIlL._AC_SX679_.jpg',
+    categoria:'Higiene',
+    nome:'Fralda MamyPoko Pants XG',
     tag:'Proteção máxima para o sono da madrugada',
     preco:'Ver na Amazon',
     url:'https://amzn.to/3NLWhIq',
   },
   {
-    emoji:'💛', categoria:'Higiene',
+    img: 'https://m.media-amazon.com/images/I/61ajrZ9iKJL._AC_SX679_.jpg',
+    categoria:'Higiene',
     nome:'Bepantol Baby Pomada',
     tag:'Previne e trata assaduras com carinho',
     preco:'Ver na Amazon',
     url:'https://amzn.to/48hxmDo',
   },
   {
-    emoji:'🫧', categoria:'Higiene',
-    nome:'Lenço Umedecido',
+    img: 'https://m.media-amazon.com/images/I/61B7mAP0IML._AC_SX679_.jpg',
+    categoria:'Higiene',
+    nome:'Bepantol Baby Lenços Umedecidos',
     tag:'Suave para a pele sensível do bebê',
     preco:'Ver na Amazon',
     url:'https://amzn.to/4bJYHis',
   },
   {
-    emoji:'🌼', categoria:'Higiene',
-    nome:'Pomada Cicatrizante Mustela',
-    tag:'Protege e cicatriza a pele delicada',
+    img: 'https://m.media-amazon.com/images/I/61YFr8sI2rL._AC_SX679_.jpg',
+    categoria:'Higiene',
+    nome:'Pomada Cicastela Mustela',
+    tag:'Repara, acalma e purifica — desde o nascimento',
     preco:'Ver na Amazon',
     url:'https://amzn.to/4lXtdub',
   },
   {
-    emoji:'🍃', categoria:'Higiene',
-    nome:"Sabonete Johnson's Baby Recém-Nascido",
-    tag:'Fórmula ultra suave para os primeiros dias',
+    img: 'https://m.media-amazon.com/images/I/61GRW6akpAL._AC_SX679_.jpg',
+    categoria:'Higiene',
+    nome:"Sabonete Johnson's Recém-Nascido",
+    tag:'Fórmula ultra suave — chega de lágrimas',
     preco:'Ver na Amazon',
     url:'https://amzn.to/4bGgXuB',
   },
   {
-    emoji:'✨', categoria:'Higiene',
-    nome:'Hidratante Johnson Baby (Todas as Idades)',
-    tag:'Pele macia e protegida em cada fase',
+    img: 'https://m.media-amazon.com/images/I/61jGFGqnpAL._AC_SX679_.jpg',
+    categoria:'Higiene',
+    nome:"Loção Hidratante Johnson's Recém-Nascido",
+    tag:'Pele macia e protegida desde o 1º dia',
     preco:'Ver na Amazon',
     url:'https://amzn.to/4bJYQT2',
   },
   // ── BEM-ESTAR ──────────────────────
   {
-    emoji:'🎶', categoria:'Bem-estar',
+    img: 'https://m.media-amazon.com/images/I/51bIlx6KJSL._AC_SX679_.jpg',
+    categoria:'Bem-estar',
     nome:'Máquina de Ruído Branco',
     tag:'O som que acalma e mantém o sono profundo',
     preco:'Ver na Amazon',
-    url:'',
+    url:'https://amzn.to/4sJmDtQ',
   },
   {
-    emoji:'🌙', categoria:'Bem-estar',
+    img: 'https://m.media-amazon.com/images/I/71pWGkWuFBL._AC_SX679_.jpg',
+    categoria:'Bem-estar',
     nome:'Saco de Dormir Bebê (SleepSack)',
     tag:'Segurança e quentinho a noite toda',
     preco:'Ver na Amazon',
-    url:'',
+    url:'https://amzn.to/3O8DfMo',
   },
   {
-    emoji:'🔆', categoria:'Bem-estar',
+    img: 'https://m.media-amazon.com/images/I/61TP8BfbF5L._AC_SX679_.jpg',
+    categoria:'Bem-estar',
     nome:'Abajur Luminária Noturna Touch',
     tag:'Luz âmbar que não atrapalha a melatonina',
     preco:'Ver na Amazon',
-    url:'',
+    url:'https://amzn.to/4sJmDtQ',
   },
   // ── ALIMENTAÇÃO ────────────────────
   {
-    emoji:'🍼', categoria:'Alimentação',
+    img: 'https://m.media-amazon.com/images/I/71JMLM93lCL._AC_SX679_.jpg',
+    categoria:'Alimentação',
     nome:'Mamadeira Anti-Cólica Philips Avent',
     tag:'Barriga feliz, sono tranquilo',
     preco:'Ver na Amazon',
-    url:'',
+    url:'https://amzn.to/47xfAvL',
   },
   // ── SEGURANÇA ──────────────────────
   {
-    emoji:'🛏️', categoria:'Segurança',
-    nome:'Berço Portátil Multikids Baby',
-    tag:'Rotina de sono em qualquer lugar',
+    img: 'https://m.media-amazon.com/images/I/71kp7Q2i8xL._AC_SX679_.jpg',
+    categoria:'Segurança',
+    nome:'Berço Prático / Cercado com Mosquiteiro',
+    tag:'Rotina de sono segura em qualquer lugar',
     preco:'Ver na Amazon',
-    url:'',
+    url:'https://amzn.to/4bEjlSu',
   },
 ];
 
@@ -3515,22 +3452,23 @@ function renderVitrine() {
     return;
   }
   grid.innerHTML = filtered.map(p => `
-    <div class="aff-card">
-      <div class="aff-img-wrap">${p.emoji}</div>
+    <a class="aff-card" href="${p.url || '#'}" target="_blank" rel="noopener sponsored" style="text-decoration:none;" ${!p.url ? 'onclick="event.preventDefault()"' : ''}>
+      <div class="aff-img-wrap" style="height:130px;background:var(--linen);display:flex;align-items:center;justify-content:center;overflow:hidden;">
+        ${p.img
+          ? `<img src="${p.img}" alt="${p.nome}" style="width:100%;height:100%;object-fit:contain;padding:8px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><span style="display:none;font-size:40px;align-items:center;justify-content:center;width:100%;height:100%;">🛒</span>`
+          : `<span style="font-size:44px;">${p.emoji||'🛒'}</span>`
+        }
+      </div>
       <div class="aff-body">
         <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-sub);margin-bottom:4px;">${p.categoria}</div>
         <div class="aff-name">${p.nome}</div>
         <div class="aff-tag">${p.tag}</div>
-        <div class="aff-price">${p.preco} <small>aprox.</small></div>
-        <a class="aff-btn"
-           href="${p.url || '#'}"
-           target="_blank" rel="noopener sponsored"
-           onclick="${p.url ? '' : 'event.preventDefault()'}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Ver na Loja
-        </a>
+        <div class="aff-btn" style="margin-top:auto;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" width="13" height="13"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Ver na Amazon
+        </div>
       </div>
-    </div>`).join('');
+    </a>`).join('');
 }
 
 document.addEventListener('DOMContentLoaded', () => { renderVitrine(); buildCartItems(); });
@@ -4267,11 +4205,14 @@ function buildSonecasGrid() {
    PLAN SYSTEM
 ═══════════════════════════════════════ */
 
-// In modoTeste, grant plus access automatically
+// In modoTeste or MASTER_EMAILS, grant premium access automatically
 function initUserRole() {
   if (modoTeste) {
-    userRole = 'plus';
-    localStorage.setItem('gds_role', 'plus');
+    userRole = 'premium';
+    localStorage.setItem('gds_role', 'premium');
+  } else if (currentUser && MASTER_EMAILS.includes((currentUser.email || '').toLowerCase())) {
+    userRole = 'premium';
+    localStorage.setItem('gds_role', 'premium');
   }
   updatePlanUI();
   applyPlanLocks();
@@ -4563,228 +4504,6 @@ function guideToddlerContent() {
 }
 
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
-
-/* ═══════════════════════════════════════════════════════
-   RITUAL DE SOM — lógica integrada (prefixo "rs" em tudo)
-═══════════════════════════════════════════════════════ */
-
-const RS_SOUNDS = {
-  chuva:  { name:'Chuva Suave',      url:'https://www.soundjay.com/nature/rain-01.mp3',   ytId:'mPZkdNFkNps', el:null },
-  utero:  { name:'Som do Útero',     url:'https://www.soundjay.com/nature/rain-02.mp3',   ytId:'Wxpg5AhVnkw', el:null },
-  branco: { name:'Ruído Branco Puro',url:'https://www.soundjay.com/nature/rain-03.mp3',   ytId:'nMfPqeZjc2c', el:null },
-  mar:    { name:'Ondas do Mar',      url:'https://www.soundjay.com/nature/waves-1.mp3',   ytId:'WHPEKLQID4U', el:null },
-  vento:  { name:'Vento nas Folhas', url:'https://www.soundjay.com/nature/wind-01.mp3',   ytId:'eKFTSSKCfyE', el:null },
-};
-
-const RS_STORIES = [
-  { title:'A Árvore que Abraçava a Lua',
-    text:`Era uma vez, numa floresta quieta, uma árvore muito alta e muito gentil. Seus galhos se esticavam até o céu toda noite, como se quisessem abraçar a lua. A lua, ao ver aquele carinho, ficava mais redonda e mais brilhante. E quando o vento passava entre as folhas, parecia um cantinho de ninar. O ursinho Tito deitava à sombra daquela árvore toda noite e, ouvindo o barulhinho das folhas, fechava os olhinhos devagarinho, devagarinho... até que os sonhos vinham buscá-lo, suaves como pétalas de flor no vento. E você, pequenininho... você também pode fechar os olhos agora. A floresta está guardando seu sono com muito carinho.`,
-    utterance:null, playing:false },
-  { title:'O Passarinho que Guardava Estrelas',
-    text:`Lá no alto de uma montanha tranquila, morava um passarinho chamado Lumi. Todo fim de tarde, quando o sol ia dormir, Lumi saía voando pelo céu e ia guardando as estrelas nos bolsinhos das nuvens. Uma por uma, com muito cuidado, até o céu inteiro ficar iluminado. Os bebês da floresta ficavam deitadinhos, olhando para o céu, e cada estrela que aparecia era um beijo de Lumi mandando boa noite. Quantas estrelas você consegue ver hoje? Conta uma, conta duas... e vai fechando os olhinhos aos pouquinhos, que Lumi já está guardando a sua estrela especial.`,
-    utterance:null, playing:false },
-  { title:'A Nuvem que Queria Virar Chuva',
-    text:`Havia uma nuvem chamada Fofa que tinha um sonho: queria se transformar em chuva e molhar as flores do jardim lá embaixo. Todo dia ela viajava pelo céu, crescendo, crescendo, juntando gotinhas de orvalho. E um dia, cheia de emoção, Fofa deixou cair as primeiras gotas. Plim, plim, plim... nas folhas grandes das bananeiras. Plim, plim, plim... no telhado de zinco das casinhas. As flores abriram os olhinhos coloridos e deram um grande sorriso. E Fofa, feliz, ficou flutuando devagazinho pelo céu enquanto a chuva cantava. Feche os olhos e ouça... você consegue ouvir as gotinhas?`,
-    utterance:null, playing:false },
-  { title:'A Borboleta do Sonho Bom',
-    text:`Toda noite, quando a lua subia no céu, uma borboleta especial saía voando. Ela se chamava Mia e tinha asinhas feitas de sonhos bons. Mia voava de janela em janela, procurando os bebês que ainda estavam acordados. Quando achava um, ela pousava devagazinho na ponta do narizinho, e soprava um sonho bonito nos pensamentos da criança. Às vezes era um sonho de campo florido. Às vezes de abraço de vovó. Às vezes de barco balançando no rio. Você está com os olhinhos pesados? Então Mia já chegou. Respira fundo... e deixa o sonho bom entrar.`,
-    utterance:null, playing:false },
-  { title:'O Coelhinho que Não Conseguia Dormir',
-    text:`O coelhinho Pip estava deitado na sua caminha de feno, mas o sono não vinha. Ele tentou contar cenouras: uma, duas, três... Tentou ouvir o vento: shhhh, shhhh, shhhh... Tentou imaginar campos cheios de flores: amarelas, roxas, brancas... E aí, a vovó coelha chegou devagazinho, cobriu Pip com um cobertor quentinho, e cantou baixinho no ouvido dele: Dorme, dorme, coelhinho meu... o campo está quieto e o céu é seu... Pip fechou as orelhinhas compridas, sentiu o calorzinho do cobertor... e finalmente o sono chegou, macio como algodão.`,
-    utterance:null, playing:false },
-];
-
-let rsCurrentSound  = null;
-let rsCurrentStory  = null;
-let rsStoryInterval = null;
-
-function _rsFmtTime(sec) {
-  const m = Math.floor(sec/60), s = Math.floor(sec%60);
-  return `${m}:${s.toString().padStart(2,'0')}`;
-}
-
-function _rsUpdateNowPlaying(title) {
-  const bar   = document.getElementById('rs-nowPlayingBar');
-  const label = document.getElementById('rs-npTitle');
-  if (!bar || !label) return;
-  label.textContent = title || '';
-  bar.classList.toggle('visible', !!title);
-}
-
-function _rsGetOrCreateAudio(key) {
-  const s = RS_SOUNDS[key];
-  if (!s.el) {
-    const a = document.createElement('audio');
-    a.src = s.url; a.loop = true; a.volume = 0.7; a.preload = 'none';
-    s.el = a;
-    const c = document.getElementById('rs-audio-container');
-    if (c) c.appendChild(a);
-  }
-  return s.el;
-}
-
-function _rsResetSoundCard(key) {
-  const card = document.getElementById(`rs-card-${key}`);
-  if (!card) return;
-  card.classList.remove('rs-playing');
-  const btn = card.querySelector('.rs-play-btn');
-  if (btn) btn.textContent = '▶';
-}
-
-function _rsResetStoryCard(idx) {
-  const card = document.getElementById(`rs-story-${idx}`);
-  if (!card) return;
-  card.classList.remove('rs-playing');
-  const btn = card.querySelector('.rs-story-btn');
-  if (btn) btn.textContent = '▶';
-}
-
-function rsToggleSound(key) {
-  const s    = RS_SOUNDS[key];
-  const card = document.getElementById(`rs-card-${key}`);
-  if (!card) return;
-  const btn  = card.querySelector('.rs-play-btn');
-
-  if (rsCurrentSound === key) {
-    s.el && s.el.pause();
-    _rsResetSoundCard(key);
-    rsCurrentSound = null;
-    _rsUpdateNowPlaying(null);
-    return;
-  }
-  if (rsCurrentSound) {
-    RS_SOUNDS[rsCurrentSound].el && RS_SOUNDS[rsCurrentSound].el.pause();
-    _rsResetSoundCard(rsCurrentSound);
-  }
-  _rsStopStory();
-
-  const audio = _rsGetOrCreateAudio(key);
-  audio.play().catch(() => {
-    if (confirm('Seu navegador bloqueou o áudio.\nDeseja abrir no YouTube?'))
-      window.open(`https://www.youtube.com/watch?v=${s.ytId}`, '_blank');
-  });
-
-  card.classList.add('rs-playing');
-  if (btn) btn.textContent = '⏸';
-  rsCurrentSound = key;
-  _rsUpdateNowPlaying(s.name);
-}
-
-function rsSetVolume(key, val) {
-  const s = RS_SOUNDS[key];
-  if (s.el) s.el.volume = Number(val) / 100;
-}
-
-function rsToggleStory(idx) {
-  const story = RS_STORIES[idx];
-  if (rsCurrentStory === idx && story.playing) {
-    window.speechSynthesis && window.speechSynthesis.cancel();
-    story.playing = false;
-    _rsResetStoryCard(idx);
-    rsCurrentStory = null;
-    _rsUpdateNowPlaying(null);
-    if (rsStoryInterval) { clearInterval(rsStoryInterval); rsStoryInterval = null; }
-    return;
-  }
-  if (rsCurrentSound) {
-    RS_SOUNDS[rsCurrentSound].el && RS_SOUNDS[rsCurrentSound].el.pause();
-    _rsResetSoundCard(rsCurrentSound);
-    rsCurrentSound = null;
-  }
-  _rsStopStory();
-  _rsPlayStory(idx);
-}
-
-function rsSeekStory(idx) {
-  const story = RS_STORIES[idx];
-  if (story.playing) {
-    window.speechSynthesis && window.speechSynthesis.cancel();
-    story.playing = false;
-    setTimeout(() => _rsPlayStory(idx), 120);
-  }
-}
-
-function rsStopAll() {
-  if (rsCurrentSound) {
-    RS_SOUNDS[rsCurrentSound].el && RS_SOUNDS[rsCurrentSound].el.pause();
-    _rsResetSoundCard(rsCurrentSound);
-    rsCurrentSound = null;
-  }
-  _rsStopStory();
-  _rsUpdateNowPlaying(null);
-}
-
-function _rsPlayStory(idx) {
-  if (!window.speechSynthesis) {
-    alert('Seu navegador não suporta narração de texto.\nTente no Chrome ou Safari.');
-    return;
-  }
-  const story  = RS_STORIES[idx];
-  const card   = document.getElementById(`rs-story-${idx}`);
-  const btn    = card && card.querySelector('.rs-story-btn');
-  const progEl = document.getElementById(`rs-prog-${idx}`);
-  const timeEl = document.getElementById(`rs-time-${idx}`);
-
-  const words  = story.text.split(' ').length;
-  const estSec = Math.round((words / 150) * 60);
-  let elapsed  = 0;
-
-  if (progEl) { progEl.max = estSec; progEl.value = 0; }
-  if (timeEl) timeEl.textContent = '0:00';
-
-  const utt    = new SpeechSynthesisUtterance(story.text);
-  utt.lang     = 'pt-BR'; utt.rate = 0.82; utt.pitch = 0.95; utt.volume = 1;
-
-  const voices = window.speechSynthesis.getVoices();
-  const ptVoice =
-    voices.find(v => v.lang.startsWith('pt') && v.name.toLowerCase().includes('female')) ||
-    voices.find(v => v.lang.startsWith('pt-BR')) ||
-    voices.find(v => v.lang.startsWith('pt'));
-  if (ptVoice) utt.voice = ptVoice;
-
-  utt.onend = () => {
-    story.playing = false;
-    _rsResetStoryCard(idx);
-    rsCurrentStory = null;
-    _rsUpdateNowPlaying(null);
-    if (rsStoryInterval) { clearInterval(rsStoryInterval); rsStoryInterval = null; }
-    if (progEl) progEl.value = estSec;
-    if (timeEl) timeEl.textContent = _rsFmtTime(estSec);
-  };
-
-  story.utterance = utt; story.playing = true; story.estSec = estSec;
-  rsCurrentStory = idx;
-  window.speechSynthesis.speak(utt);
-
-  if (card) card.classList.add('rs-playing');
-  if (btn)  btn.textContent = '⏸';
-  _rsUpdateNowPlaying(story.title);
-
-  rsStoryInterval = setInterval(() => {
-    elapsed++;
-    if (progEl) progEl.value = Math.min(elapsed, estSec);
-    if (timeEl) timeEl.textContent = _rsFmtTime(elapsed);
-    if (elapsed >= estSec) clearInterval(rsStoryInterval);
-  }, 1000);
-}
-
-function _rsStopStory() {
-  if (rsCurrentStory !== null) {
-    const story = RS_STORIES[rsCurrentStory];
-    window.speechSynthesis && window.speechSynthesis.cancel();
-    story.playing = false;
-    _rsResetStoryCard(rsCurrentStory);
-    rsCurrentStory = null;
-  }
-  if (rsStoryInterval) { clearInterval(rsStoryInterval); rsStoryInterval = null; }
-}
-
-// Pré-carrega vozes TTS
-if (window.speechSynthesis) {
-  window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
-}
-
-/* ═══════════════════════════════════════════════════════ */
 
 </script>
 <!-- ══ FOOD GUIDE MODAL ══════════════════════════════ -->
