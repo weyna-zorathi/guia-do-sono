@@ -1752,7 +1752,8 @@ body {
                 <div class="rotina-icon ri-gold">🌅</div>
                 <span class="rotina-label">Acordou às</span>
                 <input class="rotina-input" id="rt-despertar" type="time"
-                  title="Horário de despertar" oninput="calcJanelas()">
+                  title="Digite o horário — o resto é calculado automaticamente ✦"
+                  oninput="calcJanelas()">
               </div>
               <!-- Sugestão de janelas calculada automaticamente -->
               <div class="janela-hint" id="janela-hint"></div>
@@ -1766,7 +1767,9 @@ body {
               <div class="rotina-row">
                 <div class="rotina-icon ri-lav">🌙</div>
                 <span class="rotina-label">Sono noturno às</span>
-                <input class="rotina-input" id="rt-noturno" type="time" title="Horário do sono noturno">
+                <input class="rotina-input" id="rt-noturno" type="time"
+                  title="Sugestão automática — toque para ajustar"
+                  oninput="this.dataset.auto='0';this.style.color='';this.style.borderColor='';this.style.background=''">
               </div>
               <div class="rotina-divider"></div>
               <!-- Relato madrugada -->
@@ -3530,9 +3533,25 @@ function loadRotina() {
     const saved = JSON.parse(localStorage.getItem(key) || '{}');
     allFields.forEach(id => {
       const el = document.getElementById(id);
-      if (el && saved[id]) el.value = saved[id];
+      if (el && saved[id]) {
+        el.value = saved[id];
+        // Mark as manually saved (not auto) so user edits are preserved
+        if (el.dataset) el.dataset.auto = '0';
+      }
     });
-    if (saved['rt-despertar']) calcJanelas();
+    // Always recalculate auto-suggestions after loading
+    // (will only overwrite fields that are still empty or marked data-auto=1)
+    if (saved['rt-despertar']) {
+      // Clear auto-markers on calculated fields so calcJanelas can refresh them
+      ['rt-s1-esp','rt-s1-real','rt-noturno'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el && !saved[id]) {
+          // Field was not saved → let calcJanelas fill it as auto
+          if (el.dataset) el.dataset.auto = '';
+        }
+      });
+      calcJanelas();
+    }
   } catch {}
 }
 
@@ -4087,54 +4106,94 @@ function calcJanelas() {
   const hint      = document.getElementById('janela-hint');
   if (!despertar || !hint) return;
 
-  // Get age in months from cache
-  const cache     = getPerfilCache();
-  const info      = cache.data_nascimento ? calcIdadeESalto(cache.data_nascimento) : null;
-  const meses     = info ? info.totalMeses : null;
+  // ── Regras fixas do Guia do Sono ──────────────────────
+  // 1ª Soneca: despertar + 270 min (4h30 de janela de vigília)
+  // Fim da soneca: início + 90 min (1h30 de duração ideal)
+  // Sono noturno: fim da soneca + 240 min (4h de vigília pós-soneca)
+  //               mas nunca depois de 21:00 — usa o menor horário
+  const JANELA_VIGILIA_MIN = 270;  // 4h30
+  const DURACAO_SONECA_MIN = 90;   // 1h30
+  const JANELA_POS_SONECA  = 240;  // 4h
+  const NOTURNO_FIXO_H     = 20;
+  const NOTURNO_FIXO_M     = 21;   // teto fixo 20:21
 
-  // Janela de vigília por idade (minutos)
-  let janelaMin = 90; // padrão
-  if (meses === null)    janelaMin = 90;
-  else if (meses < 1)    janelaMin = 55;
-  else if (meses < 2)    janelaMin = 65;
-  else if (meses < 3)    janelaMin = 75;
-  else if (meses < 4)    janelaMin = 90;
-  else if (meses < 6)    janelaMin = 105;
-  else if (meses < 8)    janelaMin = 120;
-  else if (meses < 10)   janelaMin = 150;
-  else if (meses < 12)   janelaMin = 180;
-  else if (meses < 18)   janelaMin = 210;
-  else                   janelaMin = 270;
-
-  const [h, m] = despertar.split(':').map(Number);
+  const [h, m]  = despertar.split(':').map(Number);
   const baseMin = h * 60 + m;
 
   function addMin(base, delta) {
-    const total = (base + delta) % (24 * 60);
-    return String(Math.floor(total / 60)).padStart(2,'0') + ':' + String(total % 60).padStart(2,'0');
+    const total = Math.round(base + delta) % (24 * 60);
+    const th    = Math.floor(total / 60);
+    const tm    = total % 60;
+    return String(th).padStart(2,'0') + ':' + String(tm).padStart(2,'0');
   }
 
-  const s1    = addMin(baseMin, janelaMin);
-  // Sonecas qty from cache
-  const sonQ  = cache.sonecas_por_dia || '2';
-  let noturno;
-  if (sonQ === '0')     noturno = addMin(baseMin, janelaMin * 1);
-  else if (sonQ === '1') noturno = addMin(baseMin, janelaMin * 3);
-  else if (sonQ === '2') noturno = addMin(baseMin, janelaMin * 4.5);
-  else                   noturno = addMin(baseMin, janelaMin * 5);
+  function toMin(hhmm) {
+    const [hh, mm] = hhmm.split(':').map(Number);
+    return hh * 60 + mm;
+  }
 
-  const idadeLabel = info ? info.idadeStr : 'seu bebê';
+  // Cálculos principais
+  const s1Inicio    = addMin(baseMin, JANELA_VIGILIA_MIN);            // 06:51 → 11:21
+  const s1Fim       = addMin(baseMin, JANELA_VIGILIA_MIN + DURACAO_SONECA_MIN); // 11:21 → 12:51
+  const noturnoCalc = addMin(toMin(s1Fim), JANELA_POS_SONECA);        // 12:51 + 4h = 16:51
+  // Noturno real: o mais tardio entre calculado e 19:30, mas nunca além de 20:21
+  const noturnoFixoMin = NOTURNO_FIXO_H * 60 + NOTURNO_FIXO_M;
+  const noturnoCalcMin = toMin(noturnoCalc);
+  const noturnoMin = Math.min(Math.max(noturnoCalcMin, 19 * 60 + 30), noturnoFixoMin);
+  const noturno    = addMin(0, noturnoMin);
+
+  // Hint banner
   hint.innerHTML =
-    `💡 Para <strong>${idadeLabel}</strong>, janela de vigília ≈ <strong>${janelaMin} min</strong><br>` +
-    `☀️ 1ª soneca sugerida: <strong>${s1}</strong> &nbsp;·&nbsp; 🌙 Sono noturno: <strong>${noturno}</strong>`;
+    '<span style="font-size:13px;">🌅</span> ' +
+    '<strong>Soneca 1:</strong> ' + s1Inicio + ' &rarr; ' + s1Fim +
+    ' &nbsp;&nbsp; <strong>🌙 Noturno:</strong> ' + noturno;
   hint.classList.add('visible');
 
-  // Auto-fill suggested times (only if fields are empty)
-  const s1Field = document.getElementById('rt-s1-esp');
-  const ntField = document.getElementById('rt-noturno');
-  if (s1Field && !s1Field.value) s1Field.value = s1;
-  if (ntField && !ntField.value) ntField.value = noturno;
+  // ── Auto-preenche campos vazios ──────────────────────
+  // Soneca 1 esperada
+  const s1EspEl  = document.getElementById('rt-s1-esp');
+  const s1RealEl = document.getElementById('rt-s1-real');
+  const ntEl     = document.getElementById('rt-noturno');
+
+  function setSuggested(el, value) {
+    if (!el) return;
+    // Só preenche se vazio ou se é um valor que nós inserimos (marcado com data-auto)
+    if (!el.value || el.dataset.auto === '1') {
+      el.value          = value;
+      el.dataset.auto   = '1';
+      el.style.color         = 'var(--sage-d)';
+      el.style.borderColor   = 'var(--sage-l)';
+      el.style.background    = 'var(--sage-p)';
+      el.title               = 'Sugestão automática — toque para ajustar';
+    }
+  }
+
+  setSuggested(s1EspEl, s1Inicio);
+  setSuggested(ntEl,    noturno);
+
+  // Fim da soneca (s1-real como sugestão de fim ideal)
+  // Se a mãe ainda não registrou o horário real, pré-preenche com o ideal
+  if (s1RealEl && (!s1RealEl.value || s1RealEl.dataset.auto === '1')) {
+    setSuggested(s1RealEl, s1Fim);
+  }
+
+  // Atualiza badge de próxima janela no baby card
+  const progTime = document.querySelector('.prog-time');
+  if (progTime) progTime.textContent = '~' + s1Inicio;
 }
+
+// Limpa marcação de "auto" quando a mãe edita manualmente
+document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('input', function(e) {
+    if (e.target.dataset && e.target.dataset.auto === '1') {
+      e.target.dataset.auto        = '0';
+      e.target.style.color         = '';
+      e.target.style.borderColor   = '';
+      e.target.style.background    = '';
+      e.target.title               = '';
+    }
+  });
+});
 
 /* ═══════════════════════════════════════
    loadProfileCache → applyPerfilCache
@@ -4155,8 +4214,8 @@ function buildSonecasGrid() {
 
   const cache   = getPerfilCache ? getPerfilCache() : {};
   const rawSon  = cache.sonecas_por_dia || '';
-  // Parse: '2' → 2, '3-4' → 4, '5-6' → 5, '0' → 0
-  let maxSon = 2; // default
+  // Parse: '2' → 2, '3-4' → 3, '5-6' → 5, '0' → 0, '' → 1 (default uma soneca)
+  let maxSon = 1; // default
   if (rawSon === '0')   maxSon = 0;
   else if (rawSon === '1')   maxSon = 1;
   else if (rawSon === '2')   maxSon = 2;
@@ -4172,13 +4231,16 @@ function buildSonecasGrid() {
   }
 
   let html = `
-    <div style="font-size:11px;font-weight:600;color:var(--text-sub);margin-bottom:6px;display:flex;align-items:center;gap:6px;">
-      <span style="background:var(--sage-p);border-radius:8px;padding:2px 8px;font-size:10px;">☀️ Sonecas (${maxSon})</span>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+      <span style="font-size:11px;font-weight:600;color:var(--text-sub);">☀️ Sonecas (${maxSon})</span>
+      <span style="font-size:9px;color:var(--sage-d);background:var(--sage-p);border-radius:8px;padding:2px 8px;font-weight:600;letter-spacing:.04em;">
+        ✦ Auto preenchido
+      </span>
     </div>
     <div class="soneca-grid">
       <div class="soneca-row">
         <div class="soneca-num"></div>
-        <div class="soneca-col-label">Esperado</div>
+        <div class="soneca-col-label">Início (Esp.)</div>
         <div class="soneca-col-label">Real</div>
       </div>`;
 
@@ -4186,12 +4248,20 @@ function buildSonecasGrid() {
     html += `
       <div class="soneca-row">
         <div class="soneca-num">${i}</div>
-        <input class="rotina-input" id="rt-s${i}-esp"  type="time" title="Soneca ${i} esperada">
-        <input class="rotina-input" id="rt-s${i}-real" type="time" title="Soneca ${i} real">
+        <input class="rotina-input" id="rt-s${i}-esp"  type="time"
+          title="Soneca ${i} esperada — calculada automaticamente"
+          oninput="this.dataset.auto='0';this.style.color='';this.style.borderColor='';this.style.background=''">
+        <input class="rotina-input" id="rt-s${i}-real" type="time"
+          title="Soneca ${i} real — registre quando acontecer"
+          oninput="this.dataset.auto='0';this.style.color='';this.style.borderColor='';this.style.background=''">
       </div>`;
   }
   html += '</div>';
   container.innerHTML = html;
+
+  // After building, recalculate if despertar already has a value
+  const despertar = document.getElementById('rt-despertar');
+  if (despertar && despertar.value) calcJanelas();
 }
 
 
