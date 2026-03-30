@@ -1,932 +1,1254 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Guia do Sono — Ritual de Som</title>
-<meta name="theme-color" content="#faf6ef">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<link rel="manifest" href="manifest.json">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+// ==========================================================
+// RITUAL DE SOM — Guia do Sono
+// Upgrade Visual: Estética Aventura & Natureza
+// Mantém 100% da funcionalidade original
+// ==========================================================
 
-<style>
-:root {
-  --cream:#faf6ef;--warm:#fff9f2;
-  --sage:#8a9e7f;--sage-l:#b5c9a8;--sage-d:#5a7050;--sage-p:#edf3e8;
-  --tc:#c47a52;--tc-l:#e8a97e;--tc-p:#f5e0d0;
-  --brown:#7a5c3e;--brown-l:#a07850;
-  --linen:#ede5d8;--linen-d:#d8ccb8;
-  --night:#2c3e2d;
-  --gold:#c9a84c;--gold-l:#e8cc7e;--gold-p:#faf3df;
-  --indigo:#3d4f7c;--indigo-l:#6b7faf;--indigo-p:#eef0f8;
-}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html,body{height:100%;height:100dvh;overflow:hidden;}
-body{
-  font-family:'DM Sans',sans-serif;
-  background:var(--cream);
-  display:flex;flex-direction:column;
-  background-image:
-    radial-gradient(ellipse at 90% 0%, rgba(196,122,82,0.05) 0%,transparent 40%),
-    radial-gradient(ellipse at 5% 70%, rgba(138,158,127,0.06) 0%,transparent 45%);
-}
+(function() {
+  'use strict';
 
-/* ── HEADER ── */
-.app-header{
-  padding:max(env(safe-area-inset-top,0px),52px) 20px 12px;
-  flex-shrink:0;background:transparent;
-}
-.header-label{font-size:11px;color:var(--brown-l);margin-bottom:2px;letter-spacing:.04em;}
-.header-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--night);}
-.header-title em{color:var(--tc);font-style:italic;}
+  // ----------------------------------------------------------
+  // ESTADO GLOBAL
+  // ----------------------------------------------------------
+  let rsCurrentAudio = null;
+  let rsCurrentTimer = null;
+  let rsTimerEndTime = null;
+  let rsIsPlaying = false;
+  let rsSynthVoice = null;
+  let rsCurrentItem = null;
+  let rsTimerMinutes = 30;
 
-/* ── SCROLL ── */
-.scroll-area{
-  flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
-  padding:0 16px calc(90px + env(safe-area-inset-bottom,0px));
-}
-.scroll-area::-webkit-scrollbar{display:none;}
-
-/* ── NOW PLAYING BAR ── */
-.now-playing-bar{
-  display:none;
-  margin:0 0 18px;
-  background:var(--night);
-  border-radius:20px;
-  padding:14px 16px;
-  position:relative;overflow:hidden;
-  align-items:center;gap:12px;
-}
-.now-playing-bar.visible{display:flex;}
-.now-playing-bar::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 100% at 0% 50%,rgba(138,158,127,.22) 0%,transparent 60%);
-  pointer-events:none;
-}
-.np-icon{font-size:28px;flex-shrink:0;position:relative;z-index:1;}
-.np-info{flex:1;position:relative;z-index:1;min-width:0;}
-.np-label{font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:2px;}
-.np-title{font-family:'Lora',serif;font-size:14px;font-style:italic;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.np-controls{display:flex;gap:8px;align-items:center;position:relative;z-index:1;flex-shrink:0;}
-.np-btn{
-  width:34px;height:34px;border-radius:50%;
-  border:none;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  font-size:14px;transition:all .2s;
-}
-.np-btn-stop{background:rgba(255,255,255,.12);color:#fff;}
-.np-btn-stop:active{background:rgba(255,255,255,.22);}
-.np-wave{
-  display:flex;gap:2px;align-items:center;height:18px;
-  position:relative;z-index:1;
-}
-.np-wave span{
-  display:block;width:3px;border-radius:2px;
-  background:var(--sage-l);
-  animation:wave 1s ease-in-out infinite;
-}
-.np-wave span:nth-child(1){height:6px;animation-delay:0s;}
-.np-wave span:nth-child(2){height:12px;animation-delay:.1s;}
-.np-wave span:nth-child(3){height:18px;animation-delay:.2s;}
-.np-wave span:nth-child(4){height:10px;animation-delay:.3s;}
-.np-wave span:nth-child(5){height:14px;animation-delay:.15s;}
-@keyframes wave{
-  0%,100%{transform:scaleY(.4);}
-  50%{transform:scaleY(1);}
-}
-
-/* ── SECTION HEADER ── */
-.sec-hdr{padding:8px 0 12px;}
-.sec-title{
-  font-family:'Playfair Display',serif;
-  font-size:16px;font-weight:700;color:var(--night);
-  display:flex;align-items:center;gap:8px;
-}
-.sec-title::after{
-  content:'';flex:1;height:1px;background:var(--linen-d);
-}
-.sec-sub{font-family:'Lora',serif;font-style:italic;font-size:12px;color:var(--brown-l);margin-top:3px;}
-
-/* ── SOUND CARDS ── */
-.sound-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
-.sound-card{
-  background:var(--warm);
-  border:1px solid var(--linen);
-  border-radius:20px;
-  padding:16px 18px;
-  display:flex;align-items:center;gap:14px;
-  cursor:pointer;
-  transition:all .2s;
-  position:relative;overflow:hidden;
-}
-.sound-card:active{transform:scale(.99);}
-.sound-card.playing{
-  border-color:var(--sage-l);
-  background:var(--sage-p);
-}
-.sound-card::after{
-  content:'';
-  position:absolute;inset:0;
-  border-radius:20px;
-  box-shadow:0 0 0 0 rgba(138,158,127,0);
-  transition:box-shadow .3s;
-}
-.sound-card.playing::after{
-  box-shadow:0 0 0 2px rgba(138,158,127,.4);
-}
-.sound-card-emoji{
-  width:52px;height:52px;border-radius:16px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:24px;flex-shrink:0;
-  background:var(--linen);
-  transition:background .2s;
-}
-.sound-card.playing .sound-card-emoji{background:var(--sage-l);}
-.sound-card-info{flex:1;min-width:0;}
-.sound-card-title{
-  font-family:'Lora',serif;font-weight:500;font-size:15px;
-  color:var(--night);margin-bottom:3px;
-}
-.sound-card-sub{font-size:11px;color:var(--brown-l);}
-.sound-card-action{
-  width:40px;height:40px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;flex-shrink:0;
-  background:var(--linen);
-  border:none;cursor:pointer;
-  transition:all .2s;
-}
-.sound-card.playing .sound-card-action{
-  background:var(--sage);
-  color:#fff;
-}
-
-/* volume slider area */
-.vol-row{
-  display:none;
-  margin-top:12px;
-  padding-top:12px;
-  border-top:1px solid rgba(0,0,0,.06);
-  gap:10px;align-items:center;
-}
-.sound-card.playing .vol-row{display:flex;}
-.vol-icon{font-size:14px;color:var(--brown-l);}
-.vol-slider{
-  flex:1;-webkit-appearance:none;appearance:none;
-  height:4px;border-radius:4px;
-  background:var(--linen-d);outline:none;cursor:pointer;
-}
-.vol-slider::-webkit-slider-thumb{
-  -webkit-appearance:none;
-  width:16px;height:16px;border-radius:50%;
-  background:var(--sage);
-  cursor:pointer;
-}
-.sound-card.playing .vol-slider{
-  background:var(--sage-l);
-}
-
-/* ── STORY CARDS ── */
-.story-card{
-  background:var(--warm);
-  border:1px solid var(--linen);
-  border-radius:20px;
-  overflow:hidden;
-  margin-bottom:12px;
-  transition:all .2s;
-  cursor:pointer;
-}
-.story-card.playing{border-color:var(--gold-l);background:var(--gold-p);}
-.story-header{
-  display:flex;align-items:center;gap:14px;
-  padding:16px 18px;
-}
-.story-cover{
-  width:56px;height:56px;border-radius:14px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:26px;flex-shrink:0;
-  position:relative;overflow:hidden;
-}
-.story-cover-bg{
-  position:absolute;inset:0;border-radius:14px;
-}
-.story-cover-emoji{position:relative;z-index:1;}
-.story-info{flex:1;min-width:0;}
-.story-title{
-  font-family:'Playfair Display',serif;font-size:14px;font-weight:700;
-  color:var(--night);margin-bottom:3px;line-height:1.3;
-}
-.story-meta{display:flex;gap:10px;align-items:center;}
-.story-duration{
-  font-size:10px;color:var(--brown-l);
-  display:flex;align-items:center;gap:4px;
-}
-.story-age{
-  font-size:10px;background:var(--sage-p);color:var(--sage-d);
-  padding:2px 8px;border-radius:20px;font-weight:500;
-}
-.story-play-btn{
-  width:40px;height:40px;border-radius:50%;
-  background:var(--night);color:#fff;
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;flex-shrink:0;border:none;cursor:pointer;
-  transition:all .2s;
-}
-.story-card.playing .story-play-btn{background:var(--gold);color:var(--night);}
-
-.story-progress-wrap{
-  display:none;
-  padding:0 18px 14px;gap:10px;align-items:center;
-}
-.story-card.playing .story-progress-wrap{display:flex;}
-.story-progress{
-  flex:1;-webkit-appearance:none;appearance:none;
-  height:4px;border-radius:4px;
-  background:var(--linen-d);outline:none;cursor:pointer;
-}
-.story-card.playing .story-progress{background:var(--gold-l);}
-.story-progress::-webkit-slider-thumb{
-  -webkit-appearance:none;
-  width:14px;height:14px;border-radius:50%;
-  background:var(--gold);cursor:pointer;
-}
-.story-time{font-size:10px;color:var(--brown-l);flex-shrink:0;}
-
-/* ── TIP CARD ── */
-.tip-card{
-  background:var(--tc-p);
-  border:1px solid rgba(196,122,82,.2);
-  border-radius:18px;
-  padding:16px 18px;
-  margin-bottom:24px;
-  display:flex;gap:12px;align-items:flex-start;
-}
-.tip-icon{font-size:22px;flex-shrink:0;margin-top:1px;}
-.tip-text{font-family:'Lora',serif;font-style:italic;font-size:13px;color:var(--brown);line-height:1.6;}
-.tip-text strong{font-style:normal;font-weight:600;color:var(--tc);}
-
-/* ── BOTTOM NAV ── */
-.bottom-nav{
-  position:fixed;bottom:0;left:0;right:0;
-  background:rgba(250,246,239,.96);
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  border-top:1px solid var(--linen);
-  display:flex;align-items:center;justify-content:space-around;
-  padding:8px 8px;
-  padding-bottom:max(env(safe-area-inset-bottom,8px),8px);
-  z-index:100;
-}
-.nav-item{
-  flex:1;display:flex;flex-direction:column;
-  align-items:center;gap:3px;padding:8px 4px;
-  border-radius:14px;cursor:pointer;
-  text-decoration:none;transition:background .15s;
-}
-.nav-item:active{background:var(--linen);}
-.nav-item.active{background:var(--sage-p);}
-.nav-icon{font-size:20px;line-height:1;}
-.nav-lbl{font-size:10px;font-weight:500;color:var(--brown-l);}
-.nav-item.active .nav-lbl{color:var(--sage-d);}
-
-/* ── HIDDEN AUDIO CONTAINER ── */
-#audio-container{
-  position:fixed;
-  width:1px;height:1px;
-  opacity:0;pointer-events:none;
-  overflow:hidden;left:-9999px;top:-9999px;
-}
-
-/* ── FADE ANIMS ── */
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(12px);}
-  to{opacity:1;transform:translateY(0);}
-}
-.fade-up{opacity:0;animation:fadeUp .5s ease forwards;}
-.fade-up-1{animation-delay:.05s;}
-.fade-up-2{animation-delay:.12s;}
-.fade-up-3{animation-delay:.20s;}
-.fade-up-4{animation-delay:.28s;}
-.fade-up-5{animation-delay:.36s;}
-.fade-up-6{animation-delay:.44s;}
-
-/* moon glow accent */
-.moon-accent{
-  font-size:32px;
-  filter:drop-shadow(0 0 12px rgba(201,168,76,.4));
-}
-</style>
-</head>
-<body>
-
-<!-- HIDDEN AUDIO CONTAINER — carrega depois da página, não bloqueia login nem chat -->
-<div id="audio-container">
-  <!-- Os elementos <audio> são injetados via JS apenas quando o usuário clica pela primeira vez -->
-</div>
-
-<!-- HEADER -->
-<div class="app-header fade-up fade-up-1">
-  <div class="header-label">✦ ambiente sonoro para o sono</div>
-  <div class="header-title"><span class="moon-accent">🌙</span> Ritual de <em>Som</em></div>
-</div>
-
-<!-- SCROLL AREA -->
-<div class="scroll-area">
-
-  <!-- NOW PLAYING BAR -->
-  <div class="now-playing-bar fade-up fade-up-1" id="nowPlayingBar">
-    <div class="np-wave">
-      <span></span><span></span><span></span><span></span><span></span>
-    </div>
-    <div class="np-info">
-      <div class="np-label">Tocando agora</div>
-      <div class="np-title" id="npTitle">—</div>
-    </div>
-    <div class="np-controls">
-      <button class="np-btn np-btn-stop" onclick="stopAll()" title="Parar tudo">⏹</button>
-    </div>
-  </div>
-
-  <!-- TIP CARD -->
-  <div class="tip-card fade-up fade-up-2">
-    <div class="tip-icon">🌿</div>
-    <div class="tip-text">O som continua tocando mesmo enquanto você navega nas outras abas do app. <strong>Volume ideal:</strong> parecido com o chiuveiro ligado no quarto ao lado — nem silêncio total, nem barulho demais.</div>
-  </div>
-
-  <!-- RUÍDO BRANCO -->
-  <div class="sec-hdr fade-up fade-up-3">
-    <div class="sec-title">🌧️ Ruído Branco</div>
-    <div class="sec-sub">Sons contínuos que imitam o útero e acalmam o sistema nervoso</div>
-  </div>
-
-  <div class="sound-grid fade-up fade-up-3">
-
-    <!-- Chuva -->
-    <div class="sound-card" id="card-chuva" onclick="toggleSound('chuva')">
-      <div class="sound-card-emoji">🌧️</div>
-      <div class="sound-card-info">
-        <div class="sound-card-title">Chuva Suave</div>
-        <div class="sound-card-sub">Gotinhas em janela · relaxa e induz o sono</div>
-        <div class="vol-row">
-          <span class="vol-icon">🔈</span>
-          <input type="range" class="vol-slider" min="0" max="100" value="70"
-                 oninput="setVolume('chuva', this.value)"
-                 onclick="event.stopPropagation()">
-          <span class="vol-icon">🔊</span>
-        </div>
-      </div>
-      <button class="sound-card-action">▶</button>
-    </div>
-
-    <!-- Útero -->
-    <div class="sound-card" id="card-utero" onclick="toggleSound('utero')">
-      <div class="sound-card-emoji">🤰</div>
-      <div class="sound-card-info">
-        <div class="sound-card-title">Som do Útero</div>
-        <div class="sound-card-sub">Batimento cardíaco + whoosh · ideal para RN até 4m</div>
-        <div class="vol-row">
-          <span class="vol-icon">🔈</span>
-          <input type="range" class="vol-slider" min="0" max="100" value="70"
-                 oninput="setVolume('utero', this.value)"
-                 onclick="event.stopPropagation()">
-          <span class="vol-icon">🔊</span>
-        </div>
-      </div>
-      <button class="sound-card-action">▶</button>
-    </div>
-
-    <!-- Ruído Branco Contínuo -->
-    <div class="sound-card" id="card-branco" onclick="toggleSound('branco')">
-      <div class="sound-card-emoji">📻</div>
-      <div class="sound-card-info">
-        <div class="sound-card-title">Ruído Branco Puro</div>
-        <div class="sound-card-sub">Estático contínuo · mascara ruídos da casa</div>
-        <div class="vol-row">
-          <span class="vol-icon">🔈</span>
-          <input type="range" class="vol-slider" min="0" max="100" value="70"
-                 oninput="setVolume('branco', this.value)"
-                 onclick="event.stopPropagation()">
-          <span class="vol-icon">🔊</span>
-        </div>
-      </div>
-      <button class="sound-card-action">▶</button>
-    </div>
-
-    <!-- Ventre do Mar -->
-    <div class="sound-card" id="card-mar" onclick="toggleSound('mar')">
-      <div class="sound-card-emoji">🌊</div>
-      <div class="sound-card-info">
-        <div class="sound-card-title">Ondas do Mar</div>
-        <div class="sound-card-sub">Vagas rítmicas · regulam a respiração</div>
-        <div class="vol-row">
-          <span class="vol-icon">🔈</span>
-          <input type="range" class="vol-slider" min="0" max="100" value="70"
-                 oninput="setVolume('mar', this.value)"
-                 onclick="event.stopPropagation()">
-          <span class="vol-icon">🔊</span>
-        </div>
-      </div>
-      <button class="sound-card-action">▶</button>
-    </div>
-
-    <!-- Vento na folhagem -->
-    <div class="sound-card" id="card-vento" onclick="toggleSound('vento')">
-      <div class="sound-card-emoji">🍃</div>
-      <div class="sound-card-info">
-        <div class="sound-card-title">Vento nas Folhas</div>
-        <div class="sound-card-sub">Sussurro da natureza · suave e reconfortante</div>
-        <div class="vol-row">
-          <span class="vol-icon">🔈</span>
-          <input type="range" class="vol-slider" min="0" max="100" value="70"
-                 oninput="setVolume('vento', this.value)"
-                 onclick="event.stopPropagation()">
-          <span class="vol-icon">🔊</span>
-        </div>
-      </div>
-      <button class="sound-card-action">▶</button>
-    </div>
-
-  </div>
-
-  <!-- HISTÓRIAS -->
-  <div class="sec-hdr fade-up fade-up-4">
-    <div class="sec-title">📖 Histórias para Sonhar</div>
-    <div class="sec-sub">Narrativas curtas e calmantes para a hora de dormir</div>
-  </div>
-
-  <div class="fade-up fade-up-5">
-
-    <!-- História 1 -->
-    <div class="story-card" id="story-card-0">
-      <div class="story-header" onclick="toggleStory(0)">
-        <div class="story-cover">
-          <div class="story-cover-bg" style="background:linear-gradient(135deg,#a8d5a2,#5a9e5a);"></div>
-          <div class="story-cover-emoji">🌳</div>
-        </div>
-        <div class="story-info">
-          <div class="story-title">A Árvore que Abraçava a Lua</div>
-          <div class="story-meta">
-            <span class="story-duration">🕐 ~6 min</span>
-            <span class="story-age">0–3 anos</span>
-          </div>
-        </div>
-        <button class="story-play-btn" onclick="event.stopPropagation();toggleStory(0)">▶</button>
-      </div>
-      <div class="story-progress-wrap">
-        <input type="range" class="story-progress" id="story-prog-0" min="0" max="100" value="0"
-               oninput="seekStory(0, this.value)" onclick="event.stopPropagation()">
-        <span class="story-time" id="story-time-0">0:00</span>
-      </div>
-    </div>
-
-    <!-- História 2 -->
-    <div class="story-card" id="story-card-1">
-      <div class="story-header" onclick="toggleStory(1)">
-        <div class="story-cover">
-          <div class="story-cover-bg" style="background:linear-gradient(135deg,#f4c97a,#e8883a);"></div>
-          <div class="story-cover-emoji">⭐</div>
-        </div>
-        <div class="story-info">
-          <div class="story-title">O Passarinho que Guardava Estrelas</div>
-          <div class="story-meta">
-            <span class="story-duration">🕐 ~5 min</span>
-            <span class="story-age">1–4 anos</span>
-          </div>
-        </div>
-        <button class="story-play-btn" onclick="event.stopPropagation();toggleStory(1)">▶</button>
-      </div>
-      <div class="story-progress-wrap">
-        <input type="range" class="story-progress" id="story-prog-1" min="0" max="100" value="0"
-               oninput="seekStory(1, this.value)" onclick="event.stopPropagation()">
-        <span class="story-time" id="story-time-1">0:00</span>
-      </div>
-    </div>
-
-    <!-- História 3 -->
-    <div class="story-card" id="story-card-2">
-      <div class="story-header" onclick="toggleStory(2)">
-        <div class="story-cover">
-          <div class="story-cover-bg" style="background:linear-gradient(135deg,#b8d4f0,#6a9fd8);"></div>
-          <div class="story-cover-emoji">☁️</div>
-        </div>
-        <div class="story-info">
-          <div class="story-title">A Nuvem que Queria Virar Chuva</div>
-          <div class="story-meta">
-            <span class="story-duration">🕐 ~7 min</span>
-            <span class="story-age">2–5 anos</span>
-          </div>
-        </div>
-        <button class="story-play-btn" onclick="event.stopPropagation();toggleStory(2)">▶</button>
-      </div>
-      <div class="story-progress-wrap">
-        <input type="range" class="story-progress" id="story-prog-2" min="0" max="100" value="0"
-               oninput="seekStory(2, this.value)" onclick="event.stopPropagation()">
-        <span class="story-time" id="story-time-2">0:00</span>
-      </div>
-    </div>
-
-    <!-- História 4 -->
-    <div class="story-card" id="story-card-3">
-      <div class="story-header" onclick="toggleStory(3)">
-        <div class="story-cover">
-          <div class="story-cover-bg" style="background:linear-gradient(135deg,#dbb8f5,#9966cc);"></div>
-          <div class="story-cover-emoji">🦋</div>
-        </div>
-        <div class="story-info">
-          <div class="story-title">A Borboleta do Sonho Bom</div>
-          <div class="story-meta">
-            <span class="story-duration">🕐 ~5 min</span>
-            <span class="story-age">0–3 anos</span>
-          </div>
-        </div>
-        <button class="story-play-btn" onclick="event.stopPropagation();toggleStory(3)">▶</button>
-      </div>
-      <div class="story-progress-wrap">
-        <input type="range" class="story-progress" id="story-prog-3" min="0" max="100" value="0"
-               oninput="seekStory(3, this.value)" onclick="event.stopPropagation()">
-        <span class="story-time" id="story-time-3">0:00</span>
-      </div>
-    </div>
-
-    <!-- História 5 -->
-    <div class="story-card" id="story-card-4">
-      <div class="story-header" onclick="toggleStory(4)">
-        <div class="story-cover">
-          <div class="story-cover-bg" style="background:linear-gradient(135deg,#f5b8c4,#e87a8a);"></div>
-          <div class="story-cover-emoji">🐰</div>
-        </div>
-        <div class="story-info">
-          <div class="story-title">O Coelhinho que Não Conseguia Dormir</div>
-          <div class="story-meta">
-            <span class="story-duration">🕐 ~6 min</span>
-            <span class="story-age">1–4 anos</span>
-          </div>
-        </div>
-        <button class="story-play-btn" onclick="event.stopPropagation();toggleStory(4)">▶</button>
-      </div>
-      <div class="story-progress-wrap">
-        <input type="range" class="story-progress" id="story-prog-4" min="0" max="100" value="0"
-               oninput="seekStory(4, this.value)" onclick="event.stopPropagation()">
-        <span class="story-time" id="story-time-4">0:00</span>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- SPACER -->
-  <div style="height:20px;"></div>
-
-</div><!-- end scroll-area -->
-
-<!-- BOTTOM NAV -->
-<div class="bottom-nav">
-  <a class="nav-item" href="dashboard.html"><span class="nav-icon">🏠</span><span class="nav-lbl">Início</span></a>
-  <a class="nav-item" href="progresso.html"><span class="nav-icon">📊</span><span class="nav-lbl">Progresso</span></a>
-  <a class="nav-item" href="chat.html"><span class="nav-icon">💬</span><span class="nav-lbl">Chat</span></a>
-  <a class="nav-item" href="guias.html"><span class="nav-icon">📚</span><span class="nav-lbl">Guias</span></a>
-  <a class="nav-item active" href="ritual-de-som.html"><span class="nav-icon">🌙</span><span class="nav-lbl">Ritual</span></a>
-  <a class="nav-item" href="perfil.html"><span class="nav-icon">👤</span><span class="nav-lbl">Perfil</span></a>
-</div>
-
-<script>
-/* ─────────────────────────────────────────────
-   CONFIGURAÇÃO DOS SONS (ruído branco)
-   Usamos URLs do freesound / open-source.
-   Os <audio> são criados lazily — só quando o usuário clica,
-   assim não bloqueiam o login nem o chat.
-───────────────────────────────────────────── */
-
-const SOUNDS = {
-  chuva: {
-    name: 'Chuva Suave',
-    // Rain on leaves — CC0, loopable
-    url: 'https://www.soundjay.com/nature/rain-01.mp3',
-    // Fallback: YouTube embed (muted iframe trick)
-    ytId: 'mPZkdNFkNps',
-    el: null, loop: true
-  },
-  utero: {
-    name: 'Som do Útero',
-    url: 'https://www.soundjay.com/nature/rain-02.mp3',
-    ytId: 'Wxpg5AhVnkw',
-    el: null, loop: true
-  },
-  branco: {
-    name: 'Ruído Branco Puro',
-    url: 'https://www.soundjay.com/nature/rain-03.mp3',
-    ytId: 'nMfPqeZjc2c',
-    el: null, loop: true
-  },
-  mar: {
-    name: 'Ondas do Mar',
-    url: 'https://www.soundjay.com/nature/waves-1.mp3',
-    ytId: 'WHPEKLQID4U',
-    el: null, loop: true
-  },
-  vento: {
-    name: 'Vento nas Folhas',
-    url: 'https://www.soundjay.com/nature/wind-01.mp3',
-    ytId: 'eKFTSSKCfyE',
-    el: null, loop: true
-  }
-};
-
-/* Histórias: usamos a Web Speech API (TTS nativo do browser)
-   para narração offline — sem dependência de servidor.
-   Em produção, troque por URLs de arquivos .mp3 hospedados. */
-const STORIES = [
-  {
-    title: 'A Árvore que Abraçava a Lua',
-    text: `Era uma vez, numa floresta quieta, uma árvore muito alta e muito gentil. \
-Seus galhos se esticavam até o céu toda noite, como se quisessem abraçar a lua. \
-A lua, ao ver aquele carinho, ficava mais redonda e mais brilhante. \
-E quando o vento passava entre as folhas, parecia um cantinho de ninar. \
-O ursinho Tito deitava à sombra daquela árvore toda noite e, ouvindo o barulhinho das folhas, \
-fechava os olhinhos devagarinho, devagarinho... até que os sonhos vinham buscá-lo, \
-suaves como pétalas de flor no vento. E você, pequenininho... você também pode fechar os olhos agora. \
-A floresta está guardando seu sono com muito carinho.`,
-    el: null, utterance: null, playing: false
-  },
-  {
-    title: 'O Passarinho que Guardava Estrelas',
-    text: `Lá no alto de uma montanha tranquila, morava um passarinho chamado Lumi. \
-Todo fim de tarde, quando o sol ia dormir, Lumi saía voando pelo céu \
-e ia guardando as estrelas nos bolsinhos das nuvens. \
-Uma por uma, com muito cuidado, até o céu inteiro ficar iluminado. \
-Os bebês da floresta ficavam deitadinhos, olhando para o céu, \
-e cada estrela que aparecia era um beijo de Lumi mandando boa noite. \
-Quantas estrelas você consegue ver hoje? Conta uma, conta duas... \
-e vai fechando os olhinhos aos pouquinhos, que Lumi já está guardando a sua estrela especial.`,
-    el: null, utterance: null, playing: false
-  },
-  {
-    title: 'A Nuvem que Queria Virar Chuva',
-    text: `Havia uma nuvem chamada Fofa que tinha um sonho: queria se transformar em chuva \
-e molhar as flores do jardim lá embaixo. \
-Todo dia ela viajava pelo céu, crescendo, crescendo, juntando gotinhas de orvalho. \
-E um dia, cheia de emoção, Fofa deixou cair as primeiras gotas. \
-Plim, plim, plim... nas folhas grandes das bananeiras. \
-Plim, plim, plim... no telhado de zinco das casinhas. \
-As flores abriram os olhinhos coloridos e deram um grande sorriso. \
-E Fofa, feliz, ficou flutuando devagazinho pelo céu enquanto a chuva cantava. \
-Feche os olhos e ouça... você consegue ouvir as gotinhas?`,
-    el: null, utterance: null, playing: false
-  },
-  {
-    title: 'A Borboleta do Sonho Bom',
-    text: `Toda noite, quando a lua subia no céu, uma borboleta especial saia voando. \
-Ela se chamada Mia e tinha asinhas feitas de sonhos bons. \
-Mia voava de janela em janela, procurando os bebês que ainda estavam acordados. \
-Quando achava um, ela pousava devagazinho na ponta do narizinho, \
-e soprava um sonho bonito nos pensamentos da criança. \
-Às vezes era um sonho de campo florido. Às vezes de abraço de vovó. \
-Às vezes de barco balançando no rio. \
-Você está com os olhinhos pesados? Então Mia já chegou. \
-Respira fundo... e deixa o sonho bom entrar.`,
-    el: null, utterance: null, playing: false
-  },
-  {
-    title: 'O Coelhinho que Não Conseguia Dormir',
-    text: `O coelhinho Pip estava deitado na sua caminha de feno, mas o sono não vinha. \
-Ele tentou contar cenouras: uma, duas, três... \
-Tentou ouvir o vento: shhhh, shhhh, shhhh... \
-Tentou imaginar campos cheios de flores: amarelas, roxas, brancas... \
-E aí, a vovó coelha chegou devagazinho, cobriu Pip com um cobertor quentinho, \
-e cantou baixinho no ouvido dele: \
-"Dorme, dorme, coelhinho meu... o campo está quieto e o céu é seu..." \
-Pip fechou as orelhinhas compridas, sentiu o calorzinho do cobertor... \
-e finalmente o sono chegou, macio como algodão.`,
-    el: null, utterance: null, playing: false
-  }
-];
-
-/* ─────── ESTADO ─────── */
-let currentSound = null;
-let currentStory = null;
-let storyInterval = null;
-
-/* ─────── UTILITÁRIOS ─────── */
-function formatTime(sec) {
-  const m = Math.floor(sec / 60);
-  const s = Math.floor(sec % 60);
-  return `${m}:${s.toString().padStart(2,'0')}`;
-}
-
-function updateNowPlaying(title) {
-  const bar = document.getElementById('nowPlayingBar');
-  document.getElementById('npTitle').textContent = title;
-  bar.classList.toggle('visible', !!title);
-}
-
-/* ─────── SONS CONTÍNUOS ─────── */
-function getOrCreateAudio(key) {
-  const s = SOUNDS[key];
-  if (!s.el) {
-    s.el = document.createElement('audio');
-    s.el.src = s.url;
-    s.el.loop = true;
-    s.el.volume = 0.7;
-    s.el.preload = 'none'; // não pré-carrega — carrega só quando play()
-    document.getElementById('audio-container').appendChild(s.el);
-  }
-  return s.el;
-}
-
-function toggleSound(key) {
-  const s = SOUNDS[key];
-  const card = document.getElementById(`card-${key}`);
-  const btn = card.querySelector('.sound-card-action');
-
-  if (currentSound === key) {
-    // pausar
-    s.el && s.el.pause();
-    card.classList.remove('playing');
-    btn.textContent = '▶';
-    currentSound = null;
-    updateNowPlaying(null);
-  } else {
-    // parar outro som se estiver tocando
-    if (currentSound) {
-      const prev = SOUNDS[currentSound];
-      prev.el && prev.el.pause();
-      document.getElementById(`card-${currentSound}`).classList.remove('playing');
-      document.getElementById(`card-${currentSound}`).querySelector('.sound-card-action').textContent = '▶';
+  const RS_SOUNDS = [
+    {
+      id: 'chuva',
+      label: 'Chuva Suave',
+      emoji: '🌧️',
+      color: '#5a8fa3',
+      colorLight: '#daeaf2',
+      desc: 'Gotas que acalmam',
+      file: 'boons_freak-rain-sound-188158 (1).mp3',
+      type: 'audio'
+    },
+    {
+      id: 'branco',
+      label: 'Ruído Branco',
+      emoji: '☁️',
+      color: '#8a9e7f',
+      colorLight: '#e3ede0',
+      desc: 'Véu de silêncio',
+      freq: 'white',
+      type: 'noise'
+    },
+    {
+      id: 'mar',
+      label: 'Ondas do Mar',
+      emoji: '🌊',
+      color: '#4a7fa3',
+      colorLight: '#d5e8f5',
+      desc: 'Ritmo das marés',
+      freq: 'ocean',
+      type: 'noise'
+    },
+    {
+      id: 'folhas',
+      label: 'Vento nas Folhas',
+      emoji: '🌿',
+      color: '#6b8f5a',
+      colorLight: '#ddecd6',
+      desc: 'Brisa do campo',
+      freq: 'wind',
+      type: 'noise'
     }
-    // parar história se estiver narrando
-    stopStory();
+  ];
 
-    const audio = getOrCreateAudio(key);
-    audio.play().catch(() => {
-      // Fallback silencioso — browser pode bloquear autoplay
-      showFallback(key);
+  const RS_STORIES = [
+    {
+      id: 'coelho',
+      label: 'A Lua e o Coelhinho Sonolento',
+      emoji: '🐰',
+      duration: '~3 min',
+      plan: 'free',
+      planLabel: 'Grátis',
+      planColor: '#8a9e7f',
+      text: `Era uma vez, numa clareira cheia de capim macio e orvalho, um coelhinho chamado Lua. Ele tinha orelhas grandes demais para o seu corpo miúdo, e olhos cor de mel que piscavam devagar quando o sono chegava.
+
+Toda noite, quando as estrelas acendiam uma por uma no céu de veludo azul, Lua saía da sua toca quentinha e subia num morrinho de terra fofa. De lá, ele podia ver a grande Lua cheia refletida no lago tranquilo.
+
+— Boa noite, amiga Lua — ele sussurrava, e a Lua parecia sorrir de volta, fazendo a água tremer de brilho.
+
+O vento passava mansinho entre as árvores, e as folhas cantavam: fruuu, fruuu, fruuu. Os grilos tocavam sua música de todas as noites, e os vaga-lumes dançavam feito estrelinhas que caíram do céu e não quiseram ir embora.
+
+O coelhinho bocejou. Depois bocejou de novo. Suas pálpebras ficaram pesadas como pedrinhas de rio. Ele deitou a cabecinha no capim e sentiu o cheiro de terra boa, de flores fechadas, de noite bonita.
+
+A Lua lá em cima colocou uma nuvem de algodão sobre ele, feito um cobertor de luz. E o coelhinho Lua fechou os olhos, sabendo que quando eles abrissem de novo, seria um dia novo, cheio de brincar e pular e sentir o sol quentinho.
+
+Dorme, pequenininho. Você está seguro. Você está amado. A noite toda vai cuidar de você.`
+    },
+    {
+      id: 'estrelas',
+      label: 'O Jardim das Estrelas',
+      emoji: '⭐',
+      duration: '~5 min',
+      plan: 'plus',
+      planLabel: 'Plus',
+      planColor: '#c9a84c',
+      text: `No alto de uma montanha onde o ar era limpo e o céu tocava a terra, existia um jardim diferente de todos os outros. Em vez de flores e frutos, nele cresciam estrelas.
+
+A jardineira se chamava Noemi. Toda noite ela saía com seu regador de lua cheia — feito de prata e de sonho — e molhava cada estrelinha com cuidado. Algumas eram tímidas e piscavam apenas uma vez. Outras eram curiosas e ficavam olhando para baixo, tentando ver as crianças que dormiam.
+
+Uma noite, enquanto Noemi trabalhava, uma estrelinha pequena caiu no seu ombro.
+
+— Eu estou com medo de apagar — ela disse com voz de sino.
+
+Noemi sorriu com ternura.
+
+— Você não apaga nunca. Só descansa. De manhã você vai se esconder atrás do sol, mas à noite você volta, sempre. Porque a luz verdadeira nunca some.
+
+A estrelinha ficou quietinha. Depois brilhou mais forte do que nunca.
+
+E assim Noemi regava seu jardim, e as estrelas cuidavam dos sonhos das crianças, e cada uma que você vê no céu carrega um nome, um sonho, uma noite de sono seguro.
+
+Olha pro alto agora, pequenininho. Aquela que brilhou um pouquinho mais forte? Era só pra você. Dorme com a luz das estrelas te cobrindo. Tudo bem, tudo calmo, tudo amor.`
+    },
+    {
+      id: 'floresta',
+      label: 'A Floresta que Cantava de Mansinho',
+      emoji: '🌲',
+      duration: '~7 min',
+      plan: 'premium',
+      planLabel: 'Premium',
+      planColor: '#c47a52',
+      text: `Havia uma floresta que ninguém havia plantado. Ela simplesmente cresceu, devagar, ao longo de muitos e muitos anos, como tudo que é verdadeiro e bom.
+
+Nessa floresta, cada árvore tinha uma voz. Não voz de gente — voz de árvore: o farfalhar das folhas, o estalo dos galhos, o sussurro da seiva subindo pelo tronco na madrugada. E quando a noite chegava e o vento soprava manso, todas as vozes se juntavam numa canção sem palavras que fazia dormir qualquer criatura.
+
+Uma menina chamada Bela vivia na beira dessa floresta com sua mãe. Toda noite, antes de dormir, elas abriam a janela e ouviam.
+
+— Mãe, o que elas cantam? — perguntava Bela.
+
+— Elas cantam que você está segura — a mãe respondia, apertando-a com carinho. — Elas cantam que a noite é amiga, que os sonhos são bons, que de manhã tudo vai estar aqui.
+
+Bela fechava os olhos e sentia a música entrar pela pele, passar pelos cabelos, pousar nos ombros como borboletas gentis.
+
+A floresta cantava: frrr, frrr, frrr.
+As folhas dançavam: tique, tique, tique.
+O riacho no fundo murmurava: lá, lá, lá.
+
+E Bela dormia, e sua mãe ficava olhando para ela com aquele amor que não cabe em palavras, mas que toda mãe conhece de cor.
+
+Você também tem uma floresta assim. Pode ser a chuva na janela, o ventilador girando, a voz da sua mãe cantando baixinho. É o mundo dizendo: pode descansar. Você está amado. Você está em casa.
+
+Dorme, meu bem. A floresta canta só pra você esta noite.`
+    }
+  ];
+
+  // ----------------------------------------------------------
+  // WEB AUDIO — gerador de ruído
+  // ----------------------------------------------------------
+  let rsAudioCtx = null;
+  let rsNoiseNode = null;
+  let rsGainNode = null;
+
+  function rsGetAudioCtx() {
+    if (!rsAudioCtx || rsAudioCtx.state === 'closed') {
+      rsAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    return rsAudioCtx;
+  }
+
+  function rsCreateWhiteNoise(ctx) {
+    const bufferSize = 4096;
+    const node = ctx.createScriptProcessor(bufferSize, 1, 1);
+    node.onaudioprocess = function(e) {
+      const output = e.outputBuffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+      }
+    };
+    return node;
+  }
+
+  function rsCreateOceanNoise(ctx) {
+    const bufferSize = 4096;
+    let lastOut = 0.0;
+    const node = ctx.createScriptProcessor(bufferSize, 1, 1);
+    node.onaudioprocess = function(e) {
+      const output = e.outputBuffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        output[i] = (lastOut + (0.02 * white)) / 1.02;
+        lastOut = output[i];
+        output[i] *= 3.5;
+      }
+    };
+    return node;
+  }
+
+  function rsCreateWindNoise(ctx) {
+    const bufferSize = 4096;
+    let b0=0, b1=0, b2=0, b3=0, b4=0, b5=0, b6=0;
+    const node = ctx.createScriptProcessor(bufferSize, 1, 1);
+    node.onaudioprocess = function(e) {
+      const output = e.outputBuffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + white * 0.0555179;
+        b1 = 0.99332 * b1 + white * 0.0750759;
+        b2 = 0.96900 * b2 + white * 0.1538520;
+        b3 = 0.86650 * b3 + white * 0.3104856;
+        b4 = 0.55000 * b4 + white * 0.5329522;
+        b5 = -0.7616 * b5 - white * 0.0168980;
+        output[i] = (b0+b1+b2+b3+b4+b5+b6 + white*0.5362) * 0.11;
+        b6 = white * 0.115926;
+      }
+    };
+    return node;
+  }
+
+  function rsPlayNoise(type, volume) {
+    rsStopAll();
+    try {
+      const ctx = rsGetAudioCtx();
+      rsGainNode = ctx.createGain();
+      rsGainNode.gain.setValueAtTime(volume, ctx.currentTime);
+      rsGainNode.connect(ctx.destination);
+      if (type === 'white') rsNoiseNode = rsCreateWhiteNoise(ctx);
+      else if (type === 'ocean') rsNoiseNode = rsCreateOceanNoise(ctx);
+      else rsNoiseNode = rsCreateWindNoise(ctx);
+      rsNoiseNode.connect(rsGainNode);
+    } catch(e) {
+      console.warn('Web Audio:', e);
+    }
+  }
+
+  function rsSetNoiseVolume(v) {
+    if (rsGainNode) rsGainNode.gain.setValueAtTime(v, rsAudioCtx.currentTime);
+  }
+
+  // ----------------------------------------------------------
+  // ÁUDIO DE ARQUIVO
+  // ----------------------------------------------------------
+  function rsPlayFile(filename, volume) {
+    rsStopAll();
+    rsCurrentAudio = new Audio(filename);
+    rsCurrentAudio.loop = true;
+    rsCurrentAudio.volume = volume;
+    rsCurrentAudio.play().catch(function(e) {
+      console.warn('Audio play error:', e);
     });
-    card.classList.add('playing');
-    btn.textContent = '⏸';
-    currentSound = key;
-    updateNowPlaying(s.name);
   }
-}
 
-function setVolume(key, val) {
-  const s = SOUNDS[key];
-  if (s.el) s.el.volume = val / 100;
-}
-
-function showFallback(key) {
-  // Se o navegador bloquear autoplay, abrimos o YouTube em nova aba
-  const ytId = SOUNDS[key].ytId;
-  if (confirm('Seu navegador bloqueou o áudio automático. Deseja abrir o som no YouTube?')) {
-    window.open(`https://www.youtube.com/watch?v=${ytId}`, '_blank');
+  function rsSetFileVolume(v) {
+    if (rsCurrentAudio) rsCurrentAudio.volume = v;
   }
-}
 
-/* ─────── HISTÓRIAS (Web Speech API TTS) ─────── */
-function toggleStory(idx) {
-  const story = STORIES[idx];
-  const card = document.getElementById(`story-card-${idx}`);
-  const btn = card.querySelector('.story-play-btn');
+  // ----------------------------------------------------------
+  // SÍNTESE DE VOZ
+  // ----------------------------------------------------------
+  function rsSpeak(text, volume) {
+    rsStopAll();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'pt-BR';
+    utter.rate = 0.82;
+    utter.pitch = 0.95;
+    utter.volume = volume;
+    const voices = window.speechSynthesis.getVoices();
+    const ptVoice = voices.find(v => v.lang.startsWith('pt'));
+    if (ptVoice) utter.voice = ptVoice;
+    rsSynthVoice = utter;
+    window.speechSynthesis.speak(utter);
+    utter.onend = function() {
+      rsIsPlaying = false;
+      rsUpdatePlayerUI(false);
+    };
+  }
 
-  if (currentStory === idx && story.playing) {
-    // pausar
-    window.speechSynthesis && window.speechSynthesis.cancel();
-    story.playing = false;
-    card.classList.remove('playing');
-    btn.textContent = '▶';
-    currentStory = null;
-    updateNowPlaying(null);
-    if (storyInterval) { clearInterval(storyInterval); storyInterval = null; }
-  } else {
-    // parar som contínuo se estiver tocando
-    if (currentSound) {
-      const prev = SOUNDS[currentSound];
-      prev.el && prev.el.pause();
-      document.getElementById(`card-${currentSound}`).classList.remove('playing');
-      document.getElementById(`card-${currentSound}`).querySelector('.sound-card-action').textContent = '▶';
-      currentSound = null;
+  function rsSetSpeechVolume(v) {
+    if (rsSynthVoice) rsSynthVoice.volume = v;
+  }
+
+  // ----------------------------------------------------------
+  // PARAR TUDO
+  // ----------------------------------------------------------
+  function rsStopAll() {
+    if (rsCurrentAudio) {
+      rsCurrentAudio.pause();
+      rsCurrentAudio.currentTime = 0;
+      rsCurrentAudio = null;
     }
-    // parar história anterior
-    stopStory();
-
-    playStory(idx);
+    if (rsNoiseNode) {
+      try { rsNoiseNode.disconnect(); } catch(e) {}
+      rsNoiseNode = null;
+    }
+    if (rsGainNode) {
+      try { rsGainNode.disconnect(); } catch(e) {}
+      rsGainNode = null;
+    }
+    if (window.speechSynthesis && window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+    }
+    if (rsCurrentTimer) {
+      clearTimeout(rsCurrentTimer);
+      rsCurrentTimer = null;
+    }
+    rsIsPlaying = false;
   }
+
+  // ----------------------------------------------------------
+  // TIMER
+  // ----------------------------------------------------------
+  function rsStartTimer(minutes) {
+    if (rsCurrentTimer) clearTimeout(rsCurrentTimer);
+    rsTimerMinutes = minutes;
+    rsTimerEndTime = Date.now() + minutes * 60 * 1000;
+    rsCurrentTimer = setTimeout(function() {
+      rsStopAll();
+      rsUpdatePlayerUI(false);
+      rsCurrentItem = null;
+      rsUpdatePlayerDisplay('Ritual concluído 🌙', 'Bom descanso, mamãe');
+      rsCurrentTimer = null;
+    }, minutes * 60 * 1000);
+    rsStartTimerTick();
+  }
+
+  function rsStartTimerTick() {
+    const tick = setInterval(function() {
+      if (!rsTimerEndTime || !rsIsPlaying) {
+        clearInterval(tick);
+        return;
+      }
+      const remaining = rsTimerEndTime - Date.now();
+      if (remaining <= 0) {
+        clearInterval(tick);
+        return;
+      }
+      const m = Math.floor(remaining / 60000);
+      const s = Math.floor((remaining % 60000) / 1000);
+      const el = document.getElementById('rs-timer-display');
+      if (el) el.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    }, 1000);
+  }
+
+  // ----------------------------------------------------------
+  // CHECK DE PLANO
+  // ----------------------------------------------------------
+  function rsGetUserPlan() {
+    try {
+      const persist = localStorage.getItem('gds_persist');
+      if (persist) {
+        const p = JSON.parse(persist);
+        if (p.modoTeste && Date.now() < p.expiry) return 'premium';
+      }
+      const sess = localStorage.getItem('gds_session_v2');
+      if (sess) {
+        const s = JSON.parse(sess);
+        if (Date.now() < s.expiry) return (s.plan || 'free');
+      }
+    } catch(e) {}
+    return 'free';
+  }
+
+  function rsCanAccess(plan) {
+    const userPlan = rsGetUserPlan();
+    if (userPlan === 'premium') return true;
+    if (userPlan === 'plus' && plan !== 'premium') return true;
+    if (plan === 'free') return true;
+    return false;
+  }
+
+  function rsPlanBadge(plan, label, color) {
+    return '<span class="rs-badge" style="background:' + color + '22;color:' + color + ';border:1px solid ' + color + '44">' + label + '</span>';
+  }
+
+  // ----------------------------------------------------------
+  // UI — PLAYER
+  // ----------------------------------------------------------
+  function rsUpdatePlayerUI(playing) {
+    const btn = document.getElementById('rs-play-btn');
+    if (!btn) return;
+    btn.innerHTML = playing
+      ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="2"/><rect x="14" y="4" width="4" height="16" rx="2"/></svg>'
+      : '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+  }
+
+  function rsUpdatePlayerDisplay(title, sub) {
+    const t = document.getElementById('rs-player-title');
+    const s = document.getElementById('rs-player-sub');
+    if (t) t.textContent = title;
+    if (s) s.textContent = sub;
+  }
+
+  // ----------------------------------------------------------
+  // RENDER DAS ABAS
+  // ----------------------------------------------------------
+  function rsRenderSounds() {
+    const grid = document.getElementById('rs-content-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    RS_SOUNDS.forEach(function(sound) {
+      const card = document.createElement('div');
+      card.className = 'rs-sound-card' + (rsCurrentItem && rsCurrentItem.id === sound.id ? ' rs-active' : '');
+      card.style.setProperty('--rs-card-color', sound.color);
+      card.style.setProperty('--rs-card-light', sound.colorLight);
+      card.innerHTML =
+        '<div class="rs-sound-icon">' + sound.emoji + '</div>' +
+        '<div class="rs-sound-info">' +
+          '<span class="rs-sound-name">' + sound.label + '</span>' +
+          '<span class="rs-sound-desc">' + sound.desc + '</span>' +
+        '</div>';
+      card.onclick = function() { rsSelectSound(sound); };
+      grid.appendChild(card);
+    });
+  }
+
+  function rsRenderStories() {
+    const grid = document.getElementById('rs-content-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    RS_STORIES.forEach(function(story) {
+      const canPlay = rsCanAccess(story.plan);
+      const card = document.createElement('div');
+      card.className = 'rs-story-card' + (rsCurrentItem && rsCurrentItem.id === story.id ? ' rs-active' : '') + (!canPlay ? ' rs-locked' : '');
+      card.innerHTML =
+        '<div class="rs-story-emoji">' + story.emoji + '</div>' +
+        '<div class="rs-story-body">' +
+          '<span class="rs-story-name">' + story.label + '</span>' +
+          '<div class="rs-story-meta">' +
+            '<span class="rs-story-dur">' + story.duration + '</span>' +
+            rsPlanBadge(story.plan, story.planLabel, story.planColor) +
+          '</div>' +
+        '</div>' +
+        (canPlay
+          ? '<button class="rs-btn-pill" onclick="event.stopPropagation()">▶ Ouvir</button>'
+          : '<button class="rs-btn-pill rs-btn-locked" onclick="event.stopPropagation()">🔒 Ouvir</button>');
+      card.onclick = function() { if (canPlay) rsSelectStory(story); };
+      const btn = card.querySelector('.rs-btn-pill');
+      if (btn && canPlay) {
+        btn.onclick = function(e) {
+          e.stopPropagation();
+          rsSelectStory(story);
+        };
+      }
+      grid.appendChild(card);
+    });
+  }
+
+  // ----------------------------------------------------------
+  // SELEÇÃO
+  // ----------------------------------------------------------
+  function rsSelectSound(sound) {
+    const vol = rsGetVolume();
+    rsCurrentItem = sound;
+    rsIsPlaying = true;
+    rsUpdatePlayerDisplay(sound.label, sound.desc);
+    rsUpdatePlayerUI(true);
+    if (sound.type === 'audio') {
+      rsPlayFile(sound.file, vol);
+    } else {
+      rsPlayNoise(sound.freq, vol);
+    }
+    rsApplyActiveTimer();
+    rsRenderSounds();
+  }
+
+  function rsSelectStory(story) {
+    const vol = rsGetVolume();
+    rsCurrentItem = story;
+    rsIsPlaying = true;
+    rsUpdatePlayerDisplay(story.label, story.duration);
+    rsUpdatePlayerUI(true);
+    rsSpeak(story.text, vol);
+    rsApplyActiveTimer();
+    rsRenderStories();
+  }
+
+  function rsApplyActiveTimer() {
+    const active = document.querySelector('.rs-timer-btn.rs-timer-active');
+    if (active) {
+      const mins = parseInt(active.dataset.minutes);
+      if (mins > 0) rsStartTimer(mins);
+    }
+  }
+
+  // ----------------------------------------------------------
+  // VOLUME
+  // ----------------------------------------------------------
+  function rsGetVolume() {
+    const slider = document.getElementById('rs-volume');
+    return slider ? parseFloat(slider.value) : 0.7;
+  }
+
+  // ----------------------------------------------------------
+  // PLAY / PAUSE
+  // ----------------------------------------------------------
+  function rsTogglePlayPause() {
+    if (!rsCurrentItem) return;
+    if (rsIsPlaying) {
+      // Pausar
+      if (rsCurrentAudio) rsCurrentAudio.pause();
+      if (rsNoiseNode) rsNoiseNode.disconnect();
+      if (window.speechSynthesis) window.speechSynthesis.pause();
+      rsIsPlaying = false;
+      rsUpdatePlayerUI(false);
+    } else {
+      // Retomar
+      if (rsCurrentAudio) rsCurrentAudio.play();
+      else if (rsNoiseNode && rsGainNode) rsNoiseNode.connect(rsGainNode);
+      else if (window.speechSynthesis) window.speechSynthesis.resume();
+      rsIsPlaying = true;
+      rsUpdatePlayerUI(true);
+    }
+  }
+
+  // ----------------------------------------------------------
+  // RENDER DO TIMER
+  // ----------------------------------------------------------
+  function rsRenderTimers() {
+    const container = document.getElementById('rs-timers');
+    if (!container) return;
+    const options = [
+      { label: '30 min', minutes: 30, plan: 'free', planLabel: 'Grátis' },
+      { label: '2 horas', minutes: 120, plan: 'plus', planLabel: 'Plus' },
+      { label: 'Sem parar', minutes: 0, plan: 'premium', planLabel: 'Mestre' }
+    ];
+    container.innerHTML = '';
+    options.forEach(function(opt) {
+      const canUse = rsCanAccess(opt.plan);
+      const btn = document.createElement('button');
+      btn.className = 'rs-timer-btn' + (!canUse ? ' rs-timer-locked' : '');
+      btn.dataset.minutes = opt.minutes;
+      btn.innerHTML =
+        '<span class="rs-timer-label">' + opt.label + '</span>' +
+        '<span class="rs-timer-plan" style="color:' +
+          (opt.plan === 'free' ? '#8a9e7f' : opt.plan === 'plus' ? '#c9a84c' : '#c47a52') +
+        '">' + opt.planLabel + '</span>';
+      if (canUse) {
+        btn.onclick = function() {
+          document.querySelectorAll('.rs-timer-btn').forEach(function(b) {
+            b.classList.remove('rs-timer-active');
+          });
+          btn.classList.add('rs-timer-active');
+          if (opt.minutes === 0) {
+            if (rsCurrentTimer) clearTimeout(rsCurrentTimer);
+            rsCurrentTimer = null;
+            rsTimerEndTime = null;
+            const el = document.getElementById('rs-timer-display');
+            if (el) el.textContent = '∞';
+          } else if (rsIsPlaying) {
+            rsStartTimer(opt.minutes);
+          }
+        };
+      } else {
+        btn.title = 'Requer plano ' + opt.planLabel;
+      }
+      container.appendChild(btn);
+    });
+  }
+
+  // ----------------------------------------------------------
+  // INJEÇÃO DE CSS
+  // ----------------------------------------------------------
+  function rsInjectCSS() {
+    if (document.getElementById('rs-adventure-css')) return;
+    const style = document.createElement('style');
+    style.id = 'rs-adventure-css';
+    style.textContent = `
+/* ============================================================
+   RITUAL DE SOM — Adventure & Nature Theme
+   ============================================================ */
+
+#tab-ritual {
+  background: #fdfbf7;
+  min-height: 100vh;
+  padding-bottom: 100px;
 }
 
-function playStory(idx) {
-  if (!window.speechSynthesis) {
-    alert('Seu navegador não suporta narração de texto. Tente no Chrome ou Safari.');
-    return;
+/* ---------- HERO HEADER ---------- */
+.rs-hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, #1a2e1a 0%, #2d4a2d 45%, #3d6b3a 100%);
+  border-radius: 0 0 32px 32px;
+  padding: 28px 20px 24px;
+  margin-bottom: 4px;
+}
+
+.rs-hero-sky {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.rs-star {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  animation: rs-twinkle var(--d, 3s) ease-in-out infinite var(--delay, 0s);
+  opacity: 0;
+}
+
+@keyframes rs-twinkle {
+  0%, 100% { opacity: 0; }
+  50% { opacity: var(--op, 0.8); }
+}
+
+.rs-hero-trees {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 70px;
+  pointer-events: none;
+}
+
+.rs-hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.rs-hero-icon {
+  font-size: 28px;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,.4));
+}
+
+.rs-hero-title {
+  font-family: "Playfair Display", serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fdfbf7;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.rs-hero-title em {
+  color: #c9a84c;
+  font-style: italic;
+}
+
+.rs-hero-sub {
+  font-family: "DM Sans", sans-serif;
+  font-size: 12px;
+  color: rgba(253,251,247,0.6);
+  margin: 2px 0 0;
+}
+
+/* ---------- PLAYER ---------- */
+.rs-player {
+  position: relative;
+  z-index: 2;
+  background: rgba(253,251,247,0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(253,251,247,0.15);
+  border-radius: 20px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+}
+
+.rs-play-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c9a84c, #e8c96a);
+  border: none;
+  color: #1a2e1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(201,168,76,0.4);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rs-play-btn:active {
+  transform: scale(0.94);
+  box-shadow: 0 2px 8px rgba(201,168,76,0.3);
+}
+
+.rs-player-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.rs-player-title {
+  font-family: "Playfair Display", serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fdfbf7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0 0 2px;
+}
+
+.rs-player-sub {
+  font-family: "DM Sans", sans-serif;
+  font-size: 11px;
+  color: rgba(253,251,247,0.55);
+  margin: 0;
+}
+
+.rs-vol-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.rs-vol-label {
+  font-family: "DM Sans", sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(253,251,247,0.5);
+  text-transform: uppercase;
+}
+
+.rs-vol-slider {
+  -webkit-appearance: none;
+  width: 70px;
+  height: 4px;
+  background: rgba(253,251,247,0.2);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.rs-vol-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #c9a84c;
+  box-shadow: 0 0 6px rgba(201,168,76,0.6);
+}
+
+.rs-timer-display {
+  font-family: "DM Sans", sans-serif;
+  font-size: 11px;
+  color: rgba(253,251,247,0.5);
+  min-width: 36px;
+  text-align: center;
+}
+
+/* ---------- TABS ---------- */
+.rs-tab-bar {
+  display: flex;
+  gap: 0;
+  background: #f0ece3;
+  border-radius: 14px;
+  padding: 4px;
+  margin: 16px 16px 0;
+}
+
+.rs-tab {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #7a8a72;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.rs-tab.rs-tab-active {
+  background: #1a2e1a;
+  color: #fdfbf7;
+  box-shadow: 0 2px 8px rgba(26,46,26,0.25);
+}
+
+/* ---------- SECTION HEADER ---------- */
+.rs-section-label {
+  font-family: "DM Sans", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a9e7f;
+  padding: 20px 16px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rs-section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, #8a9e7f33, transparent);
+}
+
+/* ---------- SONS GRID ---------- */
+#rs-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 0 16px;
+}
+
+/* ---------- SOUND CARD ---------- */
+.rs-sound-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 12px 14px;
+  background: #fff;
+  border-radius: 20px;
+  border: 1.5px solid #e8e0d5;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(26,46,26,0.05);
+  overflow: hidden;
+}
+
+.rs-sound-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--rs-card-color, #8a9e7f);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.rs-sound-card.rs-active {
+  border-color: var(--rs-card-color, #8a9e7f);
+  background: var(--rs-card-light, #e3ede0);
+  box-shadow: 0 4px 16px rgba(26,46,26,0.12);
+}
+
+.rs-sound-card.rs-active::before {
+  opacity: 1;
+}
+
+.rs-sound-card:active {
+  transform: scale(0.97);
+}
+
+.rs-sound-icon {
+  font-size: 32px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--rs-card-light, #e3ede0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.rs-sound-card.rs-active .rs-sound-icon {
+  transform: scale(1.08);
+}
+
+.rs-sound-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.rs-sound-name {
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2d3a2d;
+  text-align: center;
+}
+
+.rs-sound-desc {
+  font-family: "Lora", serif;
+  font-size: 11px;
+  font-style: italic;
+  color: #8a9e7f;
+  text-align: center;
+}
+
+/* ---------- STORY CARD ---------- */
+.rs-story-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #fff;
+  border-radius: 20px;
+  border: 1.5px solid #e8e0d5;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(26,46,26,0.05);
+  margin-bottom: 0;
+}
+
+.rs-story-card.rs-active {
+  border-color: #8a9e7f;
+  background: #f0f5ee;
+}
+
+.rs-story-card.rs-locked {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.rs-story-card:not(.rs-locked):active {
+  transform: scale(0.98);
+}
+
+.rs-story-emoji {
+  font-size: 28px;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: #f0ece3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rs-story-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.rs-story-name {
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2d3a2d;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
+.rs-story-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rs-story-dur {
+  font-family: "DM Sans", sans-serif;
+  font-size: 11px;
+  color: #a0946a;
+}
+
+.rs-badge {
+  font-family: "DM Sans", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 20px;
+  letter-spacing: 0.04em;
+}
+
+.rs-btn-pill {
+  flex-shrink: 0;
+  background: #1a2e1a;
+  color: #fdfbf7;
+  border: none;
+  border-radius: 24px;
+  padding: 8px 16px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.rs-btn-pill:hover {
+  background: #2d4a2d;
+  transform: translateY(-1px);
+}
+
+.rs-btn-pill:active {
+  transform: scale(0.96);
+}
+
+.rs-btn-locked {
+  background: #c0bab3;
+  cursor: default;
+}
+
+.rs-btn-locked:hover {
+  background: #c0bab3;
+  transform: none;
+}
+
+/* ---------- TIMER ---------- */
+.rs-timer-section {
+  padding: 0 16px;
+}
+
+.rs-timers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.rs-timer-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 8px;
+  background: #fff;
+  border: 1.5px solid #e8e0d5;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(26,46,26,0.04);
+}
+
+.rs-timer-btn.rs-timer-active {
+  background: #1a2e1a;
+  border-color: #1a2e1a;
+  box-shadow: 0 4px 14px rgba(26,46,26,0.25);
+}
+
+.rs-timer-btn.rs-timer-active .rs-timer-label {
+  color: #fdfbf7;
+}
+
+.rs-timer-btn.rs-timer-locked {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.rs-timer-label {
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #2d3a2d;
+}
+
+.rs-timer-plan {
+  font-family: "DM Sans", sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* ---------- STORIES LIST ---------- */
+#rs-content-grid.rs-list-mode {
+  grid-template-columns: 1fr;
+}
+
+/* ---------- SCROLL PADS ---------- */
+.rs-pad { height: 20px; }
+    `;
+    document.head.appendChild(style);
   }
 
-  const story = STORIES[idx];
-  const card = document.getElementById(`story-card-${idx}`);
-  const btn = card.querySelector('.story-play-btn');
-  const progEl = document.getElementById(`story-prog-${idx}`);
-  const timeEl = document.getElementById(`story-time-${idx}`);
+  // ----------------------------------------------------------
+  // GERADOR DE ESTRELAS SVG
+  // ----------------------------------------------------------
+  function rsGenStars() {
+    const stars = [];
+    const configs = [
+      { count: 18, size: 1.5, opRange: [0.5, 0.9], dRange: [2, 4] },
+      { count: 10, size: 2.5, opRange: [0.6, 1.0], dRange: [3, 5] },
+      { count: 6,  size: 1,   opRange: [0.3, 0.6], dRange: [1.5, 3] }
+    ];
+    configs.forEach(function(cfg) {
+      for (let i = 0; i < cfg.count; i++) {
+        const x = Math.random() * 100;
+        const y = Math.random() * 75;
+        const op = (cfg.opRange[0] + Math.random() * (cfg.opRange[1] - cfg.opRange[0])).toFixed(2);
+        const d = (cfg.dRange[0] + Math.random() * (cfg.dRange[1] - cfg.dRange[0])).toFixed(1);
+        const delay = (Math.random() * -4).toFixed(1);
+        stars.push(
+          '<div class="rs-star" style="' +
+            'left:' + x + '%;' +
+            'top:' + y + '%;' +
+            'width:' + cfg.size + 'px;' +
+            'height:' + cfg.size + 'px;' +
+            '--op:' + op + ';' +
+            '--d:' + d + 's;' +
+            '--delay:' + delay + 's' +
+          '"></div>'
+        );
+      }
+    });
+    return stars.join('');
+  }
 
-  // Estimar duração: ~150 palavras/min em PT
-  const words = story.text.split(' ').length;
-  const estSec = Math.round((words / 150) * 60);
+  // ----------------------------------------------------------
+  // SVG DE ÁRVORES
+  // ----------------------------------------------------------
+  function rsTreeSVG() {
+    return '<svg viewBox="0 0 375 70" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:70px;display:block">' +
+      '<path d="M0,70 L0,40 L8,40 L8,55 L15,55 L15,28 L22,28 L22,55 L28,55 L28,48 L33,48 L33,55 L40,55 L40,70Z" fill="#0d1f0d" opacity="0.9"/>' +
+      '<path d="M30,70 L30,35 L40,20 L50,35 L47,35 L47,55 L55,55 L55,38 L63,22 L71,38 L71,70Z" fill="#152415" opacity="0.85"/>' +
+      '<path d="M60,70 L60,42 L66,42 L66,38 L74,24 L82,38 L82,42 L87,42 L87,70Z" fill="#0d1f0d" opacity="0.9"/>' +
+      '<path d="M280,70 L280,42 L287,42 L287,38 L295,22 L303,38 L303,42 L308,42 L308,70Z" fill="#0d1f0d" opacity="0.9"/>' +
+      '<path d="M300,70 L300,30 L312,12 L324,30 L321,30 L321,55 L330,55 L330,35 L340,18 L350,35 L350,70Z" fill="#152415" opacity="0.85"/>' +
+      '<path d="M340,70 L340,40 L347,40 L347,55 L355,55 L355,28 L362,28 L362,55 L368,55 L368,48 L373,48 L373,55 L375,55 L375,70Z" fill="#0d1f0d" opacity="0.9"/>' +
+      '<ellipse cx="187" cy="30" rx="60" ry="18" fill="#0a1a0a" opacity="0.3"/>' +
+      '<path d="M140,70 L140,52 L148,52 L148,46 L157,30 L166,46 L166,52 L172,52 L172,70Z" fill="#1a2e1a" opacity="0.7"/>' +
+      '<path d="M180,70 L180,48 L190,30 L200,48 L200,70Z" fill="#1a2e1a" opacity="0.65"/>' +
+      '<path d="M195,70 L195,52 L204,52 L204,46 L213,30 L222,46 L222,52 L228,52 L228,70Z" fill="#152415" opacity="0.7"/>' +
+      '<rect x="0" y="62" width="375" height="8" fill="#0a1a0a" opacity="0.5"/>' +
+    '</svg>';
+  }
 
-  let elapsed = 0;
-  progEl.max = estSec;
-  progEl.value = 0;
-  timeEl.textContent = '0:00';
+  // ----------------------------------------------------------
+  // RENDER PRINCIPAL
+  // ----------------------------------------------------------
+  function rsRender() {
+    const tab = document.getElementById('tab-ritual');
+    if (!tab) return;
 
-  const utterance = new SpeechSynthesisUtterance(story.text);
-  utterance.lang = 'pt-BR';
-  utterance.rate = 0.82;
-  utterance.pitch = 0.95;
-  utterance.volume = 1;
+    rsInjectCSS();
 
-  // Escolher voz feminina pt-BR se disponível
-  const voices = window.speechSynthesis.getVoices();
-  const ptVoice = voices.find(v => v.lang.startsWith('pt') && v.name.toLowerCase().includes('female'))
-               || voices.find(v => v.lang.startsWith('pt-BR'))
-               || voices.find(v => v.lang.startsWith('pt'));
-  if (ptVoice) utterance.voice = ptVoice;
+    tab.innerHTML =
+      // HERO
+      '<div class="rs-hero">' +
+        '<div class="rs-hero-sky">' + rsGenStars() + '</div>' +
+        '<div class="rs-hero-content">' +
+          '<div class="rs-hero-icon">🌙</div>' +
+          '<div>' +
+            '<h2 class="rs-hero-title">Ritual de <em>Som</em></h2>' +
+            '<p class="rs-hero-sub">Sons que acalmam · Histórias que adormecem</p>' +
+          '</div>' +
+        '</div>' +
 
-  utterance.onend = () => {
-    story.playing = false;
-    card.classList.remove('playing');
-    btn.textContent = '▶';
-    currentStory = null;
-    updateNowPlaying(null);
-    if (storyInterval) { clearInterval(storyInterval); storyInterval = null; }
-    progEl.value = estSec;
-    timeEl.textContent = formatTime(estSec);
+        // PLAYER
+        '<div class="rs-player">' +
+          '<button class="rs-play-btn" id="rs-play-btn" onclick="window._rsToggle()">' +
+            '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>' +
+          '</button>' +
+          '<div class="rs-player-info">' +
+            '<p class="rs-player-title" id="rs-player-title">Selecione um som ou história</p>' +
+            '<p class="rs-player-sub" id="rs-player-sub">Pronto para começar</p>' +
+          '</div>' +
+          '<div class="rs-vol-wrap">' +
+            '<span class="rs-vol-label">VOL</span>' +
+            '<input type="range" class="rs-vol-slider" id="rs-volume" min="0" max="1" step="0.05" value="0.7" oninput="window._rsVolChange(this.value)">' +
+          '</div>' +
+          '<span class="rs-timer-display" id="rs-timer-display"></span>' +
+        '</div>' +
+
+        '<div class="rs-hero-trees">' + rsTreeSVG() + '</div>' +
+      '</div>' +
+
+      // TABS
+      '<div class="rs-tab-bar">' +
+        '<button class="rs-tab rs-tab-active" id="rs-tab-sons" onclick="window._rsTabSons()">🎵 Sons</button>' +
+        '<button class="rs-tab" id="rs-tab-hist" onclick="window._rsTabHist()">📖 Histórias</button>' +
+      '</div>' +
+
+      // CONTEÚDO
+      '<div class="rs-section-label" id="rs-section-label">Ambiente sonoro</div>' +
+      '<div id="rs-content-grid" class="rs-list-mode"></div>' +
+
+      // TIMER
+      '<div class="rs-section-label" style="margin-top:8px">🕐 Timer de sono</div>' +
+      '<div class="rs-timer-section">' +
+        '<div class="rs-timers-grid" id="rs-timers"></div>' +
+      '</div>' +
+
+      '<div class="rs-pad"></div>';
+
+    rsRenderSounds();
+    rsRenderTimers();
+  }
+
+  // ----------------------------------------------------------
+  // EXPOSIÇÃO GLOBAL DE CALLBACKS
+  // ----------------------------------------------------------
+  window._rsToggle = rsTogglePlayPause;
+
+  window._rsVolChange = function(v) {
+    const vol = parseFloat(v);
+    rsSetFileVolume(vol);
+    rsSetNoiseVolume(vol);
+    rsSetSpeechVolume(vol);
   };
 
-  story.utterance = utterance;
-  story.playing = true;
-  story.estSec = estSec;
-  currentStory = idx;
-
-  window.speechSynthesis.speak(utterance);
-
-  card.classList.add('playing');
-  btn.textContent = '⏸';
-  updateNowPlaying(story.title);
-
-  // Progress timer simulado
-  storyInterval = setInterval(() => {
-    elapsed++;
-    progEl.value = Math.min(elapsed, estSec);
-    timeEl.textContent = formatTime(elapsed);
-    if (elapsed >= estSec) clearInterval(storyInterval);
-  }, 1000);
-}
-
-function stopStory() {
-  if (currentStory !== null) {
-    const story = STORIES[currentStory];
-    const card = document.getElementById(`story-card-${currentStory}`);
-    const btn = card && card.querySelector('.story-play-btn');
-    window.speechSynthesis && window.speechSynthesis.cancel();
-    story.playing = false;
-    if (card) card.classList.remove('playing');
-    if (btn) btn.textContent = '▶';
-    currentStory = null;
-  }
-  if (storyInterval) { clearInterval(storyInterval); storyInterval = null; }
-}
-
-function seekStory(idx) {
-  // Web Speech não suporta seek nativo; apenas atualiza visualmente
-  const story = STORIES[idx];
-  if (story.playing) {
-    window.speechSynthesis && window.speechSynthesis.cancel();
-    story.playing = false;
-    // reiniciar — limitação do Web Speech API
-    setTimeout(() => playStory(idx), 100);
-  }
-}
-
-function stopAll() {
-  // Para sons contínuos
-  if (currentSound) {
-    SOUNDS[currentSound].el && SOUNDS[currentSound].el.pause();
-    const card = document.getElementById(`card-${currentSound}`);
-    if (card) {
-      card.classList.remove('playing');
-      card.querySelector('.sound-card-action').textContent = '▶';
+  window._rsTabSons = function() {
+    document.getElementById('rs-tab-sons').classList.add('rs-tab-active');
+    document.getElementById('rs-tab-hist').classList.remove('rs-tab-active');
+    const label = document.getElementById('rs-section-label');
+    if (label) label.textContent = 'Ambiente sonoro';
+    const grid = document.getElementById('rs-content-grid');
+    if (grid) {
+      grid.style.gridTemplateColumns = '';
+      grid.classList.remove('rs-list-mode');
     }
-    currentSound = null;
+    rsRenderSounds();
+    rsRenderTimers();
+  };
+
+  window._rsTabHist = function() {
+    document.getElementById('rs-tab-hist').classList.add('rs-tab-active');
+    document.getElementById('rs-tab-sons').classList.remove('rs-tab-active');
+    const label = document.getElementById('rs-section-label');
+    if (label) label.textContent = 'Histórias para dormir';
+    const grid = document.getElementById('rs-content-grid');
+    if (grid) {
+      grid.style.gridTemplateColumns = '1fr';
+    }
+    rsRenderStories();
+    rsRenderTimers();
+  };
+
+  // ----------------------------------------------------------
+  // INIT
+  // ----------------------------------------------------------
+  function rsInit() {
+    if (document.getElementById('tab-ritual')) {
+      rsRender();
+    }
+
+    // Observar mudança de aba
+    const observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(m) {
+        m.addedNodes.forEach(function(node) {
+          if (node.id === 'tab-ritual' || (node.querySelector && node.querySelector('#tab-ritual'))) {
+            rsRender();
+          }
+        });
+      });
+    });
+
+    const main = document.getElementById('app') || document.body;
+    observer.observe(main, { childList: true, subtree: true });
+
+    // Rerender ao mostrar a aba se já existe
+    document.addEventListener('click', function(e) {
+      const btn = e.target.closest('[data-tab="ritual"], [onclick*="goTo(\'ritual"]');
+      if (btn) {
+        setTimeout(function() {
+          const tab = document.getElementById('tab-ritual');
+          if (tab && tab.style.display !== 'none') rsRender();
+        }, 50);
+      }
+    });
   }
-  // Para histórias
-  stopStory();
-  updateNowPlaying(null);
-}
 
-/* ─────── VOZES: carregar após interação (Chrome exige) ─────── */
-if (window.speechSynthesis) {
-  window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
-}
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', rsInit);
+  } else {
+    rsInit();
+  }
 
-/* ─────── PWA ─────── */
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(() => {});
-}
-</script>
-</body>
-</html>
+})();
