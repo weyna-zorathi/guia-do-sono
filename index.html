@@ -52,9 +52,6 @@
   --nav-bg:    #1a2e1a;
 }
 
-/* ── Fixed Elegant Palette (no dark mode toggle) ── */
-
-/* App background: warm cream, easy on night-time eyes */
 :root {
   --bg:         #fdfbf7;
   --bg-card:    #ffffff;
@@ -66,10 +63,9 @@
   --shadow:     rgba(30,42,30,.07);
   --shadow-md:  rgba(30,42,30,.13);
   --shadow-lg:  rgba(30,42,30,.20);
-  --nav-bg:     #1a2e1a;   /* dark green nav bar on mobile */
+  --nav-bg:     #1a2e1a;
 }
 
-/* Sidebar: always dark forest green */
 .sidebar {
   background: #1a2e1a !important;
   border-right: 1px solid rgba(255,255,255,.07) !important;
@@ -84,7 +80,6 @@
 .sb-user-name    { color: #e8f0e5 !important; }
 .sb-user-email   { color: rgba(255,255,255,.4) !important; }
 
-/* Bottom nav: dark green on mobile */
 .bottom-nav {
   background: #1a2e1a !important;
   border-top: none !important;
@@ -96,9 +91,6 @@
 .nav-item.active .nav-lbl { color: #b5c9a8 !important; }
 .nav-icon { filter: brightness(1.6); }
 
-/* ════════════════════════════════════════════
-   RESET & BASE
-════════════════════════════════════════════ */
 *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
 html, body { height:100%; }
 body {
@@ -112,31 +104,25 @@ body {
 ::-webkit-scrollbar { width:4px; }
 ::-webkit-scrollbar-thumb { background:var(--border-d); border-radius:4px; }
 
-/* Prevent iOS auto-zoom on input focus (font-size must be ≥ 16px) */
 @media(max-width:799px) {
   input, textarea, select {
     font-size:16px !important;
   }
 }
 
-/* ════════════════════════════════════════════
-   ██ LOGIN SCREEN
-════════════════════════════════════════════ */
 #login-screen {
   position:fixed; inset:0; z-index:9999;
   display:flex; align-items:center; justify-content:center; padding:20px;
   overflow:hidden;
-  /* Deep botanical green base */
   background: #0d1f0d;
   transition: opacity .5s, transform .5s;
 }
 #login-screen.out { opacity:0; transform:scale(1.04); pointer-events:none; }
 
-/* SVG botanical pattern — tulips & lily silhouettes in green tones */
 #login-screen::before {
   content:'';
   position:absolute; inset:0; pointer-events:none; z-index:0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.07'%3E%3C!-- Stems --%3E%3Cpath stroke-width='1.5' d='M80 400 Q82 320 78 260 Q76 220 80 180'/%3E%3Cpath stroke-width='1.5' d='M200 400 Q198 340 202 280 Q204 240 200 200'/%3E%3Cpath stroke-width='1.5' d='M320 400 Q322 330 318 270 Q316 230 320 190'/%3E%3Cpath stroke-width='1.5' d='M140 400 Q138 360 142 300 Q144 260 140 220'/%3E%3Cpath stroke-width='1.5' d='M260 400 Q262 350 258 290 Q256 250 260 210'/%3E%3C!-- Tulip heads --%3E%3Cellipse cx='80' cy='170' rx='14' ry='22' stroke-width='1.5'/%3E%3Cpath stroke-width='1.5' d='M66 175 Q60 150 80 145 Q100 150 94 175'/%3E%3Cellipse cx='200' cy='190' rx='14' ry='22' stroke-width='1.5'/%3E%3Cpath stroke-width='1.5' d='M186 195 Q180 170 200 165 Q220 170 214 195'/%3E%3Cellipse cx='320' cy='180' rx='14' ry='22' stroke-width='1.5'/%3E%3Cpath stroke-width='1.5' d='M306 185 Q300 160 320 155 Q340 160 334 185'/%3E%3C!-- Lily petals --%3E%3Cellipse cx='140' cy='210' rx='8' ry='20' transform='rotate(-20 140 210)' stroke-width='1'/%3E%3Cellipse cx='140' cy='210' rx='8' ry='20' transform='rotate(20 140 210)' stroke-width='1'/%3E%3Cellipse cx='140' cy='210' rx='8' ry='20' stroke-width='1'/%3E%3Cellipse cx='260' cy='200' rx='8' ry='20' transform='rotate(-20 260 200)' stroke-width='1'/%3E%3Cellipse cx='260' cy='200' rx='8' ry='20' transform='rotate(20 260 200)' stroke-width='1'/%3E%3Cellipse cx='260' cy='200' rx='8' ry='20' stroke-width='1'/%3E%3C!-- Leaves --%3E%3Cpath stroke-width='1' d='M76 300 Q60 280 55 260 Q70 265 76 300'/%3E%3Cpath stroke-width='1' d='M84 300 Q100 280 105 260 Q90 265 84 300'/%3E%3Cpath stroke-width='1' d='M196 310 Q180 290 175 270 Q190 275 196 310'/%3E%3Cpath stroke-width='1' d='M204 310 Q220 290 225 270 Q210 275 204 310'/%3E%3Cpath stroke-width='1' d='M316 305 Q300 285 295 265 Q310 270 316 305'/%3E%3Cpath stroke-width='1' d='M324 305 Q340 285 345 265 Q330 270 324 305'/%3E%3C!-- Small accent flowers --%3E%3Ccircle cx='40' cy='100' r='6' stroke-width='1'/%3E%3Ccircle cx='40' cy='100' r='3' stroke-width='1'/%3E%3Cpath stroke-width='1' d='M34 94 Q40 86 46 94'/%3E%3Cpath stroke-width='1' d='M34 106 Q40 114 46 106'/%3E%3Ccircle cx='360' cy='120' r='6' stroke-width='1'/%3E%3Ccircle cx='360' cy='120' r='3' stroke-width='1'/%3E%3Cpath stroke-width='1' d='M354 114 Q360 106 366 114'/%3E%3Cpath stroke-width='1' d='M354 126 Q360 134 366 126'/%3E%3C!-- Top flowers --%3E%3Ccircle cx='120' cy='40' r='8' stroke-width='1'/%3E%3Cpath stroke-width='1' d='M112 40 Q120 28 128 40 Q120 52 112 40'/%3E%3Ccircle cx='280' cy='60' r='8' stroke-width='1'/%3E%3Cpath stroke-width='1' d='M272 60 Q280 48 288 60 Q280 72 272 60'/%3E%3C/g%3E%3C!-- Green color wash --%3E%3Crect width='400' height='400' fill='%23193d19' fill-opacity='0.6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.07'%3E%3Cpath stroke-width='1.5' d='M80 400 Q82 320 78 260 Q76 220 80 180'/%3E%3Cpath stroke-width='1.5' d='M200 400 Q198 340 202 280 Q204 240 200 200'/%3E%3Cpath stroke-width='1.5' d='M320 400 Q322 330 318 270 Q316 230 320 190'/%3E%3Cpath stroke-width='1.5' d='M140 400 Q138 360 142 300 Q144 260 140 220'/%3E%3Cpath stroke-width='1.5' d='M260 400 Q262 350 258 290 Q256 250 260 210'/%3E%3Cellipse cx='80' cy='170' rx='14' ry='22' stroke-width='1.5'/%3E%3Cpath stroke-width='1.5' d='M66 175 Q60 150 80 145 Q100 150 94 175'/%3E%3Cellipse cx='200' cy='190' rx='14' ry='22' stroke-width='1.5'/%3E%3Cpath stroke-width='1.5' d='M186 195 Q180 170 200 165 Q220 170 214 195'/%3E%3Cellipse cx='320' cy='180' rx='14' ry='22' stroke-width='1.5'/%3E%3Cpath stroke-width='1.5' d='M306 185 Q300 160 320 155 Q340 160 334 185'/%3E%3Cellipse cx='140' cy='210' rx='8' ry='20' transform='rotate(-20 140 210)' stroke-width='1'/%3E%3Cellipse cx='140' cy='210' rx='8' ry='20' transform='rotate(20 140 210)' stroke-width='1'/%3E%3Cellipse cx='140' cy='210' rx='8' ry='20' stroke-width='1'/%3E%3Cellipse cx='260' cy='200' rx='8' ry='20' transform='rotate(-20 260 200)' stroke-width='1'/%3E%3Cellipse cx='260' cy='200' rx='8' ry='20' transform='rotate(20 260 200)' stroke-width='1'/%3E%3Cellipse cx='260' cy='200' rx='8' ry='20' stroke-width='1'/%3E%3Cpath stroke-width='1' d='M76 300 Q60 280 55 260 Q70 265 76 300'/%3E%3Cpath stroke-width='1' d='M84 300 Q100 280 105 260 Q90 265 84 300'/%3E%3Cpath stroke-width='1' d='M196 310 Q180 290 175 270 Q190 275 196 310'/%3E%3Cpath stroke-width='1' d='M204 310 Q220 290 225 270 Q210 275 204 310'/%3E%3Cpath stroke-width='1' d='M316 305 Q300 285 295 265 Q310 270 316 305'/%3E%3Cpath stroke-width='1' d='M324 305 Q340 285 345 265 Q330 270 324 305'/%3E%3Ccircle cx='40' cy='100' r='6' stroke-width='1'/%3E%3Ccircle cx='40' cy='100' r='3' stroke-width='1'/%3E%3Cpath stroke-width='1' d='M34 94 Q40 86 46 94'/%3E%3Cpath stroke-width='1' d='M34 106 Q40 114 46 106'/%3E%3Ccircle cx='360' cy='120' r='6' stroke-width='1'/%3E%3Ccircle cx='360' cy='120' r='3' stroke-width='1'/%3E%3Cpath stroke-width='1' d='M354 114 Q360 106 366 114'/%3E%3Cpath stroke-width='1' d='M354 126 Q360 134 366 126'/%3E%3Ccircle cx='120' cy='40' r='8' stroke-width='1'/%3E%3Cpath stroke-width='1' d='M112 40 Q120 28 128 40 Q120 52 112 40'/%3E%3Ccircle cx='280' cy='60' r='8' stroke-width='1'/%3E%3Cpath stroke-width='1' d='M272 60 Q280 48 288 60 Q280 72 272 60'/%3E%3C/g%3E%3Crect width='400' height='400' fill='%23193d19' fill-opacity='0.6'/%3E%3C/svg%3E");
   background-size: 400px 400px;
   animation: botanicalDrift 30s linear infinite;
 }
@@ -145,7 +131,6 @@ body {
   to   { background-position: 400px 400px; }
 }
 
-/* Green gradient overlay for depth */
 #login-screen::after {
   content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
   background:
@@ -157,7 +142,7 @@ body {
 
 .login-card {
   width:100%; max-width:400px;
-  position:relative; z-index:2;  /* above the botanical overlays */
+  position:relative; z-index:2;
   background:rgba(253,251,247,.93);
   backdrop-filter:blur(28px) saturate(180%);
   -webkit-backdrop-filter:blur(28px) saturate(180%);
@@ -175,7 +160,6 @@ body {
 .login-title em { color:var(--tc); font-style:italic; }
 .login-sub   { font-family:'Lora',serif; font-style:italic; font-size:13px; color:var(--brown-l); margin-bottom:32px; line-height:1.5; }
 
-/* Email + OTP form */
 .login-form { text-align:left; }
 .login-label {
   display:block; font-size:11px; font-weight:600; color:var(--brown-l);
@@ -192,7 +176,6 @@ body {
 .login-input:focus { border-color:var(--sage); box-shadow:0 0 0 3px rgba(138,158,127,.18); }
 .login-input::placeholder { color:var(--brown-l); }
 
-/* OTP boxes */
 .otp-row {
   display:flex; gap:10px; justify-content:center; margin-bottom:18px;
 }
@@ -206,7 +189,6 @@ body {
 .otp-box:focus { border-color:var(--sage); box-shadow:0 0 0 3px rgba(138,158,127,.18); transform:scale(1.05); }
 .otp-box.filled { border-color:var(--sage-l); background:var(--sage-p); }
 
-/* back link */
 .login-back {
   display:inline-flex; align-items:center; gap:5px;
   font-size:12px; color:var(--brown-l); cursor:pointer;
@@ -215,7 +197,6 @@ body {
 }
 .login-back:hover { color:var(--sage-d); }
 
-/* email hint */
 .login-email-hint {
   font-size:12px; color:var(--text-sub); text-align:center;
   margin-bottom:14px; font-family:'Lora',serif; font-style:italic;
@@ -244,13 +225,9 @@ body {
 .login-terms { margin-top:20px; font-size:11px; color:var(--brown-l); line-height:1.5; }
 .login-terms a { color:var(--sage-d); text-decoration:none; }
 
-/* ════════════════════════════════════════════
-   APP SHELL
-════════════════════════════════════════════ */
 #app { display:none; flex:1; height:100dvh; overflow:hidden; }
 #app.on { display:flex; }
 
-/* ────── Sidebar (desktop ≥ 800px) ────── */
 .sidebar {
   width:230px; flex-shrink:0;
   background:var(--bg-card);
@@ -300,16 +277,12 @@ body {
 .sb-user-av img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
 .sb-user-name  { font-size:12px; font-weight:600; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .sb-user-email { font-size:10px; color:var(--text-sub); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-/* theme toggle removed — fixed palette */
 
-/* ────── Content area ────── */
 .content-area { flex:1; display:flex; flex-direction:column; overflow:hidden; min-width:0; }
 
-/* ────── Pages ────── */
 .page { display:none; flex:1; flex-direction:column; overflow:hidden; }
 .page.active { display:flex; }
 
-/* ────── Scroll area ────── */
 .scroll-area {
   flex:1; overflow-y:auto; overflow-x:hidden;
   -webkit-overflow-scrolling:touch;
@@ -317,7 +290,6 @@ body {
 }
 @media(min-width:800px) { .scroll-area { padding-bottom:28px; } }
 
-/* ────── Bottom nav (mobile) ────── */
 .bottom-nav {
   position:fixed; bottom:0; left:0; right:0;
   background:var(--nav-bg);
@@ -342,9 +314,6 @@ body {
 @media(min-width:800px) { .sidebar{display:flex;} .bottom-nav{display:none;} }
 @media(max-width:799px) { .sidebar{display:none;} }
 
-/* ════════════════════════════════════════════
-   PAGE HEADER
-════════════════════════════════════════════ */
 .page-hdr {
   padding:20px 24px 10px;
   display:flex; justify-content:space-between; align-items:center; flex-shrink:0;
@@ -362,29 +331,19 @@ body {
 }
 .icon-btn:active { transform:scale(.92); }
 
-/* ════════════════════════════════════════════
-   SECTION HEADER
-════════════════════════════════════════════ */
 .sec-hdr { padding:14px 24px 8px; display:flex; justify-content:space-between; align-items:center; }
 @media(max-width:799px) { .sec-hdr { padding:14px 16px 8px; } }
 .sec-title { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:var(--text); }
 .sec-link  { font-size:11px; color:var(--tc); font-weight:500; cursor:pointer; }
 
-/* ════════════════════════════════════════════
-   PADDED + GRID
-════════════════════════════════════════════ */
 .px { padding:0 24px; }
 @media(max-width:799px) { .px { padding:0 16px; } }
 
 .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 @media(max-width:380px) { .grid-2 { grid-template-columns:1fr; } }
 
-/* desktop 3-col for mini stats */
 @media(min-width:1100px) { .grid-4 { grid-template-columns:repeat(4,1fr); } }
 
-/* ════════════════════════════════════════════
-   BABY CARD
-════════════════════════════════════════════ */
 .baby-card {
   background:var(--night); border-radius:22px; padding:18px;
   position:relative; overflow:hidden; cursor:pointer;
@@ -433,9 +392,6 @@ body {
 .prog-track { height:5px; background:rgba(255,255,255,.1); border-radius:100px; overflow:hidden; }
 .prog-fill  { height:100%; background:linear-gradient(90deg, var(--sage), var(--gold)); width:0%; border-radius:100px; transition:width 1.2s cubic-bezier(.34,1.56,.64,1); }
 
-/* ════════════════════════════════════════════
-   CLIMATE CARD
-════════════════════════════════════════════ */
 .climate-card {
   background:linear-gradient(135deg, #6b7fad 0%, var(--sage-d) 100%);
   border-radius:20px; padding:20px;
@@ -462,9 +418,6 @@ body {
   padding:6px 11px; font-size:12px; color:#fff; font-weight:500;
 }
 
-/* ════════════════════════════════════════════
-   MINI STAT CARDS
-════════════════════════════════════════════ */
 .ms-card {
   background:var(--bg-card); border:1px solid var(--border); border-radius:18px; padding:16px;
   position:relative; overflow:hidden; cursor:pointer;
@@ -484,9 +437,6 @@ body {
 .t-up   { background:var(--sage-p); color:var(--sage-d); }
 .t-same { background:var(--gold-p); color:#7a6010; }
 
-/* ════════════════════════════════════════════
-   SLEEP SIGNALS (SINAIS)
-════════════════════════════════════════════ */
 .chips-scroll { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding-bottom:4px; }
 .chips-scroll::-webkit-scrollbar { display:none; }
 .s-chip {
@@ -499,9 +449,6 @@ body {
 .s-chip-icon { font-size:15px; }
 .s-chip-text { font-size:11px; font-weight:500; color:var(--text); white-space:nowrap; }
 
-/* ════════════════════════════════════════════
-   CHAT ENTRY CARD
-════════════════════════════════════════════ */
 .chat-entry {
   background:linear-gradient(135deg, var(--night) 0%, #3d5a3e 100%);
   border-radius:20px; padding:16px 18px;
@@ -519,9 +466,6 @@ body {
 .pulse-dot { position:absolute; top:14px; right:14px; width:8px; height:8px; border-radius:50%; background:var(--sage-l); z-index:1; animation:pulseG 2s infinite; }
 @keyframes pulseG { 0%,100%{box-shadow:0 0 0 0 rgba(181,201,168,.5);} 50%{box-shadow:0 0 0 7px rgba(181,201,168,0);} }
 
-/* ════════════════════════════════════════════
-   ██ CHAT PAGE
-════════════════════════════════════════════ */
 .chat-hdr {
   padding:18px 20px 14px; background:var(--bg-card); border-bottom:1px solid var(--border);
   display:flex; align-items:center; gap:12px; flex-shrink:0;
@@ -537,8 +481,6 @@ body {
 
 #limit-bar { display:none; padding:9px 16px; background:var(--tc-p); border-top:1px solid var(--tc-l); font-size:12px; color:var(--tc); text-align:center; flex-shrink:0; line-height:1.5; }
 #limit-bar.on { display:block; }
-
-/* #chat-msgs defined below in chat layout section */
 
 .bubble { max-width:82%; padding:10px 15px; border-radius:18px; font-size:14px; line-height:1.65; animation:fadeUp .28s ease both; }
 .b-ai   { align-self:flex-start; background:var(--bg-card2); border:1px solid var(--border); border-bottom-left-radius:5px; box-shadow:0 2px 8px var(--shadow); color:var(--text); }
@@ -563,31 +505,28 @@ body {
 .typing-b span:nth-child(3){background:var(--gold);animation-delay:.4s;}
 @keyframes typBounce { 0%,60%,100%{transform:translateY(0);} 30%{transform:translateY(-6px);} }
 
-/* chat input – mobile fixed / desktop inside page */
 .chat-input-wrap {
   display:flex; align-items:flex-end; gap:8px;
   padding:10px 14px;
-  background:#fdfbf7;   /* solid cream — no backdrop blur needed */
+  background:#fdfbf7;
   border-top:1px solid var(--border);
   flex-shrink:0;
 }
 @media(min-width:800px) {
   .chat-input-wrap { max-width:680px; width:100%; margin:0 auto; }
-  /* desktop chat-msgs override is in the chat layout section below */
 }
 
-/* ── Chat page layout ── */
 #page-chat {
   display:none;
   flex-direction:column;
   overflow:hidden;
   min-height:0;
-  height:100%;           /* fill available height in content-area */
+  height:100%;
 }
 #page-chat.active { display:flex; }
 
 #chat-msgs {
-  flex:1 1 0;            /* grow AND shrink; won't overflow */
+  flex:1 1 0;
   overflow-y:auto;
   padding:14px;
   display:flex;
@@ -595,25 +534,20 @@ body {
   gap:11px;
   scroll-behavior:smooth;
   scrollbar-width:none;
-  /* Mobile: clear input bar (~54px) + bottom-nav (~60px) + gap */
   padding-bottom:calc(120px + env(safe-area-inset-bottom, 0px));
 }
 @media(min-width:800px) {
-  /* Desktop: input is inline inside the flex column */
   #chat-msgs { padding-bottom:12px; }
 }
 #chat-msgs::-webkit-scrollbar { display:none; }
 
-/* Desktop inline input — inside page-chat flex column */
 #chat-input-desktop {
-  display:none;       /* JS controls this */
+  display:none;
   flex-shrink:0;
 }
 
-/* Mobile fixed input — ONLY visible on chat tab */
 #chat-input-mobile {
   position:fixed;
-  /* sit just above the bottom-nav bar */
   bottom:calc(60px + env(safe-area-inset-bottom, 0px));
   left:0; right:0;
   z-index:110;
@@ -627,9 +561,6 @@ body {
 }
 #chat-input-mobile.on { display:flex; }
 
-/* Chat active on mobile: nav stays visible but input floats above it */
-/* The input has z-index:110 > nav z-index:100, so it sits on top */
-/* We only need to add bottom padding to chat-msgs to clear both bars */
 .bottom-nav { transition: none; }
 
 #u-input {
@@ -657,10 +588,6 @@ body {
 #send-btn:disabled { opacity:.4; cursor:not-allowed; }
 #send-btn svg { width:20px; height:20px; fill:none; stroke:#fff; stroke-width:2; }
 
-/* ════════════════════════════════════════════
-   ██ ORÇAMENTO PAGE
-════════════════════════════════════════════ */
-/* 2-col on desktop */
 .orc-wrap {
   display:flex; flex-direction:column; gap:16px;
   padding:0 24px;
@@ -672,7 +599,6 @@ body {
   .orc-right { flex:1; min-width:0; }
 }
 
-/* Form card */
 .form-card {
   background:var(--bg-card); border:1.5px solid var(--border-d); border-radius:20px; padding:18px;
   box-shadow:0 2px 10px var(--shadow);
@@ -701,7 +627,6 @@ body {
 .s-dot.err    { background:var(--tc); }
 @keyframes pulseDot { 0%,100%{opacity:1;}50%{opacity:.3;} }
 
-/* List card */
 .list-card { background:var(--bg-card); border:1px solid var(--border); border-radius:20px; overflow:hidden; box-shadow:0 2px 10px var(--shadow); margin-top:14px; }
 .list-hdr { padding:13px 16px; background:var(--night); display:flex; justify-content:space-between; align-items:center; }
 .list-hdr-title { font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:#fff; }
@@ -715,14 +640,13 @@ body {
 .exp-name { font-size:13px; font-weight:500; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .exp-meta { font-size:10px; color:var(--text-sub); margin-top:1px; }
 .exp-val  { font-family:'Playfair Display',serif; font-size:13px; font-weight:700; color:var(--text); flex-shrink:0; }
-.exp-del  { width:27px; height:27px; border-radius:8px; border:none; background:var(--tc-p); color:var(--tc); font-size:13px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:transform .15s; }
+.exp-del  { width:27px; height:27px; border-radius:8px; border:none; background:var(--tc-p); color:var(--tc); font-size:13px; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:transform .15px; }
 .exp-del:active { transform:scale(.9); }
 .list-total-row { display:flex; justify-content:space-between; align-items:center; padding:11px 16px; background:var(--sage-p); border-top:2px solid var(--sage-l); }
 .lt-lbl { font-size:12px; font-weight:600; color:var(--sage-d); }
 .lt-val { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:var(--sage-d); }
 .exp-empty { text-align:center; padding:28px 16px; font-family:'Lora',serif; font-style:italic; font-size:13px; color:var(--text-sub); }
 
-/* ── Vitrine de Afiliados ── */
 .vitrine-header { margin-bottom:20px; }
 .vitrine-eyebrow {
   font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
@@ -796,9 +720,6 @@ body {
 .aff-btn:active { transform:scale(.96); opacity:.9; }
 .aff-btn svg    { width:13px; height:13px; fill:none; stroke:#fff; stroke-width:2.5; flex-shrink:0; }
 
-/* ════════════════════════════════════════════
-   ██ GUIAS PAGE
-════════════════════════════════════════════ */
 .filter-row { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding-bottom:4px; }
 .filter-row::-webkit-scrollbar { display:none; }
 .f-chip { flex-shrink:0; padding:8px 16px; border-radius:20px; font-size:12px; font-weight:500; cursor:pointer; border:1.5px solid var(--border-d); background:var(--bg-card); color:var(--text-sub); transition:all .18s; }
@@ -842,9 +763,6 @@ body {
 .tg-free { background:var(--gold-p); color:#7a6010; }
 .g-arr   { color:var(--border-d); font-size:20px; align-self:center; }
 
-/* ════════════════════════════════════════════
-   ██ PERFIL PAGE
-════════════════════════════════════════════ */
 .perfil-hero { background:var(--night); border-radius:22px; padding:22px; display:flex; align-items:center; gap:16px; position:relative; overflow:hidden; box-shadow:0 6px 24px var(--shadow-lg); }
 .perfil-hero::before { content:''; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse 60% 80% at 0% 50%, rgba(138,158,127,.2) 0%,transparent 60%); }
 .p-av { width:66px; height:66px; border-radius:50%; background:rgba(255,255,255,.1); border:2px solid rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; font-size:28px; flex-shrink:0; position:relative; z-index:1; overflow:hidden; }
@@ -872,9 +790,6 @@ body {
 .logout-btn { margin-top:12px; display:block; width:100%; padding:13px; text-align:center; border-radius:14px; background:transparent; border:1.5px solid var(--border-d); font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; color:var(--text-sub); cursor:pointer; transition:all .18s; }
 .logout-btn:active { background:var(--tc-p); color:var(--tc); transform:scale(.98); }
 
-/* ════════════════════════════════════════════
-   PRO MODAL
-════════════════════════════════════════════ */
 #pro-ov { display:none; position:fixed; inset:0; z-index:9998; background:rgba(44,62,45,.55); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); align-items:flex-end; justify-content:center; }
 #pro-ov.on { display:flex; }
 #pro-modal { background:rgba(250,246,239,.95); backdrop-filter:blur(28px); -webkit-backdrop-filter:blur(28px); border:1px solid rgba(255,255,255,.7); border-bottom:none; border-radius:28px 28px 0 0; padding:28px 24px 36px; width:100%; max-width:480px; animation:slideUp .4s cubic-bezier(.34,1.56,.64,1) both; }
@@ -892,16 +807,12 @@ body {
 .pm-btn:active { transform:scale(.98); opacity:.9; }
 .pm-skip { display:block; text-align:center; margin-top:12px; font-size:12px; color:var(--brown-l); cursor:pointer; }
 
-/* ════════════════════════════════════════════
-   ANIMATIONS
-════════════════════════════════════════════ */
 @keyframes fadeUp { from{opacity:0;transform:translateY(14px);} to{opacity:1;transform:none;} }
 .fu { opacity:0; animation:fadeUp .5s ease forwards; }
 .d1{animation-delay:.05s}.d2{animation-delay:.12s}.d3{animation-delay:.2s}
 .d4{animation-delay:.28s}.d5{animation-delay:.36s}.d6{animation-delay:.44s}
 .d7{animation-delay:.52s}.d8{animation-delay:.60s}
 
-/* ── Sons de Ninar ── */
 .sound-chip {
   padding:10px 12px; border-radius:13px; font-size:13px; font-weight:500;
   cursor:pointer; border:1.5px solid var(--border-d);
@@ -914,7 +825,6 @@ body {
 .sound-chip.active { background:var(--night); border-color:var(--night); color:#fff; }
 .sound-chip:active { transform:scale(.96); }
 
-/* ── Timer de Sono ── */
 .timer-option {
   display:block; cursor:pointer; border-radius:12px;
   border:1.5px solid var(--border-d); background:var(--bg-card);
@@ -931,7 +841,6 @@ body {
 .timer-master { background:var(--lav-p);  color:var(--lav); }
 .sp { height:20px; }
 
-/* ── Monte sua Box ── */
 .box-section { margin-top:20px; }
 .box-section-title {
   font-family:'Playfair Display',serif; font-size:15px; font-weight:700;
@@ -940,7 +849,6 @@ body {
 .box-cards { display:flex; flex-direction:column; gap:12px; }
 @media(min-width:640px) { .box-cards { flex-direction:row; } }
 
-/* Box Personalizada */
 .box-custom {
   flex:1; background:var(--bg-card); border:1.5px solid var(--border-d);
   border-radius:20px; padding:18px;
@@ -981,7 +889,6 @@ body {
   padding:1px 8px; font-size:11px; font-weight:700; min-width:20px; text-align:center;
 }
 
-/* Box Surpresa */
 .box-surprise {
   flex:1; position:relative; overflow:hidden; border-radius:20px;
   background:linear-gradient(135deg, #1a2e1a 0%, #2c4a2c 100%);
@@ -1026,7 +933,6 @@ body {
   font-size:10px; color:rgba(255,255,255,.35); font-family:'Lora',serif; font-style:italic;
 }
 
-/* ── Plan subscription cards ── */
 .planos-section { margin-top:4px; }
 .planos-title {
   font-family:'Playfair Display',serif; font-size:15px; font-weight:700;
@@ -1115,7 +1021,6 @@ body {
   border-radius:0 0 10px 10px; white-space:nowrap;
 }
 
-/* ── Plan lock overlay ── */
 .plan-lock-wrap { position:relative; }
 .plan-lock-overlay {
   position:absolute; inset:0; z-index:10; border-radius:inherit;
@@ -1135,7 +1040,6 @@ body {
 }
 .plo-btn:active { transform:scale(.96); }
 
-/* ── Memory card (Plus/Premium) ── */
 .memory-card {
   background:linear-gradient(135deg, var(--sage-p) 0%, var(--gold-p) 100%);
   border:1.5px solid var(--sage-l); border-radius:20px; padding:18px;
@@ -1165,7 +1069,6 @@ body {
 .mc-item-lbl  { flex:1; font-weight:500; }
 .mc-item-date { font-size:10px; color:var(--text-sub); }
 
-/* ── Plan Differentiation Cards ────────────────────── */
 .plans-diff {
   display:flex; flex-direction:column; gap:10px;
 }
@@ -1206,7 +1109,6 @@ body {
 }
 .pd-list li::before { content:''; }
 
-/* ── Welcome Questionnaire Modal ────────────────────── */
 #welcome-overlay {
   display:none; position:fixed; inset:0; z-index:9990;
   background:rgba(44,62,45,.6);
@@ -1289,7 +1191,6 @@ body {
   transition:color .15s;
 }
 .wm-skip:hover { color:var(--text); }
-/* Done state */
 .wm-done { text-align:center; padding:8px 0 4px; }
 .wm-done-flower { font-size:48px; margin-bottom:12px; display:block; animation:leafSway 3s ease-in-out infinite; }
 .wm-done-title { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--text); margin-bottom:8px; }
@@ -1304,7 +1205,6 @@ body {
 }
 .wm-done-btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(90,112,80,.4); }
 
-/* ── Welcome modal – input fields & field-steps ── */
 .wm-field { margin-bottom:14px; }
 .wm-field-label {
   display:block; font-size:11px; font-weight:600; color:var(--text-sub);
@@ -1332,7 +1232,6 @@ body {
   color:var(--text-sub); line-height:1.5; margin-bottom:14px;
 }
 
-/* ── Guide Content Modal ────────────────────── */
 #guide-overlay {
   display:none; position:fixed; inset:0; z-index:9991;
   background:rgba(44,62,45,.6);
@@ -1378,7 +1277,6 @@ body {
   line-height:1.6;
 }
 
-/* ── Perfil da Mãe Hero Editável ──────────────────── */
 .p-av-wrap { position:relative; flex-shrink:0; cursor:pointer; }
 .p-av-edit {
   position:absolute; bottom:-2px; right:-2px;
@@ -1412,7 +1310,6 @@ body {
 .pf-save-btn:active { transform:scale(.97); }
 .pf-save-msg { font-size:11px; color:var(--sage-d); text-align:center; font-family:'Lora',serif; font-style:italic; min-height:14px; }
 
-/* ── Rotina Ontem/Hoje tabs ─────────────────────── */
 .rotina-day-tabs {
   display:flex; gap:6px; padding:10px 16px 0;
   border-bottom:1px solid var(--border); flex-shrink:0;
@@ -1426,7 +1323,6 @@ body {
 .rdt-tab.active { color:var(--sage-d); border-bottom-color:var(--sage); }
 .rdt-tab:hover:not(.active) { color:var(--text); }
 
-/* ── Sugestão de janela ─────────────────────────── */
 .janela-hint {
   background:linear-gradient(135deg, var(--sage-p) 0%, var(--gold-p) 100%);
   border:1px solid var(--sage-l); border-radius:12px;
@@ -1437,7 +1333,6 @@ body {
 .janela-hint.visible { display:block; animation:fadeUp .3s ease both; }
 .janela-hint strong { color:var(--night); font-style:normal; }
 
-/* ── Baby Card Expanded ───────────────────────── */
 .bc-name-big {
   font-family:'Playfair Display',serif;
   font-size:24px; font-weight:700; color:#fff;
@@ -1459,7 +1354,6 @@ body {
 .bc-measure-val { font-size:13px; font-weight:600; color:rgba(255,255,255,.9); line-height:1; margin-bottom:2px; }
 .bc-measure-lbl { font-size:8px; color:rgba(255,255,255,.35); text-transform:uppercase; letter-spacing:.06em; }
 
-/* ── Rotina Diária Card ────────────────────────── */
 .rotina-card {
   background:var(--bg-card); border:1px solid var(--border); border-radius:20px;
   overflow:hidden; box-shadow:0 2px 10px var(--shadow);
@@ -1516,7 +1410,6 @@ body {
 .rotina-save-btn:active { transform:scale(.97); opacity:.9; }
 .rotina-saved-msg { font-size:11px; color:var(--sage-d); text-align:center; font-family:'Lora',serif; font-style:italic; min-height:16px; }
 
-/* ── Vitrine por Abas ───────────────────────────── */
 .vitrine-tabs {
   display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px;
 }
@@ -1529,7 +1422,6 @@ body {
 .vt-tab.active { background:var(--night); border-color:var(--night); color:#fff; }
 .vt-tab:active  { transform:scale(.95); }
 
-/* ── Modo de Teste ── */
 .test-badge {
   display:none;
   align-items:center; gap:6px;
@@ -1544,13 +1436,7 @@ body {
   width:6px; height:6px; border-radius:50%; background:var(--gold);
   animation:pulseDot .9s ease-in-out infinite;
 }
-@keyframes pulseDot { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.4;transform:scale(1.3);} }
 
-/* ════════════════════════════════════════════
-   ██ RITUAL DE SOM — .rs- prefix
-════════════════════════════════════════════ */
-
-/* Player Card */
 .rs-player-card {
   background: var(--night);
   border-radius: 24px;
@@ -1591,7 +1477,6 @@ body {
 }
 @keyframes rsPulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.5;transform:scale(1.4);} }
 
-/* Progress bar */
 .rs-progress-wrap {
   margin-top: 14px; display: flex; align-items: center; gap: 10px;
   position: relative; z-index: 1;
@@ -1608,7 +1493,6 @@ body {
   font-family: 'DM Sans', sans-serif; flex-shrink: 0;
 }
 
-/* Play button */
 .rs-play-btn {
   width: 58px; height: 58px; border-radius: 50%; border: none; cursor: pointer;
   background: linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%);
@@ -1624,7 +1508,6 @@ body {
   box-shadow: 0 4px 18px rgba(196,122,82,.4);
 }
 
-/* Tabs */
 .rs-tabs {
   display: flex; gap: 8px; background: var(--bg); padding: 4px;
   border-radius: 16px; border: 1px solid var(--border);
@@ -1641,7 +1524,6 @@ body {
 }
 .rs-tab:active { transform: scale(.97); }
 
-/* Sound grid */
 .rs-sound-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
   margin-top: 14px; margin-bottom: 18px;
@@ -1663,7 +1545,6 @@ body {
 .rs-chip-label { font-size: 12px; font-weight: 600; color: inherit; text-align: center; }
 .rs-sound-chip.active .rs-chip-label { color: #fff; }
 
-/* Timer section */
 .rs-timer-section { border-top: 1px solid var(--border); padding-top: 16px; }
 .rs-section-label {
   font-size: 11px; font-weight: 700; letter-spacing: .06em;
@@ -1695,7 +1576,6 @@ body {
   font-weight: 600;
 }
 
-/* Story cards */
 .rs-story-list { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
 .rs-story-card {
   display: flex; align-items: center; gap: 12px;
@@ -1736,20 +1616,23 @@ body {
 .rs-story-btn:active { transform: scale(.95); }
 .rs-story-btn.pausing { background: linear-gradient(135deg, var(--tc), #a85f3a); }
 
+/* ── Nutrição page cards ── */
+.nutri-coming-soon {
+  position:absolute; top:12px; right:12px;
+  font-size:9px; font-weight:700; letter-spacing:.08em;
+  padding:3px 9px; border-radius:20px;
+}
+
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════
-     ██ LOGIN SCREEN — OTP (Código de 6 dígitos)
-══════════════════════════════════════════ -->
 <div id="login-screen">
   <div class="login-card">
     <span class="login-leaf">🌿</span>
     <div class="login-title">Guia do <em>Sono</em></div>
     <div class="login-sub">Seu refúgio tranquilo para noites mais serenas</div>
 
-    <!-- PASSO 1: E-mail -->
     <div id="step-email">
       <div class="login-form">
         <label class="login-label" for="login-email">Seu e-mail</label>
@@ -1764,7 +1647,6 @@ body {
       </div>
     </div>
 
-    <!-- PASSO 2: Código OTP (oculto inicialmente) -->
     <div id="step-otp" style="display:none;">
       <button class="login-back" onclick="backToEmail()">← Voltar</button>
       <div class="login-email-hint" id="otp-email-hint">
@@ -1773,7 +1655,6 @@ body {
       <label class="login-label" style="text-align:center;display:block;margin-bottom:12px;">
         Digite o código recebido por e-mail
       </label>
-      <!-- Single input: aceita 6 ou 8 dígitos do Supabase, ou o código 123456 -->
       <input
         class="login-input otp-single" id="otp-single"
         type="text" inputmode="numeric" maxlength="8"
@@ -1783,7 +1664,6 @@ body {
         oninput="this.value=this.value.replace(/\D/g,''); if(this.value.length>=6) verifyOtp()"
         onkeydown="if(event.key==='Enter') verifyOtp()"
       >
-      <!-- Legacy otp boxes (hidden, kept for JS compatibility) -->
       <div style="display:none">
         <input id="otp0"><input id="otp1"><input id="otp2">
         <input id="otp3"><input id="otp4"><input id="otp5">
@@ -1799,12 +1679,8 @@ body {
 </div>
 
 
-<!-- ══════════════════════════════════════════
-     ██ APP
-══════════════════════════════════════════ -->
 <div id="app">
 
-  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sb-brand">
       <div class="sb-brand-icon">🌿</div>
@@ -1812,7 +1688,7 @@ body {
     </div>
     <nav class="sb-nav">
       <button class="sn-item active" data-tab="home"      onclick="goTo('home')">      <span class="sn-icon">🏠</span> Início</button>
-      <button class="sn-item"        data-tab="orcamento" onclick="goTo('orcamento')"> <span class="sn-icon">💰</span> Orçamento</button>
+      <button class="sn-item"        data-tab="nutricao"  onclick="goTo('nutricao')">  <span class="sn-icon">🥦</span> Nutrição</button>
       <button class="sn-item"        data-tab="chat"      onclick="goTo('chat')">      <span class="sn-icon">💬</span> Chat IA</button>
       <button class="sn-item"        data-tab="ritual"    onclick="goTo('ritual')">    <span class="sn-icon">🎵</span> Ritual de Som</button>
       <button class="sn-item"        data-tab="guias"     onclick="goTo('guias')">     <span class="sn-icon">📚</span> Guias</button>
@@ -1826,7 +1702,6 @@ body {
           <div class="sb-user-email" id="sb-email"></div>
         </div>
       </div>
-      <!-- fixed palette — no dark mode toggle -->
       <div class="test-badge" id="test-badge">
         <div class="test-badge-dot"></div>
         Modo de Teste Ativo
@@ -1834,7 +1709,6 @@ body {
     </div>
   </aside>
 
-  <!-- CONTENT -->
   <div class="content-area">
 
     <!-- ══ HOME ══════════════════════════════ -->
@@ -1851,7 +1725,6 @@ body {
           </div>
         </div>
 
-        <!-- CLIMATE CARD -->
         <div class="sec-hdr fu d2"><div class="sec-title">Ambiente & Conforto</div></div>
         <div class="px fu d2">
           <div class="climate-card">
@@ -1871,7 +1744,6 @@ body {
           </div>
         </div>
 
-        <!-- BABY CARD EXPANDIDO -->
         <div class="sec-hdr fu d3"><div class="sec-title">Perfil do Bebê</div></div>
         <div class="px fu d3">
           <div class="baby-card">
@@ -1921,14 +1793,12 @@ body {
           </div>
         </div>
 
-        <!-- ROTINA DIÁRIA -->
         <div class="sec-hdr fu d4">
           <div class="sec-title">Rotina de hoje</div>
           <div class="sec-link" onclick="saveRotina()" style="color:var(--sage-d)">Salvar ✓</div>
         </div>
         <div class="px fu d4">
           <div class="rotina-card">
-            <!-- Tabs Ontem / Hoje -->
             <div class="rotina-day-tabs">
               <button class="rdt-tab" onclick="switchRotinaDay(-1)">Ontem</button>
               <button class="rdt-tab active" id="rdt-hoje" onclick="switchRotinaDay(0)">Hoje</button>
@@ -1938,7 +1808,6 @@ body {
               <span class="rotina-hdr-date" id="rotina-date">hoje</span>
             </div>
             <div class="rotina-body">
-              <!-- Despertar -->
               <div class="rotina-row">
                 <div class="rotina-icon ri-gold">🌅</div>
                 <span class="rotina-label">Acordou às</span>
@@ -1946,15 +1815,10 @@ body {
                   title="Digite o horário — o resto é calculado automaticamente ✦"
                   oninput="calcJanelas()">
               </div>
-              <!-- Sugestão de janelas calculada automaticamente -->
               <div class="janela-hint" id="janela-hint"></div>
               <div class="rotina-divider"></div>
-              <!-- Sonecas — renderizadas dinamicamente por buildSonecasGrid() -->
-              <div id="sonecas-container">
-                <!-- JS buildSonecasGrid() preenche aqui baseado no nº de sonecas do perfil -->
-              </div>
+              <div id="sonecas-container"></div>
               <div class="rotina-divider"></div>
-              <!-- Sono noturno -->
               <div class="rotina-row">
                 <div class="rotina-icon ri-lav">🌙</div>
                 <span class="rotina-label">Sono noturno às</span>
@@ -1963,7 +1827,6 @@ body {
                   oninput="this.dataset.auto='0';this.style.color='';this.style.borderColor='';this.style.background=''">
               </div>
               <div class="rotina-divider"></div>
-              <!-- Relato madrugada -->
               <div>
                 <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
                   <div class="rotina-icon ri-tc" style="width:26px;height:26px;font-size:13px;">🌌</div>
@@ -1980,7 +1843,6 @@ body {
           </div>
         </div>
 
-        <!-- SINAIS -->
         <div class="sec-hdr fu d5"><div class="sec-title">Registrar sinal agora</div></div>
         <div class="px fu d5">
           <div class="chips-scroll">
@@ -1992,7 +1854,6 @@ body {
           </div>
         </div>
 
-        <!-- CHAT ENTRY -->
         <div class="sec-hdr fu d6"><div class="sec-title">Apoio agora</div></div>
         <div class="px fu d6">
           <div class="chat-entry" onclick="goTo('chat')">
@@ -2005,6 +1866,26 @@ body {
             <div class="ce-arr">›</div>
           </div>
         </div>
+
+        <!-- ══ ESSENCIAIS PARA O QUARTO DO BEBÊ ══ -->
+        <div class="sec-hdr fu d7">
+          <div class="sec-title">🛒 Essenciais para o Quarto do Bebê</div>
+        </div>
+        <div class="px fu d7" style="margin-bottom:6px;">
+          <div style="font-family:'Lora',serif;font-style:italic;font-size:12px;color:var(--text-sub);margin-bottom:14px;">
+            Curadoria com amor — produtos que a Weyna recomenda para o sono gentil
+          </div>
+          <div class="vitrine-tabs" id="home-vitrine-tabs" style="margin-bottom:14px;">
+            <div class="vt-tab active" onclick="filterHomeVitrine(this,'todos')">Todos</div>
+            <div class="vt-tab" onclick="filterHomeVitrine(this,'Higiene')">🛁 Higiene</div>
+            <div class="vt-tab" onclick="filterHomeVitrine(this,'Bem-estar')">🌿 Bem-estar</div>
+            <div class="vt-tab" onclick="filterHomeVitrine(this,'Alimentação')">🍼 Alimentação</div>
+            <div class="vt-tab" onclick="filterHomeVitrine(this,'Segurança')">🛡️ Segurança</div>
+          </div>
+          <div class="aff-grid" id="home-vitrine-grid" style="grid-template-columns:1fr 1fr;">
+            <!-- preenchido por renderHomeVitrine() -->
+          </div>
+        </div>
         <div class="sp"></div>
       </div>
     </div><!-- /home -->
@@ -2014,13 +1895,12 @@ body {
       <div class="scroll-area">
         <div class="page-hdr fu d1">
           <div>
-            <div class="hdr-greeting">Finanças do bebê</div>
-            <div class="hdr-title">Seu <em>Orçamento</em></div>
+            <div class="hdr-greeting">Controle financeiro</div>
+            <div class="hdr-title">Orçamento do <em>Bebê</em></div>
           </div>
         </div>
 
         <div class="orc-wrap fu d2">
-          <!-- LEFT: form + list -->
           <div class="orc-left">
             <div class="form-card">
               <h3>🌱 Registrar gasto</h3>
@@ -2082,30 +1962,21 @@ body {
               <div class="vt-tab" onclick="filterVitrine(this,'Alimentação')">🍼 Alimentação</div>
               <div class="vt-tab" onclick="filterVitrine(this,'Segurança')">🛡️ Segurança</div>
             </div>
-            <div class="aff-grid" id="vitrine-grid">
-              <!-- preenchido por renderVitrine() no JS -->
-            </div>
+            <div class="aff-grid" id="vitrine-grid"></div>
 
-            <!-- ── Monte sua Box ── -->
             <div class="box-section">
               <div class="box-section-title">📦 Monte sua Box do Mês</div>
               <div class="box-cards">
-
-                <!-- Box Personalizada -->
                 <div class="box-custom">
                   <div class="box-custom-title">🛍️ Box Personalizada</div>
                   <div class="box-custom-sub">Selecione os itens que você quer e leve direto para a Amazon com um clique.</div>
-                  <div class="cart-items" id="cart-items">
-                    <!-- renderizado por buildCartItems() -->
-                  </div>
+                  <div class="cart-items" id="cart-items"></div>
                   <a class="cart-btn" id="cart-btn" href="#" target="_blank" rel="noopener sponsored" onclick="buildCartLink(event)">
                     <span>🛒</span>
                     <span style="flex:1">Ver seleção na Amazon</span>
                     <span class="cart-counter" id="cart-counter">0</span>
                   </a>
                 </div>
-
-                <!-- Box Surpresa Premium -->
                 <div class="box-surprise">
                   <div class="box-surprise-badge">✦ Exclusivo Premium</div>
                   <div class="box-surprise-title">Deixe o Guia do Sono<br>te <em>surpreender!</em></div>
@@ -2117,15 +1988,111 @@ body {
                   </button>
                   <div class="box-lock-tag" id="box-surpresa-lock">🔒 Disponível no Plano Premium</div>
                 </div>
-
               </div>
             </div>
-
           </div>
         </div>
         <div class="sp"></div>
       </div>
     </div><!-- /orcamento -->
+    <!-- ══ NUTRIÇÃO ══════════════════════════════════ -->
+    <div class="page" id="page-nutricao">
+      <div class="scroll-area">
+        <div class="page-hdr fu d1">
+          <div>
+            <div class="hdr-greeting">Alimentação saudável</div>
+            <div class="hdr-title">Guia de <em>Nutrição</em></div>
+          </div>
+        </div>
+
+        <div class="px" style="margin-bottom:16px;margin-top:-4px;">
+          <div style="font-family:'Lora',serif;font-style:italic;font-size:12px;color:var(--text-sub);">
+            Alimentos que nutrem · Sono que restaura · Família que floresce
+          </div>
+        </div>
+
+        <!-- CARD 1: Introdução Alimentar -->
+        <div class="sec-hdr fu d2"><div class="sec-title">Alimentação</div></div>
+        <div class="px fu d2">
+          <a class="guide-card" href="introducao-alimentar-ebook__1_.html" target="_blank"
+            style="background:linear-gradient(135deg,var(--tc-p) 0%,#fff 100%);border-color:var(--tc-l);">
+            <div class="g-icon" style="background:var(--tc-p);font-size:28px;width:54px;height:54px;">🥣</div>
+            <div class="g-info">
+              <div class="g-title" style="font-size:15px;font-family:'Playfair Display',serif;font-weight:700;">Introdução Alimentar</div>
+              <div class="g-sub">Métodos BLW e Tradicional — quando começar, primeiros alimentos e como conciliar refeições com as janelas de sono.</div>
+              <div class="g-meta">
+                <div class="g-tag tg-pop">Essencial</div>
+                <div class="g-tag tg-new" style="margin-left:4px;">BLW + Papinhas</div>
+                <span style="font-size:10px;color:var(--text-sub);">· 10 min</span>
+              </div>
+            </div>
+            <div class="g-arr">›</div>
+          </a>
+        </div>
+
+        <!-- CARD 2: Receitas de Nutrição Avançada -->
+        <div class="sec-hdr fu d3"><div class="sec-title">Receitas</div></div>
+        <div class="px fu d3">
+          <div class="guide-card"
+            style="background:linear-gradient(135deg,var(--gold-p) 0%,#fff 100%);border-color:var(--gold-l);position:relative;overflow:hidden;">
+            <div class="g-icon gi-gold" style="font-size:28px;width:54px;height:54px;">🌽</div>
+            <div class="g-info">
+              <div class="g-title" style="font-size:15px;font-family:'Playfair Display',serif;font-weight:700;">Receitas de Nutrição Avançada</div>
+              <div class="g-sub">Cardápios semanais nutritivos, finger foods seguros e receitas rápidas para cada fase — do purezinho ao toddler.</div>
+              <div class="g-meta">
+                <div class="g-tag" style="background:var(--gold-p);color:#7a6010;">Em breve</div>
+                <div class="g-tag tg-new" style="margin-left:4px;">Plus</div>
+                <span style="font-size:10px;color:var(--text-sub);">· 12 min</span>
+              </div>
+            </div>
+            <div style="position:absolute;top:12px;right:12px;background:var(--gold);color:#fff;font-size:9px;font-weight:700;letter-spacing:.08em;padding:3px 9px;border-radius:20px;">Em breve</div>
+          </div>
+        </div>
+
+        <!-- CARD 3: Suplementação e Vitaminas -->
+        <div class="sec-hdr fu d4"><div class="sec-title">Saúde & Suplementação</div></div>
+        <div class="px fu d4">
+          <div class="guide-card"
+            style="background:linear-gradient(135deg,var(--sage-p) 0%,#fff 100%);border-color:var(--sage-l);position:relative;overflow:hidden;">
+            <div class="g-icon gi-sage" style="font-size:28px;width:54px;height:54px;">💊</div>
+            <div class="g-info">
+              <div class="g-title" style="font-size:15px;font-family:'Playfair Display',serif;font-weight:700;">Suplementação e Vitaminas</div>
+              <div class="g-sub">Vitamina D, ferro, ômega-3 — o que faz diferença, quando suplementar e como o sono melhora com a nutrição certa.</div>
+              <div class="g-meta">
+                <div class="g-tag" style="background:var(--sage-p);color:var(--sage-d);">Em breve</div>
+                <div class="g-tag tg-new" style="margin-left:4px;">Premium</div>
+                <span style="font-size:10px;color:var(--text-sub);">· 8 min</span>
+              </div>
+            </div>
+            <div style="position:absolute;top:12px;right:12px;background:var(--sage);color:#fff;font-size:9px;font-weight:700;letter-spacing:.08em;padding:3px 9px;border-radius:20px;">Em breve</div>
+          </div>
+        </div>
+
+        <!-- Dica + atalho Chat -->
+        <div class="px fu d5" style="margin-top:8px;">
+          <div style="background:linear-gradient(135deg,var(--night) 0%,#3d5a3e 100%);border-radius:18px;padding:18px 20px;position:relative;overflow:hidden;">
+            <div style="position:absolute;right:-8px;bottom:-8px;font-size:60px;opacity:.1;">🌿</div>
+            <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sage-l);margin-bottom:6px;">Dica do Guia do Sono</div>
+            <div style="font-family:'Playfair Display',serif;font-size:15px;color:#fff;margin-bottom:6px;line-height:1.35;">Alimentação e sono caminham juntos</div>
+            <div style="font-family:'Lora',serif;font-style:italic;font-size:12px;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:14px;">
+              Ofereça a refeição principal 30–45 min após o bebê acordar da soneca — quando o humor está ótimo e a energia alta.
+            </div>
+            <div onclick="goTo('chat')" style="background:rgba(138,158,127,.15);border:1px solid rgba(138,158,127,.25);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;">
+              <div style="font-size:20px;">🌿</div>
+              <div style="flex:1;">
+                <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:#fff;">Perguntar à Guia do Sono</div>
+                <div style="font-size:11px;color:rgba(255,255,255,.45);font-family:'Lora',serif;font-style:italic;">dúvidas sobre alimentação e sono</div>
+              </div>
+              <div style="font-size:20px;color:rgba(255,255,255,.4);">›</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sp"></div>
+      </div>
+    </div><!-- /nutricao -->
+
+
 
     <!-- ══ CHAT ═══════════════════════════════ -->
     <div class="page" id="page-chat">
@@ -2142,7 +2109,6 @@ body {
         <strong><span style="cursor:pointer;text-decoration:underline;" onclick="goTo('perfil')">Conheça o Plano Plus</span></strong> e converse sem limites.
       </div>
       <div id="chat-msgs"></div>
-      <!-- Desktop + Mobile input inside page — always rendered, shown/hidden by JS -->
       <div id="chat-input-desktop" style="flex-shrink:0;">
         <div class="chat-input-wrap">
           <textarea id="u-input" rows="1" placeholder="Escreva sua dúvida sobre o sono…"></textarea>
@@ -2239,7 +2205,6 @@ body {
               <div class="g-arr">›</div>
             </div>
 
-            <!-- ── GUIAS DE ALIMENTAÇÃO ── -->
             <a class="guide-card" href="introducao-alimentar-ebook__1_.html" target="_blank" data-cat="todos alimentacao 4-6">
               <div class="g-icon" style="background:var(--tc-p);">🥣</div>
               <div class="g-info">
@@ -2289,7 +2254,6 @@ body {
             </div>
           </div>
 
-          <!-- Campos editáveis da mãe -->
           <div class="pf-edit-card fu d3">
             <div class="pf-sec-lbl" style="margin-bottom:2px;">👩 Seus dados</div>
             <div class="pf-edit-row">
@@ -2354,12 +2318,10 @@ body {
             <div class="pf-item"><div class="pf-left"><div class="pf-icon pi-gold">🔔</div><div><div class="pf-lbl">Notificações</div><div class="pf-sub">Lembretes de janela de sono</div></div></div><div class="pf-arr">›</div></div>
           </div>
 
-          <!-- ── Assinatura ── -->
           <div class="planos-section fu d5">
             <div class="planos-title">🌿 Sua Assinatura</div>
             <div class="planos-grid" id="planos-grid">
 
-              <!-- GRÁTIS -->
               <div class="plano-card plano-free" id="card-free">
                 <div id="current-tag-free"></div>
                 <div class="plano-hdr">
@@ -2382,7 +2344,6 @@ body {
                 <div class="plano-btn pb-btn-free" id="btn-plano-free">Seu plano atual</div>
               </div>
 
-              <!-- PLUS -->
               <div class="plano-card plano-plus" id="card-plus">
                 <div id="current-tag-plus"></div>
                 <div class="plano-popular">⭐ Mais escolhido</div>
@@ -2408,7 +2369,6 @@ body {
                 <button class="plano-btn pb-btn-plus" id="btn-plano-plus" onclick="handlePlanClick('plus')">Assinar Plus</button>
               </div>
 
-              <!-- PREMIUM -->
               <div class="plano-card plano-premium" id="card-premium">
                 <div id="current-tag-premium"></div>
                 <div class="plano-hdr">
@@ -2435,7 +2395,6 @@ body {
             </div>
           </div>
 
-          <!-- ── Arquivo de Memórias (Plus/Premium) ── -->
           <div class="pf-section fu d5" id="memory-section" style="margin-top:4px; position:relative;">
             <div class="pf-sec-lbl">📦 Arquivo de Memórias e Dados</div>
             <div class="memory-card" id="memory-card">
@@ -2447,7 +2406,6 @@ body {
                 <div class="mc-item"><span class="mc-item-icon">📊</span><span class="mc-item-lbl">Gastos do mês</span><span class="mc-item-date">Atualizado</span></div>
               </div>
             </div>
-            <!-- Lock overlay for free users -->
             <div class="plan-lock-overlay" id="memory-lock">
               <div class="plo-icon">🔒</div>
               <div class="plo-title">Arquivo de Memórias</div>
@@ -2466,7 +2424,6 @@ body {
     <div class="page" id="page-ritual">
       <div class="scroll-area">
 
-        <!-- Header -->
         <div class="page-hdr fu d1">
           <div>
             <div class="hdr-greeting">🌙 Ambiente de calma</div>
@@ -2479,7 +2436,6 @@ body {
           </div>
         </div>
 
-        <!-- ── Player Principal ── -->
         <div class="px fu d2">
           <div class="rs-player-card">
             <div class="rs-player-top">
@@ -2490,7 +2446,6 @@ body {
                   <span id="rs-status-txt">Pronto para começar</span>
                 </div>
               </div>
-              <!-- Volume -->
               <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
                 <span style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.06em;">Vol</span>
                 <input type="range" id="rs-vol" min="0" max="1" step="0.05" value="0.75"
@@ -2499,7 +2454,6 @@ body {
               </div>
             </div>
 
-            <!-- Progress bar (visible for stories, hidden for loops) -->
             <div class="rs-progress-wrap" id="rs-progress-wrap" style="display:none;">
               <div class="rs-progress-bar">
                 <div class="rs-progress-fill" id="rs-progress-fill"></div>
@@ -2507,7 +2461,6 @@ body {
               <div class="rs-progress-time" id="rs-progress-time">0:00</div>
             </div>
 
-            <!-- Play/Pause button -->
             <div style="display:flex;justify-content:center;margin-top:16px;">
               <button id="rs-play-btn" class="rs-play-btn" onclick="rsTogglePlay()" title="Reproduzir / Pausar">
                 <span id="rs-play-icon">▶</span>
@@ -2516,7 +2469,6 @@ body {
           </div>
         </div>
 
-        <!-- ── Tabs internas Sons / Histórias ── -->
         <div class="px fu d2" style="margin-top:18px;">
           <div class="rs-tabs">
             <button class="rs-tab active" id="rs-tab-sons"      onclick="rsSwitchTab('sons')">🎵 Sons</button>
@@ -2524,10 +2476,8 @@ body {
           </div>
         </div>
 
-        <!-- ══ TAB: SONS ══ -->
         <div id="rs-panel-sons" class="px fu d3">
 
-          <!-- Grid 2×2 de sons -->
           <div class="rs-sound-grid">
             <button class="rs-sound-chip" onclick="rsSelectSound(this,'Chuva Suave','boons_freak-rain-sound-188158 (1).mp3',true)" data-key="chuva">
               <span class="rs-chip-emoji">🌧️</span>
@@ -2547,7 +2497,6 @@ body {
             </button>
           </div>
 
-          <!-- Timer de sono -->
           <div class="rs-timer-section">
             <div class="rs-section-label">⏱️ Timer de Sono</div>
             <div class="rs-timer-grid">
@@ -2569,11 +2518,9 @@ body {
 
         </div><!-- /panel-sons -->
 
-        <!-- ══ TAB: HISTÓRIAS ══ -->
         <div id="rs-panel-historias" class="px fu d3" style="display:none;">
           <div class="rs-story-list">
 
-            <!-- História 1 — Grátis -->
             <div class="rs-story-card">
               <div class="rs-story-left">
                 <div class="rs-story-emoji">🐰</div>
@@ -2590,7 +2537,6 @@ body {
               </button>
             </div>
 
-            <!-- História 2 — Plus -->
             <div class="rs-story-card">
               <div class="rs-story-left">
                 <div class="rs-story-emoji">⭐</div>
@@ -2607,7 +2553,6 @@ body {
               </button>
             </div>
 
-            <!-- História 3 — Premium -->
             <div class="rs-story-card">
               <div class="rs-story-left">
                 <div class="rs-story-emoji">🌲</div>
@@ -2636,7 +2581,7 @@ body {
   <!-- BOTTOM NAV (mobile) -->
   <nav class="bottom-nav">
     <button class="nav-item active" data-tab="home"      onclick="goTo('home')">      <span class="nav-icon">🏠</span><span class="nav-lbl">Início</span></button>
-    <button class="nav-item"        data-tab="orcamento" onclick="goTo('orcamento')"> <span class="nav-icon">💰</span><span class="nav-lbl">Orçamento</span></button>
+    <button class="nav-item"        data-tab="nutricao"  onclick="goTo('nutricao')">  <span class="nav-icon">🥦</span><span class="nav-lbl">Nutrição</span></button>
     <button class="nav-item"        data-tab="chat"      onclick="goTo('chat')">      <span class="nav-icon">💬</span><span class="nav-lbl">Chat</span></button>
     <button class="nav-item"        data-tab="ritual"    onclick="goTo('ritual')">    <span class="nav-icon">🎵</span><span class="nav-lbl">Ritual</span></button>
     <button class="nav-item"        data-tab="guias"     onclick="goTo('guias')">     <span class="nav-icon">📚</span><span class="nav-lbl">Guias</span></button>
@@ -2678,6 +2623,7 @@ body {
 </div>
 
 
+
 <script>
 'use strict';
 
@@ -2685,7 +2631,6 @@ body {
    SUPABASE
 ═══════════════════════════════════════ */
 const SUPA_URL = 'https://ddyonglfjuryeucmpnqt.supabase.co';
-// anon/public key — nunca exponha a service_role key no frontend
 const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRkeW9uZ2xmanVyeWV1Y21wbnF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0OTI2MDEsImV4cCI6MjA2MjA2ODYwMX0.I7QSJlUlHCcnqFIpBvLbTkNpF2lZNMZxfmOSvP71OlE';
 
 let sb;
@@ -2693,7 +2638,6 @@ try {
   sb = supabase.createClient(SUPA_URL, SUPA_KEY);
 } catch(e) {
   console.warn('[GDS] Supabase init failed:', e);
-  // Fallback stub so the rest of the app doesn't crash
   sb = {
     auth: {
       signInWithOtp: async () => ({ error: { message: 'Supabase indisponível' } }),
@@ -2711,40 +2655,20 @@ try {
   };
 }
 
-/* ── E-mails com acesso Mestre automático ──────────────────
-   Para estes e-mails, ao entrar com o código OTP real OU
-   com o código 123456, o app concede acesso Mestre (Plus+Premium).
-   Adicione e-mails conforme necessário.
-   ─────────────────────────────────────────────────────── */
 const MASTER_EMAILS = ['azorathi@gmail.com'];
 
-/* ═══════════════════════════════════════
-   GLOBALS
-═══════════════════════════════════════ */
 let currentUser = null;
 let chatBooted  = false;
 let isLoading   = false;
 let chatHistory = [];
 let recognition = null;
 let isListening = false;
-// Fixed palette — no dark mode
 let currentTab  = 'home';
 
-/* ── User role: 'free' | 'plus' | 'premium' ──────────────
-   In production this would come from Supabase subscriptions.
-   During testing with CODIGO_MESTRE, defaults to 'plus'
-   so all features are accessible.
-   To simulate free: set localStorage key below.
-   ─────────────────────────────────────────────────────── */
 let userRole = localStorage.getItem('gds_role') || 'free';
 function isPlus()    { return userRole === 'plus' || userRole === 'premium'; }
 function isPremium() { return userRole === 'premium'; }
 
-/* ═══════════════════════════════════════
-   OTP LOGIN  (2 passos, sem redirect)
-═══════════════════════════════════════ */
-
-// ── Passo 1: envia o código OTP ──
 async function sendOtp() {
   const emailEl = document.getElementById('login-email');
   if (!emailEl) return;
@@ -2758,8 +2682,6 @@ async function sendOtp() {
   if (txt) txt.textContent = 'Enviando…';
   hideLoginMsg();
 
-  // Para e-mails mestre: não precisa de OTP real — vai para tela de código
-  // com instrução de usar 123456
   if (MASTER_EMAILS.includes(email)) {
     if (btn) btn.disabled = false;
     if (txt) txt.textContent = '✉️ Receber Código de Acesso';
@@ -2774,7 +2696,6 @@ async function sendOtp() {
     return;
   }
 
-  // Para outros e-mails: tenta Supabase OTP real
   let error;
   try {
     ({ error } = await sb.auth.signInWithOtp({
@@ -2807,19 +2728,12 @@ async function sendOtp() {
   if (si) si.focus();
 }
 
-// ── Passo 2: verifica o código ──
-// ─────────────────────────────────────────────────────
-// CÓDIGO MESTRE TEMPORÁRIO: 123456
-// Permite testar o app enquanto o Supabase limita e-mail.
-// REMOVA esta constante antes de ir para produção!
-// ─────────────────────────────────────────────────────
 const CODIGO_MESTRE = '123456';
 let modoTeste = false;
 
 async function verifyOtp() {
   const email = document.getElementById('login-email').value.trim();
 
-  // Read from single input (primary) or legacy boxes (fallback)
   const singleEl = document.getElementById('otp-single');
   let code = '';
   if (singleEl) {
@@ -2830,16 +2744,13 @@ async function verifyOtp() {
       .join('');
   }
 
-  // Must have at least 6 digits
   if (code.length < 6) {
     showLoginMsg('Digite o código completo (6 dígitos).', 'error');
     if (singleEl) singleEl.focus();
     return;
   }
-  // code6: first 6 digits — used for CODIGO_MESTRE and as fallback for Supabase
   const code6 = code.slice(0, 6);
 
-  // ── Código mestre OU e-mail mestre: acesso total ──────
   const emailLower = email.toLowerCase();
   if (code6 === CODIGO_MESTRE || MASTER_EMAILS.includes(emailLower)) {
     modoTeste = true;
@@ -2848,7 +2759,6 @@ async function verifyOtp() {
       email: email || 'teste@guiadosono.com',
       user_metadata: { full_name: MASTER_EMAILS.includes(emailLower) ? 'Luiz Felipe' : 'Weyna (Teste)' },
     };
-    // Acesso Mestre — salva no localStorage por 30 dias
     localStorage.setItem('gds_persist', JSON.stringify({
       ts: Date.now(), mode: 'test',
       email: email || 'teste@guiadosono.com'
@@ -2859,19 +2769,16 @@ async function verifyOtp() {
     document.getElementById('test-badge')?.classList.add('on');
     return;
   }
-  // ─────────────────────────────────────────────────────
 
   const btn = document.getElementById('btn-verify');
   const txt = document.getElementById('btn-verify-txt');
   btn.disabled = true; txt.textContent = 'Verificando…';
   hideLoginMsg();
 
-  // Tenta os 3 tipos que o Supabase pode usar dependendo da config do projeto
   let data, error;
   ({ data, error } = await sb.auth.verifyOtp({ email, token: code, type: 'email' }));
   if (error) ({ data, error } = await sb.auth.verifyOtp({ email, token: code, type: 'magiclink' }));
   if (error) ({ data, error } = await sb.auth.verifyOtp({ email, token: code, type: 'signup' }));
-  // Also try 6-digit slice if full code doesn't work
   if (error && code.length > 6) {
     ({ data, error } = await sb.auth.verifyOtp({ email, token: code6, type: 'email' }));
     if (error) ({ data, error } = await sb.auth.verifyOtp({ email, token: code6, type: 'magiclink' }));
@@ -2891,12 +2798,10 @@ async function verifyOtp() {
     currentUser = data.session.user;
     revealApp();
   } else {
-    // Sessão pode chegar via onAuthStateChange — aguarda 800ms
     setTimeout(() => { if (currentUser) revealApp(); }, 800);
   }
 }
 
-// ── Volta ao passo 1 ──
 function backToEmail() {
   document.getElementById('step-otp').style.display   = 'none';
   document.getElementById('step-email').style.display = 'block';
@@ -2907,23 +2812,19 @@ function backToEmail() {
   hideLoginMsg();
 }
 
-// ── Navegação automática entre os 6 boxes (legacy, used as fallback) ──
 function initOtpBoxes() {
-  // Focus the single input if it exists (new UI)
   const si = document.getElementById('otp-single');
   if (si) { si.value = ''; si.focus(); return; }
   [0,1,2,3,4,5].forEach(i => {
     const box = document.getElementById(`otp${i}`);
-    // Evita duplicar listeners
     box.replaceWith(box.cloneNode(true));
     const fresh = document.getElementById(`otp${i}`);
 
     fresh.addEventListener('input', e => {
       const v = e.target.value.replace(/\D/g,'');
-      e.target.value = v.slice(-1); // só 1 dígito
+      e.target.value = v.slice(-1);
       e.target.classList.toggle('filled', v !== '');
       if (v && i < 5) document.getElementById(`otp${i+1}`).focus();
-      // Auto-verifica quando o 6º está preenchido
       if (i === 5 && v) {
         const full = [0,1,2,3,4,5].every(j => document.getElementById(`otp${j}`).value);
         if (full) verifyOtp();
@@ -2936,7 +2837,6 @@ function initOtpBoxes() {
       if (e.key === 'Enter') verifyOtp();
     });
 
-    // Paste: distribui os dígitos pelos boxes
     fresh.addEventListener('paste', e => {
       e.preventDefault();
       const digits = (e.clipboardData.getData('text') || '').replace(/\D/g,'').slice(0,6);
@@ -2960,9 +2860,6 @@ function hideLoginMsg() {
   el.className = 'login-msg'; el.textContent = '';
 }
 
-/* ═══════════════════════════════════════
-   AUTH STATE
-═══════════════════════════════════════ */
 sb.auth.onAuthStateChange((event, session) => {
   if (session?.user && !currentUser) {
     currentUser = session.user;
@@ -2970,21 +2867,15 @@ sb.auth.onAuthStateChange((event, session) => {
   }
 });
 
-// ── Persistent session check ──
-// 1. Check Supabase real session
-// 2. Check localStorage for test/master-code session
 (async () => {
-  // Supabase real session takes priority
   const { data: { session } } = await sb.auth.getSession();
   if (session?.user) {
     currentUser = session.user;
     revealApp();
     return;
   }
-  // Check localStorage persist (for CODIGO_MESTRE users)
   try {
     const saved = JSON.parse(localStorage.getItem('gds_persist') || 'null');
-    // Valid for 30 days
     if (saved && saved.mode === 'test' && (Date.now() - saved.ts) < 30 * 24 * 60 * 60 * 1000) {
       modoTeste = true;
       currentUser = {
@@ -3005,9 +2896,7 @@ function revealApp() {
   setTimeout(() => ls.style.display = 'none', 520);
   document.getElementById('app').classList.add('on');
   initApp();
-  // modoTeste users get plus access
   setTimeout(() => { initUserRole(); }, 100);
-  // Show welcome questionnaire on first login
   setTimeout(checkWelcome, 900);
 }
 
@@ -3019,7 +2908,6 @@ async function doLogout() {
   document.getElementById('test-badge')?.classList.remove('on');
   document.getElementById('app').classList.remove('on');
   chatBooted = false; chatHistory = [];
-  // Reset login para passo 1
   document.getElementById('step-otp').style.display   = 'none';
   document.getElementById('step-email').style.display = 'block';
   document.getElementById('login-email').value = '';
@@ -3034,9 +2922,6 @@ async function doLogout() {
   requestAnimationFrame(() => ls.classList.remove('out'));
 }
 
-/* ═══════════════════════════════════════
-   INIT
-═══════════════════════════════════════ */
 function initApp() {
   setGreeting();
   loadClimate();
@@ -3045,13 +2930,9 @@ function initApp() {
   loadExpenses();
   loadRotina();
   loadProfileCache();
-  // fixed palette — no theme init needed
-  // default date
   const df = document.getElementById('exp-date');
   if (df) df.value = new Date().toISOString().split('T')[0];
-  // Build adaptive soneca grid based on profile
   buildSonecasGrid();
-  // chat input responsive
   syncChatInput();
   window.addEventListener('resize', syncChatInput);
 }
@@ -3088,23 +2969,15 @@ function fillUserUI() {
   }
 }
 
-/* theme functions removed — fixed palette */
-
-/* ═══════════════════════════════════════
-   NAVIGATION
-═══════════════════════════════════════ */
 function goTo(tab) {
   currentTab = tab;
-  // Deactivate all pages and nav items
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item, .sn-item').forEach(n => {
     n.classList.toggle('active', n.dataset.tab === tab);
   });
-  // Show target page
   const target = document.getElementById('page-' + tab);
   if (target) {
     target.classList.add('active');
-    // Scroll back to top on tab change
     const sa = target.querySelector('.scroll-area');
     if (sa) sa.scrollTop = 0;
   }
@@ -3116,34 +2989,20 @@ function goTo(tab) {
 function syncChatInput() {
   const isDesk = window.innerWidth >= 800;
   const onChat = currentTab === 'chat';
-
-  // ── Mobile ──────────────────────────────────
-  // Show fixed input bar + hide bottom nav only when on chat tab
   const mob = document.getElementById('chat-input-mobile');
   if (mob) {
-    if (!isDesk && onChat) {
-      mob.classList.add('on');
-    } else {
-      mob.classList.remove('on');
-    }
+    if (!isDesk && onChat) mob.classList.add('on');
+    else mob.classList.remove('on');
   }
-  // body.chat-active no longer hides the nav (user must be able to navigate away)
-
-  // ── Desktop ─────────────────────────────────
-  // Inline input inside the flex column of page-chat
   const desk = document.getElementById('chat-input-desktop');
   if (desk) desk.style.display = (isDesk && onChat) ? 'flex' : 'none';
 }
 
-/* ═══════════════════════════════════════
-   CLIMATE
-═══════════════════════════════════════ */
 async function loadClimate() {
   function apply(temp, city, code) {
     const t = Math.round(temp);
     document.getElementById('cl-temp').textContent = t;
     document.getElementById('cl-loc').textContent  = city;
-
     const WMO = {
       0:['☀️','Céu limpo'],1:['🌤️','Principalmente limpo'],2:['⛅','Parcialmente nublado'],
       3:['☁️','Nublado'],45:['🌫️','Neblina'],51:['🌦️','Chuva fraca'],
@@ -3152,15 +3011,13 @@ async function loadClimate() {
     const w = WMO[code] || WMO[Math.floor(code/10)*10] || ['🌤️','Variável'];
     document.getElementById('cl-emoji').textContent = w[0];
     document.getElementById('cl-desc').textContent  = w[1];
-
     const ideal = document.getElementById('cl-ideal');
     if (ideal) {
       const ok = t >= 18 && t <= 22;
       ideal.innerHTML = ok
         ? 'Temperatura <strong style="color:var(--gold-l)">ideal ✓</strong> para o sono do bebê'
-        : `Temperatura ideal para o sono: <strong>18–22°C</strong>`;
+        : 'Temperatura ideal para o sono: <strong>18–22°C</strong>';
     }
-
     const tips = document.getElementById('cl-tips');
     if (!tips) return;
     const T = t < 16  ? [['🧣','Macacão grosso'],['🍵','Ambiente aquecido']]
@@ -3170,7 +3027,6 @@ async function loadClimate() {
              :            [['👶','Só fralda + body'],['❄️','AC a 23°C'],['💧','Hidrate bem']];
     tips.innerHTML = T.map(t=>`<div class="cl-tip"><span>${t[0]}</span> ${t[1]}</div>`).join('');
   }
-
   if ('geolocation' in navigator) {
     navigator.geolocation.getCurrentPosition(async pos => {
       try {
@@ -3187,9 +3043,6 @@ async function loadClimate() {
   } else { apply(24,'Sua cidade',1); }
 }
 
-/* ═══════════════════════════════════════
-   AVATAR
-═══════════════════════════════════════ */
 function loadAvatar(e) {
   const f = e.target.files[0]; if (!f) return;
   const r = new FileReader();
@@ -3197,9 +3050,6 @@ function loadAvatar(e) {
   r.readAsDataURL(f);
 }
 
-/* ═══════════════════════════════════════
-   GUIAS FILTER
-═══════════════════════════════════════ */
 function filterGuias(chip, cat) {
   document.querySelectorAll('.f-chip').forEach(c => c.classList.remove('active'));
   chip.classList.add('active');
@@ -3208,24 +3058,6 @@ function filterGuias(chip, cat) {
   });
 }
 
-/* ═══════════════════════════════════════
-   EXPENSES — SUPABASE
-   ─────────────────────────────────────
-   SQL para criar a tabela (Supabase SQL Editor):
-
-   create table if not exists expenses (
-     id         uuid primary key default gen_random_uuid(),
-     user_id    uuid references auth.users(id) on delete cascade,
-     name       text not null,
-     val        numeric(10,2) not null,
-     category   text,
-     date       date not null,
-     created_at timestamptz default now()
-   );
-   alter table expenses enable row level security;
-   create policy "own expenses" on expenses for all
-     using (auth.uid() = user_id);
-═══════════════════════════════════════ */
 const EXP_LOCAL = 'gds_expenses';
 
 function setSyncStatus(state, msg) {
@@ -3243,11 +3075,9 @@ async function addExpense() {
   const date = document.getElementById('exp-date').value || new Date().toISOString().split('T')[0];
   if (!name)          { document.getElementById('exp-name').focus(); return; }
   if (isNaN(val)||val<=0){ document.getElementById('exp-val').focus(); return; }
-
   const btn = document.getElementById('btn-add');
   btn.disabled = true; btn.textContent = 'Salvando…';
   setSyncStatus('saving','Salvando…');
-
   if (currentUser) {
     const { error } = await sb.from('expenses').insert({
       user_id: currentUser.id, name, val, category: cat, date
@@ -3258,7 +3088,6 @@ async function addExpense() {
     saveLocal({ id: String(Date.now()), name, val, category: cat, date });
     setSyncStatus('','Salvo localmente');
   }
-
   document.getElementById('exp-name').value = '';
   document.getElementById('exp-val').value  = '';
   btn.disabled = false; btn.textContent = '+ Adicionar gasto';
@@ -3307,21 +3136,17 @@ function renderExpenses(items) {
   const totRow = document.getElementById('list-total-row');
   const mthEl = document.getElementById('list-month');
   if (!list) return;
-
   const MONTHS=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
   const now = new Date();
   if (mthEl) mthEl.textContent = `Gastos de ${MONTHS[now.getMonth()].toLowerCase()}`;
-
   const total = (items||[]).reduce((s,e) => s + Number(e.val), 0);
   if (badge)  badge.textContent  = fmt(total);
   if (totEl)  totEl.textContent  = fmt(total);
   if (totRow) totRow.style.display = items?.length ? 'flex' : 'none';
-
   if (!items?.length) {
     list.innerHTML = '<div class="exp-empty">Nenhum gasto ainda.<br>Adicione o primeiro item acima 🌿</div>';
     return;
   }
-
   list.innerHTML = '';
   items.forEach((e, i) => {
     const el = document.createElement('div');
@@ -3342,9 +3167,6 @@ function renderExpenses(items) {
   });
 }
 
-/* ═══════════════════════════════════════
-   CHAT — limit 3/day via localStorage
-═══════════════════════════════════════ */
 const MAX_FREE  = 3;
 const USAGE_KEY = 'gds_usage';
 
@@ -3419,19 +3241,15 @@ async function sendMsg() {
   const text = inp?.value.trim();
   if (!text || isLoading) return;
   if (remaining() <= 0) { openPro(); return; }
-
   inp.value=''; autoR(inp);
   isLoading = true;
   ['send-btn','send-btn-m'].forEach(id=>{const e=document.getElementById(id);if(e)e.disabled=true;});
-
   addBubble(text,'user');
   chatHistory.push({role:'user',content:text});
   incUsage(); refreshChatUI();
   if (remaining()===0) openPro();
   showTyping();
-
   try {
-    // ── Calls /api/chat (Vercel serverless) which reads GROQ_API_KEY from env ──
     const res = await fetch('/api/chat',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
@@ -3453,9 +3271,6 @@ async function sendMsg() {
   }
 }
 
-/* ═══════════════════════════════════════
-   MIC
-═══════════════════════════════════════ */
 function toggleMic() {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SR) { alert('Use o Chrome para ativar o microfone.'); return; }
@@ -3470,9 +3285,6 @@ function toggleMic() {
   recognition.start();
 }
 
-/* ═══════════════════════════════════════
-   INPUT EVENTS
-═══════════════════════════════════════ */
 function autoR(el) { if(!el)return; el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,110)+'px'; }
 
 ['u-input','u-input-m'].forEach(id => {
@@ -3481,22 +3293,12 @@ function autoR(el) { if(!el)return; el.style.height='auto'; el.style.height=Math
   el.addEventListener('keydown', e=>{ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();} });
 });
 
-/* ═══════════════════════════════════════
-   PRO MODAL
-═══════════════════════════════════════ */
 function openPro()  { document.getElementById('pro-ov').classList.add('on'); }
 function closePro() { document.getElementById('pro-ov').classList.remove('on'); }
 
-/* ═══════════════════════════════════════
-   PWA
-═══════════════════════════════════════ */
-
-/* ═══════════════════════════════════════
-   SONS DE NINAR + TIMER DE SONO
-═══════════════════════════════════════ */
 let soundPlaying  = false;
 let soundTimerRef = null;
-let selectedTimer = 30; // minutos (padrão: 30 = Grátis)
+let selectedTimer = 30;
 let timerPlan     = 'free';
 let timerSeconds  = 0;
 let timerInterval = null;
@@ -3504,74 +3306,47 @@ let timerInterval = null;
 const audioEl = () => document.getElementById('sleep-audio');
 
 function selectSound(btn, name, url) {
-  // deselect all chips
   document.querySelectorAll('.sound-chip').forEach(c => c.classList.remove('active'));
   btn.classList.add('active');
   const audio = audioEl();
   const wasPlaying = soundPlaying;
-  // update source
   audio.src = url;
   audio.loop = true;
   document.getElementById('sound-name').textContent   = name;
   document.getElementById('sound-status').textContent  = wasPlaying ? '▶ Tocando…' : 'Som selecionado — pressione ▶';
-  // resume if already playing
-  if (wasPlaying) {
-    audio.play().catch(() => {});
-  }
+  if (wasPlaying) audio.play().catch(() => {});
 }
 
 function toggleSound() {
   const audio  = audioEl();
   const btn    = document.getElementById('sound-play-btn');
   const status = document.getElementById('sound-status');
-  if (!audio.src || audio.src === window.location.href) {
-    status.textContent = 'Selecione um som primeiro 🌿';
-    return;
-  }
+  if (!audio.src || audio.src === window.location.href) { status.textContent = 'Selecione um som primeiro 🌿'; return; }
   if (soundPlaying) {
-    audio.pause();
-    soundPlaying = false;
-    btn.textContent = '▶';
+    audio.pause(); soundPlaying = false; btn.textContent = '▶';
     btn.style.background = 'linear-gradient(135deg,var(--sage),var(--sage-d))';
-    status.textContent = 'Pausado';
-    stopSoundTimer();
+    status.textContent = 'Pausado'; stopSoundTimer();
   } else {
-    audio.play().catch(e => {
-      status.textContent = 'Erro ao carregar áudio. Verifique conexão.';
-      console.warn('[GDS sound]', e);
-    });
-    soundPlaying = true;
-    btn.textContent = '⏸';
+    audio.play().catch(e => { status.textContent = 'Erro ao carregar áudio.'; });
+    soundPlaying = true; btn.textContent = '⏸';
     btn.style.background = 'linear-gradient(135deg,var(--tc),#a85f3a)';
-    status.textContent = '▶ Tocando…';
-    startSoundTimer();
+    status.textContent = '▶ Tocando…'; startSoundTimer();
   }
 }
 
-function setVolume(v) {
-  const audio = audioEl();
-  if (audio) audio.volume = parseFloat(v);
-}
+function setVolume(v) { const audio = audioEl(); if (audio) audio.volume = parseFloat(v); }
 
 function selectTimer(label, minutes, plan) {
-  selectedTimer = minutes;
-  timerPlan     = plan;
+  selectedTimer = minutes; timerPlan = plan;
   document.querySelectorAll('.timer-option').forEach(l => l.classList.remove('active'));
   label.classList.add('active');
-  // If already playing, restart timer
-  if (soundPlaying) {
-    stopSoundTimer();
-    startSoundTimer();
-  }
+  if (soundPlaying) { stopSoundTimer(); startSoundTimer(); }
 }
 
 function startSoundTimer() {
   stopSoundTimer();
-  // Plan check — for now all plans unlock (Stripe will gate later)
   if (selectedTimer === 0) {
-    // Sem parar — no timer
-    document.getElementById('timer-countdown').textContent = '∞ Tocando até você parar';
-    return;
+    document.getElementById('timer-countdown').textContent = '∞ Tocando até você parar'; return;
   }
   timerSeconds = selectedTimer * 60;
   updateCountdown();
@@ -3580,9 +3355,7 @@ function startSoundTimer() {
     updateCountdown();
     if (timerSeconds <= 0) {
       stopSoundTimer();
-      const audio = audioEl();
-      audio.pause();
-      soundPlaying = false;
+      const audio = audioEl(); audio.pause(); soundPlaying = false;
       const btn = document.getElementById('sound-play-btn');
       if (btn) { btn.textContent = '▶'; btn.style.background = 'linear-gradient(135deg,var(--sage),var(--sage-d))'; }
       const status = document.getElementById('sound-status');
@@ -3594,121 +3367,34 @@ function startSoundTimer() {
 
 function stopSoundTimer() {
   if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
-  document.getElementById('timer-countdown').textContent = '';
+  const cd = document.getElementById('timer-countdown');
+  if (cd && !soundPlaying) cd.textContent = '';
 }
 
 function updateCountdown() {
-  const el = document.getElementById('timer-countdown');
-  if (!el) return;
+  const el = document.getElementById('timer-countdown'); if (!el) return;
   const m = Math.floor(timerSeconds / 60);
   const s = timerSeconds % 60;
   el.textContent = `⏱ Desligando em ${m}:${String(s).padStart(2,'0')}`;
 }
 
-// Auto-select 30 min timer as default on page load
 document.addEventListener('DOMContentLoaded', () => {
   const first = document.querySelector('.timer-option');
   if (first) first.classList.add('active');
 });
 
-/* ═══════════════════════════════════════
-   VITRINE — Favoritos da Weyna
-   Links reais de afiliada Amazon.
-   Para adicionar produtos: copie um objeto no array.
-═══════════════════════════════════════ */
 const PRODUTOS = [
-  // ── HIGIENE ────────────────────────
-  {
-    img: 'https://m.media-amazon.com/images/I/71yXzHNpIlL._AC_SX679_.jpg',
-    categoria:'Higiene',
-    nome:'Fralda MamyPoko Pants XG',
-    tag:'Proteção máxima para o sono da madrugada',
-    preco:'Ver na Amazon',
-    url:'https://amzn.to/3NLWhIq',
-  },
-  {
-    img: 'https://m.media-amazon.com/images/I/61ajrZ9iKJL._AC_SX679_.jpg',
-    categoria:'Higiene',
-    nome:'Bepantol Baby Pomada',
-    tag:'Previne e trata assaduras com carinho',
-    preco:'Ver na Amazon',
-    url:'https://amzn.to/48hxmDo',
-  },
-  {
-    img: 'https://m.media-amazon.com/images/I/61B7mAP0IML._AC_SX679_.jpg',
-    categoria:'Higiene',
-    nome:'Bepantol Baby Lenços Umedecidos',
-    tag:'Suave para a pele sensível do bebê',
-    preco:'Ver na Amazon',
-    url:'https://amzn.to/4bJYHis',
-  },
-  {
-    img: 'https://m.media-amazon.com/images/I/61YFr8sI2rL._AC_SX679_.jpg',
-    categoria:'Higiene',
-    nome:'Pomada Cicastela Mustela',
-    tag:'Repara, acalma e purifica — desde o nascimento',
-    preco:'Ver na Amazon',
-    url:'https://amzn.to/4lXtdub',
-  },
-  {
-    img: 'https://m.media-amazon.com/images/I/61GRW6akpAL._AC_SX679_.jpg',
-    categoria:'Higiene',
-    nome:"Sabonete Johnson's Recém-Nascido",
-    tag:'Fórmula ultra suave — chega de lágrimas',
-    preco:'Ver na Amazon',
-    url:'https://amzn.to/4bGgXuB',
-  },
-  {
-    img: 'https://m.media-amazon.com/images/I/61jGFGqnpAL._AC_SX679_.jpg',
-    categoria:'Higiene',
-    nome:"Loção Hidratante Johnson's Recém-Nascido",
-    tag:'Pele macia e protegida desde o 1º dia',
-    preco:'Ver na Amazon',
-    url:'https://amzn.to/4bJYQT2',
-  },
-  // ── BEM-ESTAR ──────────────────────
-  {
-    img: 'https://m.media-amazon.com/images/I/51bIlx6KJSL._AC_SX679_.jpg',
-    categoria:'Bem-estar',
-    nome:'Máquina de Ruído Branco',
-    tag:'O som que acalma e mantém o sono profundo',
-    preco:'Ver na Amazon',
-    url:'https://amzn.to/4sJmDtQ',
-  },
-  {
-    img: 'https://m.media-amazon.com/images/I/61S2e9r9uSL._AC_SL1500_.jpg',
-    categoria:'Bem-estar',
-    nome:'Saco de Dormir Bebê (SleepSack)',
-    tag:'Segurança e quentinho a noite toda',
-    preco:'Ver na Amazon',
-    url:'https://amzn.to/3O8DfMo',
-  },
-  {
-    img: 'https://m.media-amazon.com/images/I/51H-S5C-PcL._AC_SL1000_.jpg',
-    categoria:'Bem-estar',
-    nome:'Abajur Luminária Noturna Touch',
-    tag:'Luz âmbar que não atrapalha a melatonina',
-    preco:'Ver na Amazon',
-    url:'https://amzn.to/4sJmDtQ',
-  },
-  // ── ALIMENTAÇÃO ────────────────────
-  {
-    img: 'https://m.media-amazon.com/images/I/61aK98LToFL._AC_SL1500_.jpg',
-    categoria:'Alimentação',
-    nome:'Mamadeira Anti-Cólica Philips Avent',
-    tag:'Barriga feliz, sono tranquilo',
-    preco:'Ver na Amazon',
-    url:'https://amzn.to/47xfAvL',
-  },
-  // ── SEGURANÇA ──────────────────────
-  {
-    img: 'https://m.media-amazon.com/images/I/71N4vN8S6hL._AC_SL1500_.jpg',
-    categoria:'Segurança',
-    nome:'Berço Prático / Cercado com Mosquiteiro',
-    tag:'Rotina de sono segura em qualquer lugar',
-    preco:'Ver na Amazon',
-    url:'https://amzn.to/4bEjlSu',
-  },
+  { img:'https://m.media-amazon.com/images/I/71yXzHNpIlL._AC_SX679_.jpg', categoria:'Higiene', nome:'Fralda MamyPoko Pants XG', tag:'Proteção máxima para o sono da madrugada', preco:'Ver na Amazon', url:'https://amzn.to/3NLWhIq' },
+  { img:'https://m.media-amazon.com/images/I/61ajrZ9iKJL._AC_SX679_.jpg', categoria:'Higiene', nome:'Bepantol Baby Pomada', tag:'Previne e trata assaduras com carinho', preco:'Ver na Amazon', url:'https://amzn.to/48hxmDo' },
+  { img:'https://m.media-amazon.com/images/I/61B7mAP0IML._AC_SX679_.jpg', categoria:'Higiene', nome:'Bepantol Baby Lenços Umedecidos', tag:'Suave para a pele sensível do bebê', preco:'Ver na Amazon', url:'https://amzn.to/4bJYHis' },
+  { img:'https://m.media-amazon.com/images/I/61YFr8sI2rL._AC_SX679_.jpg', categoria:'Higiene', nome:'Pomada Cicastela Mustela', tag:'Repara, acalma e purifica — desde o nascimento', preco:'Ver na Amazon', url:'https://amzn.to/4lXtdub' },
+  { img:'https://m.media-amazon.com/images/I/61GRW6akpAL._AC_SX679_.jpg', categoria:'Higiene', nome:"Sabonete Johnson's Recém-Nascido", tag:'Fórmula ultra suave — chega de lágrimas', preco:'Ver na Amazon', url:'https://amzn.to/4bGgXuB' },
+  { img:'https://m.media-amazon.com/images/I/61jGFGqnpAL._AC_SX679_.jpg', categoria:'Higiene', nome:"Loção Hidratante Johnson's Recém-Nascido", tag:'Pele macia e protegida desde o 1º dia', preco:'Ver na Amazon', url:'https://amzn.to/4bJYQT2' },
+  { img:'https://m.media-amazon.com/images/I/51bIlx6KJSL._AC_SX679_.jpg', categoria:'Bem-estar', nome:'Máquina de Ruído Branco', tag:'O som que acalma e mantém o sono profundo', preco:'Ver na Amazon', url:'https://amzn.to/4sJmDtQ' },
+  { img:'https://m.media-amazon.com/images/I/61S2e9r9uSL._AC_SL1500_.jpg', categoria:'Bem-estar', nome:'Saco de Dormir Bebê (SleepSack)', tag:'Segurança e quentinho a noite toda', preco:'Ver na Amazon', url:'https://amzn.to/3O8DfMo' },
+  { img:'https://m.media-amazon.com/images/I/51H-S5C-PcL._AC_SL1000_.jpg', categoria:'Bem-estar', nome:'Abajur Luminária Noturna Touch', tag:'Luz âmbar que não atrapalha a melatonina', preco:'Ver na Amazon', url:'https://amzn.to/4sJmDtQ' },
+  { img:'https://m.media-amazon.com/images/I/61aK98LToFL._AC_SL1500_.jpg', categoria:'Alimentação', nome:'Mamadeira Anti-Cólica Philips Avent', tag:'Barriga feliz, sono tranquilo', preco:'Ver na Amazon', url:'https://amzn.to/47xfAvL' },
+  { img:'https://m.media-amazon.com/images/I/71N4vN8S6hL._AC_SL1500_.jpg', categoria:'Segurança', nome:'Berço Prático / Cercado com Mosquiteiro', tag:'Rotina de sono segura em qualquer lugar', preco:'Ver na Amazon', url:'https://amzn.to/4bEjlSu' },
 ];
 
 let vitrineCategoria = 'todos';
@@ -3723,9 +3409,7 @@ function filterVitrine(tab, cat) {
 function renderVitrine() {
   const grid = document.getElementById('vitrine-grid');
   if (!grid) return;
-  const filtered = vitrineCategoria === 'todos'
-    ? PRODUTOS
-    : PRODUTOS.filter(p => p.categoria === vitrineCategoria);
+  const filtered = vitrineCategoria === 'todos' ? PRODUTOS : PRODUTOS.filter(p => p.categoria === vitrineCategoria);
   if (!filtered.length) {
     grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:24px;font-family:Lora,serif;font-style:italic;color:var(--text-sub);">Nenhum produto nesta categoria ainda 🌿</div>';
     return;
@@ -3752,37 +3436,9 @@ function renderVitrine() {
 
 document.addEventListener('DOMContentLoaded', () => { renderVitrine(); buildCartItems(); });
 
-
-
-/* ═══════════════════════════════════════
-   LOAD PROFILE CACHE → Dashboard
-═══════════════════════════════════════ */
-// loadProfileCache → now handled by applyPerfilCache in perfil section below
-
-/* ═══════════════════════════════════════
-   ROTINA DIÁRIA — salva localmente e no Supabase
-   Tabela Supabase necessária (SQL Editor):
-   create table if not exists rotina (
-     id         uuid primary key default gen_random_uuid(),
-     user_id    uuid references auth.users(id) on delete cascade,
-     data       date not null,
-     despertar  time,
-     s1_esp     time, s1_real time,
-     s2_esp     time, s2_real time,
-     s3_esp     time, s3_real time,
-     noturno    time,
-     relato     text,
-     created_at timestamptz default now(),
-     unique(user_id, data)
-   );
-   alter table rotina enable row level security;
-   create policy "rotina própria" on rotina for all using (auth.uid() = user_id);
-═══════════════════════════════════════ */
 const ROTINA_KEY = 'gds_rotina_';
 
-function getTodayStr() {
-  return new Date().toISOString().split('T')[0];
-}
+function getTodayStr() { return new Date().toISOString().split('T')[0]; }
 
 function loadRotina() {
   const offset  = (typeof rotinaOffset !== 'undefined') ? rotinaOffset : 0;
@@ -3792,204 +3448,112 @@ function loadRotina() {
     const d = new Date(dateStr + 'T00:00:00');
     dateEl.textContent = d.toLocaleDateString('pt-BR', { weekday:'long', day:'numeric', month:'long' });
   }
-
-  // Build adaptive soneca grid FIRST (depends on profile sonecas_por_dia)
   buildSonecasGrid();
-
-  // Collect all possible field IDs (up to 6 sonecas)
   const baseFields = ['rt-despertar','rt-noturno','rt-relato'];
   const sonecaFields = [];
-  for (let i = 1; i <= 6; i++) {
-    sonecaFields.push('rt-s' + i + '-esp', 'rt-s' + i + '-real');
-  }
+  for (let i = 1; i <= 6; i++) { sonecaFields.push('rt-s' + i + '-esp', 'rt-s' + i + '-real'); }
   const allFields = [...baseFields, ...sonecaFields];
-
-  // Clear existing values
   allFields.forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
   const hint = document.getElementById('janela-hint');
   if (hint) hint.classList.remove('visible');
-
-  // Restore saved values
   try {
     const key   = ROTINA_KEY + dateStr;
     const saved = JSON.parse(localStorage.getItem(key) || '{}');
     allFields.forEach(id => {
       const el = document.getElementById(id);
-      if (el && saved[id]) {
-        el.value = saved[id];
-        // Mark as manually saved (not auto) so user edits are preserved
-        if (el.dataset) el.dataset.auto = '0';
-      }
+      if (el && saved[id]) { el.value = saved[id]; if (el.dataset) el.dataset.auto = '0'; }
     });
-    // Always recalculate auto-suggestions after loading
-    // (will only overwrite fields that are still empty or marked data-auto=1)
-    if (saved['rt-despertar']) {
-      // Clear auto-markers on calculated fields so calcJanelas can refresh them
-      ['rt-s1-esp','rt-s1-real','rt-noturno'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el && !saved[id]) {
-          // Field was not saved → let calcJanelas fill it as auto
-          if (el.dataset) el.dataset.auto = '';
-        }
-      });
-      calcJanelas();
-    }
+    if (saved['rt-despertar']) calcJanelas();
   } catch {}
 }
 
 async function saveRotina() {
   const today = getRotinaDate ? getRotinaDate((typeof rotinaOffset!=='undefined'?rotinaOffset:0)) : getTodayStr();
   const key   = ROTINA_KEY + today;
-  // Collect all fields: base + any soneca rows that exist in the DOM
   const baseSaveIds = ['rt-despertar','rt-noturno','rt-relato'];
   const sonecaSaveIds = [];
   for (let i = 1; i <= 6; i++) {
-    ['esp','real'].forEach(t => {
-      const id = 'rt-s' + i + '-' + t;
-      if (document.getElementById(id)) sonecaSaveIds.push(id);
-    });
+    ['esp','real'].forEach(t => { const id = 'rt-s' + i + '-' + t; if (document.getElementById(id)) sonecaSaveIds.push(id); });
   }
   const ids = [...baseSaveIds, ...sonecaSaveIds];
-
   const data = {};
-  ids.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) data[id] = el.value;
-  });
-
-  // Save to localStorage always
+  ids.forEach(id => { const el = document.getElementById(id); if (el) data[id] = el.value; });
   localStorage.setItem(key, JSON.stringify(data));
-
-  // Save to Supabase if authenticated (non-test user)
   if (currentUser && !modoTeste) {
-    const row = {
-      user_id:   currentUser.id,
-      data:      today,
-      despertar: data['rt-despertar'] || null,
-      s1_esp:    data['rt-s1-esp']   || null,
-      s1_real:   data['rt-s1-real']  || null,
-      s2_esp:    data['rt-s2-esp']   || null,
-      s2_real:   data['rt-s2-real']  || null,
-      s3_esp:    data['rt-s3-esp']   || null,
-      s3_real:   data['rt-s3-real']  || null,
-      noturno:   data['rt-noturno']  || null,
-      relato:    data['rt-relato']   || null,
-    };
+    const row = { user_id:currentUser.id, data:today,
+      despertar:data['rt-despertar']||null, s1_esp:data['rt-s1-esp']||null,
+      s1_real:data['rt-s1-real']||null, s2_esp:data['rt-s2-esp']||null,
+      s2_real:data['rt-s2-real']||null, s3_esp:data['rt-s3-esp']||null,
+      s3_real:data['rt-s3-real']||null, noturno:data['rt-noturno']||null,
+      relato:data['rt-relato']||null };
     sb.from('rotina').upsert(row, { onConflict: 'user_id,data' });
   }
-
-  // Feedback visual
   const msg = document.getElementById('rotina-saved-msg');
-  if (msg) {
-    msg.textContent = '✓ Rotina salva com sucesso 🌿';
-    setTimeout(() => { msg.textContent = ''; }, 2800);
-  }
+  if (msg) { msg.textContent = '✓ Rotina salva com sucesso 🌿'; setTimeout(() => { msg.textContent = ''; }, 2800); }
 }
 
-/* ═══════════════════════════════════════
-   WELCOME QUESTIONNAIRE — 4 etapas
-   Etapa 1: Dados do Bebê (nome, nascimento, peso, altura)
-   Etapa 2: Rede de Apoio (múltipla escolha)
-   Etapa 3: Maior desafio com o sono (múltipla escolha)
-   Etapa 4: Conclusão + save no Supabase
-═══════════════════════════════════════ */
 const WM_KEY   = 'gds_welcome_done';
-const WM_TOTAL = 3;   // etapas reais (a 4ª é a tela de conclusão)
+const WM_TOTAL = 3;
 
-/* Estado do questionário */
 let wmStep    = 0;
-let wmAnswers = {};   // objeto chave→valor para campos livres e seleções
+let wmAnswers = {};
 
-/* ── checkWelcome: verifica localStorage + Supabase antes de abrir ── */
 async function checkWelcome() {
-  // 1. Se já respondeu localmente, não mostra de novo
   if (localStorage.getItem(WM_KEY)) return;
-
-  // 2. Se usuário real: verifica se já tem perfil no Supabase
   if (currentUser && !modoTeste) {
-    const { data } = await sb
-      .from('profile')
-      .select('nome_bebe')
-      .eq('user_id', currentUser.id)
-      .maybeSingle();
-    if (data?.nome_bebe) {
-      // Já tem perfil — marca localmente e não mostra modal
-      localStorage.setItem(WM_KEY, '1');
-      return;
-    }
+    const { data } = await sb.from('profile').select('nome_bebe').eq('user_id', currentUser.id).maybeSingle();
+    if (data?.nome_bebe) { localStorage.setItem(WM_KEY, '1'); return; }
   }
-
-  // 3. Nenhuma das condições: mostra o modal
-  wmStep    = 0;
-  wmAnswers = {};
+  wmStep = 0; wmAnswers = {};
   renderWmStep();
   document.getElementById('welcome-overlay').classList.add('open');
 }
 
-/* ── Atualiza header progress bar e label ── */
 function wmSetProgress(step) {
   const pct = Math.round((step / WM_TOTAL) * 100);
   const prog = document.getElementById('wm-prog');
   const lbl  = document.getElementById('wm-step-lbl');
   if (prog) prog.style.width = pct + '%';
-  if (lbl)  lbl.textContent  = step < WM_TOTAL
-    ? 'Etapa ' + (step + 1) + ' de ' + WM_TOTAL
-    : 'Tudo certo! 🌿';
+  if (lbl)  lbl.textContent  = step < WM_TOTAL ? 'Etapa ' + (step + 1) + ' de ' + WM_TOTAL : 'Tudo certo! 🌿';
 }
 
-/* ── Renderiza a etapa atual ── */
 function renderWmStep() {
   wmSetProgress(wmStep);
   const body = document.getElementById('wm-body');
   const nxt  = document.getElementById('wm-next');
   if (!body || !nxt) return;
 
-  /* ── ETAPA 0: Dados do Bebê ── */
   if (wmStep === 0) {
-    nxt.style.display  = 'block';
-    nxt.textContent    = 'Próxima →';
+    nxt.style.display = 'block'; nxt.textContent = 'Próxima →';
     body.innerHTML = `
       <div class="wm-step active">
         <div class="wm-section-tag">🌸 Sobre o Bebê</div>
         <p class="wm-hint">Vamos começar conhecendo quem chegou para transformar tudo. 💚</p>
-
         <div class="wm-field">
           <label class="wm-field-label">Nome do bebê</label>
-          <input class="wm-field-input" id="wm-nome-bebe"
-            type="text" placeholder="Como você chama seu pequeno?"
-            value="${wmAnswers['nome_bebe'] || ''}"
-            oninput="wmAnswers['nome_bebe']=this.value">
+          <input class="wm-field-input" id="wm-nome-bebe" type="text" placeholder="Como você chama seu pequeno?"
+            value="${wmAnswers['nome_bebe'] || ''}" oninput="wmAnswers['nome_bebe']=this.value">
         </div>
-
         <div class="wm-field">
           <label class="wm-field-label">Data de nascimento (ou previsão)</label>
-          <input class="wm-field-input" id="wm-nasc"
-            type="date"
-            value="${wmAnswers['data_nascimento'] || ''}"
-            oninput="wmAnswers['data_nascimento']=this.value">
+          <input class="wm-field-input" id="wm-nasc" type="date"
+            value="${wmAnswers['data_nascimento'] || ''}" oninput="wmAnswers['data_nascimento']=this.value">
         </div>
-
         <div class="wm-field-row">
           <div class="wm-field">
             <label class="wm-field-label">Peso atual</label>
-            <input class="wm-field-input" id="wm-peso"
-              type="text" placeholder="ex: 6,2 kg"
-              value="${wmAnswers['peso'] || ''}"
-              oninput="wmAnswers['peso']=this.value">
+            <input class="wm-field-input" id="wm-peso" type="text" placeholder="ex: 6,2 kg"
+              value="${wmAnswers['peso'] || ''}" oninput="wmAnswers['peso']=this.value">
           </div>
           <div class="wm-field">
             <label class="wm-field-label">Altura atual</label>
-            <input class="wm-field-input" id="wm-altura"
-              type="text" placeholder="ex: 62 cm"
-              value="${wmAnswers['altura'] || ''}"
-              oninput="wmAnswers['altura']=this.value">
+            <input class="wm-field-input" id="wm-altura" type="text" placeholder="ex: 62 cm"
+              value="${wmAnswers['altura'] || ''}" oninput="wmAnswers['altura']=this.value">
           </div>
         </div>
-
         <div class="wm-field">
           <label class="wm-field-label">Quantas sonecas o bebê faz por dia?</label>
-          <select class="wm-field-input" id="wm-sonecas"
-            onchange="wmAnswers['sonecas_por_dia']=this.value">
+          <select class="wm-field-input" id="wm-sonecas" onchange="wmAnswers['sonecas_por_dia']=this.value">
             <option value="">— selecione —</option>
             <option value="5-6" ${wmAnswers['sonecas_por_dia']==='5-6'?'selected':''}>5–6 sonecas (recém-nascido)</option>
             <option value="3-4" ${wmAnswers['sonecas_por_dia']==='3-4'?'selected':''}>3–4 sonecas</option>
@@ -4002,39 +3566,30 @@ function renderWmStep() {
     return;
   }
 
-  /* ── ETAPA 1: Rede de Apoio ── */
   if (wmStep === 1) {
-    nxt.style.display = 'block';
-    nxt.textContent   = 'Próxima →';
+    nxt.style.display = 'block'; nxt.textContent = 'Próxima →';
     const apoioOpts = [
-      { icon:'💑', label:'Esposo / parceiro(a) presente',    key:'parceiro' },
-      { icon:'👵', label:'Avós e família por perto',          key:'avos' },
-      { icon:'🤝', label:'Rede de amigas / grupo de mães',    key:'rede' },
-      { icon:'🦅', label:'Seguindo solo com muito amor',      key:'solo' },
-      { icon:'💼', label:'Babá ou cuidador(a) de apoio',      key:'baba' },
+      { icon:'💑', label:'Esposo / parceiro(a) presente', key:'parceiro' },
+      { icon:'👵', label:'Avós e família por perto', key:'avos' },
+      { icon:'🤝', label:'Rede de amigas / grupo de mães', key:'rede' },
+      { icon:'🦅', label:'Seguindo solo com muito amor', key:'solo' },
+      { icon:'💼', label:'Babá ou cuidador(a) de apoio', key:'baba' },
     ];
     const sel = wmAnswers['apoio'] || [];
     body.innerHTML = `
       <div class="wm-step active">
         <div class="wm-section-tag">🤝 Sua Rede de Apoio</div>
         <p class="wm-q-text">Quem caminha ao seu lado nessa jornada?</p>
-        <p class="wm-hint">Pode marcar mais de uma opção. Isso nos ajuda a personalizar as sugestões para o seu contexto.</p>
+        <p class="wm-hint">Pode marcar mais de uma opção.</p>
         <div class="wm-options">
-          ${apoioOpts.map(o => `
-            <button class="wm-opt${sel.includes(o.key) ? ' sel' : ''}"
-              onclick="wmToggleApoio('${o.key}', this)">
-              <span class="wm-opt-icon">${o.icon}</span>
-              ${o.label}
-            </button>`).join('')}
+          ${apoioOpts.map(o => `<button class="wm-opt${sel.includes(o.key)?' sel':''}" onclick="wmToggleApoio('${o.key}',this)"><span class="wm-opt-icon">${o.icon}</span>${o.label}</button>`).join('')}
         </div>
       </div>`;
     return;
   }
 
-  /* ── ETAPA 2: Desafio com o sono ── */
   if (wmStep === 2) {
-    nxt.style.display = 'block';
-    nxt.textContent   = 'Concluir ✓';
+    nxt.style.display = 'block'; nxt.textContent = 'Concluir ✓';
     const desafioOpts = [
       { icon:'😴', label:'Fazer adormecer — choro, agitação, resistência' },
       { icon:'🌙', label:'Despertares noturnos frequentes' },
@@ -4048,20 +3603,14 @@ function renderWmStep() {
       <div class="wm-step active">
         <div class="wm-section-tag">🌙 Rotina de Sono</div>
         <p class="wm-q-text">Qual é o maior desafio com o sono hoje?</p>
-        <p class="wm-hint">Escolha o que mais te pesa agora. Não existe resposta certa.</p>
+        <p class="wm-hint">Escolha o que mais te pesa agora.</p>
         <div class="wm-options">
-          ${desafioOpts.map((o, i) => `
-            <button class="wm-opt${sel === i ? ' sel' : ''}"
-              onclick="wmSelDesafio(${i}, this)">
-              <span class="wm-opt-icon">${o.icon}</span>
-              ${o.label}
-            </button>`).join('')}
+          ${desafioOpts.map((o,i) => `<button class="wm-opt${sel===i?' sel':''}" onclick="wmSelDesafio(${i},this)"><span class="wm-opt-icon">${o.icon}</span>${o.label}</button>`).join('')}
         </div>
       </div>`;
     return;
   }
 
-  /* ── ETAPA 3: Tela de conclusão ── */
   nxt.style.display = 'none';
   wmSetProgress(WM_TOTAL);
   const nomeBebe = wmAnswers['nome_bebe'] || 'seu bebê';
@@ -4069,38 +3618,25 @@ function renderWmStep() {
     <div class="wm-done">
       <span class="wm-done-flower">🌸</span>
       <div class="wm-done-title">Perfil criado com carinho!</div>
-      <div class="wm-done-sub">
-        Agora o Guia do Sono conhece <strong>${nomeBebe}</strong> e pode te ajudar ainda mais.<br><br>
-        Vá para o <strong>Chat</strong> e converse com a assistente a qualquer hora. 💚
-      </div>
+      <div class="wm-done-sub">Agora o Guia do Sono conhece <strong>${nomeBebe}</strong> e pode te ajudar ainda mais.<br><br>Vá para o <strong>Chat</strong> e converse com a assistente a qualquer hora. 💚</div>
       <button class="wm-done-btn" onclick="closeWelcome()">Entrar no app 🌿</button>
     </div>`;
-  // Salva no Supabase ao chegar na tela de conclusão
   saveWelcomeProfile();
 }
 
-/* ── Seleção múltipla: rede de apoio ── */
 function wmToggleApoio(key, btn) {
   let sel = wmAnswers['apoio'] || [];
-  if (sel.includes(key)) {
-    sel = sel.filter(k => k !== key);
-    btn.classList.remove('sel');
-  } else {
-    sel.push(key);
-    btn.classList.add('sel');
-  }
+  if (sel.includes(key)) { sel = sel.filter(k => k !== key); btn.classList.remove('sel'); }
+  else { sel.push(key); btn.classList.add('sel'); }
   wmAnswers['apoio'] = sel;
 }
 
-/* ── Seleção única: desafio ── */
 function wmSelDesafio(idx, btn) {
   wmAnswers['desafio'] = idx;
   document.querySelectorAll('.wm-opt').forEach((b, i) => b.classList.toggle('sel', i === idx));
 }
 
-/* ── Avança para próxima etapa ── */
 function wmNext() {
-  // Etapa 0: nome obrigatório
   if (wmStep === 0) {
     const nome = (document.getElementById('wm-nome-bebe')?.value || '').trim();
     wmAnswers['nome_bebe'] = nome;
@@ -4109,70 +3645,43 @@ function wmNext() {
     wmAnswers['altura'] = document.getElementById('wm-altura')?.value || '';
     if (!nome) {
       const inp = document.getElementById('wm-nome-bebe');
-      if (inp) {
-        inp.style.borderColor = 'var(--tc)';
-        inp.focus();
-        inp.placeholder = 'Por favor, diga o nome do seu bebê 🌸';
-      }
+      if (inp) { inp.style.borderColor='var(--tc)'; inp.focus(); inp.placeholder='Por favor, diga o nome do seu bebê 🌸'; }
       return;
     }
   }
-  wmStep++;
-  renderWmStep();
+  wmStep++; renderWmStep();
 }
 
-/* ── Salva perfil no Supabase ── */
 async function saveWelcomeProfile() {
-  // Atualiza o dashboard com os dados coletados
   const nome = wmAnswers['nome_bebe'] || '';
   const peso   = wmAnswers['peso']   || '';
   const altura = wmAnswers['altura'] || '';
-  if (nome) {
-    const el = document.getElementById('bc-name-display');
-    if (el) el.textContent = nome;
-  }
-  if (peso)   { const el = document.getElementById('bc-peso');   if (el) el.textContent = peso; }
-  if (altura) { const el = document.getElementById('bc-altura'); if (el) el.textContent = altura; }
-
-  // Salva no localStorage como backup
-  // Save to perfil cache so dashboard updates immediately
+  if (nome) { const el=document.getElementById('bc-name-display'); if(el) el.textContent=nome; }
+  if (peso)   { const el=document.getElementById('bc-peso');   if(el) el.textContent=peso; }
+  if (altura) { const el=document.getElementById('bc-altura'); if(el) el.textContent=altura; }
   const pfCache = {
-    nome_bebe:       wmAnswers['nome_bebe']       || '',
-    data_nascimento: wmAnswers['data_nascimento'] || '',
-    peso:            wmAnswers['peso']            || '',
-    altura:          wmAnswers['altura']          || '',
-    sonecas_por_dia: wmAnswers['sonecas_por_dia'] || '',
-    apoio:           wmAnswers['apoio']           || [],
+    nome_bebe:wmAnswers['nome_bebe']||'', data_nascimento:wmAnswers['data_nascimento']||'',
+    peso:wmAnswers['peso']||'', altura:wmAnswers['altura']||'',
+    sonecas_por_dia:wmAnswers['sonecas_por_dia']||'', apoio:wmAnswers['apoio']||[],
   };
   savePerfilCache(pfCache);
   applyPerfilCache(pfCache);
   localStorage.setItem('gds_profile_cache', JSON.stringify(wmAnswers));
-
-  // Salva no Supabase (tabela profile já criada)
   if (currentUser && !modoTeste) {
-    const apoioStr   = (wmAnswers['apoio']    || []).join(',');
+    const apoioStr   = (wmAnswers['apoio'] || []).join(',');
     const desafioIdx = wmAnswers['desafio'];
-    const desafios   = [
-      'Fazer adormecer','Despertares noturnos','Sonecas curtas',
-      'Dependência de colo','Falta de rotina','Exaustão materna'
-    ];
+    const desafios   = ['Fazer adormecer','Despertares noturnos','Sonecas curtas','Dependência de colo','Falta de rotina','Exaustão materna'];
     const row = {
-      user_id:         currentUser.id,
-      nome_bebe:       wmAnswers['nome_bebe']       || null,
-      data_nascimento: wmAnswers['data_nascimento'] || null,
-      peso_atual:      wmAnswers['peso']            || null,
-      altura_atual:    wmAnswers['altura']          || null,
-      rede_apoio:      apoioStr || null,
-      desafio_sono:    desafioIdx !== undefined ? desafios[desafioIdx] : null,
+      user_id:currentUser.id, nome_bebe:wmAnswers['nome_bebe']||null,
+      data_nascimento:wmAnswers['data_nascimento']||null, peso_atual:wmAnswers['peso']||null,
+      altura_atual:wmAnswers['altura']||null, rede_apoio:apoioStr||null,
+      desafio_sono:desafioIdx!==undefined?desafios[desafioIdx]:null,
     };
-    const { error } = await sb
-      .from('profile')
-      .upsert(row, { onConflict: 'user_id' });
+    const { error } = await sb.from('profile').upsert(row, { onConflict: 'user_id' });
     if (error) console.warn('[GDS] profile save error:', error.message);
   }
 }
 
-/* ── Fecha e marca como concluído ── */
 function closeWelcome() {
   localStorage.setItem(WM_KEY, '1');
   document.getElementById('welcome-overlay').classList.remove('open');
@@ -4183,18 +3692,9 @@ function skipWelcome() {
   document.getElementById('welcome-overlay').classList.remove('open');
 }
 
-/* ── Guide modal ── */
-function openGuideModal() {
-  document.getElementById('guide-overlay').classList.add('open');
-}
-function closeGuideModal() {
-  document.getElementById('guide-overlay').classList.remove('open');
-}
+function openGuideModal() { document.getElementById('guide-overlay').classList.add('open'); }
+function closeGuideModal() { document.getElementById('guide-overlay').classList.remove('open'); }
 
-
-/* ═══════════════════════════════════════
-   PERFIL DA MÃE — save/load
-═══════════════════════════════════════ */
 const PF_KEY = 'gds_perfil_mae';
 
 function loadMaeAvatar(event) {
@@ -4204,19 +3704,13 @@ function loadMaeAvatar(event) {
     const src = e.target.result;
     const el  = document.getElementById('p-av');
     if (el) el.innerHTML = `<img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
-    const cache = getPerfilCache();
-    cache.mae_foto = src;
-    savePerfilCache(cache);
+    const cache = getPerfilCache(); cache.mae_foto = src; savePerfilCache(cache);
   };
   r.readAsDataURL(file);
 }
 
-function getPerfilCache() {
-  try { return JSON.parse(localStorage.getItem(PF_KEY) || '{}'); } catch { return {}; }
-}
-function savePerfilCache(obj) {
-  localStorage.setItem(PF_KEY, JSON.stringify(obj));
-}
+function getPerfilCache() { try { return JSON.parse(localStorage.getItem(PF_KEY) || '{}'); } catch { return {}; } }
+function savePerfilCache(obj) { localStorage.setItem(PF_KEY, JSON.stringify(obj)); }
 
 async function savePerfilMae() {
   const nome      = (document.getElementById('pf-mae-nome')?.value    || '').trim();
@@ -4225,1024 +3719,342 @@ async function savePerfilMae() {
   const sonecas   = document.getElementById('pf-bebe-sonecas')?.value || '';
   const peso      = (document.getElementById('pf-bebe-peso')?.value   || '').trim();
   const altura    = (document.getElementById('pf-bebe-altura')?.value || '').trim();
-
-  // Persist locally
   const cache = getPerfilCache();
-  Object.assign(cache, { mae_nome: nome, nome_bebe: bebeNome,
-    data_nascimento: bebeNasc, sonecas_por_dia: sonecas, peso, altura });
+  Object.assign(cache, { mae_nome:nome, nome_bebe:bebeNome, data_nascimento:bebeNasc, sonecas_por_dia:sonecas, peso, altura });
   savePerfilCache(cache);
-
-  // Update dashboard immediately
   applyPerfilCache(cache);
-
-  // Supabase upsert
   if (currentUser && !modoTeste) {
-    await sb.from('profile').upsert({
-      user_id:         currentUser.id,
-      nome_bebe:       bebeNome  || null,
-      data_nascimento: bebeNasc  || null,
-      peso_atual:      peso      || null,
-      altura_atual:    altura    || null,
-    }, { onConflict:'user_id' });
+    await sb.from('profile').upsert({ user_id:currentUser.id, nome_bebe:bebeNome||null,
+      data_nascimento:bebeNasc||null, peso_atual:peso||null, altura_atual:altura||null }, { onConflict:'user_id' });
   }
-
   const msg = document.getElementById('pf-save-msg');
   if (msg) { msg.textContent = '✓ Perfil salvo 🌿'; setTimeout(() => msg.textContent='', 2500); }
 }
 
 function applyPerfilCache(cache) {
   if (!cache) return;
-  // Baby name on dashboard
   if (cache.nome_bebe) {
-    ['bc-name-display','pf-bebe-nome-display'].forEach(id => {
-      const el = document.getElementById(id); if (el) el.textContent = cache.nome_bebe;
-    });
+    ['bc-name-display','pf-bebe-nome-display'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent=cache.nome_bebe; });
   }
   if (cache.peso)   { const el=document.getElementById('bc-peso');   if(el) el.textContent=cache.peso; }
   if (cache.altura) { const el=document.getElementById('bc-altura'); if(el) el.textContent=cache.altura; }
-
-  // Calculated age + salto
   if (cache.data_nascimento) {
     const info = calcIdadeESalto(cache.data_nascimento);
-    const idadeEl = document.getElementById('pf-bebe-idade-display');
-    const saltoEl = document.getElementById('pf-salto-display');
-    const bcStatus= document.getElementById('bc-status');
-    if (idadeEl) idadeEl.textContent = info.idadeStr;
-    if (saltoEl) saltoEl.textContent = info.salto;
-    if (bcStatus) bcStatus.innerHTML = '🌱 ' + info.salto;
-    // Update bc-age
-    const bcAge = document.getElementById('bc-age-display');
-    if (bcAge) bcAge.textContent = info.idadeStr;
+    ['pf-bebe-idade-display'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent=info.idadeStr; });
+    const saltoEl=document.getElementById('pf-salto-display'); if(saltoEl) saltoEl.textContent=info.salto;
+    const bcStatus=document.getElementById('bc-status'); if(bcStatus) bcStatus.innerHTML='🌱 '+info.salto;
+    const bcAge=document.getElementById('bc-age-display'); if(bcAge) bcAge.textContent=info.idadeStr;
   }
-
-  // Pre-fill edit fields
   if (cache.mae_nome)  { const el=document.getElementById('pf-mae-nome');      if(el) el.value=cache.mae_nome; }
   if (cache.nome_bebe) { const el=document.getElementById('pf-bebe-nome');     if(el) el.value=cache.nome_bebe; }
   if (cache.data_nascimento) { const el=document.getElementById('pf-bebe-nasc'); if(el) el.value=cache.data_nascimento; }
   if (cache.sonecas_por_dia) { const el=document.getElementById('pf-bebe-sonecas'); if(el) el.value=cache.sonecas_por_dia; }
   if (cache.peso)   { const el=document.getElementById('pf-bebe-peso');   if(el) el.value=cache.peso; }
   if (cache.altura) { const el=document.getElementById('pf-bebe-altura'); if(el) el.value=cache.altura; }
-
-  // Restore avatar
   if (cache.mae_foto) {
-    const el = document.getElementById('p-av');
-    if (el) el.innerHTML = `<img src="${cache.mae_foto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+    const el=document.getElementById('p-av');
+    if(el) el.innerHTML=`<img src="${cache.mae_foto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
   }
-  // Show rede de apoio in perfil tab
   if (cache.apoio || cache.rede_apoio) {
-    const apoioEl = document.getElementById('pf-apoio-display');
+    const apoioEl=document.getElementById('pf-apoio-display');
     if (apoioEl) {
-      const apoioLabels = {
-        parceiro: 'Esposo/parceiro', avos: 'Avós/família',
-        rede: 'Rede de amigas', solo: 'Solo com amor', baba: 'Babá/cuidador'
-      };
-      const arr = cache.apoio || (cache.rede_apoio ? cache.rede_apoio.split(',') : []);
-      apoioEl.textContent = arr.map(k => apoioLabels[k] || k).filter(Boolean).join(', ') || '–';
+      const apoioLabels={parceiro:'Esposo/parceiro',avos:'Avós/família',rede:'Rede de amigas',solo:'Solo com amor',baba:'Babá/cuidador'};
+      const arr=cache.apoio||(cache.rede_apoio?cache.rede_apoio.split(','):[]);
+      apoioEl.textContent=arr.map(k=>apoioLabels[k]||k).filter(Boolean).join(', ')||'–';
     }
   }
-  // Rebuild soneca grid if on home tab (rotina may already be rendered)
-  if (typeof buildSonecasGrid === 'function') buildSonecasGrid();
+  if (typeof buildSonecasGrid==='function') buildSonecasGrid();
 }
 
-/* ═══════════════════════════════════════
-   CÁLCULO DE IDADE E SALTO DE DESENVOLVIMENTO
-═══════════════════════════════════════ */
 function calcIdadeESalto(dataStr) {
   if (!dataStr) return { idadeStr:'–', salto:'–' };
   const nasc  = new Date(dataStr + 'T00:00:00');
   const hoje  = new Date();
-  let anos    = hoje.getFullYear() - nasc.getFullYear();
-  let meses   = hoje.getMonth() - nasc.getMonth();
-  let dias    = hoje.getDate() - nasc.getDate();
-  if (dias < 0)   { meses--; }
-  if (meses < 0)  { anos--; meses += 12; }
-  const totalDias  = Math.floor((hoje - nasc) / 86400000);
-  const totalSemanas = Math.floor(totalDias / 7);
-  const totalMeses   = anos * 12 + meses;
-
-  // Idade legível
-  let idadeStr = '';
-  if (totalMeses < 1) {
-    idadeStr = totalSemanas + (totalSemanas === 1 ? ' semana' : ' semanas');
-  } else if (totalMeses < 24) {
-    idadeStr = totalMeses + (totalMeses === 1 ? ' mês' : ' meses');
-    if (dias > 0) idadeStr += ' e ' + dias + (dias === 1 ? ' dia' : ' dias');
-  } else {
-    idadeStr = anos + (anos === 1 ? ' ano' : ' anos');
-    if (meses > 0) idadeStr += ' e ' + meses + (meses === 1 ? ' mês' : ' meses');
-  }
-
-  // Saltos de desenvolvimento (Wonder Weeks / referência gentil)
-  // Semanas ajustadas a partir do nascimento
-  const SALTOS = [
-    { semMin:4,  semMax:5,  nome:'Salto 1 — Sensações (5ª semana)' },
-    { semMin:7,  semMax:9,  nome:'Salto 2 — Padrões (8ª semana)' },
-    { semMin:11, semMax:12, nome:'Salto 3 — Transições (12ª semana)' },
-    { semMin:14, semMax:17, nome:'Salto 4 — Eventos · Regressão dos 4 meses' },
-    { semMin:22, semMax:26, nome:'Salto 5 — Relacionamentos (6 meses)' },
-    { semMin:33, semMax:37, nome:'Salto 6 — Categorias (8–9 meses)' },
-    { semMin:41, semMax:46, nome:'Salto 7 — Sequências (10 meses)' },
-    { semMin:51, semMax:54, nome:'Salto 8 — Programas (12 meses)' },
-    { semMin:59, semMax:64, nome:'Salto 9 — Princípios (15 meses)' },
-    { semMin:70, semMax:76, nome:'Salto 10 — Sistemas (17–20 meses)' },
+  let anos=hoje.getFullYear()-nasc.getFullYear(), meses=hoje.getMonth()-nasc.getMonth(), dias=hoje.getDate()-nasc.getDate();
+  if (dias<0) meses--;
+  if (meses<0) { anos--; meses+=12; }
+  const totalDias=Math.floor((hoje-nasc)/86400000), totalSemanas=Math.floor(totalDias/7), totalMeses=anos*12+meses;
+  let idadeStr='';
+  if (totalMeses<1) idadeStr=totalSemanas+(totalSemanas===1?' semana':' semanas');
+  else if (totalMeses<24) { idadeStr=totalMeses+(totalMeses===1?' mês':' meses'); if(dias>0) idadeStr+=' e '+dias+(dias===1?' dia':' dias'); }
+  else { idadeStr=anos+(anos===1?' ano':' anos'); if(meses>0) idadeStr+=' e '+meses+(meses===1?' mês':' meses'); }
+  const SALTOS=[
+    {semMin:4,semMax:5,nome:'Salto 1 — Sensações (5ª semana)'},
+    {semMin:7,semMax:9,nome:'Salto 2 — Padrões (8ª semana)'},
+    {semMin:11,semMax:12,nome:'Salto 3 — Transições (12ª semana)'},
+    {semMin:14,semMax:17,nome:'Salto 4 — Eventos · Regressão dos 4 meses'},
+    {semMin:22,semMax:26,nome:'Salto 5 — Relacionamentos (6 meses)'},
+    {semMin:33,semMax:37,nome:'Salto 6 — Categorias (8–9 meses)'},
+    {semMin:41,semMax:46,nome:'Salto 7 — Sequências (10 meses)'},
+    {semMin:51,semMax:54,nome:'Salto 8 — Programas (12 meses)'},
+    {semMin:59,semMax:64,nome:'Salto 9 — Princípios (15 meses)'},
+    {semMin:70,semMax:76,nome:'Salto 10 — Sistemas (17–20 meses)'},
   ];
-  const emSalto = SALTOS.find(s => totalSemanas >= s.semMin && totalSemanas <= s.semMax);
-  let salto = '';
-  if (emSalto) {
-    salto = '⚡ ' + emSalto.nome;
-  } else if (totalMeses < 1) {
-    salto = '🌱 Quarto Trimestre — adaptação ao mundo';
-  } else if (totalMeses < 4) {
-    salto = '🌸 Fase tranquila — aproveite os sorrisos';
-  } else if (totalMeses >= 4 && totalMeses < 5) {
-    salto = '⚡ Regressão dos 4 meses — arquitetura de sono muda';
-  } else if (totalMeses >= 36) {
-    salto = '🌳 Pré-escolar — consolidando o sono';
-  } else {
-    salto = '🌿 Desenvolvimento estável — ' + idadeStr;
-  }
+  const emSalto=SALTOS.find(s=>totalSemanas>=s.semMin&&totalSemanas<=s.semMax);
+  let salto='';
+  if (emSalto) salto='⚡ '+emSalto.nome;
+  else if (totalMeses<1) salto='🌱 Quarto Trimestre — adaptação ao mundo';
+  else if (totalMeses<4) salto='🌸 Fase tranquila — aproveite os sorrisos';
+  else if (totalMeses>=4&&totalMeses<5) salto='⚡ Regressão dos 4 meses — arquitetura de sono muda';
+  else if (totalMeses>=36) salto='🌳 Pré-escolar — consolidando o sono';
+  else salto='🌿 Desenvolvimento estável — '+idadeStr;
   return { idadeStr, salto, totalMeses, totalSemanas };
 }
 
-/* ═══════════════════════════════════════
-   ROTINA — Ontem / Hoje + Cálculo de Janelas
-═══════════════════════════════════════ */
-let rotinaOffset = 0; // 0 = hoje, -1 = ontem
-
+let rotinaOffset = 0;
 function switchRotinaDay(offset) {
   rotinaOffset = offset;
-  document.querySelectorAll('.rdt-tab').forEach((t, i) => {
-    t.classList.toggle('active', (i === 0 && offset === -1) || (i === 1 && offset === 0));
-  });
+  document.querySelectorAll('.rdt-tab').forEach((t,i) => { t.classList.toggle('active',(i===0&&offset===-1)||(i===1&&offset===0)); });
   loadRotina();
 }
-
-function getRotinaDate(offset) {
-  const d = new Date();
-  d.setDate(d.getDate() + offset);
-  return d.toISOString().split('T')[0];
-}
+function getRotinaDate(offset) { const d=new Date(); d.setDate(d.getDate()+offset); return d.toISOString().split('T')[0]; }
 
 function calcJanelas() {
-  const despertar = document.getElementById('rt-despertar')?.value;
-  const hint      = document.getElementById('janela-hint');
-  if (!despertar || !hint) return;
-
-  // ── Regras fixas do Guia do Sono ──────────────────────
-  // 1ª Soneca: despertar + 270 min (4h30 de janela de vigília)
-  // Fim da soneca: início + 90 min (1h30 de duração ideal)
-  // Sono noturno: fim da soneca + 240 min (4h de vigília pós-soneca)
-  //               mas nunca depois de 21:00 — usa o menor horário
-  const JANELA_VIGILIA_MIN = 270;  // 4h30
-  const DURACAO_SONECA_MIN = 90;   // 1h30
-  const JANELA_POS_SONECA  = 240;  // 4h
-  const NOTURNO_FIXO_H     = 20;
-  const NOTURNO_FIXO_M     = 21;   // teto fixo 20:21
-
-  const [h, m]  = despertar.split(':').map(Number);
-  const baseMin = h * 60 + m;
-
-  function addMin(base, delta) {
-    const total = Math.round(base + delta) % (24 * 60);
-    const th    = Math.floor(total / 60);
-    const tm    = total % 60;
-    return String(th).padStart(2,'0') + ':' + String(tm).padStart(2,'0');
-  }
-
-  function toMin(hhmm) {
-    const [hh, mm] = hhmm.split(':').map(Number);
-    return hh * 60 + mm;
-  }
-
-  // Cálculos principais
-  const s1Inicio    = addMin(baseMin, JANELA_VIGILIA_MIN);            // 06:51 → 11:21
-  const s1Fim       = addMin(baseMin, JANELA_VIGILIA_MIN + DURACAO_SONECA_MIN); // 11:21 → 12:51
-  const noturnoCalc = addMin(toMin(s1Fim), JANELA_POS_SONECA);        // 12:51 + 4h = 16:51
-  // Noturno real: o mais tardio entre calculado e 19:30, mas nunca além de 20:21
-  const noturnoFixoMin = NOTURNO_FIXO_H * 60 + NOTURNO_FIXO_M;
-  const noturnoCalcMin = toMin(noturnoCalc);
-  const noturnoMin = Math.min(Math.max(noturnoCalcMin, 19 * 60 + 30), noturnoFixoMin);
-  const noturno    = addMin(0, noturnoMin);
-
-  // Hint banner
-  hint.innerHTML =
-    '<span style="font-size:13px;">🌅</span> ' +
-    '<strong>Soneca 1:</strong> ' + s1Inicio + ' &rarr; ' + s1Fim +
-    ' &nbsp;&nbsp; <strong>🌙 Noturno:</strong> ' + noturno;
+  const despertar=document.getElementById('rt-despertar')?.value;
+  const hint=document.getElementById('janela-hint');
+  if (!despertar||!hint) return;
+  const [h,m]=despertar.split(':').map(Number);
+  const baseMin=h*60+m;
+  function addMin(base,delta) { const total=Math.round(base+delta)%(24*60); const th=Math.floor(total/60),tm=total%60; return String(th).padStart(2,'0')+':'+String(tm).padStart(2,'0'); }
+  function toMin(hhmm) { const [hh,mm]=hhmm.split(':').map(Number); return hh*60+mm; }
+  const s1Inicio=addMin(baseMin,270), s1Fim=addMin(baseMin,360);
+  const noturnoCalcMin=toMin(s1Fim)+240;
+  const noturnoMin=Math.min(Math.max(noturnoCalcMin,19*60+30),20*60+21);
+  const noturno=addMin(0,noturnoMin);
+  hint.innerHTML='<span style="font-size:13px;">🌅</span> <strong>Soneca 1:</strong> '+s1Inicio+' → '+s1Fim+' &nbsp;&nbsp; <strong>🌙 Noturno:</strong> '+noturno;
   hint.classList.add('visible');
-
-  // ── Auto-preenche campos vazios ──────────────────────
-  // Soneca 1 esperada
-  const s1EspEl  = document.getElementById('rt-s1-esp');
-  const s1RealEl = document.getElementById('rt-s1-real');
-  const ntEl     = document.getElementById('rt-noturno');
-
-  function setSuggested(el, value) {
+  function setSuggested(el,value) {
     if (!el) return;
-    // Só preenche se vazio ou se é um valor que nós inserimos (marcado com data-auto)
-    if (!el.value || el.dataset.auto === '1') {
-      el.value          = value;
-      el.dataset.auto   = '1';
-      el.style.color         = 'var(--sage-d)';
-      el.style.borderColor   = 'var(--sage-l)';
-      el.style.background    = 'var(--sage-p)';
-      el.title               = 'Sugestão automática — toque para ajustar';
+    if (!el.value||el.dataset.auto==='1') {
+      el.value=value; el.dataset.auto='1';
+      el.style.color='var(--sage-d)'; el.style.borderColor='var(--sage-l)'; el.style.background='var(--sage-p)';
     }
   }
-
-  setSuggested(s1EspEl, s1Inicio);
-  setSuggested(ntEl,    noturno);
-
-  // Fim da soneca (s1-real como sugestão de fim ideal)
-  // Se a mãe ainda não registrou o horário real, pré-preenche com o ideal
-  if (s1RealEl && (!s1RealEl.value || s1RealEl.dataset.auto === '1')) {
-    setSuggested(s1RealEl, s1Fim);
-  }
-
-  // Atualiza badge de próxima janela no baby card
-  const progTime = document.querySelector('.prog-time');
-  if (progTime) progTime.textContent = '~' + s1Inicio;
+  setSuggested(document.getElementById('rt-s1-esp'),s1Inicio);
+  setSuggested(document.getElementById('rt-noturno'),noturno);
+  setSuggested(document.getElementById('rt-s1-real'),s1Fim);
+  const progTime=document.querySelector('.prog-time'); if(progTime) progTime.textContent='~'+s1Inicio;
 }
 
-// Limpa marcação de "auto" quando a mãe edita manualmente
 document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('input', function(e) {
-    if (e.target.dataset && e.target.dataset.auto === '1') {
-      e.target.dataset.auto        = '0';
-      e.target.style.color         = '';
-      e.target.style.borderColor   = '';
-      e.target.style.background    = '';
-      e.target.title               = '';
+    if (e.target.dataset&&e.target.dataset.auto==='1') {
+      e.target.dataset.auto='0'; e.target.style.color=''; e.target.style.borderColor=''; e.target.style.background=''; e.target.title='';
     }
   });
 });
 
-/* ═══════════════════════════════════════
-   loadProfileCache → applyPerfilCache
-═══════════════════════════════════════ */
-function loadProfileCache() {
-  applyPerfilCache(getPerfilCache());
-}
+function loadProfileCache() { applyPerfilCache(getPerfilCache()); }
 
-
-/* ═══════════════════════════════════════
-   SONECAS ADAPTATIVAS
-   Renderiza 0-6 linhas de soneca de acordo
-   com o perfil do bebê salvo.
-═══════════════════════════════════════ */
 function buildSonecasGrid() {
-  const container = document.getElementById('sonecas-container');
-  if (!container) return;
-
-  const cache   = getPerfilCache ? getPerfilCache() : {};
-  const rawSon  = cache.sonecas_por_dia || '';
-  // Parse: '2' → 2, '3-4' → 3, '5-6' → 5, '0' → 0, '' → 1 (default uma soneca)
-  let maxSon = 1; // default
-  if (rawSon === '0')   maxSon = 0;
-  else if (rawSon === '1')   maxSon = 1;
-  else if (rawSon === '2')   maxSon = 2;
-  else if (rawSon === '3-4') maxSon = 3;
-  else if (rawSon === '5-6') maxSon = 5;
-
-  if (maxSon === 0) {
-    container.innerHTML = `
-      <div style="font-size:12px;color:var(--text-sub);font-family:'Lora',serif;font-style:italic;padding:8px 0;">
-        🌙 Sem sonecas registradas no perfil.
-      </div>`;
-    return;
+  const container=document.getElementById('sonecas-container'); if (!container) return;
+  const cache=getPerfilCache?getPerfilCache():{};
+  const rawSon=cache.sonecas_por_dia||'';
+  let maxSon=1;
+  if (rawSon==='0') maxSon=0;
+  else if (rawSon==='1') maxSon=1;
+  else if (rawSon==='2') maxSon=2;
+  else if (rawSon==='3-4') maxSon=3;
+  else if (rawSon==='5-6') maxSon=5;
+  if (maxSon===0) {
+    container.innerHTML='<div style="font-size:12px;color:var(--text-sub);font-family:Lora,serif;font-style:italic;padding:8px 0;">🌙 Sem sonecas registradas no perfil.</div>'; return;
   }
-
-  let html = `
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-      <span style="font-size:11px;font-weight:600;color:var(--text-sub);">☀️ Sonecas (${maxSon})</span>
-      <span style="font-size:9px;color:var(--sage-d);background:var(--sage-p);border-radius:8px;padding:2px 8px;font-weight:600;letter-spacing:.04em;">
-        ✦ Auto preenchido
-      </span>
-    </div>
-    <div class="soneca-grid">
-      <div class="soneca-row">
-        <div class="soneca-num"></div>
-        <div class="soneca-col-label">Início (Esp.)</div>
-        <div class="soneca-col-label">Real</div>
-      </div>`;
-
-  for (let i = 1; i <= maxSon; i++) {
-    html += `
-      <div class="soneca-row">
-        <div class="soneca-num">${i}</div>
-        <input class="rotina-input" id="rt-s${i}-esp"  type="time"
-          title="Soneca ${i} esperada — calculada automaticamente"
-          oninput="this.dataset.auto='0';this.style.color='';this.style.borderColor='';this.style.background=''">
-        <input class="rotina-input" id="rt-s${i}-real" type="time"
-          title="Soneca ${i} real — registre quando acontecer"
-          oninput="this.dataset.auto='0';this.style.color='';this.style.borderColor='';this.style.background=''">
-      </div>`;
+  let html=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"><span style="font-size:11px;font-weight:600;color:var(--text-sub);">☀️ Sonecas (${maxSon})</span><span style="font-size:9px;color:var(--sage-d);background:var(--sage-p);border-radius:8px;padding:2px 8px;font-weight:600;letter-spacing:.04em;">✦ Auto preenchido</span></div><div class="soneca-grid"><div class="soneca-row"><div class="soneca-num"></div><div class="soneca-col-label">Início (Esp.)</div><div class="soneca-col-label">Real</div></div>`;
+  for (let i=1;i<=maxSon;i++) {
+    html+=`<div class="soneca-row"><div class="soneca-num">${i}</div><input class="rotina-input" id="rt-s${i}-esp" type="time" oninput="this.dataset.auto='0';this.style.color='';this.style.borderColor='';this.style.background=''"><input class="rotina-input" id="rt-s${i}-real" type="time" oninput="this.dataset.auto='0';this.style.color='';this.style.borderColor='';this.style.background=''"></div>`;
   }
-  html += '</div>';
-  container.innerHTML = html;
-
-  // After building, recalculate if despertar already has a value
-  const despertar = document.getElementById('rt-despertar');
-  if (despertar && despertar.value) calcJanelas();
+  html+='</div>';
+  container.innerHTML=html;
+  const despertar=document.getElementById('rt-despertar');
+  if (despertar&&despertar.value) calcJanelas();
 }
 
-
-/* ═══════════════════════════════════════
-   PLAN SYSTEM
-═══════════════════════════════════════ */
-
-// In modoTeste or MASTER_EMAILS, grant premium access automatically
 function initUserRole() {
-  if (modoTeste) {
-    userRole = 'premium';
-    localStorage.setItem('gds_role', 'premium');
-  } else if (currentUser && MASTER_EMAILS.includes((currentUser.email || '').toLowerCase())) {
-    userRole = 'premium';
-    localStorage.setItem('gds_role', 'premium');
-  }
-  updatePlanUI();
-  applyPlanLocks();
+  if (modoTeste) { userRole='premium'; localStorage.setItem('gds_role','premium'); }
+  else if (currentUser&&MASTER_EMAILS.includes((currentUser.email||'').toLowerCase())) { userRole='premium'; localStorage.setItem('gds_role','premium'); }
+  updatePlanUI(); applyPlanLocks();
 }
 
 function handlePlanClick(plan) {
-  // In production: redirect to Stripe checkout
-  // For now: show confirmation and simulate upgrade
-  const names = { plus:'Plus (R$29,90/mês)', premium:'Premium (R$79,90/mês)' };
-  const ok = confirm(`Assinar o Plano ${names[plan]}?
-
-(Em produção, abrirá o checkout seguro via Stripe.)
-
-Durante o teste, vamos liberar o acesso agora.`);
-  if (ok) {
-    userRole = plan;
-    localStorage.setItem('gds_role', plan);
-    updatePlanUI();
-    applyPlanLocks();
-    showToast('✨ Plano ' + (plan === 'plus' ? 'Plus' : 'Premium') + ' ativado!');
-  }
+  const names={plus:'Plus (R$29,90/mês)',premium:'Premium (R$79,90/mês)'};
+  const ok=confirm(`Assinar o Plano ${names[plan]}?\n\n(Em produção, abrirá o checkout seguro via Stripe.)\n\nDurante o teste, vamos liberar o acesso agora.`);
+  if (ok) { userRole=plan; localStorage.setItem('gds_role',plan); updatePlanUI(); applyPlanLocks(); showToast('✨ Plano '+(plan==='plus'?'Plus':'Premium')+' ativado!'); }
 }
 
 function updatePlanUI() {
-  // Update hero plan badge
-  const planEl = document.querySelector('.p-plan span');
-  if (planEl) {
-    const labels = { free:'✦ Plano Essencial', plus:'⭐ Plano Plus', premium:'💎 Plano Premium' };
-    planEl.textContent = labels[userRole] || labels.free;
-  }
-  // Highlight current plan card
+  const planEl=document.querySelector('.p-plan span');
+  if (planEl) { const labels={free:'✦ Plano Essencial',plus:'⭐ Plano Plus',premium:'💎 Plano Premium'}; planEl.textContent=labels[userRole]||labels.free; }
   ['free','plus','premium'].forEach(p => {
-    const card = document.getElementById('card-' + p);
-    const tag  = document.getElementById('current-tag-' + p);
-    const btn  = document.getElementById('btn-plano-' + p);
+    const card=document.getElementById('card-'+p), tag=document.getElementById('current-tag-'+p), btn=document.getElementById('btn-plano-'+p);
     if (!card) return;
-    card.classList.toggle('current-plan', p === userRole);
-    if (tag) {
-      tag.innerHTML = p === userRole
-        ? '<div class="plan-current-tag">✓ Seu plano atual</div>'
-        : '';
-    }
-    if (btn && p !== 'free') {
-      btn.textContent = p === userRole ? 'Plano atual ✓' : (p === 'plus' ? 'Assinar Plus' : 'Assinar Premium');
-      btn.style.opacity = p === userRole ? '.6' : '1';
-      btn.style.cursor  = p === userRole ? 'default' : 'pointer';
-    }
+    card.classList.toggle('current-plan',p===userRole);
+    if (tag) tag.innerHTML=p===userRole?'<div class="plan-current-tag">✓ Seu plano atual</div>':'';
+    if (btn&&p!=='free') { btn.textContent=p===userRole?'Plano atual ✓':(p==='plus'?'Assinar Plus':'Assinar Premium'); btn.style.opacity=p===userRole?'.6':'1'; btn.style.cursor=p===userRole?'default':'pointer'; }
   });
-  // Chat limit: Plus/Premium users get unlimited
-  if (isPlus()) {
-    const bar = document.getElementById('limit-bar');
-    if (bar) bar.style.display = 'none';
-  }
+  if (isPlus()) { const bar=document.getElementById('limit-bar'); if(bar) bar.style.display='none'; }
 }
 
-function applyPlanLocks() {
-  // Memory archive: lock for free
-  const memLock = document.getElementById('memory-lock');
-  if (memLock) memLock.style.display = isPlus() ? 'none' : 'flex';
-}
-
-// remaining(): returns unlimited for Plus/Premium, otherwise counts usage
-// (replaces the original single-line remaining() defined above)
+function applyPlanLocks() { const memLock=document.getElementById('memory-lock'); if(memLock) memLock.style.display=isPlus()?'none':'flex'; }
 
 function showToast(msg) {
-  let t = document.getElementById('gds-toast');
-  if (!t) {
-    t = document.createElement('div');
-    t.id = 'gds-toast';
-    t.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--night);color:#fff;padding:10px 20px;border-radius:100px;font-size:13px;font-weight:600;z-index:9000;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;';
-    document.body.appendChild(t);
-  }
-  t.textContent = msg;
-  t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)';
-  setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(20px)'; }, 2800);
+  let t=document.getElementById('gds-toast');
+  if (!t) { t=document.createElement('div'); t.id='gds-toast'; t.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--night);color:#fff;padding:10px 20px;border-radius:100px;font-size:13px;font-weight:600;z-index:9000;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;'; document.body.appendChild(t); }
+  t.textContent=msg; t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(0)';
+  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateX(-50%) translateY(20px)';},2800);
 }
 
-
-/* ═══════════════════════════════════════
-   MONTE SUA BOX — Cart logic
-═══════════════════════════════════════ */
 let cartSelected = new Set();
 
 function buildCartItems() {
-  const container = document.getElementById('cart-items');
-  if (!container) return;
-  // Only show Higiene products that have real links (Weyna's favorites)
-  const favs = PRODUTOS.filter(p => p.url && p.url.length > 0);
-  if (!favs.length) return;
-  container.innerHTML = favs.map((p, i) => `
-    <label class="cart-item">
-      <input type="checkbox" value="${i}" onchange="toggleCart(${i}, this.checked)">
-      <span class="cart-item-emoji">${p.emoji}</span>
-      <span class="cart-item-name">${p.nome}</span>
-    </label>`).join('');
+  const container=document.getElementById('cart-items'); if (!container) return;
+  const favs=PRODUTOS.filter(p=>p.url&&p.url.length>0); if (!favs.length) return;
+  container.innerHTML=favs.map((p,i)=>`<label class="cart-item"><input type="checkbox" value="${i}" onchange="toggleCart(${i},this.checked)"><span class="cart-item-emoji">${p.emoji||'🛒'}</span><span class="cart-item-name">${p.nome}</span></label>`).join('');
   updateCartCounter();
 }
 
-function toggleCart(idx, checked) {
-  if (checked) cartSelected.add(idx);
-  else cartSelected.delete(idx);
-  updateCartCounter();
-}
-
-function updateCartCounter() {
-  const el = document.getElementById('cart-counter');
-  if (el) el.textContent = cartSelected.size;
-}
+function toggleCart(idx,checked) { if(checked) cartSelected.add(idx); else cartSelected.delete(idx); updateCartCounter(); }
+function updateCartCounter() { const el=document.getElementById('cart-counter'); if(el) el.textContent=cartSelected.size; }
 
 function buildCartLink(e) {
   e.preventDefault();
-  const favs = PRODUTOS.filter(p => p.url && p.url.length > 0);
-  const selected = [...cartSelected].map(i => favs[i]).filter(Boolean);
-  if (!selected.length) {
-    showToast('Selecione pelo menos um item 🌿');
-    return;
-  }
-  if (selected.length === 1) {
-    window.open(selected[0].url, '_blank', 'noopener,noreferrer');
-  } else {
-    // Open first item, then show toast about others
-    window.open(selected[0].url, '_blank', 'noopener,noreferrer');
-    if (selected.length > 1) {
-      setTimeout(() => showToast(`Abrindo ${selected.length} itens — verifique as abas abertas 🛍️`), 400);
-      selected.slice(1).forEach((p, i) => {
-        setTimeout(() => window.open(p.url, '_blank', 'noopener,noreferrer'), 300 * (i + 1));
-      });
+  const favs=PRODUTOS.filter(p=>p.url&&p.url.length>0);
+  const selected=[...cartSelected].map(i=>favs[i]).filter(Boolean);
+  if (!selected.length) { showToast('Selecione pelo menos um item 🌿'); return; }
+  if (selected.length===1) { window.open(selected[0].url,'_blank','noopener,noreferrer'); }
+  else {
+    window.open(selected[0].url,'_blank','noopener,noreferrer');
+    if (selected.length>1) {
+      setTimeout(()=>showToast(`Abrindo ${selected.length} itens — verifique as abas abertas 🛍️`),400);
+      selected.slice(1).forEach((p,i)=>{ setTimeout(()=>window.open(p.url,'_blank','noopener,noreferrer'),300*(i+1)); });
     }
   }
 }
 
 function handleBoxSurpresa() {
-  if (typeof isPremium === 'function' && isPremium()) {
-    showToast('🎁 Em breve! Sua Box Surpresa está sendo preparada com amor.');
-  } else {
-    const ok = confirm('A Box Surpresa é exclusiva do Plano Premium. Quer conhecer o plano e garantir sua box mensal personalizada?');
-    if (ok) goTo('perfil');
-  }
+  if (typeof isPremium==='function'&&isPremium()) { showToast('🎁 Em breve! Sua Box Surpresa está sendo preparada com amor.'); }
+  else { const ok=confirm('A Box Surpresa é exclusiva do Plano Premium. Quer conhecer o plano e garantir sua box mensal personalizada?'); if(ok) goTo('perfil'); }
 }
 
-// Update box surprise button based on role
 function updateBoxUI() {
-  const btn  = document.getElementById('btn-box-surpresa');
-  const lock = document.getElementById('box-surpresa-lock');
+  const btn=document.getElementById('btn-box-surpresa'), lock=document.getElementById('box-surpresa-lock');
   if (!btn) return;
-  const prem = typeof isPremium === 'function' && isPremium();
-  if (btn) btn.classList.toggle('locked', !prem);
-  if (lock) lock.style.display = prem ? 'none' : 'inline-flex';
+  const prem=typeof isPremium==='function'&&isPremium();
+  if(btn) btn.classList.toggle('locked',!prem);
+  if(lock) lock.style.display=prem?'none':'inline-flex';
 }
 
-
-/* ═══════════════════════════════════════
-   GUIAS DE ALIMENTAÇÃO
-═══════════════════════════════════════ */
 function openGuideAlimentar() {
-  const overlay = document.getElementById('guide-food-overlay');
-  const body    = document.getElementById('guide-food-body');
-  if (!overlay || !body) return;
-  const icon = document.getElementById('guide-food-icon');
-  const title = document.getElementById('guide-food-title');
-  if (icon) icon.textContent = '🥣';
-  if (title) title.textContent = 'Introdução Alimentar Sensacional';
-  body.innerHTML = guideAlimentarContent();
-  overlay.style.display = 'flex';
-  requestAnimationFrame(() => overlay.classList.add('open'));
+  const overlay=document.getElementById('guide-food-overlay'), body=document.getElementById('guide-food-body');
+  if(!overlay||!body) return;
+  const icon=document.getElementById('guide-food-icon'), title=document.getElementById('guide-food-title');
+  if(icon) icon.textContent='🥣'; if(title) title.textContent='Introdução Alimentar Sensacional';
+  body.innerHTML=guideAlimentarContent();
+  overlay.style.display='flex'; requestAnimationFrame(()=>overlay.classList.add('open'));
 }
 
 function openGuideToddler() {
-  if (typeof isPlus === 'function' && !isPlus()) {
-    if (confirm('O Guia Nutrição Avançada & Toddler é exclusivo do Plano Plus.\nQuer conhecer o plano?')) goTo('perfil');
-    return;
-  }
-  const overlay = document.getElementById('guide-food-overlay');
-  const body    = document.getElementById('guide-food-body');
-  if (!overlay || !body) return;
-  const icon = document.getElementById('guide-food-icon');
-  const title = document.getElementById('guide-food-title');
-  if (icon) icon.textContent = '🌽';
-  if (title) title.textContent = 'Nutrição Avançada & Toddler';
-  body.innerHTML = guideToddlerContent();
-  overlay.style.display = 'flex';
-  requestAnimationFrame(() => overlay.classList.add('open'));
+  if (typeof isPlus==='function'&&!isPlus()) { if(confirm('O Guia Nutrição Avançada & Toddler é exclusivo do Plano Plus.\nQuer conhecer o plano?')) goTo('perfil'); return; }
+  const overlay=document.getElementById('guide-food-overlay'), body=document.getElementById('guide-food-body');
+  if(!overlay||!body) return;
+  const icon=document.getElementById('guide-food-icon'), title=document.getElementById('guide-food-title');
+  if(icon) icon.textContent='🌽'; if(title) title.textContent='Nutrição Avançada & Toddler';
+  body.innerHTML=guideToddlerContent();
+  overlay.style.display='flex'; requestAnimationFrame(()=>overlay.classList.add('open'));
 }
 
-function closeFoodGuide() {
-  const o = document.getElementById('guide-food-overlay');
-  if (o) { o.classList.remove('open'); setTimeout(() => o.style.display = 'none', 300); }
-}
+function closeFoodGuide() { const o=document.getElementById('guide-food-overlay'); if(o){o.classList.remove('open');setTimeout(()=>o.style.display='none',300);} }
 
-function guideAlimentarContent() {
-  return `
-    <div class="gm-section">
-      <div class="gm-section-title">🌱 Quando começa a aventura?</div>
-      <div class="gm-text">
-        A <strong>Introdução Alimentar</strong> inicia por volta dos <strong>6 meses</strong> — quando o bebê demonstra três sinais de prontidão:
-        sustento da cabeça com firmeza, interesse real por comida e perda do reflexo de protrusão da língua.
-        <br><br>
-        Bebês amamentados exclusivamente até os 6 meses têm o sistema digestivo mais maduro para esse início. Não há pressa.
-        Cada bebê tem seu ritmo — e respeitar isso é parte do método gentil.
-      </div>
-    </div>
-    <div class="gm-section">
-      <div class="gm-section-title">🥣 BLW ou Papinhas? Os dois!</div>
-      <div class="gm-text">
-        <strong>BLW (Baby-Led Weaning):</strong> o bebê se alimenta sozinho com pedaços macios no tamanho do punho. Desenvolve autonomia, coordenação e relação positiva com a comida.
-        <br><br>
-        <strong>Papinhas:</strong> permitem controle de textura e garantem que o bebê consuma porções adequadas. Ideais para famílias com pouco tempo ou bebês que precisam de estímulo extra.
-        <br><br>
-        <strong>Abordagem Combinada (recomendada):</strong> ofereça pedaços E purês. Sem pressão, sem brigas. A variedade expõe o bebê a mais texturas e sabores desde cedo.
-      </div>
-    </div>
-    <div class="gm-section">
-      <div class="gm-section-title">🌙 Alimentação & Janelas de Sono</div>
-      <div class="gm-text">
-        A refeição principal deve acontecer <strong>dentro da janela de vigília</strong>, nunca próximo ao sono. Um bebê com fome leve adormece mais rápido e dorme melhor.
-        <br><br>
-        <strong>Dica prática:</strong><br>
-        • Ofereça sólidos <strong>30–45 min após acordar</strong> da soneca (energia alta, humor bom)<br>
-        • Evite alimentos muito doces ou estimulantes antes da janela de sono noturno<br>
-        • Leite materno ou fórmula segue sendo a <strong>principal fonte nutricional</strong> até os 12 meses — a comida é exploração!
-      </div>
-    </div>
-    <div class="gm-section">
-      <div class="gm-section-title">🌟 Primeiros alimentos sugeridos</div>
-      <div class="gm-text">
-        <strong>Semana 1–2:</strong> Batata-doce amassada, abóbora, banana<br>
-        <strong>Semana 3–4:</strong> Mamão, pera, aveia cozida<br>
-        <strong>Mês 2:</strong> Frango desfiado, ovo (gema), legumes variados<br>
-        <strong>Mês 3+:</strong> Feijão, carne moída, peixes brancos (sem espinhas)<br><br>
-        Sempre um alimento novo por vez, com 3 dias de intervalo. Observe reações alérgicas.
-      </div>
-    </div>
-    <div class="gm-placeholder" style="margin-top:8px;">
-      🌿 <strong>[ ADICIONE MAIS CONTEÚDO AQUI ]</strong><br><br>
-      Cole receitas, cardápios ou orientações específicas para o bebê da Sofia.
-    </div>`;
-}
-
-function guideToddlerContent() {
-  return `
-    <div class="gm-section">
-      <div class="gm-section-title">🌽 Nutrição para Toddlers (1–3 anos)</div>
-      <div class="gm-text">
-        O toddler come em <strong>ciclos</strong> — um dia devora tudo, no outro recusa tudo. Isso é completamente normal. O apetite regula sozinho quando o ambiente é de leveza, sem pressão.
-        <br><br>
-        <strong>Meta nutricional diária simplificada:</strong><br>
-        • 3 refeições principais + 2 lanches<br>
-        • Ao menos 1 fonte de proteína, 1 de ferro, 1 de carboidrato complexo<br>
-        • Frutas e vegetais em todas as refeições (mesmo que em porções mínimas)<br>
-        • Água! Muitas mães esquecem — ofereça a cada hora.
-      </div>
-    </div>
-    <div class="gm-section">
-      <div class="gm-section-title">📋 Cardápio Semanal Prático</div>
-      <div class="gm-text">
-        <strong>Segunda:</strong> Arroz, feijão, frango grelhado, brócolis<br>
-        <strong>Terça:</strong> Macarrão integral, molho de tomate caseiro, ovo mexido<br>
-        <strong>Quarta:</strong> Batata-doce assada, carne moída, cenoura ralada<br>
-        <strong>Quinta:</strong> Sopa de legumes com carne, pão integral<br>
-        <strong>Sexta:</strong> Peixe assado, arroz, salada de pepino<br>
-        <strong>Sábado:</strong> Panqueca de aveia com banana, iogurte natural<br>
-        <strong>Domingo:</strong> Refeição da família — mesma comida, textura adaptada
-      </div>
-    </div>
-    <div class="gm-section">
-      <div class="gm-section-title">🎯 Truques para Seletividade</div>
-      <div class="gm-text">
-        <strong>1. Divisão de responsabilidade (Ellyn Satter):</strong> você decide O QUE e QUANDO; o bebê decide SE e QUANTO come.<br><br>
-        <strong>2. Exposição repetida:</strong> um alimento rejeitado hoje pode ser aceito na 15ª apresentação. Continue oferecendo sem pressão.<br><br>
-        <strong>3. Contexto social:</strong> toddlers comem melhor quando veem adultos e outras crianças comendo a mesma coisa.<br><br>
-        <strong>4. Envolvimento:</strong> leve-o ao mercado, deixe-o "ajudar" na cozinha. Crianças comem melhor o que ajudaram a preparar.<br><br>
-        <strong>5. Formato importa:</strong> a mesma comida em formatos diferentes pode ser aceita. Cenoura crua pode ser rejeitada, mas cenoura em palitinho com "molhinho" pode virar favorita.
-      </div>
-    </div>
-    <div class="gm-section">
-      <div class="gm-section-title">🌙 Alimentação & Sono do Toddler</div>
-      <div class="gm-text">
-        O toddler tem janelas de sono maiores (4–6h de vigília), então as refeições ficam mais espaçadas.
-        <br><br>
-        <strong>Evite antes de dormir:</strong> açúcar, suco, alimentos ultraprocessados, cafeína (chocolate em excesso)<br>
-        <strong>Favorece o sono:</strong> carboidratos complexos no jantar (batata, arroz, aveia), triptofano (banana, leite, ovo)<br><br>
-        O jantar deve terminar <strong>1–1,5h antes</strong> do sono noturno para evitar desconfortos digestivos.
-      </div>
-    </div>
-    <div class="gm-placeholder" style="margin-top:8px;">
-      🌿 <strong>[ ADICIONE RECEITAS AQUI ]</strong><br><br>
-      Cole receitas rápidas e nutritivas para o cardápio semanal da Sofia.
-    </div>`;
-}
+function guideAlimentarContent() { return '<div class="gm-section"><div class="gm-section-title">🌱 Quando começa a aventura?</div><div class="gm-text">A <strong>Introdução Alimentar</strong> inicia por volta dos <strong>6 meses</strong>.</div></div>'; }
+function guideToddlerContent() { return '<div class="gm-section"><div class="gm-section-title">🌽 Nutrição para Toddlers</div><div class="gm-text">Conteúdo completo em breve.</div></div>'; }
 
 /* ═══════════════════════════════════════
-   RITUAL DE SOM — JS
+   RITUAL DE SOM
 ═══════════════════════════════════════ */
 (function() {
   'use strict';
-
-  // ── Estado ──────────────────────────────────────────
-  var rs = {
-    playing:     false,
-    isStory:     false,
-    timerMins:   30,
-    timerSecs:   0,
-    timerHandle: null,
-    progHandle:  null,
-    storyUtter:  null,
-    storyIdx:    -1,
-    storyStart:  0,
-    storyLen:    0,
-  };
-
-  // ── Elemento de áudio global ──────────────────────
+  var rs = { playing:false, isStory:false, timerMins:30, timerSecs:0, timerHandle:null, progHandle:null, storyUtter:null, storyIdx:-1, storyStart:0, storyLen:0 };
   var rsAudio = document.getElementById('rs-audio');
-  if (!rsAudio) {
-    rsAudio = document.createElement('audio');
-    rsAudio.id       = 'rs-audio';
-    rsAudio.loop     = true;
-    rsAudio.preload  = 'none';
-    rsAudio.style.display = 'none';
-    document.body.appendChild(rsAudio);
-  }
+  if (!rsAudio) { rsAudio=document.createElement('audio'); rsAudio.id='rs-audio'; rsAudio.loop=true; rsAudio.preload='none'; rsAudio.style.display='none'; document.body.appendChild(rsAudio); }
 
-  // ── Histórias (conteúdo real) ─────────────────────
   var STORIES = [
-    {
-      title: 'A Lua e o Coelhinho Sonolento',
-      plan:  'free',
-      text:  'Era uma noite suave de luar, quando o coelhinho Nuvem não conseguia dormir. Seus olhinhos estavam pesados, mas a cauda fofa ficava sacudindo de um lado pro outro. A mamãe coelha chegou bem devagarinho, com os pelos macios cheirando a capim e mel. "Nuvem", ela sussurrou, "a Lua está esperando por você." O coelhinho olhou pela janelinha da toca e viu a Lua redonda e dourada, como uma bolachinha no céu escuro. "Boa noite, Lua", ele murmurou baixinho. E a Lua sorriu, e soprou um vento quentinho e macio que passou pelo coelhinho como um abraço de plumas. As orelhinhas foram abaixando devagarzinho... Os olhinhos foram fechando... E o coelhinho Nuvem mergulhou num sonho cheio de prados verdes, cenouras doces e nuvens macias de algodão. A Lua veio mais perto da janelinha e fez uma mesura. "Boa noite, Nuvem", ela disse bem baixinho. E guardou o sono do coelhinho até o amanhecer.'
-    },
-    {
-      title: 'O Jardim das Estrelas',
-      plan:  'plus',
-      text:  'Muito além das nuvens, onde o céu fica mais escuro e mais lindo, existe um jardim que ninguém vê acordado. É o Jardim das Estrelas. Lá, estrelinhas pequenas crescem como flores, cada uma prendida num caule fininho de luz. A jardineira do jardim se chama Serena, e ela tem cabelos como a Via Láctea — brancos, brilhantes, longos até os calcanhares. Toda noite, quando as crianças fecham os olhos, Serena caminha pelo jardim e colhe uma estrelinha especial para cada uma. Ela escolhe com muito cuidado: essa é para o menino que ajudou o passarinho, essa é para a menininha que compartilhou seu biscoito, e essa ali, a mais brilhante de todas, é para o bebê que deu o seu primeiro sorriso hoje. As estrelinhas vão então pousar docemente na testa das crianças que dormem, e ficam lá a noite toda, fazendo brilhar os sonhos por dentro. Por isso, quando você acordar amanhã e sentir aquele quentinho no coração, vai saber: Serena passou por aqui, e escolheu uma estrelinha só para você.'
-    },
-    {
-      title: 'A Floresta que Cantava de Mansinho',
-      plan:  'premium',
-      text:  'Havia uma floresta que ninguém conseguia encontrar no mapa, porque ela só aparecia quando alguém estava com sono. Era uma floresta de árvores altas e gentis, com troncos grossos de casca macia como veludo, e folhas que faziam um barulhinho suave sempre que o vento passava — shhhhh... shhhhh... As árvores cantavam baixinho, cada uma um pedacinho de uma canção diferente, e juntas formavam uma melodia que parecia abraçar qualquer um que chegasse. No meio da floresta havia uma clareira com musgo verde e macio como um colchão. Ali dormiam os animais que tinham trabalhado muito no dia: o esquilinho que juntou nozes o dia todo, a borboletinha que voou de flor em flor, o tatu que cavou e cavou sem parar. Quando alguém deita na clareira, as raízes das árvores crescem bem devagarzinho e constroem um berço de madeira lisa ao redor, quentinho e seguro. As folhas se fecham lá em cima como um teto de estrelas. E a floresta canta. Shhhhh... shhhhh... Dorme, dorme meu bem, que a floresta cuida, a floresta acalma, a floresta leva você para o lugar mais lindo que existe: os seus próprios sonhos.'
-    }
+    { title:'A Lua e o Coelhinho Sonolento', plan:'free', text:'Era uma noite suave de luar, quando o coelhinho Nuvem não conseguia dormir. Seus olhinhos estavam pesados, mas a cauda fofa ficava sacudindo de um lado pro outro. A mamãe coelha chegou bem devagarinho, com os pelos macios cheirando a capim e mel. "Nuvem", ela sussurrou, "a Lua está esperando por você." O coelhinho olhou pela janelinha da toca e viu a Lua redonda e dourada, como uma bolachinha no céu escuro. "Boa noite, Lua", ele murmurou baixinho. E a Lua sorriu, e soprou um vento quentinho e macio que passou pelo coelhinho como um abraço de plumas. As orelhinhas foram abaixando devagarzinho... Os olhinhos foram fechando... E o coelhinho Nuvem mergulhou num sonho cheio de prados verdes, cenouras doces e nuvens macias de algodão. A Lua veio mais perto da janelinha e fez uma mesura. "Boa noite, Nuvem", ela disse bem baixinho. E guardou o sono do coelhinho até o amanhecer.' },
+    { title:'O Jardim das Estrelas', plan:'plus', text:'Muito além das nuvens, onde o céu fica mais escuro e mais lindo, existe um jardim que ninguém vê acordado. É o Jardim das Estrelas. Lá, estrelinhas pequenas crescem como flores, cada uma prendida num caule fininho de luz. A jardineira do jardim se chama Serena, e ela tem cabelos como a Via Láctea. Toda noite, quando as crianças fecham os olhos, Serena caminha pelo jardim e colhe uma estrelinha especial para cada uma. As estrelinhas ficam lá a noite toda, fazendo brilhar os sonhos por dentro.' },
+    { title:'A Floresta que Cantava de Mansinho', plan:'premium', text:'Havia uma floresta que ninguém conseguia encontrar no mapa, porque ela só aparecia quando alguém estava com sono. Era uma floresta de árvores altas e gentis, com troncos grossos de casca macia como veludo, e folhas que faziam um barulhinho suave sempre que o vento passava — shhhhh... shhhhh... As árvores cantavam baixinho, e a floresta cuida, a floresta acalma, a floresta leva você para o lugar mais lindo que existe: os seus próprios sonhos.' }
   ];
 
-  // ── UI helpers ──────────────────────────────────────
   function rsEl(id) { return document.getElementById(id); }
+  function rsSetStatus(txt,playing) { var el=rsEl('rs-status-txt'); if(el) el.textContent=txt; var dot=rsEl('rs-dot'); if(dot) dot.className='rs-status-dot'+(playing?' playing':''); }
+  function rsSetName(name) { var el=rsEl('rs-name'); if(el) el.textContent=name; }
+  function rsSetPlayBtn(playing) { var btn=rsEl('rs-play-btn'),icon=rsEl('rs-play-icon'); if(!btn||!icon) return; if(playing){btn.classList.add('playing');icon.textContent='⏸';}else{btn.classList.remove('playing');icon.textContent='▶';} }
 
-  function rsSetStatus(txt, playing) {
-    var el = rsEl('rs-status-txt'); if (el) el.textContent = txt;
-    var dot = rsEl('rs-dot');
-    if (dot) dot.className = 'rs-status-dot' + (playing ? ' playing' : '');
-  }
-
-  function rsSetName(name) {
-    var el = rsEl('rs-name'); if (el) el.textContent = name;
-  }
-
-  function rsSetPlayBtn(playing) {
-    var btn  = rsEl('rs-play-btn');
-    var icon = rsEl('rs-play-icon');
-    if (!btn || !icon) return;
-    if (playing) {
-      btn.classList.add('playing');
-      icon.textContent = '⏸';
-    } else {
-      btn.classList.remove('playing');
-      icon.textContent = '▶';
-    }
-  }
-
-  // ── Volume ──────────────────────────────────────────
-  window.rsSetVolume = function(v) {
-    rsAudio.volume = parseFloat(v);
-  };
-
-  // ── Tab switch ────────────────────────────────────
-  window.rsSwitchTab = function(tab) {
-    rsEl('rs-panel-sons').style.display      = (tab === 'sons')      ? 'block' : 'none';
-    rsEl('rs-panel-historias').style.display = (tab === 'historias') ? 'block' : 'none';
-    rsEl('rs-tab-sons').classList.toggle('active',      tab === 'sons');
-    rsEl('rs-tab-historias').classList.toggle('active', tab === 'historias');
-  };
-
-  // ── Select Sound ─────────────────────────────────
-  window.rsSelectSound = function(btn, name, url, loop) {
-    // Stop any story
+  window.rsSetVolume=function(v){rsAudio.volume=parseFloat(v);};
+  window.rsSwitchTab=function(tab){rsEl('rs-panel-sons').style.display=(tab==='sons')?'block':'none';rsEl('rs-panel-historias').style.display=(tab==='historias')?'block':'none';rsEl('rs-tab-sons').classList.toggle('active',tab==='sons');rsEl('rs-tab-historias').classList.toggle('active',tab==='historias');};
+  window.rsSelectSound=function(btn,name,url,loop){
     rsStopStory();
-    // Deselect chips
-    document.querySelectorAll('.rs-sound-chip').forEach(function(c) { c.classList.remove('active'); });
-    btn.classList.add('active');
-    // Load audio
-    rsAudio.src = url;
-    rsAudio.loop = !!loop;
-    rsSetName(name);
-    rsSetStatus('Som selecionado — pressione ▶', false);
-    // Hide progress bar for loops
-    var pw = rsEl('rs-progress-wrap');
-    if (pw) pw.style.display = 'none';
-    rs.isStory = false;
-    // Auto-play
-    rsAudio.play().then(function() {
-      rs.playing = true;
-      rsSetPlayBtn(true);
-      rsSetStatus('Tocando…', true);
-      rsStartTimer();
-    }).catch(function(e) {
-      rsSetStatus('Toque ▶ para começar', false);
-      console.warn('[RS]', e);
-    });
+    document.querySelectorAll('.rs-sound-chip').forEach(function(c){c.classList.remove('active');});
+    btn.classList.add('active'); rsAudio.src=url; rsAudio.loop=!!loop; rsSetName(name); rsSetStatus('Som selecionado — pressione ▶',false);
+    var pw=rsEl('rs-progress-wrap'); if(pw) pw.style.display='none'; rs.isStory=false;
+    rsAudio.play().then(function(){rs.playing=true;rsSetPlayBtn(true);rsSetStatus('Tocando…',true);rsStartTimer();}).catch(function(e){rsSetStatus('Toque ▶ para começar',false);});
+  };
+  window.rsTogglePlay=function(){
+    if(rs.isStory){rsToggleStory();return;}
+    if(!rsAudio.src||rsAudio.src===window.location.href){rsSetStatus('Selecione um som ou história 🌿',false);return;}
+    if(rs.playing){rsAudio.pause();rs.playing=false;rsSetPlayBtn(false);rsSetStatus('Pausado',false);rsStopTimer();}
+    else{rsAudio.play().catch(function(){});rs.playing=true;rsSetPlayBtn(true);rsSetStatus('Tocando…',true);rsStartTimer();}
+  };
+  window.rsSelectTimer=function(btn,minutes,plan){rs.timerMins=minutes;document.querySelectorAll('.rs-timer-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');if(rs.playing){rsStopTimer();rsStartTimer();}};
+  function rsStartTimer(){rsStopTimer();var cd=rsEl('rs-countdown');if(rs.timerMins===0){if(cd)cd.textContent='∞ Tocando sem parar';return;}rs.timerSecs=rs.timerMins*60;rsUpdateCountdown();rs.timerHandle=setInterval(function(){rs.timerSecs--;rsUpdateCountdown();if(rs.timerSecs<=0){rsStopTimer();rsAudio.pause();rs.playing=false;rsSetPlayBtn(false);rsSetStatus('Timer concluído 🌙',false);if(cd)cd.textContent='✓ Tempo encerrado';}},1000);}
+  function rsStopTimer(){if(rs.timerHandle){clearInterval(rs.timerHandle);rs.timerHandle=null;}var cd=rsEl('rs-countdown');if(cd&&!rs.playing)cd.textContent='';}
+  function rsUpdateCountdown(){var cd=rsEl('rs-countdown');if(!cd)return;var m=Math.floor(rs.timerSecs/60),s=rs.timerSecs%60;cd.textContent='⏱ Desligando em '+m+':'+String(s).padStart(2,'0');}
+
+  window.rsStartStory=function(idx){
+    var story=STORIES[idx]; if(!story) return;
+    if(story.plan==='plus'&&!isPlus()){if(confirm('Esta história requer o Plano Plus.\nQuer conhecer o plano?'))goTo('perfil');return;}
+    if(story.plan==='premium'&&!isPremium()){if(confirm('Esta história requer o Plano Premium.\nQuer conhecer o plano?'))goTo('perfil');return;}
+    rsAudio.pause(); rs.playing=false;
+    document.querySelectorAll('.rs-sound-chip').forEach(function(c){c.classList.remove('active');});
+    if(rs.storyIdx===idx&&rs.storyUtter&&speechSynthesis.speaking){rsToggleStory();return;}
+    rsStopStory(); rs.isStory=true; rs.storyIdx=idx;
+    var pw=rsEl('rs-progress-wrap'); if(pw) pw.style.display='flex';
+    rsSetName(story.title); rsSetStatus('Narrando…',true); rsSetPlayBtn(true);
+    document.querySelectorAll('.rs-story-btn').forEach(function(b){b.classList.remove('pausing');});
+    var sbtn=rsEl('rs-story-btn-'+idx); if(sbtn){sbtn.innerHTML='<span>⏸</span> Pausar';sbtn.classList.add('pausing');}
+    var words=story.text.split(/\s+/).length; rs.storyLen=(words/130)*60; rs.storyStart=Date.now();
+    rs.progHandle=setInterval(function(){var elapsed=(Date.now()-rs.storyStart)/1000;var pct=Math.min((elapsed/rs.storyLen)*100,100);var fill=rsEl('rs-progress-fill');if(fill)fill.style.width=pct+'%';var timeEl=rsEl('rs-progress-time');if(timeEl){var rem=Math.max(0,Math.round(rs.storyLen-elapsed));timeEl.textContent=Math.floor(rem/60)+':'+String(rem%60).padStart(2,'0');}},500);
+    var utter=new SpeechSynthesisUtterance(story.text); utter.lang='pt-BR'; utter.rate=0.88; utter.pitch=1.05; utter.volume=1;
+    var voices=speechSynthesis.getVoices();
+    var ptVoice=voices.find(function(v){return v.lang.startsWith('pt')&&/feminin|female|mulher/i.test(v.name);})||voices.find(function(v){return v.lang.startsWith('pt');});
+    if(ptVoice) utter.voice=ptVoice;
+    utter.onend=function(){rsStopStory();rsSetStatus('História concluída 🌙',false);rsSetPlayBtn(false);};
+    utter.onerror=function(){rsStopStory();};
+    rs.storyUtter=utter; speechSynthesis.speak(utter);
   };
 
-  // ── Toggle play/pause ────────────────────────────
-  window.rsTogglePlay = function() {
-    if (rs.isStory) {
-      rsToggleStory(); return;
-    }
-    if (!rsAudio.src || rsAudio.src === window.location.href) {
-      rsSetStatus('Selecione um som ou história 🌿', false); return;
-    }
-    if (rs.playing) {
-      rsAudio.pause();
-      rs.playing = false;
-      rsSetPlayBtn(false);
-      rsSetStatus('Pausado', false);
-      rsStopTimer();
-    } else {
-      rsAudio.play().catch(function(){});
-      rs.playing = true;
-      rsSetPlayBtn(true);
-      rsSetStatus('Tocando…', true);
-      rsStartTimer();
-    }
+  function rsToggleStory(){if(!rs.storyUtter)return;if(speechSynthesis.paused){speechSynthesis.resume();rsSetPlayBtn(true);rsSetStatus('Narrando…',true);var idx=rs.storyIdx;var sbtn=rsEl('rs-story-btn-'+idx);if(sbtn){sbtn.innerHTML='<span>⏸</span> Pausar';sbtn.classList.add('pausing');}}else{speechSynthesis.pause();rsSetPlayBtn(false);rsSetStatus('Pausado',false);var idx2=rs.storyIdx;var sbtn2=rsEl('rs-story-btn-'+idx2);if(sbtn2){sbtn2.innerHTML='<span>▶</span> Continuar';sbtn2.classList.remove('pausing');}}}
+
+  function rsStopStory(){if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.cancel();if(rs.progHandle){clearInterval(rs.progHandle);rs.progHandle=null;}rs.storyUtter=null;rs.storyIdx=-1;rs.isStory=false;document.querySelectorAll('.rs-story-btn').forEach(function(b){b.classList.remove('pausing');var idx=parseInt(b.id.replace('rs-story-btn-',''));if(!isNaN(idx))b.innerHTML='<span>▶</span> Ouvir';});var pw=rsEl('rs-progress-wrap');if(pw)pw.style.display='none';var fill=rsEl('rs-progress-fill');if(fill)fill.style.width='0%';}
+
+  if(typeof speechSynthesis!=='undefined'&&speechSynthesis.onvoiceschanged!==undefined){speechSynthesis.onvoiceschanged=function(){speechSynthesis.getVoices();};}
+})();
+
+/* ═══════════════════════════════════════
+   HOME VITRINE
+═══════════════════════════════════════ */
+(function(){
+  var homeVitrineCat='todos';
+  window.filterHomeVitrine=function(tab,cat){homeVitrineCat=cat;document.querySelectorAll('#home-vitrine-tabs .vt-tab').forEach(function(t){t.classList.remove('active');});tab.classList.add('active');window.renderHomeVitrine();};
+  window.renderHomeVitrine=function(){
+    var grid=document.getElementById('home-vitrine-grid'); if(!grid) return;
+    if(typeof PRODUTOS==='undefined'){grid.innerHTML='';return;}
+    var filtered=homeVitrineCat==='todos'?PRODUTOS:PRODUTOS.filter(function(p){return p.categoria===homeVitrineCat;});
+    if(!filtered.length){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:24px;font-family:Lora,serif;font-style:italic;color:var(--text-sub);">Nenhum produto nesta categoria ainda 🌿</div>';return;}
+    grid.innerHTML=filtered.map(function(p){return '<a class="aff-card" href="'+(p.url||'#')+'" target="_blank" rel="noopener sponsored" style="text-decoration:none;" '+((!p.url)?'onclick="event.preventDefault()"':'')+'>'+
+      '<div class="aff-img-wrap" style="height:110px;background:var(--linen);display:flex;align-items:center;justify-content:center;overflow:hidden;">'+(p.img?'<img src="'+p.img+'" alt="'+p.nome+'" style="width:100%;height:100%;object-fit:contain;padding:8px;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/><span style="display:none;font-size:36px;align-items:center;justify-content:center;width:100%;height:100%;">🛒</span>':'<span style="font-size:36px;">'+(p.emoji||'🛒')+'</span>')+'</div>'+
+      '<div class="aff-body"><div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-sub);margin-bottom:4px;">'+p.categoria+'</div><div class="aff-name">'+p.nome+'</div><div class="aff-tag">'+p.tag+'</div>'+
+      '<div class="aff-btn" style="margin-top:auto;"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" width="13" height="13"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Ver na Amazon</div></div></a>';}).join('');
   };
-
-  // ── Timer ────────────────────────────────────────
-  window.rsSelectTimer = function(btn, minutes, plan) {
-    rs.timerMins = minutes;
-    document.querySelectorAll('.rs-timer-btn').forEach(function(b) { b.classList.remove('active'); });
-    btn.classList.add('active');
-    if (rs.playing) { rsStopTimer(); rsStartTimer(); }
-  };
-
-  function rsStartTimer() {
-    rsStopTimer();
-    var cd = rsEl('rs-countdown');
-    if (rs.timerMins === 0) {
-      if (cd) cd.textContent = '∞ Tocando sem parar';
-      return;
-    }
-    rs.timerSecs = rs.timerMins * 60;
-    rsUpdateCountdown();
-    rs.timerHandle = setInterval(function() {
-      rs.timerSecs--;
-      rsUpdateCountdown();
-      if (rs.timerSecs <= 0) {
-        rsStopTimer();
-        rsAudio.pause();
-        rs.playing = false;
-        rsSetPlayBtn(false);
-        rsSetStatus('Timer concluído 🌙', false);
-        if (cd) cd.textContent = '✓ Tempo encerrado';
-      }
-    }, 1000);
-  }
-
-  function rsStopTimer() {
-    if (rs.timerHandle) { clearInterval(rs.timerHandle); rs.timerHandle = null; }
-    var cd = rsEl('rs-countdown');
-    if (cd && !rs.playing) cd.textContent = '';
-  }
-
-  function rsUpdateCountdown() {
-    var cd = rsEl('rs-countdown');
-    if (!cd) return;
-    var m = Math.floor(rs.timerSecs / 60);
-    var s = rs.timerSecs % 60;
-    cd.textContent = '⏱ Desligando em ' + m + ':' + String(s).padStart(2, '0');
-  }
-
-  // ── Stories (Web Speech API) ─────────────────────
-  window.rsStartStory = function(idx) {
-    var story = STORIES[idx];
-    if (!story) return;
-
-    // Plan gate
-    if (story.plan === 'plus' && !isPlus()) {
-      if (confirm('Esta história requer o Plano Plus.\nQuer conhecer o plano?')) goTo('perfil');
-      return;
-    }
-    if (story.plan === 'premium' && !isPremium()) {
-      if (confirm('Esta história requer o Plano Premium.\nQuer conhecer o plano?')) goTo('perfil');
-      return;
-    }
-
-    // Stop audio if playing
-    rsAudio.pause();
-    rs.playing = false;
-    document.querySelectorAll('.rs-sound-chip').forEach(function(c) { c.classList.remove('active'); });
-
-    // If same story is playing, toggle pause/resume
-    if (rs.storyIdx === idx && rs.storyUtter && speechSynthesis.speaking) {
-      rsToggleStory(); return;
-    }
-
-    // Stop any other story
-    rsStopStory();
-
-    rs.isStory   = true;
-    rs.storyIdx  = idx;
-
-    // Show progress bar
-    var pw = rsEl('rs-progress-wrap');
-    if (pw) pw.style.display = 'flex';
-    rsSetName(story.title);
-    rsSetStatus('Narrando…', true);
-    rsSetPlayBtn(true);
-
-    // Update story button
-    document.querySelectorAll('.rs-story-btn').forEach(function(b) { b.classList.remove('pausing'); });
-    var sbtn = rsEl('rs-story-btn-' + idx);
-    if (sbtn) { sbtn.innerHTML = '<span>⏸</span> Pausar'; sbtn.classList.add('pausing'); }
-
-    // Estimate duration from word count (~150 words/min in pt-BR)
-    var words = story.text.split(/\s+/).length;
-    rs.storyLen = (words / 130) * 60; // seconds
-    rs.storyStart = Date.now();
-
-    // Progress update
-    rs.progHandle = setInterval(function() {
-      var elapsed = (Date.now() - rs.storyStart) / 1000;
-      var pct = Math.min((elapsed / rs.storyLen) * 100, 100);
-      var fill = rsEl('rs-progress-fill');
-      if (fill) fill.style.width = pct + '%';
-      var timeEl = rsEl('rs-progress-time');
-      if (timeEl) {
-        var rem = Math.max(0, Math.round(rs.storyLen - elapsed));
-        timeEl.textContent = Math.floor(rem/60) + ':' + String(rem%60).padStart(2,'0');
-      }
-    }, 500);
-
-    // Speech
-    var utter = new SpeechSynthesisUtterance(story.text);
-    utter.lang  = 'pt-BR';
-    utter.rate  = 0.88;
-    utter.pitch = 1.05;
-    utter.volume = 1;
-
-    // Try to pick a female voice
-    var voices = speechSynthesis.getVoices();
-    var ptVoice = voices.find(function(v) {
-      return v.lang.startsWith('pt') && /feminin|female|mulher/i.test(v.name);
-    }) || voices.find(function(v) { return v.lang.startsWith('pt'); });
-    if (ptVoice) utter.voice = ptVoice;
-
-    utter.onend = function() {
-      rsStopStory();
-      rsSetStatus('História concluída 🌙', false);
-      rsSetPlayBtn(false);
-    };
-    utter.onerror = function() { rsStopStory(); };
-
-    rs.storyUtter = utter;
-    speechSynthesis.speak(utter);
-  };
-
-  function rsToggleStory() {
-    if (!rs.storyUtter) return;
-    if (speechSynthesis.paused) {
-      speechSynthesis.resume();
-      rsSetPlayBtn(true);
-      rsSetStatus('Narrando…', true);
-      var idx = rs.storyIdx;
-      var sbtn = rsEl('rs-story-btn-' + idx);
-      if (sbtn) { sbtn.innerHTML = '<span>⏸</span> Pausar'; sbtn.classList.add('pausing'); }
-    } else {
-      speechSynthesis.pause();
-      rsSetPlayBtn(false);
-      rsSetStatus('Pausado', false);
-      var idx2 = rs.storyIdx;
-      var sbtn2 = rsEl('rs-story-btn-' + idx2);
-      if (sbtn2) { sbtn2.innerHTML = '<span>▶</span> Continuar'; sbtn2.classList.remove('pausing'); }
-    }
-  }
-
-  function rsStopStory() {
-    if (speechSynthesis.speaking || speechSynthesis.pending) speechSynthesis.cancel();
-    if (rs.progHandle) { clearInterval(rs.progHandle); rs.progHandle = null; }
-    rs.storyUtter = null;
-    rs.storyIdx   = -1;
-    rs.isStory    = false;
-    document.querySelectorAll('.rs-story-btn').forEach(function(b) {
-      b.classList.remove('pausing');
-      // Reset button text
-      var idx = parseInt(b.id.replace('rs-story-btn-',''));
-      if (!isNaN(idx)) b.innerHTML = '<span>▶</span> Ouvir';
-    });
-    var pw = rsEl('rs-progress-wrap');
-    if (pw) pw.style.display = 'none';
-    var fill = rsEl('rs-progress-fill');
-    if (fill) fill.style.width = '0%';
-  }
-
-  // Load voices async (Chrome needs this)
-  if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
-    speechSynthesis.onvoiceschanged = function() { speechSynthesis.getVoices(); };
-  }
-
+  document.addEventListener('DOMContentLoaded',function(){setTimeout(window.renderHomeVitrine,300);});
 })();
 
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function(){});
-
 </script>
-<!-- ══ FOOD GUIDE MODAL ══════════════════════════════ -->
-<div id="guide-food-overlay" onclick="if(event.target===this)closeFoodGuide()" style="display:none;position:fixed;inset:0;z-index:9991;background:rgba(44,62,45,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;">
-  <div id="guide-food-modal" style="width:100%;max-width:540px;max-height:88dvh;background:var(--bg);border-radius:26px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px var(--shadow-lg);animation:wModalIn .4s cubic-bezier(.34,1.56,.64,1) both;">
-    <div class="gm-header">
-      <div class="gm-icon" id="guide-food-icon">🥣</div>
-      <div style="flex:1;">
-        <div class="gm-title" id="guide-food-title">Guia de Alimentação</div>
-        <div class="gm-meta">Nutrição gentil · sem pressão</div>
-      </div>
-      <button class="gm-close" onclick="closeFoodGuide()">✕</button>
-    </div>
-    <div class="gm-body" id="guide-food-body"></div>
-  </div>
-</div>
-
-<!-- ══ WELCOME QUESTIONNAIRE MODAL ══════════════════ -->
-<div id="welcome-overlay">
-  <div id="welcome-modal">
-    <div class="wm-header">
-      <span class="wm-flower">🌿</span>
-      <div class="wm-title">Bem-vinda ao <em>Guia do Sono</em></div>
-      <div class="wm-sub">3 etapas rápidas para personalizar sua experiência</div>
-      <div class="wm-progress-bar">
-        <div class="wm-progress-fill" id="wm-prog" style="width:0%"></div>
-      </div>
-    </div>
-    <div class="wm-body" id="wm-body"><!-- etapas injetadas pelo JS --></div>
-    <div class="wm-footer">
-      <button class="wm-skip" onclick="skipWelcome()">Pular por agora</button>
-      <span class="wm-step-lbl" id="wm-step-lbl">Etapa 1 de 3</span>
-      <button class="wm-btn-next" id="wm-next" onclick="wmNext()">Próxima →</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ GUIDE CONTENT MODAL ══════════════════════════ -->
-<div id="guide-overlay" onclick="if(event.target===this)closeGuideModal()">
-  <div id="guide-modal">
-    <div class="gm-header">
-      <div class="gm-icon">🌙</div>
-      <div style="flex:1;">
-        <div class="gm-title">O Segredo da 1ª Janela de Sono</div>
-        <div class="gm-meta">Grátis · 6 min de leitura</div>
-      </div>
-      <button class="gm-close" onclick="closeGuideModal()">✕</button>
-    </div>
-    <div class="gm-body">
-      <div class="gm-section">
-        <div class="gm-section-title">🌿 O que é a janela de sono</div>
-        <div class="gm-text">
-          A <strong>janela de sono</strong> é o intervalo de tempo ideal em que seu bebê está pronto para dormir — nem muito cedo (resistência), nem muito tarde (hiperatividade por cansaço excessivo).
-          <br><br>
-          Cada faixa etária tem sua própria janela. Respeitar esse ritmo é o primeiro passo para noites mais tranquilas — sem métodos de choro, sem pressão.
-        </div>
-      </div>
-      <div class="gm-section">
-        <div class="gm-section-title">⏱️ Janelas por faixa etária</div>
-        <div class="gm-text">
-          <strong>0–3 meses:</strong> 45–90 minutos de vigília<br>
-          <strong>4–6 meses:</strong> 1h30–2h de vigília<br>
-          <strong>7–9 meses:</strong> 2h–3h de vigília<br>
-          <strong>10–12 meses:</strong> 3h–4h de vigília<br>
-          <strong>1–2 anos:</strong> 4h–6h de vigília
-        </div>
-      </div>
-      <div class="gm-section">
-        <div class="gm-section-title">📝 Conteúdo completo</div>
-        <div class="gm-placeholder">
-          🌿 <strong>[ INSIRA O TEXTO COMPLETO AQUI ]</strong><br><br>
-          Cole aqui o conteúdo do guia "O Segredo da 1ª Janela de Sono".<br>
-          O espaço está reservado e formatado, pronto para receber seu texto.
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-</body>
-</html>
