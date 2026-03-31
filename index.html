@@ -1437,18 +1437,34 @@ body {
   animation:pulseDot .9s ease-in-out infinite;
 }
 
+/* ═══════════════════════════════════════
+   RITUAL DE SOM — ESTÉTICA CAMPING
+═══════════════════════════════════════ */
+
+/* Cabeçalho ilustrado */
+.rs-hero {
+  width: 100%; border-radius: 24px; overflow: hidden;
+  margin-bottom: 4px; display: block;
+  background: linear-gradient(180deg, #0d1b2a 0%, #1a2e1a 100%);
+}
+.rs-hero svg { display: block; width: 100%; height: auto; }
+
+/* Player card — fundo noturno profundo */
 .rs-player-card {
-  background: var(--night);
-  border-radius: 24px;
+  background: linear-gradient(160deg, #0f1f10 0%, #1a2e1a 100%);
+  border-radius: 28px;
   padding: 22px 20px 20px;
-  box-shadow: 0 8px 32px rgba(0,0,0,.25);
+  box-shadow: 0 8px 32px rgba(0,0,0,.35);
   position: relative;
   overflow: hidden;
+  border: 1px solid rgba(138,158,127,.15);
 }
 .rs-player-card::before {
   content: '';
   position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(ellipse 70% 60% at 10% 20%, rgba(138,158,127,.18) 0%, transparent 60%);
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 10%, rgba(201,168,76,.08) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 60% at 10% 80%, rgba(138,158,127,.12) 0%, transparent 60%);
 }
 .rs-player-top {
   display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
@@ -1464,15 +1480,15 @@ body {
 .rs-player-status {
   display: flex; align-items: center; gap: 6px;
   font-family: 'Lora', serif; font-style: italic;
-  font-size: 11px; color: rgba(255,255,255,.5);
+  font-size: 11px; color: rgba(255,255,255,.45);
 }
 .rs-status-dot {
   width: 6px; height: 6px; border-radius: 50%;
-  background: var(--sage-l); flex-shrink: 0;
+  background: rgba(181,201,168,.5); flex-shrink: 0;
   transition: background .3s;
 }
 .rs-status-dot.playing {
-  background: var(--sage);
+  background: var(--sage-l);
   animation: rsPulse 1.2s ease-in-out infinite;
 }
 @keyframes rsPulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.5;transform:scale(1.4);} }
@@ -1482,114 +1498,154 @@ body {
   position: relative; z-index: 1;
 }
 .rs-progress-bar {
-  flex: 1; height: 4px; background: rgba(255,255,255,.12); border-radius: 4px; overflow: hidden;
+  flex: 1; height: 4px; background: rgba(255,255,255,.1); border-radius: 4px; overflow: hidden;
 }
 .rs-progress-fill {
   height: 100%; width: 0%; background: var(--sage-l); border-radius: 4px;
   transition: width .5s linear;
 }
 .rs-progress-time {
-  font-size: 10px; color: rgba(255,255,255,.4);
+  font-size: 10px; color: rgba(255,255,255,.35);
   font-family: 'DM Sans', sans-serif; flex-shrink: 0;
 }
 
+/* Botão play */
 .rs-play-btn {
-  width: 58px; height: 58px; border-radius: 50%; border: none; cursor: pointer;
+  width: 62px; height: 62px; border-radius: 50%; border: none; cursor: pointer;
   background: linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%);
-  color: #fff; font-size: 22px;
+  color: #fff; font-size: 24px;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 18px rgba(90,112,80,.45);
+  box-shadow: 0 4px 20px rgba(90,112,80,.55), 0 0 0 6px rgba(138,158,127,.12);
   transition: transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s;
   position: relative; z-index: 1;
 }
 .rs-play-btn:active { transform: scale(.92); }
 .rs-play-btn.playing {
   background: linear-gradient(135deg, var(--tc) 0%, #a85f3a 100%);
-  box-shadow: 0 4px 18px rgba(196,122,82,.4);
+  box-shadow: 0 4px 20px rgba(196,122,82,.5), 0 0 0 6px rgba(196,122,82,.1);
 }
 
+/* Abas Sons / Histórias */
 .rs-tabs {
-  display: flex; gap: 8px; background: var(--bg); padding: 4px;
-  border-radius: 16px; border: 1px solid var(--border);
+  display: flex; gap: 6px; background: rgba(26,46,26,.06); padding: 4px;
+  border-radius: 18px; border: 1px solid var(--border);
 }
 .rs-tab {
-  flex: 1; padding: 8px 12px; border-radius: 12px; border: none;
+  flex: 1; padding: 9px 12px; border-radius: 14px; border: none;
   font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
   cursor: pointer; background: transparent; color: var(--text-sub);
   transition: all .18s;
 }
 .rs-tab.active {
-  background: var(--night); color: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  background: linear-gradient(135deg, #0f1f10 0%, #1a2e1a 100%);
+  color: #e8f5e0;
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
 }
 .rs-tab:active { transform: scale(.97); }
 
+/* Grid de sons — cards com cantos muito arredondados */
 .rs-sound-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-  margin-top: 14px; margin-bottom: 18px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  margin-top: 14px; margin-bottom: 20px;
 }
 .rs-sound-chip {
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
-  padding: 16px 10px; border-radius: 18px;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 20px 12px; border-radius: 24px;
   border: 1.5px solid var(--border-d); background: var(--bg-card);
-  cursor: pointer; transition: all .18s;
+  cursor: pointer; transition: all .2s cubic-bezier(.34,1.56,.64,1);
   font-family: 'DM Sans', sans-serif;
+  box-shadow: 0 2px 8px var(--shadow);
 }
-.rs-sound-chip:hover { border-color: var(--sage-l); background: var(--sage-p); }
+.rs-sound-chip:hover {
+  border-color: var(--sage-l); background: var(--sage-p);
+  transform: translateY(-2px); box-shadow: 0 6px 18px var(--shadow-md);
+}
 .rs-sound-chip.active {
-  background: var(--night); border-color: var(--night); color: #fff;
-  box-shadow: 0 4px 14px rgba(0,0,0,.2);
+  background: linear-gradient(160deg, #0f1f10 0%, #1a2e1a 100%);
+  border-color: var(--sage);
+  box-shadow: 0 6px 20px rgba(0,0,0,.25), 0 0 0 3px rgba(138,158,127,.2);
 }
 .rs-sound-chip:active { transform: scale(.95); }
-.rs-chip-emoji { font-size: 28px; line-height: 1; }
-.rs-chip-label { font-size: 12px; font-weight: 600; color: inherit; text-align: center; }
-.rs-sound-chip.active .rs-chip-label { color: #fff; }
 
-.rs-timer-section { border-top: 1px solid var(--border); padding-top: 16px; }
+/* Ícone em círculo branco — Flat Design */
+.rs-chip-icon-wrap {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+  flex-shrink: 0;
+  transition: transform .18s;
+}
+.rs-sound-chip.active .rs-chip-icon-wrap {
+  background: rgba(255,255,255,.12);
+  box-shadow: none;
+}
+.rs-sound-chip:hover .rs-chip-icon-wrap { transform: scale(1.08); }
+.rs-chip-emoji { font-size: 26px; line-height: 1; }
+.rs-chip-label {
+  font-size: 12px; font-weight: 700; color: var(--text);
+  text-align: center; letter-spacing: .01em;
+}
+.rs-sound-chip.active .rs-chip-label { color: rgba(255,255,255,.9); }
+
+/* Timer */
+.rs-timer-section { border-top: 1px solid var(--border); padding-top: 18px; }
 .rs-section-label {
-  font-size: 11px; font-weight: 700; letter-spacing: .06em;
-  text-transform: uppercase; color: var(--text-sub); margin-bottom: 10px;
+  font-size: 11px; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--text-sub); margin-bottom: 12px;
 }
 .rs-timer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
 .rs-timer-btn {
-  display: flex; flex-direction: column; align-items: center; gap: 5px;
-  padding: 12px 6px; border-radius: 14px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 13px 6px; border-radius: 18px;
   border: 1.5px solid var(--border-d); background: var(--bg-card);
   cursor: pointer; transition: all .18s; font-family: 'DM Sans', sans-serif;
+  box-shadow: 0 1px 4px var(--shadow);
 }
 .rs-timer-btn:hover { border-color: var(--sage-l); background: var(--sage-p); }
-.rs-timer-btn.active { border-color: var(--sage); background: var(--sage-p); box-shadow: 0 0 0 2px rgba(138,158,127,.25); }
+.rs-timer-btn.active {
+  border-color: var(--sage-d); background: var(--sage-p);
+  box-shadow: 0 0 0 3px rgba(90,112,80,.15);
+}
 .rs-timer-btn:active { transform: scale(.96); }
 .rs-timer-min { font-size: 12px; font-weight: 700; color: var(--text); }
 .rs-timer-badge {
   font-size: 9px; font-weight: 700; letter-spacing: .04em;
-  padding: 2px 7px; border-radius: 8px;
+  padding: 2px 8px; border-radius: 20px;
 }
 .rs-badge-free    { background: var(--sage-p);  color: var(--sage-d); }
 .rs-badge-plus    { background: var(--gold-p);  color: #7a6010; }
 .rs-badge-master  { background: var(--lav-p);   color: var(--lav); }
 .rs-badge-premium { background: linear-gradient(135deg,var(--gold-p),var(--lav-p)); color: var(--lav); }
 .rs-countdown {
-  margin-top: 10px; text-align: center;
+  margin-top: 12px; text-align: center;
   font-family: 'Lora', serif; font-style: italic;
-  font-size: 13px; color: var(--sage-d); min-height: 18px;
-  font-weight: 600;
+  font-size: 13px; color: var(--sage-d); min-height: 18px; font-weight: 600;
 }
 
-.rs-story-list { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+/* Histórias */
+.rs-story-list { display: flex; flex-direction: column; gap: 12px; margin-top: 14px; }
 .rs-story-card {
-  display: flex; align-items: center; gap: 12px;
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 18px; padding: 14px 16px;
-  box-shadow: 0 2px 8px var(--shadow);
-  transition: border-color .18s, box-shadow .18s;
+  display: flex; align-items: center; gap: 14px;
+  background: var(--bg-card); border: 1.5px solid var(--border);
+  border-radius: 24px; padding: 16px 14px 16px 16px;
+  box-shadow: 0 2px 10px var(--shadow);
+  transition: border-color .18s, box-shadow .18s, transform .18s;
 }
-.rs-story-card:hover { border-color: var(--border-d); box-shadow: 0 4px 16px var(--shadow-md); }
-.rs-story-left { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+.rs-story-card:hover {
+  border-color: var(--sage-l);
+  box-shadow: 0 6px 20px var(--shadow-md);
+  transform: translateY(-1px);
+}
+.rs-story-left { display: flex; align-items: center; gap: 13px; flex: 1; min-width: 0; }
+
+/* Emoji em círculo */
 .rs-story-emoji {
-  font-size: 28px; flex-shrink: 0;
-  width: 46px; height: 46px; border-radius: 13px;
-  background: var(--sage-p); display: flex; align-items: center; justify-content: center;
+  font-size: 24px; flex-shrink: 0;
+  width: 50px; height: 50px; border-radius: 50%;
+  background: #fff; border: 1.5px solid var(--border-d);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 8px var(--shadow);
 }
 .rs-story-info { flex: 1; min-width: 0; }
 .rs-story-title {
@@ -1597,22 +1653,28 @@ body {
   font-size: 13px; font-weight: 700; color: var(--text);
   line-height: 1.35; margin-bottom: 5px;
 }
-.rs-story-meta { display: flex; align-items: center; gap: 8px; }
+.rs-story-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .rs-story-dur { font-size: 10px; color: var(--text-sub); }
 .rs-story-badge {
   font-size: 9px; font-weight: 700; letter-spacing: .04em;
-  padding: 2px 7px; border-radius: 8px;
+  padding: 2px 8px; border-radius: 20px;
 }
+
+/* Botão Ouvir — pílula verde sálvia escuro */
 .rs-story-btn {
   display: flex; align-items: center; gap: 5px;
-  padding: 9px 14px; border-radius: 12px; border: none;
-  background: linear-gradient(135deg, var(--sage), var(--sage-d));
+  padding: 10px 18px; border-radius: 100px; border: none;
+  background: var(--sage-d);
   color: #fff; font-family: 'DM Sans', sans-serif;
-  font-size: 12px; font-weight: 600; cursor: pointer; flex-shrink: 0;
-  box-shadow: 0 2px 10px rgba(90,112,80,.28);
-  transition: transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s;
+  font-size: 12px; font-weight: 700; cursor: pointer; flex-shrink: 0;
+  box-shadow: 0 3px 12px rgba(90,112,80,.30);
+  letter-spacing: .02em;
+  transition: transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s, background .18s;
 }
-.rs-story-btn:hover  { transform: translateY(-1px); box-shadow: 0 5px 16px rgba(90,112,80,.36); }
+.rs-story-btn:hover  {
+  background: var(--sage); transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(90,112,80,.38);
+}
 .rs-story-btn:active { transform: scale(.95); }
 .rs-story-btn.pausing { background: linear-gradient(135deg, var(--tc), #a85f3a); }
 
@@ -2421,160 +2483,309 @@ body {
     </div><!-- /perfil -->
 
     <!-- ══ RITUAL DE SOM ══════════════════════════ -->
-    <div class="page" id="page-ritual">
-      <div class="scroll-area">
+<div class="page" id="page-ritual">
+  <div class="scroll-area">
 
-        <div class="page-hdr fu d1">
-          <div>
-            <div class="hdr-greeting">🌙 Ambiente de calma</div>
-            <div class="hdr-title">Ritual de <em>Som</em></div>
-          </div>
-        </div>
-        <div class="px" style="margin-bottom:6px;margin-top:-6px;">
-          <div style="font-family:'Lora',serif;font-style:italic;font-size:12px;color:var(--text-sub);">
-            Sons que acalmam · Histórias que adormecem
-          </div>
-        </div>
-
-        <div class="px fu d2">
-          <div class="rs-player-card">
-            <div class="rs-player-top">
-              <div class="rs-player-info">
-                <div class="rs-player-name" id="rs-name">Selecione um som ou história</div>
-                <div class="rs-player-status" id="rs-status">
-                  <span class="rs-status-dot" id="rs-dot"></span>
-                  <span id="rs-status-txt">Pronto para começar</span>
-                </div>
-              </div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
-                <span style="font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.06em;">Vol</span>
-                <input type="range" id="rs-vol" min="0" max="1" step="0.05" value="0.75"
-                  oninput="rsSetVolume(this.value)"
-                  style="width:60px;accent-color:#8a9e7f;writing-mode:horizontal-tb;">
-              </div>
-            </div>
-
-            <div class="rs-progress-wrap" id="rs-progress-wrap" style="display:none;">
-              <div class="rs-progress-bar">
-                <div class="rs-progress-fill" id="rs-progress-fill"></div>
-              </div>
-              <div class="rs-progress-time" id="rs-progress-time">0:00</div>
-            </div>
-
-            <div style="display:flex;justify-content:center;margin-top:16px;">
-              <button id="rs-play-btn" class="rs-play-btn" onclick="rsTogglePlay()" title="Reproduzir / Pausar">
-                <span id="rs-play-icon">▶</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="px fu d2" style="margin-top:18px;">
-          <div class="rs-tabs">
-            <button class="rs-tab active" id="rs-tab-sons"      onclick="rsSwitchTab('sons')">🎵 Sons</button>
-            <button class="rs-tab"        id="rs-tab-historias" onclick="rsSwitchTab('historias')">📖 Histórias</button>
-          </div>
-        </div>
-
-        <div id="rs-panel-sons" class="px fu d3">
-
-          <div class="rs-sound-grid">
-            <button class="rs-sound-chip" onclick="rsSelectSound(this,'Chuva Suave','boons_freak-rain-sound-188158 (1).mp3',true)" data-key="chuva">
-              <span class="rs-chip-emoji">🌧️</span>
-              <span class="rs-chip-label">Chuva Suave</span>
-            </button>
-            <button class="rs-sound-chip" onclick="rsSelectSound(this,'Ruído Branco','themediaguy-soft-soothing-deep-white-noise-378857.mp3',true)" data-key="branco">
-              <span class="rs-chip-emoji">☁️</span>
-              <span class="rs-chip-label">Ruído Branco</span>
-            </button>
-            <button class="rs-sound-chip" onclick="rsSelectSound(this,'Ondas do Mar','kokoreli777-sea-waves-169411.mp3',true)" data-key="ondas">
-              <span class="rs-chip-emoji">🌊</span>
-              <span class="rs-chip-label">Ondas do Mar</span>
-            </button>
-            <button class="rs-sound-chip" onclick="rsSelectSound(this,'Vento nas Folhas','freesound_community-wind-in-trees-autumn-leaves-rustle-weird-howls-med-77mel-191122-17549.mp3',true)" data-key="vento">
-              <span class="rs-chip-emoji">🍃</span>
-              <span class="rs-chip-label">Vento nas Folhas</span>
-            </button>
-          </div>
-
-          <div class="rs-timer-section">
-            <div class="rs-section-label">⏱️ Timer de Sono</div>
-            <div class="rs-timer-grid">
-              <button class="rs-timer-btn active" id="rst-30" onclick="rsSelectTimer(this,30,'free')">
-                <span class="rs-timer-min">30 min</span>
-                <span class="rs-timer-badge rs-badge-free">Grátis</span>
-              </button>
-              <button class="rs-timer-btn" id="rst-120" onclick="rsSelectTimer(this,120,'plus')">
-                <span class="rs-timer-min">2 horas</span>
-                <span class="rs-timer-badge rs-badge-plus">Plus</span>
-              </button>
-              <button class="rs-timer-btn" id="rst-0" onclick="rsSelectTimer(this,0,'master')">
-                <span class="rs-timer-min">Sem parar</span>
-                <span class="rs-timer-badge rs-badge-master">Mestre</span>
-              </button>
-            </div>
-            <div class="rs-countdown" id="rs-countdown"></div>
-          </div>
-
-        </div><!-- /panel-sons -->
-
-        <div id="rs-panel-historias" class="px fu d3" style="display:none;">
-          <div class="rs-story-list">
-
-            <div class="rs-story-card">
-              <div class="rs-story-left">
-                <div class="rs-story-emoji">🐰</div>
-                <div class="rs-story-info">
-                  <div class="rs-story-title">A Lua e o Coelhinho Sonolento</div>
-                  <div class="rs-story-meta">
-                    <span class="rs-story-dur">~3 min</span>
-                    <span class="rs-story-badge rs-badge-free">Grátis</span>
-                  </div>
-                </div>
-              </div>
-              <button class="rs-story-btn" onclick="rsStartStory(0)" id="rs-story-btn-0">
-                <span>▶</span> Ouvir
-              </button>
-            </div>
-
-            <div class="rs-story-card">
-              <div class="rs-story-left">
-                <div class="rs-story-emoji">⭐</div>
-                <div class="rs-story-info">
-                  <div class="rs-story-title">O Jardim das Estrelas</div>
-                  <div class="rs-story-meta">
-                    <span class="rs-story-dur">~5 min</span>
-                    <span class="rs-story-badge rs-badge-plus">Plus</span>
-                  </div>
-                </div>
-              </div>
-              <button class="rs-story-btn" onclick="rsStartStory(1)" id="rs-story-btn-1">
-                <span>▶</span> Ouvir
-              </button>
-            </div>
-
-            <div class="rs-story-card">
-              <div class="rs-story-left">
-                <div class="rs-story-emoji">🌲</div>
-                <div class="rs-story-info">
-                  <div class="rs-story-title">A Floresta que Cantava de Mansinho</div>
-                  <div class="rs-story-meta">
-                    <span class="rs-story-dur">~7 min</span>
-                    <span class="rs-story-badge rs-badge-premium">Premium</span>
-                  </div>
-                </div>
-              </div>
-              <button class="rs-story-btn" onclick="rsStartStory(2)" id="rs-story-btn-2">
-                <span>▶</span> Ouvir
-              </button>
-            </div>
-
-          </div>
-        </div><!-- /panel-historias -->
-
-        <div class="sp"></div>
+    <!-- HERO SVG: Noite Estrelada com Pinheiros e Barraca -->
+    <div class="px fu d1" style="margin-top:16px;">
+      <div class="rs-hero">
+        <svg viewBox="0 0 360 180" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;border-radius:24px;">
+          <defs>
+            <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#0a1628"/>
+              <stop offset="60%"  stop-color="#0f2318"/>
+              <stop offset="100%" stop-color="#1a3a1a"/>
+            </linearGradient>
+            <linearGradient id="tentGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#c47a52"/>
+              <stop offset="100%" stop-color="#8a5030"/>
+            </linearGradient>
+            <linearGradient id="moonGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%"   stop-color="#faf3df"/>
+              <stop offset="100%" stop-color="#c9a84c"/>
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="1.5" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="softGlow">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <rect width="360" height="180" fill="url(#skyGrad)"/>
+          <circle cx="300" cy="36" r="18" fill="url(#moonGrad)" filter="url(#softGlow)" opacity=".92"/>
+          <circle cx="309" cy="30" r="14" fill="#0f2318"/>
+          <g fill="#fff" filter="url(#glow)">
+            <circle cx="30"  cy="18" r="1.2" opacity=".9"/>
+            <circle cx="55"  cy="10" r="1.5" opacity=".85"/>
+            <circle cx="80"  cy="22" r="1"   opacity=".7"/>
+            <circle cx="110" cy="8"  r="1.3" opacity=".9"/>
+            <circle cx="140" cy="20" r="1"   opacity=".75"/>
+            <circle cx="165" cy="12" r="1.5" opacity=".88"/>
+            <circle cx="195" cy="28" r="1.1" opacity=".7"/>
+            <circle cx="220" cy="14" r="1.3" opacity=".85"/>
+            <circle cx="248" cy="22" r="1"   opacity=".6"/>
+            <circle cx="270" cy="10" r="1.4" opacity=".9"/>
+            <circle cx="42"  cy="38" r=".9"  opacity=".6"/>
+            <circle cx="72"  cy="44" r="1.1" opacity=".7"/>
+            <circle cx="98"  cy="36" r=".8"  opacity=".55"/>
+            <circle cx="130" cy="42" r="1"   opacity=".65"/>
+            <circle cx="180" cy="40" r=".9"  opacity=".6"/>
+            <circle cx="210" cy="48" r="1.1" opacity=".7"/>
+            <circle cx="250" cy="38" r=".8"  opacity=".55"/>
+            <circle cx="330" cy="18" r="1"   opacity=".7"/>
+            <circle cx="345" cy="32" r=".9"  opacity=".6"/>
+          </g>
+          <circle cx="18"  cy="30" r="1.4" fill="#fff" opacity=".8">
+            <animate attributeName="opacity" values=".8;.2;.8" dur="2.8s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="152" cy="32" r="1.2" fill="#e8cc7e" opacity=".85">
+            <animate attributeName="opacity" values=".85;.3;.85" dur="3.5s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="235" cy="16" r="1.3" fill="#fff" opacity=".75">
+            <animate attributeName="opacity" values=".75;.15;.75" dur="2.2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="318" cy="52" r="1" fill="#c8c0dc" opacity=".7">
+            <animate attributeName="opacity" values=".7;.2;.7" dur="4s" repeatCount="indefinite"/>
+          </circle>
+          <ellipse cx="180" cy="35" rx="130" ry="18" fill="rgba(255,255,255,.03)" transform="rotate(-15 180 35)"/>
+          <path d="M0 130 Q60 85 120 100 Q170 75 220 95 Q270 80 360 110 L360 180 L0 180 Z" fill="#0d1f0d" opacity=".7"/>
+          <g fill="#0f2a10" opacity=".7">
+            <polygon points="18,105 28,80 38,105"/>
+            <polygon points="20,110 28,90 36,110"/>
+            <rect x="26" y="108" width="4" height="8" rx="1"/>
+            <polygon points="68,108 78,82 88,108"/>
+            <polygon points="70,113 78,95 86,113"/>
+            <rect x="76" y="111" width="4" height="8" rx="1"/>
+            <polygon points="288,110 298,85 308,110"/>
+            <polygon points="290,115 298,97 306,115"/>
+            <rect x="296" y="113" width="4" height="8" rx="1"/>
+            <polygon points="318,106 326,84 334,106"/>
+            <polygon points="320,111 326,95 332,111"/>
+            <rect x="324" y="109" width="4" height="7" rx="1"/>
+          </g>
+          <g fill="#122a12">
+            <polygon points="0,150 22,90 44,150"/>
+            <polygon points="4,155 22,105 40,155"/>
+            <polygon points="8,160 22,118 36,160"/>
+            <rect x="19" y="158" width="6" height="16" rx="1"/>
+            <polygon points="58,148 76,98 94,148"/>
+            <polygon points="62,154 76,112 90,154"/>
+            <polygon points="65,160 76,124 87,160"/>
+            <rect x="73" y="158" width="6" height="16" rx="1"/>
+            <polygon points="268,148 286,98 304,148"/>
+            <polygon points="272,154 286,112 300,154"/>
+            <polygon points="275,160 286,124 297,160"/>
+            <rect x="283" y="158" width="6" height="16" rx="1"/>
+            <polygon points="320,152 336,108 352,152"/>
+            <polygon points="323,158 336,120 349,158"/>
+            <polygon points="326,163 336,130 346,163"/>
+            <rect x="333" y="161" width="6" height="14" rx="1"/>
+          </g>
+          <path d="M0 155 Q90 145 180 150 Q270 155 360 148 L360 180 L0 180 Z" fill="#0f2a10"/>
+          <path d="M0 162 Q90 155 180 158 Q270 162 360 156 L360 180 L0 180 Z" fill="#122a12"/>
+          <g transform="translate(164,148)">
+            <line x1="-8" y1="12" x2="8"  y2="4"  stroke="#5a3010" stroke-width="3" stroke-linecap="round"/>
+            <line x1="8"  y1="12" x2="-4" y2="4"  stroke="#5a3010" stroke-width="3" stroke-linecap="round"/>
+            <ellipse cx="0" cy="12" rx="8" ry="3" fill="#c47a52" opacity=".7"/>
+            <path d="M0 10 Q-4 2 0 -4 Q4 2 0 10" fill="#f0a050" opacity=".9">
+              <animate attributeName="d" values="M0 10 Q-4 2 0 -4 Q4 2 0 10;M0 10 Q-3 0 1 -6 Q5 0 0 10;M0 10 Q-4 2 0 -4 Q4 2 0 10" dur="0.8s" repeatCount="indefinite"/>
+            </path>
+            <path d="M-2 10 Q-6 4 -2 -1 Q1 3 -2 10" fill="#f0c060" opacity=".8">
+              <animate attributeName="d" values="M-2 10 Q-6 4 -2 -1 Q1 3 -2 10;M-2 10 Q-5 2 -1 -3 Q2 2 -2 10;M-2 10 Q-6 4 -2 -1 Q1 3 -2 10" dur="1.1s" repeatCount="indefinite"/>
+            </path>
+            <path d="M2 10 Q5 3 2 -2 Q-1 3 2 10" fill="#e87830" opacity=".85">
+              <animate attributeName="d" values="M2 10 Q5 3 2 -2 Q-1 3 2 10;M2 10 Q6 1 3 -4 Q-1 2 2 10;M2 10 Q5 3 2 -2 Q-1 3 2 10" dur="0.9s" repeatCount="indefinite"/>
+            </path>
+            <ellipse cx="0" cy="14" rx="16" ry="4" fill="#c47a52" opacity=".15"/>
+          </g>
+          <g transform="translate(180,113)">
+            <ellipse cx="0" cy="52" rx="45" ry="6" fill="rgba(0,0,0,.25)"/>
+            <polygon points="-42,50 0,-10 42,50" fill="url(#tentGrad)"/>
+            <line x1="-42" y1="50" x2="0"  y2="-10" stroke="rgba(0,0,0,.15)" stroke-width="1"/>
+            <line x1="42"  y1="50" x2="0"  y2="-10" stroke="rgba(0,0,0,.15)" stroke-width="1"/>
+            <polygon points="-42,50 -52,50 -18,18" fill="#7a4828" opacity=".85"/>
+            <polygon points="42,50 52,50 18,18" fill="#7a4828" opacity=".85"/>
+            <polygon points="-12,50 0,22 12,50" fill="#c9a84c" opacity=".3"/>
+            <polygon points="-10,50 0,26 10,50" fill="#f0c060" opacity=".2"/>
+            <line x1="-52" y1="50" x2="-58" y2="56" stroke="#5a3010" stroke-width="2" stroke-linecap="round"/>
+            <line x1="52"  y1="50" x2="58"  y2="56" stroke="#5a3010" stroke-width="2" stroke-linecap="round"/>
+            <line x1="-52" y1="50" x2="-38" y2="44" stroke="rgba(255,255,255,.2)" stroke-width=".8" stroke-dasharray="2,2"/>
+            <line x1="52"  y1="50" x2="38"  y2="44" stroke="rgba(255,255,255,.2)" stroke-width=".8" stroke-dasharray="2,2"/>
+          </g>
+          <ellipse cx="300" cy="36" rx="60" ry="40" fill="rgba(201,168,76,.04)"/>
+          <text x="180" y="170" text-anchor="middle"
+                font-family="Georgia,serif" font-style="italic"
+                font-size="8.5" fill="rgba(255,255,255,.35)" letter-spacing=".08em">
+            noite estrelada · acampamento do sono gentil
+          </text>
+        </svg>
       </div>
-    </div><!-- /ritual -->
+    </div>
+
+    <!-- Player principal -->
+    <div class="px fu d2">
+      <div class="rs-player-card">
+        <div class="rs-player-top">
+          <div class="rs-player-info">
+            <div class="rs-player-name" id="rs-name">Selecione um som ou história</div>
+            <div class="rs-player-status" id="rs-status">
+              <span class="rs-status-dot" id="rs-dot"></span>
+              <span id="rs-status-txt">Pronto para começar</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <span style="font-size:9px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;">Vol</span>
+            <input type="range" id="rs-vol" min="0" max="1" step="0.05" value="0.75"
+              oninput="rsSetVolume(this.value)"
+              style="width:56px;accent-color:#8a9e7f;writing-mode:horizontal-tb;">
+          </div>
+        </div>
+
+        <div class="rs-progress-wrap" id="rs-progress-wrap" style="display:none;">
+          <div class="rs-progress-bar">
+            <div class="rs-progress-fill" id="rs-progress-fill"></div>
+          </div>
+          <div class="rs-progress-time" id="rs-progress-time">0:00</div>
+        </div>
+
+        <div style="display:flex;justify-content:center;margin-top:18px;">
+          <button id="rs-play-btn" class="rs-play-btn" onclick="rsTogglePlay()" title="Reproduzir / Pausar">
+            <span id="rs-play-icon">&#9654;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Abas Sons / Histórias -->
+    <div class="px fu d2" style="margin-top:16px;">
+      <div class="rs-tabs">
+        <button class="rs-tab active" id="rs-tab-sons"      onclick="rsSwitchTab('sons')">&#127925; Sons</button>
+        <button class="rs-tab"        id="rs-tab-historias" onclick="rsSwitchTab('historias')">&#128214; Histórias</button>
+      </div>
+    </div>
+
+    <!-- Painel Sons -->
+    <div id="rs-panel-sons" class="px fu d3">
+      <div class="rs-sound-grid">
+
+        <button class="rs-sound-chip"
+          onclick="rsSelectSound(this,'Chuva Suave','boons_freak-rain-sound-188158 (1).mp3',true)"
+          data-key="chuva">
+          <div class="rs-chip-icon-wrap">
+            <span class="rs-chip-emoji">&#127783;&#65039;</span>
+          </div>
+          <span class="rs-chip-label">Chuva Suave</span>
+        </button>
+
+        <button class="rs-sound-chip"
+          onclick="rsSelectSound(this,'Ruído Branco','themediaguy-soft-soothing-deep-white-noise-378857.mp3',true)"
+          data-key="branco">
+          <div class="rs-chip-icon-wrap">
+            <span class="rs-chip-emoji">&#9729;&#65039;</span>
+          </div>
+          <span class="rs-chip-label">Ruído Branco</span>
+        </button>
+
+        <button class="rs-sound-chip"
+          onclick="rsSelectSound(this,'Ondas do Mar','kokoreli777-sea-waves-169411.mp3',true)"
+          data-key="ondas">
+          <div class="rs-chip-icon-wrap">
+            <span class="rs-chip-emoji">&#127754;</span>
+          </div>
+          <span class="rs-chip-label">Ondas do Mar</span>
+        </button>
+
+        <button class="rs-sound-chip"
+          onclick="rsSelectSound(this,'Vento nas Folhas','freesound_community-wind-in-trees-autumn-leaves-rustle-weird-howls-med-77mel-191122-17549.mp3',true)"
+          data-key="vento">
+          <div class="rs-chip-icon-wrap">
+            <span class="rs-chip-emoji">&#127811;</span>
+          </div>
+          <span class="rs-chip-label">Vento nas Folhas</span>
+        </button>
+
+      </div>
+
+      <div class="rs-timer-section">
+        <div class="rs-section-label">&#9201;&#65039; Timer de Sono</div>
+        <div class="rs-timer-grid">
+          <button class="rs-timer-btn active" id="rst-30" onclick="rsSelectTimer(this,30,'free')">
+            <span class="rs-timer-min">30 min</span>
+            <span class="rs-timer-badge rs-badge-free">Grátis</span>
+          </button>
+          <button class="rs-timer-btn" id="rst-120" onclick="rsSelectTimer(this,120,'plus')">
+            <span class="rs-timer-min">2 horas</span>
+            <span class="rs-timer-badge rs-badge-plus">Plus</span>
+          </button>
+          <button class="rs-timer-btn" id="rst-0" onclick="rsSelectTimer(this,0,'master')">
+            <span class="rs-timer-min">Sem parar</span>
+            <span class="rs-timer-badge rs-badge-master">Mestre</span>
+          </button>
+        </div>
+        <div class="rs-countdown" id="rs-countdown"></div>
+      </div>
+    </div><!-- /panel-sons -->
+
+    <!-- Painel Histórias -->
+    <div id="rs-panel-historias" class="px fu d3" style="display:none;">
+      <div class="rs-story-list">
+
+        <div class="rs-story-card">
+          <div class="rs-story-left">
+            <div class="rs-story-emoji">&#128048;</div>
+            <div class="rs-story-info">
+              <div class="rs-story-title">A Lua e o Coelhinho Sonolento</div>
+              <div class="rs-story-meta">
+                <span class="rs-story-dur">~3 min</span>
+                <span class="rs-story-badge rs-badge-free">Grátis</span>
+              </div>
+            </div>
+          </div>
+          <button class="rs-story-btn" onclick="rsStartStory(0)" id="rs-story-btn-0">
+            <span>&#9654;</span> Ouvir
+          </button>
+        </div>
+
+        <div class="rs-story-card">
+          <div class="rs-story-left">
+            <div class="rs-story-emoji">&#11088;</div>
+            <div class="rs-story-info">
+              <div class="rs-story-title">O Jardim das Estrelas</div>
+              <div class="rs-story-meta">
+                <span class="rs-story-dur">~5 min</span>
+                <span class="rs-story-badge rs-badge-plus">Plus</span>
+              </div>
+            </div>
+          </div>
+          <button class="rs-story-btn" onclick="rsStartStory(1)" id="rs-story-btn-1">
+            <span>&#9654;</span> Ouvir
+          </button>
+        </div>
+
+        <div class="rs-story-card">
+          <div class="rs-story-left">
+            <div class="rs-story-emoji">&#127794;</div>
+            <div class="rs-story-info">
+              <div class="rs-story-title">A Floresta que Cantava de Mansinho</div>
+              <div class="rs-story-meta">
+                <span class="rs-story-dur">~7 min</span>
+                <span class="rs-story-badge rs-badge-premium">Premium</span>
+              </div>
+            </div>
+          </div>
+          <button class="rs-story-btn" onclick="rsStartStory(2)" id="rs-story-btn-2">
+            <span>&#9654;</span> Ouvir
+          </button>
+        </div>
+
+      </div>
+    </div><!-- /panel-historias -->
+
+    <div class="sp"></div>
+  </div>
+</div><!-- /ritual -->
 
   </div><!-- /content-area -->
 
