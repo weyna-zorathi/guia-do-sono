@@ -3419,6 +3419,9 @@ function goTo(tab) {
   if (tab === 'orcamento') { loadExpenses(); renderVitrine(); buildCartItems(); updateBoxUI(); }
 }
 
+/* alias para compatibilidade com chamadas externas */
+function showTab(tab) { goTo(tab); }
+
 function syncChatInput() {
   const isDesk = window.innerWidth >= 800;
   const onChat = currentTab === 'chat';
@@ -3672,6 +3675,12 @@ function bootChat() {
 function prefill(text) {
   ['u-input','u-input-m'].forEach(id => { const e=document.getElementById(id); if(e){e.value=text;autoR(e);} });
   const a = document.getElementById(window.innerWidth>=800?'u-input':'u-input-m'); if(a)a.focus();
+}
+
+function abrirDicaNoChat(el) {
+  const txt = el.dataset.dica || '';
+  goTo('chat');
+  prefill('Me explica mais sobre: ' + txt);
 }
 
 function getInput() { return document.getElementById(window.innerWidth>=800?'u-input':'u-input-m'); }
@@ -4347,7 +4356,8 @@ function renderDicaDoDia(totalMeses) {
         </div>
         <div style="font-family:'Lora',serif;font-style:italic;font-size:12.5px;color:rgba(255,255,255,.88);line-height:1.68;">${dica.txt}</div>
         <div style="margin-top:11px;font-size:11px;color:rgba(255,255,255,.45);display:flex;align-items:center;gap:6px;cursor:pointer;"
-             onclick="goTo('chat');prefill('Me explica mais sobre essa dica: ${dica.txt.replace(/['"]/g,' ').substring(0,80)}...')">
+             onclick="abrirDicaNoChat(this)"
+             data-dica="${dica.txt.substring(0,100).replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">
           <span style="font-size:13px;">🌿</span>
           <span style="text-decoration:underline;text-underline-offset:2px;">Aprofundar com a Guia do Sono</span>
         </div>
