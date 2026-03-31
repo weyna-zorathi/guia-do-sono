@@ -1437,42 +1437,120 @@ body {
   animation:pulseDot .9s ease-in-out infinite;
 }
 
-/* ═══════════════════════════════════════
-   RITUAL DE SOM — AVENTURA & NATUREZA
-═══════════════════════════════════════ */
+/* ══════════════════════════════════════════════
+   RITUAL DE SOM — redesign completo
+══════════════════════════════════════════════ */
 
-/* Hero container */
-.rs-hero {
-  width: 100%; border-radius: 28px; overflow: hidden;
-  display: block; position: relative;
-  box-shadow: 0 8px 32px rgba(0,0,0,.28);
+/* ── Hero banner ── */
+.rs2-hero {
+  position: relative; margin: 0 16px; border-radius: 28px; overflow: hidden;
+  background: linear-gradient(160deg, #0a1a0c 0%, #12280f 40%, #1a3520 100%);
+  min-height: 220px; display: flex; flex-direction: column; justify-content: flex-end;
+  box-shadow: 0 12px 40px rgba(0,0,0,.35);
 }
-.rs-hero svg { display: block; width: 100%; height: auto; }
-
-/* Subtítulo abaixo do hero */
-.rs-hero-sub {
-  text-align: center; margin-top: 10px; margin-bottom: 2px;
+@media(min-width:800px) { .rs2-hero { margin: 0 24px; } }
+.rs2-hero-sky {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 15%, rgba(201,168,76,.18) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(138,158,127,.14) 0%, transparent 50%);
+}
+.rs2-hero-stars {
+  position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+}
+.rs2-star {
+  position: absolute; border-radius: 50%; background: #fff;
+  animation: rs2Twinkle var(--d,3s) ease-in-out infinite var(--delay,0s);
+}
+@keyframes rs2Twinkle { 0%,100%{opacity:var(--op,.8);} 50%{opacity:.1;} }
+.rs2-firefly {
+  position: absolute; width: 4px; height: 4px; border-radius: 50%;
+  background: #c8e870; box-shadow: 0 0 6px #a0d040;
+  animation: rs2Fly var(--fd,6s) ease-in-out infinite var(--fdelay,0s);
+}
+@keyframes rs2Fly {
+  0%  { transform: translate(0,0); opacity: 0; }
+  20% { opacity: .9; }
+  50% { transform: translate(var(--fx,20px), var(--fy,-30px)); opacity: .7; }
+  80% { opacity: .5; }
+  100%{ transform: translate(var(--fx2,35px), var(--fy2,10px)); opacity: 0; }
+}
+.rs2-moon {
+  position: absolute; top: 18px; right: 24px;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fef9e0 0%, #f0d060 100%);
+  box-shadow: 0 0 28px rgba(240,210,80,.35), 0 0 60px rgba(240,210,80,.12);
+  overflow: hidden;
+}
+.rs2-moon::after {
+  content: '';
+  position: absolute; top: -6px; right: -8px;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: #0a1a0c;
+}
+.rs2-moon-glow {
+  position: absolute; top: -10px; right: 0px;
+  width: 88px; height: 88px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(240,210,80,.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.rs2-owl {
+  position: absolute; bottom: 80px; right: 60px;
+  font-size: 22px; opacity: .7;
+  animation: rs2Owl 4s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,.4));
+}
+@keyframes rs2Owl { 0%,100%{transform:translateY(0) rotate(-3deg);} 50%{transform:translateY(-6px) rotate(3deg);} }
+.rs2-trees {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 80px; pointer-events: none; overflow: hidden;
+}
+.rs2-hero-content {
+  position: relative; z-index: 2; padding: 22px 22px 24px;
+}
+.rs2-hero-eyebrow {
+  font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(255,255,255,.45); margin-bottom: 6px;
+}
+.rs2-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 700; color: #fff; line-height: 1.15; margin-bottom: 5px;
+}
+.rs2-hero-title em { color: var(--tc-l); font-style: italic; }
+.rs2-hero-sub {
   font-family: 'Lora', serif; font-style: italic;
-  font-size: 12px; color: var(--text-sub);
-  letter-spacing: .03em;
+  font-size: 12px; color: rgba(255,255,255,.5); margin-bottom: 18px; line-height: 1.5;
 }
+.rs2-hero-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, var(--sage) 0%, var(--sage-d) 100%);
+  color: #fff; border: none; border-radius: 100px; cursor: pointer;
+  padding: 12px 22px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+  box-shadow: 0 4px 18px rgba(90,112,80,.45);
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
+}
+.rs2-hero-cta:hover  { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(90,112,80,.5); }
+.rs2-hero-cta:active { transform: scale(.96); }
+.rs2-cta-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: #c8e870;
+  box-shadow: 0 0 6px #a0d040; animation: rs2Pulse 1.5s ease-in-out infinite;
+}
+@keyframes rs2Pulse { 0%,100%{transform:scale(1);opacity:1;} 50%{transform:scale(1.4);opacity:.6;} }
 
-/* Player card */
+/* ── Player compacto (mantém IDs funcionais) ── */
 .rs-player-card {
   background: linear-gradient(150deg, #0d1c0e 0%, #162a17 50%, #1a3020 100%);
-  border-radius: 28px;
-  padding: 24px 22px 22px;
-  box-shadow: 0 10px 40px rgba(0,0,0,.38);
+  border-radius: 24px; padding: 20px 20px 18px;
+  box-shadow: 0 10px 36px rgba(0,0,0,.32);
   position: relative; overflow: hidden;
-  border: 1px solid rgba(138,158,127,.18);
+  border: 1px solid rgba(138,158,127,.15);
 }
 .rs-player-card::before {
   content: '';
   position: absolute; inset: 0; pointer-events: none;
   background:
     radial-gradient(ellipse 55% 45% at 85% 8%,  rgba(201,168,76,.10) 0%, transparent 55%),
-    radial-gradient(ellipse 65% 55% at 8%  85%,  rgba(138,158,127,.14) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(255,255,255,.02) 0%, transparent 70%);
+    radial-gradient(ellipse 65% 55% at 8%  85%,  rgba(138,158,127,.14) 0%, transparent 60%);
 }
 .rs-player-top {
   display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
@@ -1481,14 +1559,14 @@ body {
 .rs-player-info { flex: 1; min-width: 0; }
 .rs-player-name {
   font-family: 'Playfair Display', serif;
-  font-size: 16px; font-weight: 700; color: #fff;
-  line-height: 1.3; margin-bottom: 7px;
+  font-size: 15px; font-weight: 700; color: #fff;
+  line-height: 1.3; margin-bottom: 6px;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .rs-player-status {
-  display: flex; align-items: center; gap: 7px;
+  display: flex; align-items: center; gap: 6px;
   font-family: 'Lora', serif; font-style: italic;
-  font-size: 11px; color: rgba(255,255,255,.42);
+  font-size: 11px; color: rgba(255,255,255,.45);
 }
 .rs-status-dot {
   width: 7px; height: 7px; border-radius: 50%;
@@ -1500,224 +1578,230 @@ body {
   animation: rsPulse 1.4s ease-in-out infinite;
 }
 @keyframes rsPulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.4;transform:scale(1.5);} }
-
-/* Barra de progresso */
 .rs-progress-wrap {
-  margin-top: 16px; display: flex; align-items: center; gap: 10px;
+  margin-top: 14px; display: flex; align-items: center; gap: 10px;
   position: relative; z-index: 1;
 }
-.rs-progress-bar {
-  flex: 1; height: 5px; background: rgba(255,255,255,.1);
-  border-radius: 100px; overflow: hidden;
-}
-.rs-progress-fill {
-  height: 100%; width: 0%;
-  background: linear-gradient(90deg, var(--sage-l), var(--gold-l));
-  border-radius: 100px; transition: width .5s linear;
-}
-.rs-progress-time {
-  font-size: 10px; color: rgba(255,255,255,.32);
-  font-family: 'DM Sans', sans-serif; flex-shrink: 0;
-}
-
-/* Botão play central */
+.rs-progress-bar { flex: 1; height: 4px; background: rgba(255,255,255,.1); border-radius: 4px; overflow: hidden; }
+.rs-progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--sage-l), var(--gold-l)); border-radius: 4px; transition: width .5s linear; }
+.rs-progress-time { font-size: 10px; color: rgba(255,255,255,.35); font-family: 'DM Sans', sans-serif; flex-shrink: 0; }
 .rs-play-btn {
-  width: 66px; height: 66px; border-radius: 50%; border: none; cursor: pointer;
+  width: 62px; height: 62px; border-radius: 50%; border: none; cursor: pointer;
   background: linear-gradient(135deg, #6aaa60 0%, var(--sage-d) 100%);
-  color: #fff; font-size: 26px;
+  color: #fff; font-size: 24px;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 6px 24px rgba(90,112,80,.60), 0 0 0 8px rgba(138,158,127,.10);
+  box-shadow: 0 6px 22px rgba(90,112,80,.55), 0 0 0 8px rgba(138,158,127,.10);
   transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
   position: relative; z-index: 1;
 }
 .rs-play-btn:active { transform: scale(.90); }
 .rs-play-btn.playing {
-  background: linear-gradient(135deg, #e08860 0%, #a85f3a 100%);
-  box-shadow: 0 6px 24px rgba(196,122,82,.55), 0 0 0 8px rgba(196,122,82,.10);
+  background: linear-gradient(135deg, var(--tc), #a05038);
+  box-shadow: 0 6px 22px rgba(196,122,82,.50), 0 0 0 8px rgba(196,122,82,.10);
 }
 
-/* Controle de volume */
-.rs-vol-wrap {
-  display: flex; flex-direction: column; align-items: center; gap: 5px;
-}
-.rs-vol-lbl {
-  font-size: 9px; color: rgba(255,255,255,.32);
-  text-transform: uppercase; letter-spacing: .08em;
-  font-family: 'DM Sans', sans-serif;
-}
-
-/* Abas Sons / Histórias */
+/* ── Abas ── */
 .rs-tabs {
-  display: flex; gap: 5px; background: var(--bg);
-  padding: 5px; border-radius: 20px;
-  border: 1.5px solid var(--border);
+  display: flex; gap: 5px; background: var(--bg); padding: 5px;
+  border-radius: 20px; border: 1.5px solid var(--border);
   box-shadow: 0 2px 8px var(--shadow);
 }
 .rs-tab {
-  flex: 1; padding: 10px 14px; border-radius: 16px; border: none;
+  flex: 1; padding: 10px 12px; border-radius: 16px; border: none;
   font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
   cursor: pointer; background: transparent; color: var(--text-sub);
-  transition: all .2s; letter-spacing: .01em;
+  transition: all .2s;
 }
 .rs-tab.active {
   background: linear-gradient(135deg, #0d1c0e 0%, #1a3020 100%);
-  color: #d4f0d0;
-  box-shadow: 0 3px 12px rgba(0,0,0,.22);
+  color: #d4f0d0; box-shadow: 0 3px 12px rgba(0,0,0,.22);
 }
 .rs-tab:active { transform: scale(.96); }
 
-/* ── SONS ── */
-.rs-sounds-section { padding-top: 6px; }
-.rs-sounds-title {
-  font-size: 10px; font-weight: 700; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--text-sub);
-  margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+/* ── Seção de sons recomendados ── */
+.rs2-rec-scroll {
+  display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px;
 }
-.rs-sounds-title::before, .rs-sounds-title::after {
-  content: ''; flex: 1; height: 1px; background: var(--border);
+.rs2-rec-scroll::-webkit-scrollbar { display: none; }
+.rs2-rec-card {
+  flex-shrink: 0; width: 140px; border-radius: 22px; overflow: hidden;
+  cursor: pointer; position: relative;
+  box-shadow: 0 6px 20px rgba(0,0,0,.15);
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
+  border: 1.5px solid var(--border);
 }
+.rs2-rec-card:hover  { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,.22); }
+.rs2-rec-card:active { transform: scale(.96); }
+.rs2-rec-art {
+  height: 110px; display: flex; align-items: center; justify-content: center;
+  font-size: 44px; position: relative; overflow: hidden;
+}
+.rs2-rec-art::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,.45) 100%);
+}
+.rs2-rec-body { padding: 10px 12px 12px; background: var(--bg-card); }
+.rs2-rec-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.3; margin-bottom: 3px;
+}
+.rs2-rec-meta { font-size: 10px; color: var(--text-sub); font-family: 'Lora', serif; font-style: italic; }
 
-/* Grid 2×2 com padding generoso */
-.rs-sound-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
-  margin-bottom: 28px;
-}
-
-/* Card de som */
-.rs-sound-chip {
-  display: flex; flex-direction: column; align-items: center;
-  gap: 12px; padding: 24px 16px 20px;
-  border-radius: 28px;
-  border: 2px solid var(--border);
-  background: var(--bg-card);
-  cursor: pointer;
-  transition: all .22s cubic-bezier(.34,1.56,.64,1);
-  font-family: 'DM Sans', sans-serif;
+/* ── Categorias ── */
+.rs2-cat-grid { display: flex; flex-direction: column; gap: 10px; }
+.rs2-cat-card {
+  display: flex; align-items: center; gap: 16px;
+  border-radius: 22px; padding: 18px 20px; cursor: pointer;
+  border: 1.5px solid var(--border); background: var(--bg-card);
   box-shadow: 0 3px 12px var(--shadow);
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s, border-color .2s;
+  text-align: left; width: 100%;
+  font-family: 'DM Sans', sans-serif;
   position: relative; overflow: hidden;
 }
-.rs-sound-chip::before {
-  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0;
-  transition: opacity .22s;
-  background: radial-gradient(ellipse 80% 70% at 50% 0%, rgba(138,158,127,.12) 0%, transparent 70%);
+.rs2-cat-card:hover  { transform: translateY(-2px); box-shadow: 0 8px 24px var(--shadow-md); border-color: var(--border-d); }
+.rs2-cat-card:active { transform: scale(.98); }
+.rs2-cat-icon {
+  width: 54px; height: 54px; border-radius: 18px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 26px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.12);
 }
-.rs-sound-chip:hover::before { opacity: 1; }
-.rs-sound-chip:hover {
-  border-color: var(--sage-l);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 28px rgba(90,112,80,.18);
+.rs2-cat-body { flex: 1; }
+.rs2-cat-name {
+  font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700;
+  color: var(--text); margin-bottom: 3px;
 }
+.rs2-cat-sub { font-size: 11px; color: var(--text-sub); font-family: 'Lora', serif; font-style: italic; line-height: 1.4; }
+.rs2-cat-arr { font-size: 22px; color: var(--border-d); flex-shrink: 0; }
+.rs2-cat-card::before { content: ''; position: absolute; top: -20px; right: -20px; width: 70px; height: 70px; border-radius: 50%; opacity: .08; }
+.rs2-cat-chuva::before  { background: var(--sage); }
+.rs2-cat-hist::before   { background: var(--gold); }
+.rs2-cat-ritual::before { background: var(--lav); }
+
+/* ── Grid de sons ── */
+.rs-sound-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  margin-top: 8px; margin-bottom: 22px;
+}
+.rs-sound-chip {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 20px 12px 18px; border-radius: 24px;
+  border: 2px solid var(--border); background: var(--bg-card);
+  cursor: pointer; transition: all .22s cubic-bezier(.34,1.56,.64,1);
+  font-family: 'DM Sans', sans-serif;
+  box-shadow: 0 3px 12px var(--shadow); position: relative; overflow: hidden;
+}
+.rs-sound-chip:hover { border-color: var(--sage-l); transform: translateY(-2px); box-shadow: 0 8px 24px var(--shadow-md); }
 .rs-sound-chip.active {
   background: linear-gradient(155deg, #0d1c0e 0%, #1a3020 100%);
-  border-color: var(--sage);
-  box-shadow: 0 8px 28px rgba(0,0,0,.30), 0 0 0 4px rgba(138,158,127,.18);
+  border-color: var(--sage); box-shadow: 0 8px 28px rgba(0,0,0,.28), 0 0 0 4px rgba(138,158,127,.18);
   transform: translateY(-2px);
 }
-.rs-sound-chip:active { transform: scale(.94); }
-
-/* Círculo colorido do ícone */
-.rs-chip-icon-wrap {
-  width: 58px; height: 58px; border-radius: 50%;
+.rs-sound-chip:active { transform: scale(.95); }
+.rs2-chip-icon-wrap {
+  width: 56px; height: 56px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(0,0,0,.14);
   transition: transform .2s cubic-bezier(.34,1.56,.64,1);
-  box-shadow: 0 4px 14px rgba(0,0,0,.12);
 }
-.rs-sound-chip:hover .rs-chip-icon-wrap  { transform: scale(1.10); }
-.rs-sound-chip.active .rs-chip-icon-wrap { transform: scale(1.05); box-shadow: 0 4px 14px rgba(0,0,0,.25); }
-
-/* Cor por tipo de som */
-.rs-icon-chuva  { background: linear-gradient(135deg, #5b9bd5 0%, #2e6da4 100%); }
-.rs-icon-branco { background: linear-gradient(135deg, #b0bec5 0%, #78909c 100%); }
-.rs-icon-ondas  { background: linear-gradient(135deg, #26a69a 0%, #00796b 100%); }
-.rs-icon-vento  { background: linear-gradient(135deg, #8aae7f 0%, #5a7050 100%); }
-
-.rs-chip-emoji {
-  font-size: 28px; line-height: 1;
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,.18));
-}
+.rs-sound-chip:hover .rs2-chip-icon-wrap  { transform: scale(1.08); }
+.rs-sound-chip.active .rs2-chip-icon-wrap { transform: scale(1.04); }
+.rs2-icon-chuva  { background: linear-gradient(135deg, #5b9bd5 0%, #2e6da4 100%); }
+.rs2-icon-branco { background: linear-gradient(135deg, #b0bec5 0%, #78909c 100%); }
+.rs2-icon-ondas  { background: linear-gradient(135deg, #26a69a 0%, #00796b 100%); }
+.rs2-icon-vento  { background: linear-gradient(135deg, #8aae7f 0%, #5a7050 100%); }
+.rs-chip-emoji { font-size: 26px; line-height: 1; filter: drop-shadow(0 1px 2px rgba(0,0,0,.2)); }
 .rs-chip-label {
-  font-size: 12px; font-weight: 700; color: var(--text);
-  text-align: center; letter-spacing: .01em; line-height: 1.3;
+  font-size: 12px; font-weight: 700; color: var(--text); text-align: center;
+  line-height: 1.3;
 }
-.rs-sound-chip.active .rs-chip-label { color: rgba(255,255,255,.88); }
+.rs-sound-chip.active .rs-chip-label { color: rgba(255,255,255,.9); }
+.rs2-chip-preview {
+  font-size: 9px; font-weight: 600; letter-spacing: .04em;
+  color: var(--text-sub); background: var(--bg); border-radius: 8px;
+  padding: 2px 8px; transition: all .15s;
+}
+.rs-sound-chip.active .rs2-chip-preview { color: rgba(255,255,255,.4); background: rgba(255,255,255,.08); }
 
-/* Timer */
-.rs-timer-section {
-  border-top: 1px solid var(--border); padding-top: 22px; margin-top: 4px;
-}
+/* ── Timer ── */
+.rs-timer-section { border-top: 1px solid var(--border); padding-top: 20px; margin-top: 4px; }
 .rs-section-label {
   font-size: 10px; font-weight: 700; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--text-sub); margin-bottom: 14px;
+  text-transform: uppercase; color: var(--text-sub); margin-bottom: 12px;
   display: flex; align-items: center; gap: 8px;
 }
 .rs-section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
 .rs-timer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
 .rs-timer-btn {
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
-  padding: 16px 8px; border-radius: 20px;
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  padding: 14px 6px; border-radius: 18px;
   border: 2px solid var(--border); background: var(--bg-card);
   cursor: pointer; transition: all .2s; font-family: 'DM Sans', sans-serif;
   box-shadow: 0 2px 8px var(--shadow);
 }
 .rs-timer-btn:hover { border-color: var(--sage-l); background: var(--sage-p); transform: translateY(-1px); }
-.rs-timer-btn.active {
-  border-color: var(--sage-d); background: var(--sage-p);
-  box-shadow: 0 0 0 4px rgba(90,112,80,.14);
-}
+.rs-timer-btn.active { border-color: var(--sage-d); background: var(--sage-p); box-shadow: 0 0 0 4px rgba(90,112,80,.14); }
 .rs-timer-btn:active { transform: scale(.95); }
 .rs-timer-min { font-size: 13px; font-weight: 700; color: var(--text); }
 .rs-timer-badge {
   font-size: 9px; font-weight: 700; letter-spacing: .04em;
-  padding: 3px 10px; border-radius: 100px;
+  padding: 3px 9px; border-radius: 100px;
 }
 .rs-badge-free    { background: var(--sage-p);  color: var(--sage-d); }
 .rs-badge-plus    { background: var(--gold-p);  color: #7a6010; }
 .rs-badge-master  { background: var(--lav-p);   color: var(--lav); }
 .rs-badge-premium { background: linear-gradient(135deg,var(--gold-p),var(--lav-p)); color: var(--lav); }
 .rs-countdown {
-  margin-top: 14px; text-align: center;
+  margin-top: 12px; text-align: center;
   font-family: 'Lora', serif; font-style: italic;
-  font-size: 13px; color: var(--sage-d); min-height: 20px; font-weight: 600;
+  font-size: 13px; color: var(--sage-d); min-height: 18px; font-weight: 600;
 }
 
-/* ── HISTÓRIAS ── */
-.rs-stories-section { padding-top: 6px; }
-.rs-story-list { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
+/* ── Modo Bebê ── */
+.rs2-baby-mode {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--night); border-radius: 16px; padding: 14px 18px;
+  cursor: pointer; margin-top: 14px; transition: opacity .18s;
+}
+.rs2-baby-mode:active { opacity: .85; }
+.rs2-baby-left { display: flex; align-items: center; gap: 12px; }
+.rs2-baby-icon {
+  width: 38px; height: 38px; border-radius: 12px;
+  background: rgba(201,168,76,.2); display: flex; align-items: center; justify-content: center; font-size: 18px;
+}
+.rs2-baby-title { font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 2px; }
+.rs2-baby-sub   { font-size: 10px; color: rgba(255,255,255,.4); font-family: 'Lora', serif; font-style: italic; }
+.rs2-baby-tag {
+  font-size: 9px; font-weight: 700; letter-spacing: .04em; padding: 3px 10px;
+  border-radius: 20px; background: rgba(201,168,76,.2); color: var(--gold-l);
+  border: 1px solid rgba(201,168,76,.3);
+}
 
+/* ── Histórias ── */
+.rs-story-list { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
 .rs-story-card {
-  display: flex; align-items: center; gap: 16px;
-  background: var(--bg-card); border: 2px solid var(--border);
-  border-radius: 28px; padding: 20px 18px;
+  display: flex; align-items: center; gap: 14px;
+  background: var(--bg-card); border: 1.5px solid var(--border);
+  border-radius: 24px; padding: 18px 16px;
   box-shadow: 0 3px 14px var(--shadow);
   transition: border-color .2s, box-shadow .2s, transform .2s;
   position: relative; overflow: hidden;
 }
 .rs-story-card::before {
   content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(ellipse 60% 80% at 0% 50%, rgba(138,158,127,.06) 0%, transparent 60%);
+  background: radial-gradient(ellipse 60% 80% at 0% 50%, rgba(138,158,127,.05) 0%, transparent 60%);
 }
-.rs-story-card:hover {
-  border-color: var(--sage-l);
-  box-shadow: 0 8px 28px var(--shadow-md);
-  transform: translateY(-2px);
-}
+.rs-story-card:hover { border-color: var(--sage-l); box-shadow: 0 8px 26px var(--shadow-md); transform: translateY(-2px); }
 .rs-story-left { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 0; }
-
-/* Ícone circular colorido das histórias */
 .rs-story-emoji {
-  font-size: 26px; flex-shrink: 0;
-  width: 56px; height: 56px; border-radius: 50%;
+  font-size: 24px; flex-shrink: 0;
+  width: 54px; height: 54px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 14px rgba(0,0,0,.14);
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,.10));
+  box-shadow: 0 4px 12px rgba(0,0,0,.12);
 }
-/* Cor por história */
-.rs-story-icon-0 { background: linear-gradient(135deg, #c9a84c 0%, #e8b860 100%); } /* coelhinho - dourado */
-.rs-story-icon-1 { background: linear-gradient(135deg, #5b7fd4 0%, #3a5ab8 100%); } /* estrelas  - azul */
-.rs-story-icon-2 { background: linear-gradient(135deg, #5a7050 0%, #3a5038 100%); } /* floresta  - verde */
-
+.rs2-story-icon-0 { background: linear-gradient(135deg, #c9a84c 0%, #e8b860 100%); }
+.rs2-story-icon-1 { background: linear-gradient(135deg, #5b7fd4 0%, #3a5ab8 100%); }
+.rs2-story-icon-2 { background: linear-gradient(135deg, #5a7050 0%, #3a5038 100%); }
 .rs-story-info { flex: 1; min-width: 0; }
 .rs-story-title {
   font-family: 'Playfair Display', serif;
@@ -1728,31 +1812,34 @@ body {
 .rs-story-dur { font-size: 10px; color: var(--text-sub); font-style: italic; font-family: 'Lora', serif; }
 .rs-story-badge {
   font-size: 9px; font-weight: 700; letter-spacing: .04em;
-  padding: 3px 10px; border-radius: 100px;
+  padding: 3px 9px; border-radius: 100px;
 }
-
-/* Botão Ouvir — pílula sálvia escuro */
 .rs-story-btn {
   display: flex; align-items: center; gap: 6px;
-  padding: 11px 20px; border-radius: 100px; border: none;
-  background: var(--sage-d);
-  color: #fff; font-family: 'DM Sans', sans-serif;
-  font-size: 12px; font-weight: 700; cursor: pointer; flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(90,112,80,.35);
-  letter-spacing: .03em;
+  padding: 11px 18px; border-radius: 100px; border: none;
+  background: var(--sage-d); color: #fff;
+  font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 700;
+  cursor: pointer; flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(90,112,80,.32); letter-spacing: .02em;
   transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s, background .2s;
   white-space: nowrap;
 }
-.rs-story-btn:hover {
-  background: var(--sage);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(90,112,80,.42);
-}
+.rs-story-btn:hover  { background: var(--sage); transform: translateY(-2px); box-shadow: 0 8px 22px rgba(90,112,80,.42); }
 .rs-story-btn:active { transform: scale(.94); }
-.rs-story-btn.pausing {
-  background: linear-gradient(135deg, var(--tc), #a85f3a);
-  box-shadow: 0 4px 14px rgba(196,122,82,.38);
+.rs-story-btn.pausing { background: linear-gradient(135deg, var(--tc), #a85f3a); box-shadow: 0 4px 14px rgba(196,122,82,.38); }
+
+/* ── Micro-copy emocional ── */
+.rs2-emotional-bar {
+  background: linear-gradient(135deg, var(--sage-p) 0%, var(--gold-p) 100%);
+  border: 1px solid var(--sage-l); border-radius: 16px;
+  padding: 14px 16px; display: flex; align-items: center; gap: 12px;
 }
+.rs2-em-icon { font-size: 20px; flex-shrink: 0; }
+.rs2-em-text {
+  font-family: 'Lora', serif; font-style: italic;
+  font-size: 12px; color: var(--sage-d); line-height: 1.5;
+}
+.rs2-em-text strong { color: var(--night); font-style: normal; }
 
 /* ── Nutrição page cards ── */
 .nutri-coming-soon {
@@ -2559,399 +2646,328 @@ body {
     </div><!-- /perfil -->
 
     <!-- ══ RITUAL DE SOM ══════════════════════════ -->
-<div class="page" id="page-ritual">
-  <div class="scroll-area">
+    <div class="page" id="page-ritual">
+      <div class="scroll-area">
 
-    <!-- ── HERO: Cena Noturna de Camping ── -->
-    <div class="px fu d1" style="margin-top:18px;">
-      <div class="rs-hero">
-        <svg viewBox="0 0 380 200" xmlns="http://www.w3.org/2000/svg" aria-label="Cena noturna de camping com pinheiros, barraca e estrelas">
-          <defs>
-            <linearGradient id="rsSky" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"   stop-color="#060f1a"/>
-              <stop offset="45%"  stop-color="#0a1f14"/>
-              <stop offset="100%" stop-color="#122218"/>
-            </linearGradient>
-            <linearGradient id="rsMtn" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"   stop-color="#0e2010"/>
-              <stop offset="100%" stop-color="#0a1a0c"/>
-            </linearGradient>
-            <linearGradient id="rsTent" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"   stop-color="#c47a52"/>
-              <stop offset="100%" stop-color="#7a4828"/>
-            </linearGradient>
-            <linearGradient id="rsTentSide" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%"   stop-color="#8a4820"/>
-              <stop offset="100%" stop-color="#6a3818"/>
-            </linearGradient>
-            <linearGradient id="rsMoon" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%"   stop-color="#fef9e0"/>
-              <stop offset="100%" stop-color="#f0d080"/>
-            </linearGradient>
-            <linearGradient id="rsGround" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%"   stop-color="#122218"/>
-              <stop offset="100%" stop-color="#0a1610"/>
-            </linearGradient>
-            <radialGradient id="rsFireGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%"   stop-color="#f0a050" stop-opacity=".5"/>
-              <stop offset="100%" stop-color="#c47a52" stop-opacity="0"/>
-            </radialGradient>
-            <filter id="rsGlow" x="-30%" y="-30%" width="160%" height="160%">
-              <feGaussianBlur stdDeviation="1.8" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <filter id="rsMoonGlow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="4" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-          </defs>
-
-          <!-- Fundo do céu -->
-          <rect width="380" height="200" fill="url(#rsSky)"/>
-
-          <!-- Via láctea sutil -->
-          <ellipse cx="190" cy="60" rx="160" ry="30" fill="rgba(255,255,255,.025)" transform="rotate(-18 190 60)"/>
-          <ellipse cx="190" cy="55" rx="120" ry="15" fill="rgba(255,255,255,.018)" transform="rotate(-18 190 55)"/>
-
-          <!-- Lua crescente -->
-          <circle cx="318" cy="34" r="20" fill="url(#rsMoon)" filter="url(#rsMoonGlow)" opacity=".95"/>
-          <circle cx="328" cy="27" r="16" fill="#060f1a"/>
-
-          <!-- Estrelas fixas -->
-          <g fill="#ffffff">
-            <circle cx="22"  cy="16" r="1.3" opacity=".92"/>
-            <circle cx="48"  cy="8"  r="1.6" opacity=".88"/>
-            <circle cx="75"  cy="20" r="1.1" opacity=".75"/>
-            <circle cx="102" cy="6"  r="1.4" opacity=".90"/>
-            <circle cx="128" cy="18" r="1.0" opacity=".70"/>
-            <circle cx="155" cy="10" r="1.6" opacity=".88"/>
-            <circle cx="182" cy="25" r="1.2" opacity=".72"/>
-            <circle cx="208" cy="12" r="1.4" opacity=".85"/>
-            <circle cx="238" cy="22" r="1.0" opacity=".65"/>
-            <circle cx="262" cy="8"  r="1.5" opacity=".90"/>
-            <circle cx="288" cy="20" r="1.1" opacity=".70"/>
-            <circle cx="350" cy="14" r="1.2" opacity=".80"/>
-            <circle cx="368" cy="28" r="1.0" opacity=".65"/>
-            <circle cx="36"  cy="38" r=".9"  opacity=".60"/>
-            <circle cx="64"  cy="44" r="1.1" opacity=".68"/>
-            <circle cx="90"  cy="34" r=".8"  opacity=".55"/>
-            <circle cx="118" cy="42" r="1.0" opacity=".62"/>
-            <circle cx="172" cy="38" r=".9"  opacity=".58"/>
-            <circle cx="220" cy="46" r="1.1" opacity=".65"/>
-            <circle cx="254" cy="36" r=".8"  opacity=".52"/>
-            <circle cx="340" cy="42" r="1.0" opacity=".60"/>
-            <circle cx="372" cy="50" r=".9"  opacity=".55"/>
-          </g>
-
-          <!-- Estrelas piscando com cor -->
-          <circle cx="14"  cy="32" r="1.4" fill="#fff" opacity=".85">
-            <animate attributeName="opacity" values=".85;.15;.85" dur="3.2s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="140" cy="30" r="1.3" fill="#ffd080" opacity=".90">
-            <animate attributeName="opacity" values=".9;.25;.9" dur="2.7s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="245" cy="14" r="1.4" fill="#fff" opacity=".80">
-            <animate attributeName="opacity" values=".8;.1;.8" dur="4.1s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="195" cy="44" r="1.1" fill="#c8c0e8" opacity=".75">
-            <animate attributeName="opacity" values=".75;.2;.75" dur="3.8s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="58"  cy="22" r="1.2" fill="#a0d0ff" opacity=".70">
-            <animate attributeName="opacity" values=".7;.15;.7" dur="2.4s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="300" cy="36" r="1.0" fill="#fff" opacity=".65">
-            <animate attributeName="opacity" values=".65;.1;.65" dur="5.0s" repeatCount="indefinite"/>
-          </circle>
-
-          <!-- Montanhas de fundo -->
-          <path d="M0 145 Q40 90 85 110 Q120 75 165 100 Q200 68 245 95 Q280 72 330 100 Q360 85 380 105 L380 200 L0 200Z"
-                fill="url(#rsMtn)" opacity=".9"/>
-
-          <!-- Pinheiros distantes (camada 1) -->
-          <g fill="#0c1f0e" opacity=".8">
-            <polygon points="12,140 24,108 36,140"/><polygon points="15,145 24,118 33,145"/><rect x="22" y="143" width="4" height="9" rx="1"/>
-            <polygon points="52,138 63,108 74,138"/><polygon points="55,143 63,118 71,143"/><rect x="61" y="141" width="4" height="9" rx="1"/>
-            <polygon points="288,140 300,110 312,140"/><polygon points="291,145 300,120 309,145"/><rect x="298" y="143" width="4" height="9" rx="1"/>
-            <polygon points="328,136 338,108 348,136"/><polygon points="331,141 338,118 345,141"/><rect x="336" y="139" width="4" height="8" rx="1"/>
-            <polygon points="356,142 365,115 374,142"/><polygon points="358,147 365,124 372,147"/><rect x="363" y="145" width="4" height="8" rx="1"/>
-          </g>
-
-          <!-- Pinheiros principais (camada 2 — frente) -->
-          <g fill="#0e2612">
-            <!-- Pinheiro esq grande -->
-            <polygon points="-2,168 22,96 46,168"/>
-            <polygon points="2,174 22,112 42,174"/>
-            <polygon points="6,180 22,126 38,180"/>
-            <rect x="19" y="178" width="7" height="18" rx="1.5"/>
-            <!-- Pinheiro esq médio -->
-            <polygon points="56,162 76,104 96,162"/>
-            <polygon points="60,168 76,118 92,168"/>
-            <polygon points="64,174 76,130 88,174"/>
-            <rect x="73" y="172" width="6" height="16" rx="1"/>
-            <!-- Pinheiro dir grande -->
-            <polygon points="286,165 310,96 334,165"/>
-            <polygon points="290,172 310,112 330,172"/>
-            <polygon points="294,178 310,126 326,178"/>
-            <rect x="307" y="176" width="7" height="18" rx="1.5"/>
-            <!-- Pinheiro dir médio -->
-            <polygon points="338,162 356,108 374,162"/>
-            <polygon points="341,168 356,122 371,168"/>
-            <polygon points="344,174 356,134 368,174"/>
-            <rect x="353" y="172" width="6" height="16" rx="1"/>
-          </g>
-
-          <!-- Solo / gramado -->
-          <path d="M0 168 Q95 158 190 163 Q285 168 380 160 L380 200 L0 200Z" fill="#0e2612"/>
-          <path d="M0 176 Q95 170 190 173 Q285 176 380 170 L380 200 L0 200Z" fill="#0a1e0e"/>
-
-          <!-- Reflexo suave de luz da lua -->
-          <ellipse cx="318" cy="34" rx="70" ry="50" fill="rgba(240,208,120,.04)"/>
-
-          <!-- Fogueira -->
-          <g transform="translate(190,162)">
-            <!-- Brilho no chão -->
-            <ellipse cx="0" cy="16" rx="32" ry="8" fill="url(#rsFireGlow)"/>
-            <!-- Lenha -->
-            <line x1="-14" y1="14" x2="10" y2="4"  stroke="#6a3818" stroke-width="3.5" stroke-linecap="round"/>
-            <line x1="14"  y1="14" x2="-6" y2="4"   stroke="#6a3818" stroke-width="3.5" stroke-linecap="round"/>
-            <line x1="-4"  y1="14" x2="0"  y2="5"   stroke="#8a4820" stroke-width="2"   stroke-linecap="round"/>
-            <!-- Brasa -->
-            <ellipse cx="0" cy="14" rx="10" ry="3.5" fill="#c44800" opacity=".75"/>
-            <ellipse cx="0" cy="14" rx="6"  ry="2"   fill="#ff8820" opacity=".60"/>
-            <!-- Chamas animadas -->
-            <path d="M0 12 Q-6 3 -1 -6 Q4 3 0 12" fill="#ff9020" opacity=".92">
-              <animate attributeName="d" values="M0 12 Q-6 3 -1 -6 Q4 3 0 12;M0 12 Q-5 1 0 -8 Q5 1 0 12;M0 12 Q-6 3 -1 -6 Q4 3 0 12" dur="0.75s" repeatCount="indefinite"/>
-            </path>
-            <path d="M-3 12 Q-9 4 -4 -3 Q0 3 -3 12" fill="#ffb830" opacity=".82">
-              <animate attributeName="d" values="M-3 12 Q-9 4 -4 -3 Q0 3 -3 12;M-3 12 Q-8 2 -3 -5 Q1 2 -3 12;M-3 12 Q-9 4 -4 -3 Q0 3 -3 12" dur="1.05s" repeatCount="indefinite"/>
-            </path>
-            <path d="M3 12 Q8 3 3 -4 Q-1 2 3 12" fill="#ff6010" opacity=".88">
-              <animate attributeName="d" values="M3 12 Q8 3 3 -4 Q-1 2 3 12;M3 12 Q9 1 4 -6 Q-1 1 3 12;M3 12 Q8 3 3 -4 Q-1 2 3 12" dur="0.90s" repeatCount="indefinite"/>
-            </path>
-            <path d="M0 11 Q-2 5 0 -1 Q2 5 0 11" fill="#ffe060" opacity=".70">
-              <animate attributeName="d" values="M0 11 Q-2 5 0 -1 Q2 5 0 11;M0 11 Q-2 4 1 -3 Q3 4 0 11;M0 11 Q-2 5 0 -1 Q2 5 0 11" dur="0.60s" repeatCount="indefinite"/>
-            </path>
-          </g>
-
-          <!-- Barraca principal -->
-          <g transform="translate(190,120)">
-            <!-- Sombra da barraca -->
-            <ellipse cx="0" cy="58" rx="52" ry="7" fill="rgba(0,0,0,.30)"/>
-            <!-- Lona principal -->
-            <polygon points="-48,56 0,-12 48,56" fill="url(#rsTent)"/>
-            <!-- Costura central -->
-            <line x1="0" y1="-12" x2="0" y2="56" stroke="rgba(0,0,0,.12)" stroke-width="1.5"/>
-            <!-- Abas laterais -->
-            <polygon points="-48,56 -62,58 -22,20" fill="url(#rsTentSide)"/>
-            <polygon points="48,56 62,58 22,20"  fill="url(#rsTentSide)"/>
-            <!-- Porta (luz interna) -->
-            <polygon points="-14,56 0,24 14,56" fill="#c9a84c" opacity=".28"/>
-            <polygon points="-10,56 0,30 10,56" fill="#ffe090" opacity=".18"/>
-            <!-- Detalhes de textura -->
-            <line x1="-48" y1="56" x2="0"  y2="-12" stroke="rgba(0,0,0,.10)" stroke-width=".8"/>
-            <line x1="48"  y1="56" x2="0"  y2="-12" stroke="rgba(0,0,0,.10)" stroke-width=".8"/>
-            <!-- Estacas -->
-            <line x1="-62" y1="58" x2="-70" y2="66" stroke="#5a3010" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="62"  y1="58" x2="70"  y2="66" stroke="#5a3010" stroke-width="2.5" stroke-linecap="round"/>
-            <!-- Cordas -->
-            <line x1="-62" y1="58" x2="-44" y2="50" stroke="rgba(255,255,255,.18)" stroke-width="1" stroke-dasharray="3,3"/>
-            <line x1="62"  y1="58" x2="44"  y2="50" stroke="rgba(255,255,255,.18)" stroke-width="1" stroke-dasharray="3,3"/>
-          </g>
-
-          <!-- Texto do rodapé da ilustração -->
-          <text x="190" y="193" text-anchor="middle"
-                font-family="Georgia, 'Times New Roman', serif"
-                font-style="italic" font-size="9" letter-spacing=".12em"
-                fill="rgba(255,255,255,.28)">
-            noite estrelada · sono gentil · natureza
-          </text>
-        </svg>
-      </div>
-      <div class="rs-hero-sub">Sons e histórias para adormecer com calma 🌿</div>
-    </div>
-
-    <!-- ── Player de Áudio ── -->
-    <div class="px fu d2" style="margin-top:6px;">
-      <div class="rs-player-card">
-        <div class="rs-player-top">
-          <div class="rs-player-info">
-            <div class="rs-player-name" id="rs-name">Selecione um som ou história</div>
-            <div class="rs-player-status" id="rs-status">
-              <span class="rs-status-dot" id="rs-dot"></span>
-              <span id="rs-status-txt">Pronto para começar 🌙</span>
+        <!-- ── Hero ── -->
+        <div style="padding:18px 0 6px;" class="fu d1">
+          <div class="rs2-hero">
+            <!-- Estrelas -->
+            <div class="rs2-hero-stars">
+              <div class="rs2-star" style="width:2px;height:2px;top:12%;left:8%;--op:.9;--d:2.8s;--delay:0s;"></div>
+              <div class="rs2-star" style="width:1.5px;height:1.5px;top:8%;left:22%;--op:.7;--d:3.5s;--delay:.4s;"></div>
+              <div class="rs2-star" style="width:2px;height:2px;top:18%;left:38%;--op:.85;--d:2.2s;--delay:.8s;"></div>
+              <div class="rs2-star" style="width:1.5px;height:1.5px;top:6%;left:52%;--op:.6;--d:4s;--delay:.2s;"></div>
+              <div class="rs2-star" style="width:2px;height:2px;top:14%;left:68%;--op:.75;--d:3s;--delay:1s;"></div>
+              <div class="rs2-star" style="width:1px;height:1px;top:22%;left:30%;--op:.5;--d:4.5s;--delay:.6s;"></div>
+              <div class="rs2-star" style="width:2px;height:2px;top:5%;left:85%;--op:.8;--d:2.5s;--delay:.3s;"></div>
+              <div class="rs2-star" style="width:1.5px;height:1.5px;top:30%;left:12%;--op:.6;--d:3.8s;--delay:.9s;"></div>
+              <!-- Vagalumes -->
+              <div class="rs2-firefly" style="bottom:25%;left:15%;--fd:5s;--fdelay:0s;--fx:18px;--fy:-28px;--fx2:30px;--fy2:8px;"></div>
+              <div class="rs2-firefly" style="bottom:35%;left:40%;--fd:7s;--fdelay:1.5s;--fx:-20px;--fy:-35px;--fx2:10px;--fy2:15px;"></div>
+              <div class="rs2-firefly" style="bottom:20%;left:65%;--fd:6s;--fdelay:3s;--fx:25px;--fy:-20px;--fx2:-10px;--fy2:12px;"></div>
+            </div>
+            <!-- Lua e brilho -->
+            <div class="rs2-moon-glow"></div>
+            <div class="rs2-moon"></div>
+            <!-- Corujinha -->
+            <div class="rs2-owl">🦉</div>
+            <!-- Pinheiros SVG -->
+            <div class="rs2-trees">
+              <svg viewBox="0 0 400 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width:100%;height:100%;display:block;">
+                <polygon points="0,80 18,30 36,80" fill="#0a1a0c"/>
+                <polygon points="4,80 18,42 32,80" fill="#0e2010"/>
+                <rect x="16" y="78" width="4" height="10" fill="#0a1a0c"/>
+                <polygon points="40,80 55,25 70,80" fill="#0a1a0c"/>
+                <polygon points="44,80 55,38 66,80" fill="#0e2010"/>
+                <rect x="53" y="78" width="4" height="10" fill="#0a1a0c"/>
+                <polygon points="280,80 295,28 310,80" fill="#0a1a0c"/>
+                <polygon points="284,80 295,40 306,80" fill="#0e2010"/>
+                <rect x="293" y="78" width="4" height="10" fill="#0a1a0c"/>
+                <polygon points="320,80 338,22 356,80" fill="#0a1a0c"/>
+                <polygon points="324,80 338,36 352,80" fill="#0e2010"/>
+                <rect x="336" y="78" width="4" height="10" fill="#0a1a0c"/>
+                <polygon points="362,80 376,32 390,80" fill="#0a1a0c"/>
+                <polygon points="366,80 376,44 386,80" fill="#0e2010"/>
+                <rect x="374" y="78" width="4" height="10" fill="#0a1a0c"/>
+                <rect x="0" y="72" width="400" height="10" fill="#0a1a0c"/>
+              </svg>
+            </div>
+            <!-- Decoração botânica SVG sutil -->
+            <div class="rs2-hero-sky"></div>
+            <!-- Conteúdo -->
+            <div class="rs2-hero-content">
+              <div class="rs2-hero-eyebrow">✦ Guia do Sono</div>
+              <div class="rs2-hero-title">Ritual de <em>Som</em></div>
+              <div class="rs2-hero-sub">Sons e histórias para adormecer com calma 🌙</div>
+              <button class="rs2-hero-cta" onclick="document.getElementById('rs-play-btn').click()">
+                <span class="rs2-cta-dot"></span>
+                Começar o Ritual
+              </button>
             </div>
           </div>
-          <div class="rs-vol-wrap">
-            <span class="rs-vol-lbl">Vol</span>
-            <input type="range" id="rs-vol" min="0" max="1" step="0.05" value="0.75"
-              oninput="rsSetVolume(this.value)"
-              style="width:58px;accent-color:#8aae7f;">
+        </div>
+
+        <!-- ── Micro-copy emocional ── -->
+        <div class="px fu d2" style="margin-top:14px;">
+          <div class="rs2-emotional-bar">
+            <span class="rs2-em-icon">🌿</span>
+            <div class="rs2-em-text">
+              Está acordada às 3h da manhã? <strong>Você não está sozinha.</strong>
+              Deixa o som cuidar por um instante. 💚
+            </div>
           </div>
         </div>
 
-        <div class="rs-progress-wrap" id="rs-progress-wrap" style="display:none;">
-          <div class="rs-progress-bar">
-            <div class="rs-progress-fill" id="rs-progress-fill"></div>
-          </div>
-          <div class="rs-progress-time" id="rs-progress-time">0:00</div>
-        </div>
-
-        <div style="display:flex;justify-content:center;margin-top:20px;position:relative;z-index:1;">
-          <button id="rs-play-btn" class="rs-play-btn" onclick="rsTogglePlay()" title="Reproduzir / Pausar">
-            <span id="rs-play-icon">&#9654;</span>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── Abas Sons / Histórias ── -->
-    <div class="px fu d2" style="margin-top:18px;">
-      <div class="rs-tabs">
-        <button class="rs-tab active" id="rs-tab-sons"      onclick="rsSwitchTab('sons')">&#127925; Sons da Natureza</button>
-        <button class="rs-tab"        id="rs-tab-historias" onclick="rsSwitchTab('historias')">&#128214; Histórias para Sonhar</button>
-      </div>
-    </div>
-
-    <!-- ══ Painel: Sons ══ -->
-    <div id="rs-panel-sons" class="px fu d3" style="margin-top:18px;">
-
-      <div class="rs-sounds-section">
-        <div class="rs-sounds-title">escolha seu ambiente sonoro</div>
-
-        <div class="rs-sound-grid">
-
-          <!-- Chuva Suave -->
-          <button class="rs-sound-chip"
-            onclick="rsSelectSound(this,'Chuva Suave','boons_freak-rain-sound-188158 (1).mp3',true)"
-            data-key="chuva">
-            <div class="rs-chip-icon-wrap rs-icon-chuva">
-              <span class="rs-chip-emoji">&#127783;&#65039;</span>
-            </div>
-            <span class="rs-chip-label">Chuva<br>Suave</span>
-          </button>
-
-          <!-- Ruído Branco -->
-          <button class="rs-sound-chip"
-            onclick="rsSelectSound(this,'Ruído Branco','themediaguy-soft-soothing-deep-white-noise-378857.mp3',true)"
-            data-key="branco">
-            <div class="rs-chip-icon-wrap rs-icon-branco">
-              <span class="rs-chip-emoji">&#9729;&#65039;</span>
-            </div>
-            <span class="rs-chip-label">Ruído<br>Branco</span>
-          </button>
-
-          <!-- Ondas do Mar -->
-          <button class="rs-sound-chip"
-            onclick="rsSelectSound(this,'Ondas do Mar','kokoreli777-sea-waves-169411.mp3',true)"
-            data-key="ondas">
-            <div class="rs-chip-icon-wrap rs-icon-ondas">
-              <span class="rs-chip-emoji">&#127754;</span>
-            </div>
-            <span class="rs-chip-label">Ondas<br>do Mar</span>
-          </button>
-
-          <!-- Vento nas Folhas -->
-          <button class="rs-sound-chip"
-            onclick="rsSelectSound(this,'Vento nas Folhas','freesound_community-wind-in-trees-autumn-leaves-rustle-weird-howls-med-77mel-191122-17549.mp3',true)"
-            data-key="vento">
-            <div class="rs-chip-icon-wrap rs-icon-vento">
-              <span class="rs-chip-emoji">&#127811;</span>
-            </div>
-            <span class="rs-chip-label">Vento nas<br>Folhas</span>
-          </button>
-
-        </div><!-- /rs-sound-grid -->
-      </div><!-- /rs-sounds-section -->
-
-      <!-- Timer de Sono -->
-      <div class="rs-timer-section">
-        <div class="rs-section-label">&#9201;&#65039; Timer de sono</div>
-        <div class="rs-timer-grid">
-          <button class="rs-timer-btn active" id="rst-30" onclick="rsSelectTimer(this,30,'free')">
-            <span class="rs-timer-min">30 min</span>
-            <span class="rs-timer-badge rs-badge-free">Grátis</span>
-          </button>
-          <button class="rs-timer-btn" id="rst-120" onclick="rsSelectTimer(this,120,'plus')">
-            <span class="rs-timer-min">2 horas</span>
-            <span class="rs-timer-badge rs-badge-plus">Plus</span>
-          </button>
-          <button class="rs-timer-btn" id="rst-0" onclick="rsSelectTimer(this,0,'master')">
-            <span class="rs-timer-min">Sem parar</span>
-            <span class="rs-timer-badge rs-badge-master">Mestre</span>
-          </button>
-        </div>
-        <div class="rs-countdown" id="rs-countdown"></div>
-      </div>
-
-    </div><!-- /panel-sons -->
-
-    <!-- ══ Painel: Histórias ══ -->
-    <div id="rs-panel-historias" class="px fu d3" style="display:none;margin-top:18px;">
-
-      <div class="rs-stories-section">
-        <div class="rs-sounds-title">histórias narradas para dormir</div>
-
-        <div class="rs-story-list">
-
-          <!-- História 1 — Grátis -->
-          <div class="rs-story-card">
-            <div class="rs-story-left">
-              <div class="rs-story-emoji rs-story-icon-0">&#128048;</div>
-              <div class="rs-story-info">
-                <div class="rs-story-title">A Lua e o Coelhinho Sonolento</div>
-                <div class="rs-story-meta">
-                  <span class="rs-story-dur">~3 min</span>
-                  <span class="rs-story-badge rs-badge-free">Grátis</span>
+        <!-- ── Player compacto ── -->
+        <div class="px fu d2" style="margin-top:14px;">
+          <div class="rs-player-card">
+            <div class="rs-player-top">
+              <div class="rs-player-info">
+                <div class="rs-player-name" id="rs-name">Selecione um som ou história</div>
+                <div class="rs-player-status" id="rs-status">
+                  <span class="rs-status-dot" id="rs-dot"></span>
+                  <span id="rs-status-txt">Pronto para começar 🌙</span>
                 </div>
               </div>
-            </div>
-            <button class="rs-story-btn" onclick="rsStartStory(0)" id="rs-story-btn-0">
-              &#9654; Ouvir
-            </button>
-          </div>
-
-          <!-- História 2 — Plus -->
-          <div class="rs-story-card">
-            <div class="rs-story-left">
-              <div class="rs-story-emoji rs-story-icon-1">&#11088;</div>
-              <div class="rs-story-info">
-                <div class="rs-story-title">O Jardim das Estrelas</div>
-                <div class="rs-story-meta">
-                  <span class="rs-story-dur">~5 min</span>
-                  <span class="rs-story-badge rs-badge-plus">Plus</span>
-                </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+                <span style="font-size:9px;color:rgba(255,255,255,.32);text-transform:uppercase;letter-spacing:.08em;font-family:'DM Sans',sans-serif;">Vol</span>
+                <input type="range" id="rs-vol" min="0" max="1" step="0.05" value="0.75"
+                  oninput="rsSetVolume(this.value)"
+                  style="width:58px;accent-color:#8aae7f;">
               </div>
             </div>
-            <button class="rs-story-btn" onclick="rsStartStory(1)" id="rs-story-btn-1">
-              &#9654; Ouvir
-            </button>
+            <div class="rs-progress-wrap" id="rs-progress-wrap" style="display:none;">
+              <div class="rs-progress-bar"><div class="rs-progress-fill" id="rs-progress-fill"></div></div>
+              <div class="rs-progress-time" id="rs-progress-time">0:00</div>
+            </div>
+            <div style="display:flex;justify-content:center;margin-top:18px;position:relative;z-index:1;">
+              <button id="rs-play-btn" class="rs-play-btn" onclick="rsTogglePlay()" title="Reproduzir / Pausar">
+                <span id="rs-play-icon">&#9654;</span>
+              </button>
+            </div>
           </div>
+        </div>
 
-          <!-- História 3 — Premium -->
-          <div class="rs-story-card">
-            <div class="rs-story-left">
-              <div class="rs-story-emoji rs-story-icon-2">&#127794;</div>
-              <div class="rs-story-info">
-                <div class="rs-story-title">A Floresta que Cantava de Mansinho</div>
-                <div class="rs-story-meta">
-                  <span class="rs-story-dur">~7 min</span>
-                  <span class="rs-story-badge rs-badge-premium">Premium</span>
-                </div>
+        <!-- ── Recomendados hoje ── -->
+        <div class="sec-hdr fu d2" style="margin-top:8px;">
+          <div class="sec-title">Recomendado para o seu pequeno</div>
+        </div>
+        <div class="px fu d2">
+          <div class="rs2-rec-scroll">
+
+            <div class="rs2-rec-card fu d2" onclick="rsSelectSound(document.querySelector('[data-key=chuva]'),'Chuva Suave','boons_freak-rain-sound-188158 (1).mp3',true);document.querySelector('[data-key=chuva]').classList.add('active');">
+              <div class="rs2-rec-art" style="background:linear-gradient(160deg,#1a3060 0%,#2a5090 60%,#4a80b0 100%);">🌧️</div>
+              <div class="rs2-rec-body">
+                <div class="rs2-rec-name">Noite de Chuva</div>
+                <div class="rs2-rec-meta">Som · Qualquer idade</div>
               </div>
             </div>
-            <button class="rs-story-btn" onclick="rsStartStory(2)" id="rs-story-btn-2">
-              &#9654; Ouvir
+
+            <div class="rs2-rec-card fu d3" onclick="rsStartStory(0)">
+              <div class="rs2-rec-art" style="background:linear-gradient(160deg,#1a2e1a 0%,#2c5030 60%,#3a7040 100%);">🐰</div>
+              <div class="rs2-rec-body">
+                <div class="rs2-rec-name">Coelhinho Sonolento</div>
+                <div class="rs2-rec-meta">História · ~3 min</div>
+              </div>
+            </div>
+
+            <div class="rs2-rec-card fu d4" onclick="rsSelectSound(document.querySelector('[data-key=ondas]'),'Ondas do Mar','kokoreli777-sea-waves-169411.mp3',true);document.querySelector('[data-key=ondas]').classList.add('active');">
+              <div class="rs2-rec-art" style="background:linear-gradient(160deg,#0a2a3a 0%,#0e4a6a 60%,#1a7090 100%);">🌊</div>
+              <div class="rs2-rec-body">
+                <div class="rs2-rec-name">Oceano Sereno</div>
+                <div class="rs2-rec-meta">Som · 0-5 anos</div>
+              </div>
+            </div>
+
+            <div class="rs2-rec-card fu d5" onclick="rsStartStory(1)">
+              <div class="rs2-rec-art" style="background:linear-gradient(160deg,#1a1a3a 0%,#2a2a6a 60%,#4a4a9a 100%);">⭐</div>
+              <div class="rs2-rec-body">
+                <div class="rs2-rec-name">Jardim das Estrelas</div>
+                <div class="rs2-rec-meta">História · ~5 min</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ── Categorias ── -->
+        <div class="sec-hdr fu d3" style="margin-top:8px;">
+          <div class="sec-title">O que você precisa agora?</div>
+        </div>
+        <div class="px fu d3">
+          <div class="rs2-cat-grid">
+
+            <button class="rs2-cat-card rs2-cat-chuva" onclick="rsSwitchTab('sons');document.getElementById('rs-tab-sons').click();">
+              <div class="rs2-cat-icon" style="background:linear-gradient(135deg,#e8f3e0,#c8e0b8);">🎵</div>
+              <div class="rs2-cat-body">
+                <div class="rs2-cat-name">Sons Instantâneos</div>
+                <div class="rs2-cat-sub">Chuva, oceano, floresta — para bebês de 0 a 3 anos</div>
+              </div>
+              <div class="rs2-cat-arr">›</div>
             </button>
+
+            <button class="rs2-cat-card rs2-cat-hist" onclick="rsSwitchTab('historias');document.getElementById('rs-tab-historias').click();">
+              <div class="rs2-cat-icon" style="background:linear-gradient(135deg,#faf3df,#f0de90);">📖</div>
+              <div class="rs2-cat-body">
+                <div class="rs2-cat-name">Histórias para Sonhar</div>
+                <div class="rs2-cat-sub">Narradas com calma — para crianças de 2 a 6 anos</div>
+              </div>
+              <div class="rs2-cat-arr">›</div>
+            </button>
+
+            <button class="rs2-cat-card rs2-cat-ritual" onclick="goTo('chat');prefill('Me ajude a montar um ritual de sono para o meu bebê')">
+              <div class="rs2-cat-icon" style="background:linear-gradient(135deg,#f0edf8,#d8c8f0);">✨</div>
+              <div class="rs2-cat-body">
+                <div class="rs2-cat-name">Meu Ritual Mágico</div>
+                <div class="rs2-cat-sub">A IA monta uma combinação personalizada para você</div>
+              </div>
+              <div class="rs2-cat-arr">›</div>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- ── Abas Sons / Histórias ── -->
+        <div class="px fu d3" style="margin-top:18px;">
+          <div class="rs-tabs">
+            <button class="rs-tab active" id="rs-tab-sons"      onclick="rsSwitchTab('sons')">&#127925; Sons da Natureza</button>
+            <button class="rs-tab"        id="rs-tab-historias" onclick="rsSwitchTab('historias')">&#128214; Histórias para Sonhar</button>
+          </div>
+        </div>
+
+        <!-- ══ Painel Sons ══ -->
+        <div id="rs-panel-sons" class="px fu d4" style="margin-top:14px;">
+
+          <div class="rs-sound-grid">
+
+            <button class="rs-sound-chip" onclick="rsSelectSound(this,'Chuva Suave','boons_freak-rain-sound-188158 (1).mp3',true)" data-key="chuva">
+              <div class="rs2-chip-icon-wrap rs2-icon-chuva">
+                <span class="rs-chip-emoji">&#127783;&#65039;</span>
+              </div>
+              <span class="rs-chip-label">Chuva Suave</span>
+              <span class="rs2-chip-preview">▶ 15s grátis</span>
+            </button>
+
+            <button class="rs-sound-chip" onclick="rsSelectSound(this,'Ruído Branco','themediaguy-soft-soothing-deep-white-noise-378857.mp3',true)" data-key="branco">
+              <div class="rs2-chip-icon-wrap rs2-icon-branco">
+                <span class="rs-chip-emoji">&#9729;&#65039;</span>
+              </div>
+              <span class="rs-chip-label">Ruído Branco</span>
+              <span class="rs2-chip-preview">▶ 15s grátis</span>
+            </button>
+
+            <button class="rs-sound-chip" onclick="rsSelectSound(this,'Ondas do Mar','kokoreli777-sea-waves-169411.mp3',true)" data-key="ondas">
+              <div class="rs2-chip-icon-wrap rs2-icon-ondas">
+                <span class="rs-chip-emoji">&#127754;</span>
+              </div>
+              <span class="rs-chip-label">Ondas do Mar</span>
+              <span class="rs2-chip-preview">▶ 15s grátis</span>
+            </button>
+
+            <button class="rs-sound-chip" onclick="rsSelectSound(this,'Vento nas Folhas','freesound_community-wind-in-trees-autumn-leaves-rustle-weird-howls-med-77mel-191122-17549.mp3',true)" data-key="vento">
+              <div class="rs2-chip-icon-wrap rs2-icon-vento">
+                <span class="rs-chip-emoji">&#127811;</span>
+              </div>
+              <span class="rs-chip-label">Vento nas Folhas</span>
+              <span class="rs2-chip-preview">▶ 15s grátis</span>
+            </button>
+
           </div>
 
-        </div><!-- /rs-story-list -->
+          <!-- Timer -->
+          <div class="rs-timer-section">
+            <div class="rs-section-label">&#9201; Timer de sono</div>
+            <div class="rs-timer-grid">
+              <button class="rs-timer-btn active" id="rst-30" onclick="rsSelectTimer(this,30,'free')">
+                <span class="rs-timer-min">30 min</span>
+                <span class="rs-timer-badge rs-badge-free">Grátis</span>
+              </button>
+              <button class="rs-timer-btn" id="rst-120" onclick="rsSelectTimer(this,120,'plus')">
+                <span class="rs-timer-min">2 horas</span>
+                <span class="rs-timer-badge rs-badge-plus">Plus</span>
+              </button>
+              <button class="rs-timer-btn" id="rst-0" onclick="rsSelectTimer(this,0,'master')">
+                <span class="rs-timer-min">Sem parar</span>
+                <span class="rs-timer-badge rs-badge-master">Mestre</span>
+              </button>
+            </div>
+            <div class="rs-countdown" id="rs-countdown"></div>
+          </div>
+
+          <!-- Modo Bebê -->
+          <div class="rs2-baby-mode" onclick="showToast('Modo Bebê em breve — tela escura só com som 🌙')">
+            <div class="rs2-baby-left">
+              <div class="rs2-baby-icon">🌑</div>
+              <div>
+                <div class="rs2-baby-title">Modo Bebê</div>
+                <div class="rs2-baby-sub">Tela totalmente escura · só o som</div>
+              </div>
+            </div>
+            <span class="rs2-baby-tag">Em breve</span>
+          </div>
+
+        </div><!-- /panel-sons -->
+
+        <!-- ══ Painel Histórias ══ -->
+        <div id="rs-panel-historias" class="px fu d4" style="display:none;margin-top:14px;">
+
+          <div class="rs-story-list">
+
+            <div class="rs-story-card">
+              <div class="rs-story-left">
+                <div class="rs-story-emoji rs2-story-icon-0">&#128048;</div>
+                <div class="rs-story-info">
+                  <div class="rs-story-title">A Lua e o Coelhinho Sonolento</div>
+                  <div class="rs-story-meta">
+                    <span class="rs-story-dur">~3 min</span>
+                    <span class="rs-story-badge rs-badge-free">Grátis</span>
+                  </div>
+                </div>
+              </div>
+              <button class="rs-story-btn" onclick="rsStartStory(0)" id="rs-story-btn-0">
+                &#9654; Ouvir
+              </button>
+            </div>
+
+            <div class="rs-story-card">
+              <div class="rs-story-left">
+                <div class="rs-story-emoji rs2-story-icon-1">&#11088;</div>
+                <div class="rs-story-info">
+                  <div class="rs-story-title">O Jardim das Estrelas</div>
+                  <div class="rs-story-meta">
+                    <span class="rs-story-dur">~5 min</span>
+                    <span class="rs-story-badge rs-badge-plus">Plus</span>
+                  </div>
+                </div>
+              </div>
+              <button class="rs-story-btn" onclick="rsStartStory(1)" id="rs-story-btn-1">
+                &#9654; Ouvir
+              </button>
+            </div>
+
+            <div class="rs-story-card">
+              <div class="rs-story-left">
+                <div class="rs-story-emoji rs2-story-icon-2">&#127794;</div>
+                <div class="rs-story-info">
+                  <div class="rs-story-title">A Floresta que Cantava de Mansinho</div>
+                  <div class="rs-story-meta">
+                    <span class="rs-story-dur">~7 min</span>
+                    <span class="rs-story-badge rs-badge-premium">Premium</span>
+                  </div>
+                </div>
+              </div>
+              <button class="rs-story-btn" onclick="rsStartStory(2)" id="rs-story-btn-2">
+                &#9654; Ouvir
+              </button>
+            </div>
+
+          </div>
+        </div><!-- /panel-historias -->
+
+        <div class="sp"></div>
       </div>
-
-    </div><!-- /panel-historias -->
-
-    <div class="sp"></div>
-  </div>
-</div><!-- /ritual -->
+    </div><!-- /ritual -->
 
   </div><!-- /content-area -->
 
