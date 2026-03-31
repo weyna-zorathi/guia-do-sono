@@ -680,23 +680,24 @@ body {
 .aff-card:hover  { transform:translateY(-3px); box-shadow:0 10px 28px var(--shadow-md); }
 .aff-card:active { transform:scale(.97); }
 .aff-img-wrap {
-  width:100%; height:110px;
-  background:linear-gradient(135deg, var(--linen) 0%, var(--lav-p) 100%);
+  width:100%; height:130px;
+  background:linear-gradient(135deg, var(--linen) 0%, #f0e8d8 100%);
   display:flex; align-items:center; justify-content:center; font-size:44px;
   position:relative; overflow:hidden; flex-shrink:0;
 }
 .aff-img-wrap::after {
   content:''; position:absolute; inset:0;
-  background:linear-gradient(180deg, transparent 55%, rgba(250,246,239,.6) 100%);
+  background:linear-gradient(180deg, transparent 50%, rgba(250,246,239,.5) 100%);
 }
-.aff-body { padding:14px 16px 16px; flex:1; display:flex; flex-direction:column; }
+.aff-body { padding:14px 16px 18px; flex:1; display:flex; flex-direction:column; }
 .aff-name {
-  font-family:'Playfair Display',serif; font-size:13px; font-weight:700;
-  color:var(--text); line-height:1.35; margin-bottom:4px;
+  font-family:'Playfair Display',serif; font-size:13.5px; font-weight:700;
+  color:var(--text); line-height:1.35; margin-bottom:5px;
+  letter-spacing:.01em;
 }
 .aff-tag {
-  font-family:'Lora',serif; font-style:italic; font-size:11px;
-  color:var(--text-sub); line-height:1.4; margin-bottom:10px; flex:1;
+  font-family:'Lora',serif; font-style:italic; font-size:11.5px;
+  color:var(--text-sub); line-height:1.5; margin-bottom:12px; flex:1;
 }
 .aff-price {
   font-family:'Playfair Display',serif; font-size:16px; font-weight:700;
@@ -943,46 +944,53 @@ body {
 }
 @media(min-width:640px) { .planos-grid { flex-direction:row; } }
 .plano-card {
-  flex:1; border-radius:20px; overflow:hidden;
+  flex:1; border-radius:22px; overflow:hidden;
   border:1.5px solid var(--border-d);
   background:var(--bg-card);
-  box-shadow:0 2px 12px var(--shadow);
-  transition:transform .18s, box-shadow .18s;
+  box-shadow:0 2px 14px var(--shadow);
+  transition:transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s, border-color .18s;
   position:relative;
 }
-.plano-card:hover { transform:translateY(-2px); box-shadow:0 8px 24px var(--shadow-md); }
-.plano-card.current-plan { border-color:var(--sage); box-shadow:0 4px 20px rgba(90,112,80,.2); }
-.plano-card.plano-premium { border-color:var(--gold); background:linear-gradient(160deg, #2c3e2d 0%, #1a2e1a 100%); }
+.plano-card:hover { transform:translateY(-4px); box-shadow:0 12px 32px var(--shadow-md); }
+.plano-card.current-plan { border-color:var(--sage); box-shadow:0 6px 24px rgba(90,112,80,.22); }
+.plano-card.plano-plus { border-color:rgba(196,122,82,.35); }
+.plano-card.plano-premium {
+  border-color:var(--gold);
+  background:linear-gradient(160deg, #253a26 0%, #1a2e1a 60%, #0d1c0e 100%);
+  box-shadow:0 4px 20px rgba(201,168,76,.15), 0 1px 0 rgba(255,255,255,.05) inset;
+}
 .plano-hdr {
-  padding:16px 18px 12px;
+  padding:18px 18px 13px;
   border-bottom:1px solid var(--border);
 }
 .plano-card.plano-premium .plano-hdr { border-bottom-color:rgba(255,255,255,.1); }
-.plano-badge-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
+.plano-badge-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
 .plano-badge {
   font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
   padding:3px 10px; border-radius:20px;
 }
 .pb-free    { background:var(--sage-p); color:var(--sage-d); }
 .pb-plus    { background:var(--tc-p);   color:var(--tc); }
-.pb-premium { background:rgba(201,168,76,.22); color:var(--gold); }
+.pb-premium { background:rgba(201,168,76,.22); color:var(--gold); border:1px solid rgba(201,168,76,.3); }
 .plano-popular {
   font-size:9px; font-weight:700; letter-spacing:.5px;
-  background:var(--tc); color:#fff; padding:3px 8px; border-radius:10px;
+  background:linear-gradient(135deg, var(--tc), #a05038); color:#fff;
+  padding:3px 10px; border-radius:10px;
+  box-shadow:0 2px 8px rgba(196,122,82,.3);
 }
 .plano-name {
   font-family:'Playfair Display',serif; font-size:16px; font-weight:700;
-  color:var(--text); margin-bottom:2px;
+  color:var(--text); margin-bottom:3px; line-height:1.3;
 }
 .plano-card.plano-premium .plano-name { color:#fdfbf7; }
 .plano-tagline {
   font-family:'Lora',serif; font-style:italic; font-size:11px;
-  color:var(--text-sub); line-height:1.45;
+  color:var(--text-sub); line-height:1.5;
 }
 .plano-card.plano-premium .plano-tagline { color:rgba(255,255,255,.5); }
 .plano-price {
-  margin-top:8px; font-family:'Playfair Display',serif;
-  font-size:22px; font-weight:700; color:var(--tc); line-height:1;
+  margin-top:10px; font-family:'Playfair Display',serif;
+  font-size:24px; font-weight:700; color:var(--tc); line-height:1;
 }
 .plano-card.plano-premium .plano-price { color:var(--gold-l); }
 .plano-price small {
@@ -990,30 +998,34 @@ body {
   color:var(--text-sub); margin-left:2px;
 }
 .plano-card.plano-premium .plano-price small { color:rgba(255,255,255,.35); }
-.plano-body { padding:12px 18px 16px; }
-.plano-features { list-style:none; display:flex; flex-direction:column; gap:7px; }
+.plano-body { padding:14px 18px 18px; }
+.plano-features { list-style:none; display:flex; flex-direction:column; gap:8px; }
 .plano-features li {
   display:flex; align-items:flex-start; gap:8px;
-  font-size:12px; color:var(--text-sub); line-height:1.4;
+  font-size:12px; color:var(--text-sub); line-height:1.45;
 }
-.plano-card.plano-premium .plano-features li { color:rgba(255,255,255,.6); }
+.plano-card.plano-premium .plano-features li { color:rgba(255,255,255,.62); }
 .pf-check {
   width:16px; height:16px; border-radius:50%; flex-shrink:0; margin-top:1px;
-  display:flex; align-items:center; justify-content:center; font-size:9px;
+  display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700;
 }
 .pfc-free    { background:var(--sage-p);             color:var(--sage-d); }
 .pfc-plus    { background:var(--tc-p);               color:var(--tc); }
-.pfc-premium { background:rgba(201,168,76,.2);        color:var(--gold); }
+.pfc-premium { background:rgba(201,168,76,.2);        color:var(--gold); border:1px solid rgba(201,168,76,.25); }
 .plano-btn {
-  display:block; margin:14px 18px 16px; padding:11px;
-  border-radius:12px; border:none; text-align:center; cursor:pointer;
-  font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600;
-  transition:transform .18s, box-shadow .18s, opacity .18s;
+  display:block; margin:14px 18px 18px; padding:13px;
+  border-radius:14px; border:none; text-align:center; cursor:pointer;
+  font-family:'DM Sans',sans-serif; font-size:13px; font-weight:700;
+  letter-spacing:.02em;
+  transition:transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s, opacity .15s;
 }
+.plano-btn:hover  { transform:translateY(-2px); }
 .plano-btn:active { transform:scale(.97); opacity:.9; }
 .pb-btn-free    { background:var(--sage-p); color:var(--sage-d); cursor:default; }
-.pb-btn-plus    { background:linear-gradient(135deg, var(--tc), #a05038); color:#fff; box-shadow:0 3px 12px rgba(196,122,82,.3); }
-.pb-btn-premium { background:linear-gradient(135deg, var(--gold), #a07828); color:#fff; box-shadow:0 3px 12px rgba(201,168,76,.35); }
+.pb-btn-plus    { background:linear-gradient(135deg, var(--tc) 0%, #9a4530 100%); color:#fff; box-shadow:0 4px 16px rgba(196,122,82,.35); }
+.pb-btn-plus:hover  { box-shadow:0 7px 24px rgba(196,122,82,.45); }
+.pb-btn-premium { background:linear-gradient(135deg, #d4a840 0%, #8a6020 100%); color:#fff; box-shadow:0 4px 16px rgba(201,168,76,.40); }
+.pb-btn-premium:hover { box-shadow:0 7px 24px rgba(201,168,76,.55); }
 .plan-current-tag {
   position:absolute; top:-1px; left:50%; transform:translateX(-50%);
   background:var(--sage); color:#fff; font-size:9px; font-weight:700;
@@ -1539,18 +1551,21 @@ body {
 
 /* ── Player compacto (mantém IDs funcionais) ── */
 .rs-player-card {
-  background: linear-gradient(150deg, #0d1c0e 0%, #162a17 50%, #1a3020 100%);
-  border-radius: 24px; padding: 20px 20px 18px;
-  box-shadow: 0 10px 36px rgba(0,0,0,.32);
+  background: linear-gradient(150deg, #0a1a0b 0%, #142614 50%, #1a3020 100%);
+  border-radius: 26px; padding: 22px 22px 20px;
+  box-shadow: 0 14px 48px rgba(0,0,0,.38), 0 1px 0 rgba(255,255,255,.05) inset;
   position: relative; overflow: hidden;
-  border: 1px solid rgba(138,158,127,.15);
+  border: 1px solid rgba(138,158,127,.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 .rs-player-card::before {
   content: '';
   position: absolute; inset: 0; pointer-events: none;
   background:
-    radial-gradient(ellipse 55% 45% at 85% 8%,  rgba(201,168,76,.10) 0%, transparent 55%),
-    radial-gradient(ellipse 65% 55% at 8%  85%,  rgba(138,158,127,.14) 0%, transparent 60%);
+    radial-gradient(ellipse 55% 45% at 85% 8%,  rgba(201,168,76,.12) 0%, transparent 55%),
+    radial-gradient(ellipse 65% 55% at 8%  85%,  rgba(138,158,127,.16) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 50% 50%,  rgba(26,48,32,.3) 0%, transparent 70%);
 }
 .rs-player-top {
   display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
@@ -1586,18 +1601,29 @@ body {
 .rs-progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--sage-l), var(--gold-l)); border-radius: 4px; transition: width .5s linear; }
 .rs-progress-time { font-size: 10px; color: rgba(255,255,255,.35); font-family: 'DM Sans', sans-serif; flex-shrink: 0; }
 .rs-play-btn {
-  width: 62px; height: 62px; border-radius: 50%; border: none; cursor: pointer;
+  width: 66px; height: 66px; border-radius: 50%; border: none; cursor: pointer;
   background: linear-gradient(135deg, #6aaa60 0%, var(--sage-d) 100%);
-  color: #fff; font-size: 24px;
+  color: #fff; font-size: 26px;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 6px 22px rgba(90,112,80,.55), 0 0 0 8px rgba(138,158,127,.10);
+  box-shadow: 0 6px 24px rgba(90,112,80,.55), 0 0 0 10px rgba(138,158,127,.10);
   transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
   position: relative; z-index: 1;
+  animation: playBreathe 4s ease-in-out infinite;
 }
-.rs-play-btn:active { transform: scale(.90); }
+@keyframes playBreathe {
+  0%,100% { box-shadow: 0 6px 24px rgba(90,112,80,.55), 0 0 0 10px rgba(138,158,127,.10); }
+  50%      { box-shadow: 0 8px 32px rgba(90,112,80,.70), 0 0 0 14px rgba(138,158,127,.18); }
+}
+.rs-play-btn:hover { transform: scale(1.06); animation: none; box-shadow: 0 10px 32px rgba(90,112,80,.65), 0 0 0 12px rgba(138,158,127,.15); }
+.rs-play-btn:active { transform: scale(.90); animation: none; }
 .rs-play-btn.playing {
   background: linear-gradient(135deg, var(--tc), #a05038);
-  box-shadow: 0 6px 22px rgba(196,122,82,.50), 0 0 0 8px rgba(196,122,82,.10);
+  box-shadow: 0 6px 22px rgba(196,122,82,.50), 0 0 0 10px rgba(196,122,82,.10);
+  animation: playBreatheRed 3s ease-in-out infinite;
+}
+@keyframes playBreatheRed {
+  0%,100% { box-shadow: 0 6px 22px rgba(196,122,82,.50), 0 0 0 10px rgba(196,122,82,.10); }
+  50%      { box-shadow: 0 8px 30px rgba(196,122,82,.70), 0 0 0 14px rgba(196,122,82,.18); }
 }
 
 /* ── Abas ── */
@@ -1843,24 +1869,190 @@ body {
 
 /* ── Dica do Dia ── */
 .dica-card {
-  background: linear-gradient(135deg, var(--night) 0%, #2a4a2c 100%);
-  border-radius: 20px; padding: 18px 20px;
+  background: linear-gradient(135deg, var(--night) 0%, #253e28 60%, #1a3420 100%);
+  border-radius: 22px; padding: 20px 22px;
   position: relative; overflow: hidden;
-  box-shadow: 0 6px 24px var(--shadow-md);
+  box-shadow: 0 8px 32px rgba(30,42,30,.22), 0 1px 0 rgba(255,255,255,.06) inset;
   display: none;
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
 }
+.dica-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(30,42,30,.28); }
 .dica-card::before {
-  content: ''; position: absolute; top: -18px; right: -18px;
+  content: ''; position: absolute; top: -24px; right: -24px;
+  width: 100px; height: 100px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,168,76,.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.dica-card::after {
+  content: ''; position: absolute; bottom: -20px; left: -20px;
   width: 80px; height: 80px; border-radius: 50%;
-  background: rgba(201,168,76,.12); pointer-events: none;
+  background: radial-gradient(circle, rgba(138,158,127,.12) 0%, transparent 70%);
+  pointer-events: none;
 }
 
-/* ── Nutrição page cards ── */
-.nutri-coming-soon {
-  position:absolute; top:12px; right:12px;
-  font-size:9px; font-weight:700; letter-spacing:.08em;
-  padding:3px 9px; border-radius:20px;
+/* ── Premium Conversion Banner ── */
+.premium-conversion-banner {
+  background: linear-gradient(135deg, #1a2e1a 0%, #2c3e2d 50%, #1a2e1a 100%);
+  border: 1px solid rgba(201,168,76,.25);
+  border-radius: 20px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .18s, box-shadow .18s;
+  box-shadow: 0 4px 18px rgba(0,0,0,.15);
 }
+.premium-conversion-banner:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.2); }
+.premium-conversion-banner:active { transform: scale(.98); }
+.premium-conversion-banner::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 90% 50%, rgba(201,168,76,.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.pcb-icon {
+  font-size: 28px; flex-shrink: 0;
+  filter: drop-shadow(0 0 8px rgba(201,168,76,.4));
+  animation: pcbGlow 3s ease-in-out infinite;
+}
+@keyframes pcbGlow {
+  0%,100% { filter: drop-shadow(0 0 6px rgba(201,168,76,.3)); }
+  50%      { filter: drop-shadow(0 0 14px rgba(201,168,76,.7)); }
+}
+.pcb-body { flex: 1; min-width: 0; }
+.pcb-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px; font-weight: 700;
+  color: var(--gold-l); line-height: 1.3; margin-bottom: 3px;
+}
+.pcb-sub {
+  font-family: 'Lora', serif; font-style: italic;
+  font-size: 11px; color: rgba(255,255,255,.55); line-height: 1.5;
+}
+.pcb-cta {
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--gold) 0%, #a07830 100%);
+  color: #1a2e1a; border: none; border-radius: 11px;
+  padding: 9px 14px; font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 700; cursor: pointer;
+  white-space: nowrap;
+  transition: transform .15s, box-shadow .15s;
+  box-shadow: 0 3px 12px rgba(201,168,76,.3);
+}
+.pcb-cta:hover { transform: translateY(-1px); box-shadow: 0 5px 18px rgba(201,168,76,.4); }
+
+/* ── Micro-animations aprimoradas ── */
+.aff-card {
+  transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s, border-color .18s !important;
+}
+.aff-card:hover {
+  border-color: var(--sage-l) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 14px 36px var(--shadow-md) !important;
+}
+
+/* Card glow no hover */
+@keyframes cardPulse {
+  0%,100% { box-shadow: 0 3px 14px var(--shadow); }
+  50%      { box-shadow: 0 6px 24px rgba(138,158,127,.18); }
+}
+
+/* Botão premium suave no chat */
+.pm-btn {
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s !important;
+}
+.pm-btn:hover { transform: translateY(-2px) !important; box-shadow: 0 8px 28px rgba(90,112,80,.38) !important; }
+
+/* rs-sound-chip aprimorado */
+.rs-sound-chip {
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s, border-color .18s !important;
+}
+.rs-sound-chip:hover { transform: translateY(-2px) !important; }
+.rs-sound-chip.active {
+  box-shadow: 0 4px 18px rgba(138,158,127,.25) !important;
+}
+
+/* aff-img-wrap com zoom suave */
+.aff-img-wrap img {
+  transition: transform .35s ease !important;
+}
+.aff-card:hover .aff-img-wrap img { transform: scale(1.06) !important; }
+
+/* ════════════════════════════════════════════
+   POLISH FINAL 2026 – micro-animações globais
+════════════════════════════════════════════ */
+
+/* Botões principais: bounce de entrada */
+.login-btn-main, .rotina-save-btn, .pm-btn, .rs2-hero-cta {
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s, opacity .15s !important;
+}
+
+/* Seções: animação de entrada suavizada */
+.fu { animation-timing-function: cubic-bezier(.22,1,.36,1) !important; }
+
+/* Cards principais com borda mais refinada */
+.baby-card, .rotina-card, .rs-player-card {
+  border: 1px solid rgba(255,255,255,.06);
+}
+
+/* Sombra de foco em inputs para maior elegância */
+.login-input:focus, .rotina-input:focus, .relato-area:focus {
+  box-shadow: 0 0 0 3px rgba(138,158,127,.20), 0 2px 8px rgba(30,42,30,.08) !important;
+}
+
+/* Seletor de sons: grid com mais colunas em telas grandes */
+@media(min-width:600px) {
+  .rs-sound-grid { grid-template-columns: repeat(4, 1fr) !important; }
+}
+@media(min-width:900px) {
+  .rs-sound-grid { grid-template-columns: repeat(6, 1fr) !important; }
+}
+
+/* Banner de conversão: entrada suave */
+@keyframes bannerSlideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.premium-conversion-banner {
+  animation: bannerSlideIn .4s cubic-bezier(.22,1,.36,1) both;
+}
+
+/* Story card: borda esquerda colorida por plano */
+.rs-story-card { border-left: 3px solid transparent; transition: border-color .2s, background .18s, transform .18s !important; }
+.rs-story-card:hover { border-left-color: var(--sage-l); }
+
+/* Secao titulo: linha decorativa sutil */
+.sec-title {
+  font-size: 15.5px !important;
+  letter-spacing: .01em;
+}
+
+/* Vitrine: sombra mais suave e borda arredondada mais generosa */
+.aff-card {
+  border-radius: 20px !important;
+  border-color: var(--border) !important;
+}
+
+/* Chips de filtro: estado active mais premium */
+.vt-tab.active, .f-chip.active {
+  box-shadow: 0 2px 12px rgba(30,42,30,.2) !important;
+}
+
+/* Texto de página: melhor legibilidade */
+.page-hdr .hdr-title {
+  font-size: 22px !important;
+  letter-spacing: -.01em;
+}
+
+/* Melhor contraste nos placeholders */
+::placeholder { opacity: .65; }
+
+/* Transição suave ao trocar de aba */
+.page { transition: opacity .15s ease; }
+.page.active { opacity: 1; }
 
 </style>
 </head>
@@ -2032,7 +2224,10 @@ body {
           </div>
         </div>
 
-        <div class="sec-hdr fu d3" id="dica-sec-hdr" style="display:none;"><div class="sec-title">✨ Dica do dia para você</div></div>
+        <div class="sec-hdr fu d3" id="dica-sec-hdr" style="display:none;">
+          <div class="sec-title">✨ Dica do dia para você</div>
+          <div style="font-size:11px;color:var(--text-sub);font-family:'Lora',serif;font-style:italic;">personalizada para a fase do seu bebê</div>
+        </div>
         <div class="px fu d3" id="dica-outer" style="display:none;">
           <div class="dica-card" id="dica-do-dia-container" style="display:none;"></div>
         </div>
@@ -2111,13 +2306,18 @@ body {
           </div>
         </div>
 
+        <!-- ══ BANNER DE CONVERSÃO PREMIUM (sutil, não invasivo) ══ -->
+        <div class="px fu d6" id="premium-banner-home" style="margin-top:6px;margin-bottom:2px;">
+          <!-- Exibido apenas para usuários free/plus — escondido para premium -->
+        </div>
+
         <!-- ══ ESSENCIAIS PARA O QUARTO DO BEBÊ ══ -->
         <div class="sec-hdr fu d7">
-          <div class="sec-title">🛒 Essenciais para o Quarto do Bebê</div>
+          <div class="sec-title">🛒 Para o Quarto do seu Bebê</div>
         </div>
         <div class="px fu d7" style="margin-bottom:6px;">
-          <div style="font-family:'Lora',serif;font-style:italic;font-size:12px;color:var(--text-sub);margin-bottom:14px;">
-            Curadoria feita com muito carinho por mim, Weyna — produtos que realmente fazem diferença no sono gentil do seu bebê.
+          <div style="font-family:'Lora',serif;font-style:italic;font-size:12.5px;color:var(--text-sub);margin-bottom:14px;line-height:1.6;">
+            Uma seleção com muito carinho — cada produto aqui foi escolhido pensando no sono gentil do seu bebê e na sua paz, mamãe. 🌿
           </div>
           <div class="vitrine-tabs" id="home-vitrine-tabs" style="margin-bottom:14px;">
             <div class="vt-tab active" onclick="filterHomeVitrine(this,'todos')">Todos</div>
@@ -2195,9 +2395,9 @@ body {
           <!-- RIGHT: vitrine de afiliados com abas por categoria -->
           <div class="orc-right fu d3">
             <div class="vitrine-header">
-              <div class="vitrine-eyebrow">favoritos da Weyna</div>
-              <div class="vitrine-title">🛒 Curadoria de <em>Produtos</em></div>
-              <div class="vitrine-tagline">Curadoria de mestre para o sono do seu pequeno</div>
+              <div class="vitrine-eyebrow">✦ curadoria da Weyna</div>
+              <div class="vitrine-title">Essenciais para o <em>Sono Gentil</em></div>
+              <div class="vitrine-tagline">Produtos testados e aprovados por mães — pensados com carinho para noites mais tranquilas 🌿</div>
             </div>
             <div class="vitrine-tabs" id="vitrine-tabs">
               <div class="vt-tab active" onclick="filterVitrine(this,'todos')">Todos</div>
@@ -2906,6 +3106,24 @@ body {
               <span class="rs2-chip-preview">▶ 15s grátis</span>
             </button>
 
+            <!-- Ruído Rosa – sons graves suaves, especialmente calmantes para bebês -->
+            <button class="rs-sound-chip" onclick="rsSelectSound(this,'Ruído Rosa','https://assets.mixkit.co/sfx/preview/mixkit-soft-static-noise-loop-1736.mp3',true)" data-key="rosa">
+              <div class="rs2-chip-icon-wrap" style="background:linear-gradient(135deg,#f5c0d0,#e890a0);">
+                <span class="rs-chip-emoji">🌸</span>
+              </div>
+              <span class="rs-chip-label">Ruído Rosa</span>
+              <span class="rs2-chip-preview">▶ grátis</span>
+            </button>
+
+            <!-- Batimentos Cardíacos – reproduz o som do útero, ideal para RN -->
+            <button class="rs-sound-chip" onclick="rsSelectSound(this,'Batimentos Cardíacos','https://assets.mixkit.co/sfx/preview/mixkit-relaxed-heartbeat-loop-589.mp3',true)" data-key="coracao">
+              <div class="rs2-chip-icon-wrap" style="background:linear-gradient(135deg,#fce0e0,#f0a0a0);">
+                <span class="rs-chip-emoji">❤️</span>
+              </div>
+              <span class="rs-chip-label">Batimentos Cardíacos</span>
+              <span class="rs2-chip-preview">▶ grátis</span>
+            </button>
+
           </div>
 
           <!-- Timer -->
@@ -2985,12 +3203,28 @@ body {
                 <div class="rs-story-info">
                   <div class="rs-story-title">A Floresta que Cantava de Mansinho</div>
                   <div class="rs-story-meta">
-                    <span class="rs-story-dur">~7 min</span>
+                    <span class="rs-story-dur">~8 min</span>
                     <span class="rs-story-badge rs-badge-premium">Premium</span>
                   </div>
                 </div>
               </div>
               <button class="rs-story-btn" onclick="rsStartStory(2)" id="rs-story-btn-2">
+                &#9654; Ouvir
+              </button>
+            </div>
+
+            <div class="rs-story-card">
+              <div class="rs-story-left">
+                <div class="rs-story-emoji rs2-story-icon-3" style="background:linear-gradient(135deg,#0a2a3a,#0e4a6a);">&#127754;</div>
+                <div class="rs-story-info">
+                  <div class="rs-story-title">O Rio que Levava os Sonhos</div>
+                  <div class="rs-story-meta">
+                    <span class="rs-story-dur">~9 min</span>
+                    <span class="rs-story-badge rs-badge-premium">Premium</span>
+                  </div>
+                </div>
+              </div>
+              <button class="rs-story-btn" onclick="rsStartStory(3)" id="rs-story-btn-3">
                 &#9654; Ouvir
               </button>
             </div>
@@ -3832,18 +4066,96 @@ document.addEventListener('DOMContentLoaded', () => {
   if (first) first.classList.add('active');
 });
 
+// ── Vitrine de Produtos atualizada – versão 2026 ──
 const PRODUTOS = [
-  { img:'https://m.media-amazon.com/images/I/71yXzHNpIlL._AC_SX679_.jpg', categoria:'Higiene', nome:'Fralda MamyPoko Pants XG', tag:'Proteção máxima para o sono da madrugada', preco:'Ver na Amazon', url:'https://amzn.to/3NLWhIq' },
-  { img:'https://m.media-amazon.com/images/I/61ajrZ9iKJL._AC_SX679_.jpg', categoria:'Higiene', nome:'Bepantol Baby Pomada', tag:'Previne e trata assaduras com carinho', preco:'Ver na Amazon', url:'https://amzn.to/48hxmDo' },
-  { img:'https://m.media-amazon.com/images/I/61B7mAP0IML._AC_SX679_.jpg', categoria:'Higiene', nome:'Bepantol Baby Lenços Umedecidos', tag:'Suave para a pele sensível do bebê', preco:'Ver na Amazon', url:'https://amzn.to/4bJYHis' },
-  { img:'https://m.media-amazon.com/images/I/61YFr8sI2rL._AC_SX679_.jpg', categoria:'Higiene', nome:'Pomada Cicastela Mustela', tag:'Repara, acalma e purifica — desde o nascimento', preco:'Ver na Amazon', url:'https://amzn.to/4lXtdub' },
-  { img:'https://m.media-amazon.com/images/I/61GRW6akpAL._AC_SX679_.jpg', categoria:'Higiene', nome:"Sabonete Johnson's Recém-Nascido", tag:'Fórmula ultra suave — chega de lágrimas', preco:'Ver na Amazon', url:'https://amzn.to/4bGgXuB' },
-  { img:'https://m.media-amazon.com/images/I/61jGFGqnpAL._AC_SX679_.jpg', categoria:'Higiene', nome:"Loção Hidratante Johnson's Recém-Nascido", tag:'Pele macia e protegida desde o 1º dia', preco:'Ver na Amazon', url:'https://amzn.to/4bJYQT2' },
-  { img:'https://m.media-amazon.com/images/I/51bIlx6KJSL._AC_SX679_.jpg', categoria:'Bem-estar', nome:'Máquina de Ruído Branco', tag:'O som que acalma e mantém o sono profundo', preco:'Ver na Amazon', url:'https://amzn.to/4sJmDtQ' },
-  { img:'https://m.media-amazon.com/images/I/61S2e9r9uSL._AC_SL1500_.jpg', categoria:'Bem-estar', nome:'Saco de Dormir Bebê (SleepSack)', tag:'Segurança e quentinho a noite toda', preco:'Ver na Amazon', url:'https://amzn.to/3O8DfMo' },
-  { img:'https://m.media-amazon.com/images/I/51H-S5C-PcL._AC_SL1000_.jpg', categoria:'Bem-estar', nome:'Abajur Luminária Noturna Touch', tag:'Luz âmbar que não atrapalha a melatonina', preco:'Ver na Amazon', url:'https://amzn.to/4sJmDtQ' },
-  { img:'https://m.media-amazon.com/images/I/61aK98LToFL._AC_SL1500_.jpg', categoria:'Alimentação', nome:'Mamadeira Anti-Cólica Philips Avent', tag:'Barriga feliz, sono tranquilo', preco:'Ver na Amazon', url:'https://amzn.to/47xfAvL' },
-  { img:'https://m.media-amazon.com/images/I/71N4vN8S6hL._AC_SL1500_.jpg', categoria:'Segurança', nome:'Berço Prático / Cercado com Mosquiteiro', tag:'Rotina de sono segura em qualquer lugar', preco:'Ver na Amazon', url:'https://amzn.to/4bEjlSu' },
+  /* Higiene */
+  {
+    img: 'https://m.media-amazon.com/images/I/71yXzHNpIlL._AC_SL1500_.jpg',
+    categoria: 'Higiene',
+    nome: 'Fralda MamyPoko Pants XG',
+    tag: 'A fralda da madrugada tranquila — absorção máxima para você e seu bebê dormirem sem sustos.',
+    url: 'https://amzn.to/3NLWhIq'
+  },
+  {
+    img: 'https://m.media-amazon.com/images/I/61ajrZ9iKJL._AC_SL1500_.jpg',
+    categoria: 'Higiene',
+    nome: 'Bepantol Baby Pomada Regeneradora',
+    tag: 'Cuida da pelezinha com amor. Previne e trata assaduras antes que causem desconforto no sono.',
+    url: 'https://amzn.to/48hxmDo'
+  },
+  {
+    img: 'https://m.media-amazon.com/images/I/61YFr8sI2rL._AC_SL1500_.jpg',
+    categoria: 'Higiene',
+    nome: 'Pomada Cicastela Mustela',
+    tag: 'Repara, acalma e protege desde o nascimento. Uma aliada gentil para a pele que merece cuidado.',
+    url: 'https://amzn.to/4lXtdub'
+  },
+  {
+    img: 'https://m.media-amazon.com/images/I/61GRW6akpAL._AC_SL1500_.jpg',
+    categoria: 'Higiene',
+    nome: "Sabonete Johnson's Baby Recém-Nascido",
+    tag: 'Fórmula ultra suave, testada por pediatras. O banhinho que acalma e prepara o sono.',
+    url: 'https://amzn.to/4bGgXuB'
+  },
+  {
+    img: 'https://m.media-amazon.com/images/I/61jGFGqnpAL._AC_SL1500_.jpg',
+    categoria: 'Higiene',
+    nome: "Loção Hidratante Johnson's Baby",
+    tag: 'Pele macia e protegida do 1º ao último beijinho da noite. Hidratação suave que convida ao sono.',
+    url: 'https://amzn.to/4bJYQT2'
+  },
+  /* Bem-estar & Sono */
+  {
+    img: 'https://m.media-amazon.com/images/I/51bIlx6KJSL._AC_SL1500_.jpg',
+    categoria: 'Bem-estar',
+    nome: 'Máquina de Ruído Branco Premium',
+    tag: 'O segredo dos bebês que dormem melhor. Bloqueia ruídos da casa e imita o ambiente do útero.',
+    url: 'https://amzn.to/4sJmDtQ'
+  },
+  {
+    img: 'https://m.media-amazon.com/images/I/61S2e9r9uSL._AC_SL1500_.jpg',
+    categoria: 'Bem-estar',
+    nome: 'Saco de Dormir Bebê (SleepSack)',
+    tag: 'Quentinho, seguro e sem cobertores soltos. O ambiente perfeito para noites mais longas.',
+    url: 'https://amzn.to/3O8DfMo'
+  },
+  {
+    img: 'https://m.media-amazon.com/images/I/51H-S5C-PcL._AC_SL1500_.jpg',
+    categoria: 'Bem-estar',
+    nome: 'Luminária Noturna Luz Vermelha',
+    tag: 'Luz âmbar suave que não interrompe a melatonina. Cuide da madrugada sem atrapalhar o sono.',
+    url: 'https://amzn.to/4sJmDtQ'
+  },
+  {
+    img: 'https://m.media-amazon.com/images/I/71sIFoSSeSL._AC_SL1500_.jpg',
+    categoria: 'Bem-estar',
+    nome: 'Cortina Blackout para Quarto do Bebê',
+    tag: 'O escuro que o bebê precisa para produzir melatonina. Sonecas mais longas, noites mais calmas.',
+    url: 'https://amzn.to/4sJmDtQ'
+  },
+  /* Alimentação */
+  {
+    img: 'https://m.media-amazon.com/images/I/61aK98LToFL._AC_SL1500_.jpg',
+    categoria: 'Alimentação',
+    nome: 'Mamadeira Anti-Cólica Philips Avent',
+    tag: 'Menos ar engolido, menos gases, menos choro. Barriga feliz é sono garantido.',
+    url: 'https://amzn.to/47xfAvL'
+  },
+  /* Segurança */
+  {
+    img: 'https://m.media-amazon.com/images/I/71N4vN8S6hL._AC_SL1500_.jpg',
+    categoria: 'Segurança',
+    nome: 'Berço Portátil com Mosquiteiro',
+    tag: 'A rotina de sono segura onde você estiver. Proteção e aconchego em qualquer cantinho.',
+    url: 'https://amzn.to/4bEjlSu'
+  },
+  {
+    img: 'https://m.media-amazon.com/images/I/71x1BFMzqsL._AC_SL1500_.jpg',
+    categoria: 'Segurança',
+    nome: 'Monitor Bebê com Visão Noturna',
+    tag: 'Olhe para o seu bebê dormindo sem entrar no quarto. Paz e segurança para a madrugada.',
+    url: 'https://amzn.to/4bEjlSu'
+  },
 ];
 
 let vitrineCategoria = 'todos';
@@ -3865,14 +4177,14 @@ function renderVitrine() {
   }
   grid.innerHTML = filtered.map(p => `
     <a class="aff-card" href="${p.url || '#'}" target="_blank" rel="noopener sponsored" style="text-decoration:none;" ${!p.url ? 'onclick="event.preventDefault()"' : ''}>
-      <div class="aff-img-wrap" style="height:130px;background:var(--linen);display:flex;align-items:center;justify-content:center;overflow:hidden;">
+      <div class="aff-img-wrap">
         ${p.img
-          ? `<img src="${p.img}" alt="${p.nome}" style="width:100%;height:100%;object-fit:contain;padding:8px;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><span style="display:none;font-size:40px;align-items:center;justify-content:center;width:100%;height:100%;">🛒</span>`
+          ? `<img src="${p.img}" alt="${p.nome}" style="width:100%;height:100%;object-fit:contain;padding:10px;transition:transform .35s ease;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><span style="display:none;font-size:40px;align-items:center;justify-content:center;width:100%;height:100%;">🛒</span>`
           : `<span style="font-size:44px;">${p.emoji||'🛒'}</span>`
         }
       </div>
       <div class="aff-body">
-        <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-sub);margin-bottom:4px;">${p.categoria}</div>
+        <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-sub);margin-bottom:5px;">${p.categoria}</div>
         <div class="aff-name">${p.nome}</div>
         <div class="aff-tag">${p.tag}</div>
         <div class="aff-btn" style="margin-top:auto;">
@@ -4346,20 +4658,25 @@ function renderDicaDoDia(totalMeses) {
   const labelFaixa = ehGrande ? 'Bebês Grandes · +18m' : totalMeses < 6 ? 'Lactentes · 0–6m' : 'Lactentes · 6–18m';
 
   container.innerHTML = `
-    <div style="display:flex;align-items:flex-start;gap:13px;">
-      <span style="font-size:26px;flex-shrink:0;line-height:1.15;filter:drop-shadow(0 1px 3px rgba(0,0,0,.25));">${dica.icon}</span>
+    <div style="display:flex;align-items:flex-start;gap:14px;">
+      <div style="flex-shrink:0;width:48px;height:48px;border-radius:14px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;">
+        <span style="font-size:24px;line-height:1;filter:drop-shadow(0 1px 4px rgba(0,0,0,.3));">${dica.icon}</span>
+      </div>
       <div style="flex:1;min-width:0;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
-          <span style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sage-l);">Dica do dia</span>
-          <span style="font-size:9px;font-weight:600;background:rgba(138,158,127,.2);color:rgba(255,255,255,.55);border-radius:20px;padding:2px 8px;letter-spacing:.04em;">${labelFaixa}</span>
-          ${nomeBebe ? `<span style="font-size:9px;color:rgba(255,255,255,.35);font-family:'Lora',serif;font-style:italic;">para ${nomeBebe}</span>` : ''}
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap;">
+          <span style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-l);background:rgba(201,168,76,.12);padding:2px 9px;border-radius:20px;border:1px solid rgba(201,168,76,.18);">✦ Dica do dia</span>
+          <span style="font-size:9px;font-weight:600;background:rgba(138,158,127,.18);color:rgba(255,255,255,.6);border-radius:20px;padding:2px 8px;letter-spacing:.04em;">${labelFaixa}</span>
+          ${nomeBebe ? `<span style="font-size:9px;color:rgba(255,255,255,.35);font-family:'Lora',serif;font-style:italic;">para ${nomeBebe} 🌸</span>` : ''}
         </div>
-        <div style="font-family:'Lora',serif;font-style:italic;font-size:12.5px;color:rgba(255,255,255,.88);line-height:1.68;">${dica.txt}</div>
-        <div style="margin-top:11px;font-size:11px;color:rgba(255,255,255,.45);display:flex;align-items:center;gap:6px;cursor:pointer;"
-             onclick="abrirDicaNoChat(this)"
-             data-dica="${dica.txt.substring(0,100).replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">
-          <span style="font-size:13px;">🌿</span>
-          <span style="text-decoration:underline;text-underline-offset:2px;">Aprofundar com a Guia do Sono</span>
+        <div style="font-family:'Lora',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,.9);line-height:1.72;letter-spacing:.01em;">${dica.txt}</div>
+        <div style="margin-top:13px;display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-size:11px;color:rgba(255,255,255,.4);display:flex;align-items:center;gap:6px;cursor:pointer;"
+               onclick="abrirDicaNoChat(this)"
+               data-dica="${dica.txt.substring(0,100).replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">
+            <span style="font-size:13px;">🌿</span>
+            <span style="text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(255,255,255,.25);">Aprofundar com a Guia do Sono</span>
+          </div>
+          <div style="font-size:10px;color:rgba(255,255,255,.25);font-family:'DM Sans',sans-serif;">${new Date().getDate()}/${new Date().getMonth()+1}</div>
         </div>
       </div>
     </div>`;
@@ -4461,9 +4778,34 @@ function updatePlanUI() {
     if (btn&&p!=='free') { btn.textContent=p===userRole?'Plano atual ✓':(p==='plus'?'Assinar Plus':'Assinar Premium'); btn.style.opacity=p===userRole?'.6':'1'; btn.style.cursor=p===userRole?'default':'pointer'; }
   });
   if (isPlus()) { const bar=document.getElementById('limit-bar'); if(bar) bar.style.display='none'; }
+  if (typeof renderPremiumBanner === 'function') renderPremiumBanner();
 }
 
 function applyPlanLocks() { const memLock=document.getElementById('memory-lock'); if(memLock) memLock.style.display=isPlus()?'none':'flex'; }
+
+/* ── Banner de conversão Premium (renderizado dinamicamente) ── */
+function renderPremiumBanner() {
+  const banner = document.getElementById('premium-banner-home');
+  if (!banner) return;
+  if (isPremium()) { banner.style.display = 'none'; return; }
+  const isFree = userRole === 'free';
+  banner.innerHTML = `
+    <div class="premium-conversion-banner" onclick="goTo('perfil')">
+      <div class="pcb-icon">${isFree ? '🌙' : '✨'}</div>
+      <div class="pcb-body">
+        <div class="pcb-title">${isFree
+          ? 'Desbloqueie o sono que você merece'
+          : 'Upgrade para o Premium completo'}</div>
+        <div class="pcb-sub">${isFree
+          ? 'Chat ilimitado, histórias exclusivas e muito mais — a partir de R$29,90/mês'
+          : 'Box surpresa mensal, todas as histórias e acompanhamento personalizado'}</div>
+      </div>
+      <button class="pcb-cta" onclick="event.stopPropagation();goTo('perfil')">${isFree ? 'Ver planos' : 'Upgrade'}</button>
+    </div>`;
+  banner.style.display = 'block';
+}
+
+document.addEventListener('DOMContentLoaded', function() { setTimeout(renderPremiumBanner, 500); });
 
 function showToast(msg) {
   let t=document.getElementById('gds-toast');
@@ -4545,10 +4887,39 @@ function guideToddlerContent() { return '<div class="gm-section"><div class="gm-
   var rsAudio = document.getElementById('rs-audio');
   if (!rsAudio) { rsAudio=document.createElement('audio'); rsAudio.id='rs-audio'; rsAudio.loop=true; rsAudio.preload='none'; rsAudio.style.display='none'; document.body.appendChild(rsAudio); }
 
+  // ── Array declarativo de Ruídos Brancos – versão 2026 ──
+  // Usado como referência; os chips HTML já estão no painel de sons
+  var RUIDOS_BRANCOS = [
+    { key:'chuva',   nome:'Chuva Suave',         emoji:'🌧️', plan:'free',    loop:true, url:'boons_freak-rain-sound-188158 (1).mp3' },
+    { key:'branco',  nome:'Ruído Branco',         emoji:'☁️', plan:'free',    loop:true, url:'themediaguy-soft-soothing-deep-white-noise-378857.mp3' },
+    { key:'ondas',   nome:'Ondas do Mar',          emoji:'🌊', plan:'free',    loop:true, url:'kokoreli777-sea-waves-169411.mp3' },
+    { key:'vento',   nome:'Vento nas Folhas',      emoji:'🍃', plan:'free',    loop:true, url:'freesound_community-wind-in-trees-autumn-leaves-rustle-weird-howls-med-77mel-191122-17549.mp3' },
+    { key:'rosa',    nome:'Ruído Rosa',            emoji:'🌸', plan:'free',    loop:true, url:'https://assets.mixkit.co/sfx/preview/mixkit-soft-static-noise-loop-1736.mp3' },
+    { key:'coracao', nome:'Batimentos Cardíacos',  emoji:'❤️', plan:'free',    loop:true, url:'https://assets.mixkit.co/sfx/preview/mixkit-relaxed-heartbeat-loop-589.mp3' },
+  ];
+
+  // ── Histórias para o Ritual de Som – versão 2026 ──
   var STORIES = [
-    { title:'A Lua e o Coelhinho Sonolento', plan:'free', text:'Era uma noite suave de luar, quando o coelhinho Nuvem não conseguia dormir. Seus olhinhos estavam pesados, mas a cauda fofa ficava sacudindo de um lado pro outro. A mamãe coelha chegou bem devagarinho, com os pelos macios cheirando a capim e mel. "Nuvem", ela sussurrou, "a Lua está esperando por você." O coelhinho olhou pela janelinha da toca e viu a Lua redonda e dourada, como uma bolachinha no céu escuro. "Boa noite, Lua", ele murmurou baixinho. E a Lua sorriu, e soprou um vento quentinho e macio que passou pelo coelhinho como um abraço de plumas. As orelhinhas foram abaixando devagarzinho... Os olhinhos foram fechando... E o coelhinho Nuvem mergulhou num sonho cheio de prados verdes, cenouras doces e nuvens macias de algodão. A Lua veio mais perto da janelinha e fez uma mesura. "Boa noite, Nuvem", ela disse bem baixinho. E guardou o sono do coelhinho até o amanhecer.' },
-    { title:'O Jardim das Estrelas', plan:'plus', text:'Muito além das nuvens, onde o céu fica mais escuro e mais lindo, existe um jardim que ninguém vê acordado. É o Jardim das Estrelas. Lá, estrelinhas pequenas crescem como flores, cada uma prendida num caule fininho de luz. A jardineira do jardim se chama Serena, e ela tem cabelos como a Via Láctea. Toda noite, quando as crianças fecham os olhos, Serena caminha pelo jardim e colhe uma estrelinha especial para cada uma. As estrelinhas ficam lá a noite toda, fazendo brilhar os sonhos por dentro.' },
-    { title:'A Floresta que Cantava de Mansinho', plan:'premium', text:'Havia uma floresta que ninguém conseguia encontrar no mapa, porque ela só aparecia quando alguém estava com sono. Era uma floresta de árvores altas e gentis, com troncos grossos de casca macia como veludo, e folhas que faziam um barulhinho suave sempre que o vento passava — shhhhh... shhhhh... As árvores cantavam baixinho, e a floresta cuida, a floresta acalma, a floresta leva você para o lugar mais lindo que existe: os seus próprios sonhos.' }
+    {
+      title: 'A Lua e o Coelhinho Sonolento',
+      plan: 'free',
+      text: 'Era uma noite muito suave de luar, quando o coelhinho Nuvem não conseguia dormir. Seus olhinhos estavam pesados como gotinhas de orvalho, mas a caudinhas fofa ficava sacudindo de um lado pro outro, como se ainda quisesse brincar. A mamãe coelha chegou bem devagarinho, de patas leves sobre a grama fria, com os pelos macios cheirando a capim doce e mel de flores silvestres. Ela se deitou ao lado de Nuvem e disse baixinho, quase num sussurro: "Meu filhinho, a Lua está esperando por você. Olha só." O coelhinho ergueu as orelhocas e olhou pela janelinha redonda da toca. Lá fora, a Lua estava redonda e dourada, como uma bolachinha mergulhada em mel no céu escuro. "Boa noite, Lua", murmurou o coelhinho, a voz sonolenta. E a Lua sorriu — uma sorrisão largo e gentil — e soprou um vento quentinho e macio que entrou pela janelinha como um abraço feito de plumas. As orelhocas foram abaixando devagarzinho... Uma... e a outra... Os olhinhos foram fechando, pesados como pétalas molhadas... E o coelhinho Nuvem mergulhou num sonho perfumado, cheio de prados verdes onde a grama era macia como algodão, e cenouras doces cresciam em fileiras cor de laranja, e nuvens brancas e macias passavam devagar, devagar... A mamãe coelha ficou ali, respirando junto, até ter certeza de que Nuvem estava bem dormido. Então a Lua veio mais pertinho da janelinha, fez uma reverência gentil, e disse baixinho: "Boa noite, Nuvem. Até amanhã." E guardou o sono do coelhinho com carinho até o amanhecer dourado.'
+    },
+    {
+      title: 'O Jardim das Estrelas',
+      plan: 'plus',
+      text: 'Muito além das últimas nuvens, onde o céu fica mais escuro e mais lindo do que qualquer coisa que se possa imaginar, existe um jardim que ninguém consegue ver quando está acordado. É o Jardim das Estrelas. Lá, estrelinhas pequeninas crescem como flores luminosas, cada uma prendida num caule fininho de pura luz prateada. Quando o vento sopra entre elas, elas tilintam como sininhos muito distantes — tão distantes que você só ouve se estiver quase dormindo. A jardineira desse jardim se chama Serena. Ela tem cabelos brancos como a Via Láctea e olhos cor de madrugada. Toda noite, quando as crianças no mundo inteiro começam a fechar os olhos, Serena veste seu avental de veludo azul-escuro e caminha devagarzinho pelos canteiros iluminados. Ela conhece cada criança pelo nome. E para cada uma, escolhe uma estrelinha especial — aquela que tem exatamente o brilho certo para aquela noite, para aquele sonho. Serena colhe a estrelinha com cuidado, com as duas mãos, e sopra um pouquinho nela, como quem acende uma vela. Então a estrelinha sobe sozinha, atravessa as nuvens, e vai se pousar bem pertinho da criança que está dormindo — colada ao coração dela por dentro, aquecendo os sonhos. Toda noite você tem uma estrelinha só sua. Ela fica lá a noite inteira, fazendo brilhar os seus sonhos por dentro, como uma lanterninha de amor. Você consegue sentir o calorzinho dela agora? Fecha os olhos devagarinho... ela está chegando.'
+    },
+    {
+      title: 'A Floresta que Cantava de Mansinho',
+      plan: 'premium',
+      text: 'Havia uma floresta que ninguém conseguia encontrar no mapa, porque ela só aparecia quando alguém estava com muito sono. Era uma floresta de árvores altas e gentis, com troncos tão grossos que você precisaria de dez abraços para envolver um só. A casca delas era macia como veludo por dentro, e quando você enostava a bochecha no tronco, sentia um calorzinho que vinha de dentro da terra, bem devagarzinho. As folhas dessa floresta faziam um barulhinho suave sempre que o vento passava — shhhhh... shhhhh... Era como se as árvores fossem mães gigantes, passando a mão nas costas de alguém. Os pássaros lá dormiam de dia e cantavam à noite — não músicas animadas, não. Cantavam coisas lentas, como quem conta uma história que não tem pressa de terminar. O chão era coberto de musgo macio e de folhas caídas que amorteciam cada passinho. Nessa floresta, existia uma clareira no meio, onde a lua entrava direto. No centro da clareira havia um tronco velho, redondo como uma almofada, coberto de limo verde. Dizem que toda criança que encontra a floresta consegue sentar naquele tronco e ouvir as árvores cantando o nome dela, bem baixinho, com muita ternura. E quando as árvores cantam o seu nome, seus ombros baixam. Sua respiração vai ficando mais lenta. Seus dedos vão relaxando, um por um. E a floresta te abraça com o som dela — shhhhh... shhhhh... você está aqui. Você está segura. Pode descansar agora. A floresta cuida. A floresta acalma. A floresta te leva para o lugar mais lindo que existe: os seus próprios sonhos.'
+    },
+    {
+      title: 'O Rio que Levava os Sonhos',
+      plan: 'premium',
+      text: 'Bem no fim do campo onde o capim cresce alto e dourado, existe um rio que só corre à noite. Durante o dia ele fica quieto, quase parado, como se estivesse descansando também. Mas quando o sol se vai e as estrelas começam a acender, uma por uma, o rio acorda devagarzinho e começa a correr, manso e sereno, levando consigo os sonhos das crianças do mundo inteiro. O rio tem uma cor diferente toda noite. Às vezes é azul como safira, outras vezes roxo como lavanda, às vezes dourado como o mel que escorre devagar. E ele faz um som — não é barulho, não. É um murmúrio, como uma voz que conta histórias sem usar palavras. Quem mora perto do rio diz que se você fechar os olhos e respirar fundo três vezes, consegue ouvir o murmúrio mesmo daqui. Vamos tentar? Inspira fundo pelo narizinho... e solta devagarzinho pela boca... uma vez... Outra vez, mais fundo ainda... e solta... E mais uma vez, bem fundo, sentindo a barriguinha inflar como um balão... e solta tudo... Agora. Você consegue ouvir? É aquele som suavíssimo, como a água passando sobre pedras lisas. O rio está passando por você agora. Ele leva embora qualquer tensão que esteja nos seus ombros. Leva o cansaço das perninhas. Leva os pensamentos que ficaram sobrando do dia. E no lugar onde eles estavam, o rio deixa coisas gostosas: sonhos cor de mel, sonhos de campos abertos, sonhos de abraços e risos. Deixe o rio te levar agora, mansinho, mansinho. Você está segura. Você está amada. Boa noite.'
+    }
   ];
 
   function rsEl(id) { return document.getElementById(id); }
@@ -4618,8 +4989,8 @@ function guideToddlerContent() { return '<div class="gm-section"><div class="gm-
     var filtered=homeVitrineCat==='todos'?PRODUTOS:PRODUTOS.filter(function(p){return p.categoria===homeVitrineCat;});
     if(!filtered.length){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:24px;font-family:Lora,serif;font-style:italic;color:var(--text-sub);">Nenhum produto nesta categoria ainda 🌿</div>';return;}
     grid.innerHTML=filtered.map(function(p){return '<a class="aff-card" href="'+(p.url||'#')+'" target="_blank" rel="noopener sponsored" style="text-decoration:none;" '+((!p.url)?'onclick="event.preventDefault()"':'')+'>'+
-      '<div class="aff-img-wrap" style="height:110px;background:var(--linen);display:flex;align-items:center;justify-content:center;overflow:hidden;">'+(p.img?'<img src="'+p.img+'" alt="'+p.nome+'" style="width:100%;height:100%;object-fit:contain;padding:8px;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/><span style="display:none;font-size:36px;align-items:center;justify-content:center;width:100%;height:100%;">🛒</span>':'<span style="font-size:36px;">'+(p.emoji||'🛒')+'</span>')+'</div>'+
-      '<div class="aff-body"><div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-sub);margin-bottom:4px;">'+p.categoria+'</div><div class="aff-name">'+p.nome+'</div><div class="aff-tag">'+p.tag+'</div>'+
+      '<div class="aff-img-wrap" style="height:130px;">'+(p.img?'<img src="'+p.img+'" alt="'+p.nome+'" style="width:100%;height:100%;object-fit:contain;padding:10px;transition:transform .35s ease;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"/><span style="display:none;font-size:36px;align-items:center;justify-content:center;width:100%;height:100%;">🛒</span>':'<span style="font-size:36px;">'+(p.emoji||'🛒')+'</span>')+'</div>'+
+      '<div class="aff-body"><div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-sub);margin-bottom:5px;">'+p.categoria+'</div><div class="aff-name">'+p.nome+'</div><div class="aff-tag">'+p.tag+'</div>'+
       '<div class="aff-btn" style="margin-top:auto;"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" width="13" height="13"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>Ver na Amazon</div></div></a>';}).join('');
   };
   document.addEventListener('DOMContentLoaded',function(){setTimeout(window.renderHomeVitrine,300);});
@@ -4627,3 +4998,6 @@ function guideToddlerContent() { return '<div class="gm-section"><div class="gm-
 
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function(){});
 </script>
+
+</body>
+</html>
