@@ -1841,6 +1841,20 @@ body {
 }
 .rs2-em-text strong { color: var(--night); font-style: normal; }
 
+/* ── Dica do Dia ── */
+.dica-card {
+  background: linear-gradient(135deg, var(--night) 0%, #2a4a2c 100%);
+  border-radius: 20px; padding: 18px 20px;
+  position: relative; overflow: hidden;
+  box-shadow: 0 6px 24px var(--shadow-md);
+  display: none;
+}
+.dica-card::before {
+  content: ''; position: absolute; top: -18px; right: -18px;
+  width: 80px; height: 80px; border-radius: 50%;
+  background: rgba(201,168,76,.12); pointer-events: none;
+}
+
 /* ── Nutrição page cards ── */
 .nutri-coming-soon {
   position:absolute; top:12px; right:12px;
@@ -2016,6 +2030,11 @@ body {
               <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
             </div>
           </div>
+        </div>
+
+        <div class="sec-hdr fu d3" id="dica-sec-hdr" style="display:none;"><div class="sec-title">✨ Dica do dia para você</div></div>
+        <div class="px fu d3" id="dica-outer" style="display:none;">
+          <div class="dica-card" id="dica-do-dia-container" style="display:none;"></div>
         </div>
 
         <div class="sec-hdr fu d4">
@@ -3460,7 +3479,12 @@ async function loadClimate() {
 function loadAvatar(e) {
   const f = e.target.files[0]; if (!f) return;
   const r = new FileReader();
-  r.onload = ev => { document.getElementById('bc-av').innerHTML = `<img src="${ev.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:16px">`; };
+  r.onload = ev => {
+    const src = ev.target.result;
+    const el = document.getElementById('bc-av');
+    if (el) el.innerHTML = `<img src="${src}" style="width:100%;height:100%;object-fit:cover;border-radius:16px">`;
+    const cache = getPerfilCache(); cache.bebe_foto = src; savePerfilCache(cache);
+  };
   r.readAsDataURL(f);
 }
 
@@ -4160,6 +4184,8 @@ function applyPerfilCache(cache) {
     const saltoEl=document.getElementById('pf-salto-display'); if(saltoEl) saltoEl.textContent=info.salto;
     const bcStatus=document.getElementById('bc-status'); if(bcStatus) bcStatus.innerHTML='🌱 '+info.salto;
     const bcAge=document.getElementById('bc-age-display'); if(bcAge) bcAge.textContent=info.idadeStr;
+    atualizarJanelaCard(info.totalMeses, info.totalSemanas);
+    renderDicaDoDia(info.totalMeses);
   }
   if (cache.mae_nome)  { const el=document.getElementById('pf-mae-nome');      if(el) el.value=cache.mae_nome; }
   if (cache.nome_bebe) { const el=document.getElementById('pf-bebe-nome');     if(el) el.value=cache.nome_bebe; }
@@ -4170,6 +4196,10 @@ function applyPerfilCache(cache) {
   if (cache.mae_foto) {
     const el=document.getElementById('p-av');
     if(el) el.innerHTML=`<img src="${cache.mae_foto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+  }
+  if (cache.bebe_foto) {
+    const el=document.getElementById('bc-av');
+    if(el) el.innerHTML=`<img src="${cache.bebe_foto}" style="width:100%;height:100%;object-fit:cover;border-radius:16px">`;
   }
   if (cache.apoio || cache.rede_apoio) {
     const apoioEl=document.getElementById('pf-apoio-display');
@@ -4215,6 +4245,125 @@ function calcIdadeESalto(dataStr) {
   else if (totalMeses>=36) salto='🌳 Pré-escolar — consolidando o sono';
   else salto='🌿 Desenvolvimento estável — '+idadeStr;
   return { idadeStr, salto, totalMeses, totalSemanas };
+}
+
+/* ── Janela atual com cor dinâmica (verde/laranja) ── */
+function atualizarJanelaCard(totalMeses, totalSemanas) {
+  /* janelas recomendadas por faixa etária em minutos */
+  const JANELAS = [
+    { maxMes:1,  min:45,  max:60,  label:'45–60 min' },
+    { maxMes:2,  min:60,  max:90,  label:'60–90 min' },
+    { maxMes:4,  min:75,  max:120, label:'75–120 min' },
+    { maxMes:6,  min:120, max:150, label:'2–2,5 h' },
+    { maxMes:9,  min:150, max:180, label:'2,5–3 h' },
+    { maxMes:12, min:180, max:210, label:'3–3,5 h' },
+    { maxMes:18, min:210, max:270, label:'3,5–4,5 h' },
+    { maxMes:999,min:270, max:360, label:'4–6 h' },
+  ];
+  const faixa = JANELAS.find(j => totalMeses <= j.maxMes) || JANELAS[JANELAS.length-1];
+  const badgeEl  = document.getElementById('janela-val');
+  const badgeWrap = badgeEl?.closest('.w-badge');
+  if (!badgeEl || !badgeWrap) return;
+  badgeEl.textContent = faixa.label;
+  /* lê o despertar da rotina para estimar situação atual */
+  const despertarEl = document.getElementById('rt-despertar');
+  if (despertarEl?.value) {
+    const [h,m] = despertarEl.value.split(':').map(Number);
+    const baseMin = h*60+m;
+    const agoraMin = new Date().getHours()*60+new Date().getMinutes();
+    const vigenteMin = (agoraMin - baseMin + 1440) % 1440;
+    const ok = vigenteMin <= faixa.max;
+    badgeWrap.style.background  = ok ? 'rgba(90,112,80,.30)' : 'rgba(196,122,82,.28)';
+    badgeWrap.style.borderColor = ok ? 'rgba(138,158,127,.55)' : 'rgba(196,122,82,.55)';
+    badgeEl.style.color = ok ? '#b5c9a8' : '#e8a97e';
+    document.querySelector('.w-badge-lbl').textContent = ok ? 'janela ✓ boa' : 'atenção à janela';
+  }
+}
+
+/* ── Dica do Dia rotativa por faixa etária ── */
+const DICAS_POR_FASE = {
+  0: [
+    { icon:'🌿', txt:'Recém-nascidos dormem entre 16–18h por dia. Ciclos curtos de 45–50 min são normais — não é seu erro.' },
+    { icon:'🤱', txt:'O cheiro da mamãe é o melhor sonífero natural. Cochilos no colo são completamente saudáveis nessa fase.' },
+    { icon:'🌡️', txt:'A temperatura ideal do quarto para o bebê é entre 18–22°C. Um ambiente fresco ajuda a aprofundar o sono.' },
+  ],
+  1: [
+    { icon:'👁️', txt:'Com 1 mês, o bebê começa a notar padrões. Uma rotina simples (banho → amamentação → sono) já começa a ajudar.' },
+    { icon:'🌙', txt:'A janela de sono ideal nessa fase é de 60–90 minutos. Sinal de cansaço: olhar distante e movimentos lentos.' },
+    { icon:'🎵', txt:'Sons contínuos como ruído branco ou batimentos cardíacos remetem ao útero — poderosos calmantes naturais.' },
+  ],
+  2: [
+    { icon:'😊', txt:'Com 2 meses, surgem os primeiros sorrisos sociais! Evite superestimulação perto da janela de sono.' },
+    { icon:'🔄', txt:'Aos 2 meses, muitos bebês passam por um salto de desenvolvimento. Noites mais difíceis são temporárias.' },
+    { icon:'☀️', txt:'Luz natural durante o dia ajuda a regular o ritmo circadiano — leve o bebê para um cantinho ensolarado pela manhã.' },
+  ],
+  3: [
+    { icon:'🌿', txt:'3 meses é uma fase de transição. O bebê começa a ter mais consciência do ambiente — mantenha o quarto escuro para a soneca.' },
+    { icon:'⏱️', txt:'A janela de vigília ideal agora é de 75–90 minutos. Muito mais que isso e o bebê fica superestimulado.' },
+    { icon:'🎶', txt:'Cantigas de ninar no mesmo tom e ritmo toda noite criam uma âncora poderosa para o sono gentil.' },
+  ],
+  4: [
+    { icon:'⚡', txt:'Aos 4 meses a arquitetura do sono muda para ciclos adultos. A regressão dos 4 meses é real — e vai passar!' },
+    { icon:'🔄', txt:'Muitas bebês começam a rolar por volta dos 4 meses. Isso pode atrapalhar a soneca — é completamente normal.' },
+    { icon:'🌙', txt:'Reduzir associações de sono (como embalar até dormir completamente) aos poucos facilita a transição dessa fase.' },
+  ],
+  5: [
+    { icon:'🍃', txt:'Com 5 meses, o bebê pode estar pronto para 3 sonecas. Observe os sinais de sono — bocejo, olhar distante, esfregou o olho.' },
+    { icon:'🌿', txt:'O ritual noturno ganha força: banho morno → massagem suave → amamentação → escuridão → som contínuo. Consistência é tudo.' },
+    { icon:'🎯', txt:'5 meses é ótimo para começar a colocar o bebê sonolento (mas acordado) no berço. Um pequeno passo, uma grande conquista.' },
+  ],
+  6: [
+    { icon:'🥣', txt:'Com 6 meses, a introdução alimentar começa! Ofereça alimentos sólidos longe da hora do sono para não atrapalhar a digestão.' },
+    { icon:'🌙', txt:'Muitos bebês de 6 meses já conseguem dormir períodos mais longos à noite — com rotina consistente.' },
+    { icon:'🔄', txt:'O Salto 5 (Relacionamentos) acontece por volta dos 6 meses. Separação da mamãe pode gerar mais despertar — é fase.' },
+  ],
+  9: [
+    { icon:'🚶', txt:'Por volta dos 9 meses, o bebê pode começar a se apoiar e engatinhar. Essa agitação motora pode afetar o sono.' },
+    { icon:'🌙', txt:'Consolidação para 2 sonecas por dia costuma acontecer nessa fase. Respeite os sinais do seu bebê.' },
+    { icon:'🍽️', txt:'A alimentação já é mais sólida. Ofereça a refeição principal 30–45 min após a soneca — humor ótimo, mais receptivo.' },
+  ],
+  12: [
+    { icon:'🎂', txt:'1 aninho! Muitos bebês transitam para 1 soneca/dia entre 12–18 meses. Transição gradual é mais suave.' },
+    { icon:'📚', txt:'Livros de pano ou de banho na rotina noturna criam uma associação positiva e tranquila com o sono.' },
+    { icon:'🌙', txt:'Com 12 meses, a janela de vigília pode chegar a 3,5–4 horas. Siga o relógio biológico, não o digital.' },
+  ],
+  18: [
+    { icon:'🌿', txt:'Toddlers precisam de rotinas ainda mais sólidas. Constância no horário de dormir é o maior presente que você pode dar.' },
+    { icon:'🎭', txt:'Medos noturnos começam a aparecer por volta dos 18 meses. Valide os sentimentos — nunca minimize o medo do seu filho.' },
+    { icon:'📖', txt:'Histórias narradas em voz calma são poderosas nessa fase. A voz da mamãe é o melhor sonífero do mundo.' },
+  ],
+  999: [
+    { icon:'🌳', txt:'Crianças maiores ainda precisam de rotina! Consistência no horário de dormir melhora humor, aprendizado e imunidade.' },
+    { icon:'🌙', txt:'Desligue as telas pelo menos 1 hora antes de dormir. A luz azul suprime a melatonina — o hormônio do sono.' },
+    { icon:'🫁', txt:'Respiração profunda juntos antes de dormir (inspire 4s, expire 4s) é uma ferramenta poderosa para crianças ansiosas.' },
+  ],
+};
+
+function renderDicaDoDia(totalMeses) {
+  const container = document.getElementById('dica-do-dia-container');
+  if (!container) return;
+  const faixas = [0,1,2,3,4,5,6,9,12,18,999];
+  const faixa  = faixas.find(f => totalMeses <= f) ?? 999;
+  const dicas  = DICAS_POR_FASE[faixa] || DICAS_POR_FASE[999];
+  const idx    = Math.floor(Date.now() / 86400000) % dicas.length; /* rotaciona 1x por dia */
+  const dica   = dicas[idx];
+  container.innerHTML = `
+    <div style="display:flex;align-items:flex-start;gap:12px;">
+      <span style="font-size:24px;flex-shrink:0;line-height:1.2;">${dica.icon}</span>
+      <div>
+        <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin-bottom:5px;">Dica do dia</div>
+        <div style="font-family:'Lora',serif;font-style:italic;font-size:12px;color:var(--night);line-height:1.65;">${dica.txt}</div>
+        <div style="margin-top:10px;font-size:11px;color:var(--text-sub);display:flex;align-items:center;gap:6px;cursor:pointer;" onclick="goTo('chat');prefill('Me conta mais sobre essa dica: ${dica.txt.replace(/'/g,"\\'")}')">
+          <span style="font-size:13px;">🌿</span>
+          <span style="text-decoration:underline;text-underline-offset:2px;">Quero saber mais com a Guia do Sono</span>
+        </div>
+      </div>
+    </div>`;
+  container.style.display = 'block';
+  const outer = document.getElementById('dica-outer');
+  const secHdr = document.getElementById('dica-sec-hdr');
+  if (outer)  outer.style.display  = 'block';
+  if (secHdr) secHdr.style.display = 'flex';
 }
 
 let rotinaOffset = 0;
