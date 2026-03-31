@@ -4258,6 +4258,7 @@ function atualizarJanelaCard(totalMeses, totalSemanas) {
     { maxMes:9,  min:150, max:180, label:'2,5–3 h' },
     { maxMes:12, min:180, max:210, label:'3–3,5 h' },
     { maxMes:18, min:210, max:270, label:'3,5–4,5 h' },
+    { maxMes:24, min:300, max:360, label:'5–6 h' },   /* 18–24 meses: janelas longas */
     { maxMes:999,min:270, max:360, label:'4–6 h' },
   ];
   const faixa = JANELAS.find(j => totalMeses <= j.maxMes) || JANELAS[JANELAS.length-1];
@@ -4281,86 +4282,79 @@ function atualizarJanelaCard(totalMeses, totalSemanas) {
 }
 
 /* ── Dica do Dia rotativa por faixa etária ── */
-const DICAS_POR_FASE = {
-  0: [
-    { icon:'🌿', txt:'Recém-nascidos dormem entre 16–18h por dia. Ciclos curtos de 45–50 min são normais — não é seu erro.' },
-    { icon:'🤱', txt:'O cheiro da mamãe é o melhor sonífero natural. Cochilos no colo são completamente saudáveis nessa fase.' },
-    { icon:'🌡️', txt:'A temperatura ideal do quarto para o bebê é entre 18–22°C. Um ambiente fresco ajuda a aprofundar o sono.' },
-  ],
-  1: [
-    { icon:'👁️', txt:'Com 1 mês, o bebê começa a notar padrões. Uma rotina simples (banho → amamentação → sono) já começa a ajudar.' },
-    { icon:'🌙', txt:'A janela de sono ideal nessa fase é de 60–90 minutos. Sinal de cansaço: olhar distante e movimentos lentos.' },
-    { icon:'🎵', txt:'Sons contínuos como ruído branco ou batimentos cardíacos remetem ao útero — poderosos calmantes naturais.' },
-  ],
-  2: [
-    { icon:'😊', txt:'Com 2 meses, surgem os primeiros sorrisos sociais! Evite superestimulação perto da janela de sono.' },
-    { icon:'🔄', txt:'Aos 2 meses, muitos bebês passam por um salto de desenvolvimento. Noites mais difíceis são temporárias.' },
-    { icon:'☀️', txt:'Luz natural durante o dia ajuda a regular o ritmo circadiano — leve o bebê para um cantinho ensolarado pela manhã.' },
-  ],
-  3: [
-    { icon:'🌿', txt:'3 meses é uma fase de transição. O bebê começa a ter mais consciência do ambiente — mantenha o quarto escuro para a soneca.' },
-    { icon:'⏱️', txt:'A janela de vigília ideal agora é de 75–90 minutos. Muito mais que isso e o bebê fica superestimulado.' },
-    { icon:'🎶', txt:'Cantigas de ninar no mesmo tom e ritmo toda noite criam uma âncora poderosa para o sono gentil.' },
-  ],
-  4: [
-    { icon:'⚡', txt:'Aos 4 meses a arquitetura do sono muda para ciclos adultos. A regressão dos 4 meses é real — e vai passar!' },
-    { icon:'🔄', txt:'Muitas bebês começam a rolar por volta dos 4 meses. Isso pode atrapalhar a soneca — é completamente normal.' },
-    { icon:'🌙', txt:'Reduzir associações de sono (como embalar até dormir completamente) aos poucos facilita a transição dessa fase.' },
-  ],
-  5: [
-    { icon:'🍃', txt:'Com 5 meses, o bebê pode estar pronto para 3 sonecas. Observe os sinais de sono — bocejo, olhar distante, esfregou o olho.' },
-    { icon:'🌿', txt:'O ritual noturno ganha força: banho morno → massagem suave → amamentação → escuridão → som contínuo. Consistência é tudo.' },
-    { icon:'🎯', txt:'5 meses é ótimo para começar a colocar o bebê sonolento (mas acordado) no berço. Um pequeno passo, uma grande conquista.' },
-  ],
-  6: [
-    { icon:'🥣', txt:'Com 6 meses, a introdução alimentar começa! Ofereça alimentos sólidos longe da hora do sono para não atrapalhar a digestão.' },
-    { icon:'🌙', txt:'Muitos bebês de 6 meses já conseguem dormir períodos mais longos à noite — com rotina consistente.' },
-    { icon:'🔄', txt:'O Salto 5 (Relacionamentos) acontece por volta dos 6 meses. Separação da mamãe pode gerar mais despertar — é fase.' },
-  ],
-  9: [
-    { icon:'🚶', txt:'Por volta dos 9 meses, o bebê pode começar a se apoiar e engatinhar. Essa agitação motora pode afetar o sono.' },
-    { icon:'🌙', txt:'Consolidação para 2 sonecas por dia costuma acontecer nessa fase. Respeite os sinais do seu bebê.' },
-    { icon:'🍽️', txt:'A alimentação já é mais sólida. Ofereça a refeição principal 30–45 min após a soneca — humor ótimo, mais receptivo.' },
-  ],
-  12: [
-    { icon:'🎂', txt:'1 aninho! Muitos bebês transitam para 1 soneca/dia entre 12–18 meses. Transição gradual é mais suave.' },
-    { icon:'📚', txt:'Livros de pano ou de banho na rotina noturna criam uma associação positiva e tranquila com o sono.' },
-    { icon:'🌙', txt:'Com 12 meses, a janela de vigília pode chegar a 3,5–4 horas. Siga o relógio biológico, não o digital.' },
-  ],
-  18: [
-    { icon:'🌿', txt:'Toddlers precisam de rotinas ainda mais sólidas. Constância no horário de dormir é o maior presente que você pode dar.' },
-    { icon:'🎭', txt:'Medos noturnos começam a aparecer por volta dos 18 meses. Valide os sentimentos — nunca minimize o medo do seu filho.' },
-    { icon:'📖', txt:'Histórias narradas em voz calma são poderosas nessa fase. A voz da mamãe é o melhor sonífero do mundo.' },
-  ],
-  999: [
-    { icon:'🌳', txt:'Crianças maiores ainda precisam de rotina! Consistência no horário de dormir melhora humor, aprendizado e imunidade.' },
-    { icon:'🌙', txt:'Desligue as telas pelo menos 1 hora antes de dormir. A luz azul suprime a melatonina — o hormônio do sono.' },
-    { icon:'🫁', txt:'Respiração profunda juntos antes de dormir (inspire 4s, expire 4s) é uma ferramenta poderosa para crianças ansiosas.' },
-  ],
-};
+/* ══════════════════════════════════════════
+   DICAS DO DIA — 30 dicas (fonte: Grok/Weyna)
+   Rotação pelo dia do mês (1→índice 0 … 30→índice 29).
+   Filtro: lactentes (< 18 meses) vs bebês grandes (≥ 18 meses).
+   Cada dica tem tag 'todos' | 'lactente' | 'grande'.
+══════════════════════════════════════════ */
+const DICAS_30 = [
+  { icon:'😮', tag:'todos',    txt:'Mamãe, fique de olho nos bocejos e nos olhinhos que piscam devagar. É o sinal de que a soneca está na hora certa! Coloque o bebê no berço antes do choro e sinta a diferença.' },
+  { icon:'🌑', tag:'todos',    txt:'Deixe o quarto bem escuro com cortinas blackout. A melatonina natural do bebê ama a escuridão e as noites ficam mais longas. Você está criando um cantinho perfeito!' },
+  { icon:'🔄', tag:'lactente', txt:'Aos 4 meses, muitos bebês rolam e praticam no berço. Isso pode bagunçar a soneca. Ofereça bastante tempo de chão durante o dia e tenha paciência com amor.' },
+  { icon:'🥩', tag:'grande',   txt:'Após os 6 meses, alimentos ricos em ferro (carne, lentilha, espinafre) ajudam no sono profundo. Experimente na janta e observe as noites mais tranquilas!' },
+  { icon:'💚', tag:'todos',    txt:'Ei, mamãe, hoje respire fundo 3 vezes só para você. Você está fazendo um trabalho lindo, mesmo cansada. O apego seguro começa quando você cuida de si também.' },
+  { icon:'👁️', tag:'todos',    txt:'Olhinhos vermelhos ou o bebê esfregando os olhos? É hora da soneca! Respeitar essa janela de vigília evita o cansaço acumulado e deixa todo mundo mais calmo.' },
+  { icon:'🌬️', tag:'todos',    txt:'Ruído branco (ventilador ou som de chuva) acalma o cérebro do bebê. Deixe baixinho durante o sono — é um truque simples e super eficaz.' },
+  { icon:'🤸', tag:'grande',   txt:'Aos 6 meses, sentar sozinho é empolgante! Ele pode acordar para treinar no berço. Dê tempo livre de dia e abrace essa fase com carinho.' },
+  { icon:'🥣', tag:'grande',   txt:'Ao introduzir novos alimentos, observe se o bebê fica inquieto à noite. Um estômago confortável ajuda o sono. Você está atenta e isso faz toda a diferença!' },
+  { icon:'☕', tag:'todos',    txt:'Enquanto o bebê soneca, tome um chá quentinho só para você. Cinco minutinhos de autocuidado recarregam sua energia para continuar respondendo com amor.' },
+  { icon:'⏱️', tag:'lactente', txt:'Bebês de 0–3 meses: janela de vigília de 45–60 minutos. Fique atenta aos primeiros bocejos para não perder o momento mágico da soneca.' },
+  { icon:'🌡️', tag:'todos',    txt:'Mantenha o quarto entre 18–22°C. Um bebê nem quente nem frio dorme melhor e acorda menos. Um termômetro simples já ajuda muito!' },
+  { icon:'🐛', tag:'grande',   txt:'Aos 8–10 meses, o engatinhar vira febre! Ele pode acordar para praticar. Tempo de chão durante o dia libera energia e melhora o sono da noite.' },
+  { icon:'🍞', tag:'grande',   txt:'Uma refeição leve com carboidratos antes de dormir (depois dos 6 meses) ajuda a estabilizar o sono. Observe o que funciona melhor para o seu bebê.' },
+  { icon:'🤝', tag:'todos',    txt:'Mamãe, pedir ajuda não é fraqueza. Hoje, deixe alguém dar uma mãozinha. Você merece descansar para continuar sendo a base segura do seu bebê.' },
+  { icon:'👂', tag:'todos',    txt:'O bebê quietinho mas "brincando" com a orelha ou cabelo? É sinal de sono chegando! Coloque no berço com carinho antes que o cansaço vire choro.' },
+  { icon:'🔴', tag:'todos',    txt:'Use luz noturna vermelha bem fraquinha se precisar. Luz branca ou azul atrapalha a melatonina. Um ambiente escuro e gentil é neurocompatível.' },
+  { icon:'👶', tag:'grande',   txt:'No salto dos 12 meses, com os primeiros passos, o sono pode regredir. Celebre as conquistas de dia e mantenha a rotina com paciência amorosa.' },
+  { icon:'📓', tag:'grande',   txt:'Novo alimento no cardápio? Anote se houve despertares. Intolerâncias leves podem atrapalhar o sono. Seu diário de mamãe é uma aliada poderosa!' },
+  { icon:'🙏', tag:'todos',    txt:'Hoje, liste 3 coisas boas que aconteceram com o seu bebê. Gratidão rápida recarrega seu coração e fortalece o apego seguro.' },
+  { icon:'⚡', tag:'grande',   txt:'De 12 a 18 meses, a janela de vigília é de 3–4 horas. Hiperatividade ou choro fácil? Hora de dormir! Antes do meltdown.' },
+  { icon:'🎵', tag:'todos',    txt:'Ruído branco constante bloqueia barulhos da casa. Deixe ligado a noite toda — o bebê se sente seguro e dorme mais profundo.' },
+  { icon:'💬', tag:'grande',   txt:'Aos 18 meses, a explosão de linguagem pode virar "conversa" no berço. Leia historinhas durante o dia para canalizar toda essa energia nova.' },
+  { icon:'🍌', tag:'grande',   txt:'Banana ou aveia antes da cama (após 6 meses) têm triptofano natural. Um lanche calmante que ajuda a produzir melatonina. Simples e gostoso!' },
+  { icon:'🌿', tag:'todos',    txt:'Nos dias de regressão, lembre: isso passa. Dê um passeio curto só para você e respire. Você é forte e está fazendo o melhor possível.' },
+  { icon:'😤', tag:'grande',   txt:'Bebês de 12–24 meses esfregam os olhos ou ficam irritadinhos? É o sinal clássico de sono. Ajuste a rotina e veja a mágica acontecer.' },
+  { icon:'🛌', tag:'todos',    txt:'Use saco de dormir leve para manter a temperatura ideal. Pés fresquinhos e corpo confortável = menos despertares noturnos.' },
+  { icon:'🏃', tag:'grande',   txt:'Aos 19–24 meses, novas habilidades motoras agitam o sono. Brincadeiras ativas de dia cansam o corpo de forma saudável e respeitosa.' },
+  { icon:'🍎', tag:'grande',   txt:'Evite açúcar perto da hora de dormir (após 12 meses). Prefira lanches calmantes como iogurte ou maçã. Noites mais serenas garantidas!' },
+  { icon:'🌙', tag:'todos',    txt:'Mamãe, você chegou até aqui! Cada dia aplicado fortalece o sono e o apego seguro do seu bebê. Celebre suas pequenas vitórias — você é incrível! 🌙' },
+];
 
 function renderDicaDoDia(totalMeses) {
   const container = document.getElementById('dica-do-dia-container');
   if (!container) return;
-  const faixas = [0,1,2,3,4,5,6,9,12,18,999];
-  const faixa  = faixas.find(f => totalMeses <= f) ?? 999;
-  const dicas  = DICAS_POR_FASE[faixa] || DICAS_POR_FASE[999];
-  const idx    = Math.floor(Date.now() / 86400000) % dicas.length; /* rotaciona 1x por dia */
-  const dica   = dicas[idx];
+
+  /* filtro por faixa etária */
+  const ehGrande = totalMeses >= 18;
+  const pool = DICAS_30.filter(d => d.tag === 'todos' || (ehGrande ? d.tag === 'grande' : d.tag === 'lactente'));
+
+  /* rotação pelo dia do mês (1-31 → índice 0-30, dentro do pool disponível) */
+  const diaMes = new Date().getDate() - 1; /* 0-based */
+  const dica   = pool[diaMes % pool.length];
+
+  const nomeBebe = (function(){ try { return JSON.parse(localStorage.getItem('gds_perfil_mae')||'{}').nome_bebe||''; } catch{return '';} })();
+  const labelFaixa = ehGrande ? 'Bebês Grandes · +18m' : totalMeses < 6 ? 'Lactentes · 0–6m' : 'Lactentes · 6–18m';
+
   container.innerHTML = `
-    <div style="display:flex;align-items:flex-start;gap:12px;">
-      <span style="font-size:24px;flex-shrink:0;line-height:1.2;">${dica.icon}</span>
-      <div>
-        <div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);margin-bottom:5px;">Dica do dia</div>
-        <div style="font-family:'Lora',serif;font-style:italic;font-size:12px;color:var(--night);line-height:1.65;">${dica.txt}</div>
-        <div style="margin-top:10px;font-size:11px;color:var(--text-sub);display:flex;align-items:center;gap:6px;cursor:pointer;" onclick="goTo('chat');prefill('Me conta mais sobre essa dica: ${dica.txt.replace(/'/g,"\\'")}')">
+    <div style="display:flex;align-items:flex-start;gap:13px;">
+      <span style="font-size:26px;flex-shrink:0;line-height:1.15;filter:drop-shadow(0 1px 3px rgba(0,0,0,.25));">${dica.icon}</span>
+      <div style="flex:1;min-width:0;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
+          <span style="font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sage-l);">Dica do dia</span>
+          <span style="font-size:9px;font-weight:600;background:rgba(138,158,127,.2);color:rgba(255,255,255,.55);border-radius:20px;padding:2px 8px;letter-spacing:.04em;">${labelFaixa}</span>
+          ${nomeBebe ? `<span style="font-size:9px;color:rgba(255,255,255,.35);font-family:'Lora',serif;font-style:italic;">para ${nomeBebe}</span>` : ''}
+        </div>
+        <div style="font-family:'Lora',serif;font-style:italic;font-size:12.5px;color:rgba(255,255,255,.88);line-height:1.68;">${dica.txt}</div>
+        <div style="margin-top:11px;font-size:11px;color:rgba(255,255,255,.45);display:flex;align-items:center;gap:6px;cursor:pointer;"
+             onclick="goTo('chat');prefill('Me explica mais sobre essa dica: ${dica.txt.replace(/['"]/g,' ').substring(0,80)}...')">
           <span style="font-size:13px;">🌿</span>
-          <span style="text-decoration:underline;text-underline-offset:2px;">Quero saber mais com a Guia do Sono</span>
+          <span style="text-decoration:underline;text-underline-offset:2px;">Aprofundar com a Guia do Sono</span>
         </div>
       </div>
     </div>`;
   container.style.display = 'block';
-  const outer = document.getElementById('dica-outer');
+  const outer  = document.getElementById('dica-outer');
   const secHdr = document.getElementById('dica-sec-hdr');
   if (outer)  outer.style.display  = 'block';
   if (secHdr) secHdr.style.display = 'flex';
