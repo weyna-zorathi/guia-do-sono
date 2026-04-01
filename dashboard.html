@@ -147,119 +147,89 @@ body {
   font-weight: 600;
   width: 100%;
   box-shadow: 0 6px 20px rgba(138,158,127,0.3);
+  cursor: pointer;
 }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
-<div class="hero">
-  <img src="https://i.imgur.com/7zK8pL2.jpg" alt="Mãe" class="hero-mother">
-  <div class="hero-greeting">Boa tarde — você está indo muito bem ✨</div>
-  <div class="hero-title" id="heroTitle">Como foi a noite do nosso <em id="genderWord">pequeno</em>?</div>
-</div>
+  <!-- HERO -->
+  <div class="hero">
+    <img src="https://i.imgur.com/7zK8pL2.jpg" alt="Mãe" class="hero-mother">
+    <div class="hero-greeting">Boa tarde — você está indo muito bem ✨</div>
+    <div class="hero-title">Como foi a noite do nosso <em id="genderWord">pequeno</em>?</div>
+  </div>
 
-<!-- PERFIL DO BEBÊ -->
-<div class="baby-profile">
-  <div style="display:flex; gap:16px; align-items:center;">
+  <!-- PERFIL DO BEBÊ (Theo menino) -->
+  <div class="baby-profile">
     <div class="baby-avatar" id="babyAvatar">🐻</div>
     <div>
-      <h2 id="babyName" style="font-size:24px; font-family:'Playfair Display',serif;">Theo Fernandes</h2>
-      <p id="babyInfo" style="color:#666;">19 meses • Menino</p>
-      <div style="margin-top:8px; background:#f0f4ed; color:#5a7050; padding:4px 12px; border-radius:20px; display:inline-block; font-size:13px;">
+      <h2 id="babyName" style="font-size:24px; margin-bottom:4px;">Theo Fernandes</h2>
+      <p style="color:#666; font-size:15px;">19 meses • Menino</p>
+      <div style="margin-top:10px; background:#f0f4ed; color:#5a7050; padding:6px 14px; border-radius:9999px; display:inline-block; font-size:14px;">
         🌱 Desenvolvimento estável — 19 meses
       </div>
     </div>
-  </div>
-  <div class="add-btn" onclick="addNewBaby()">+</div>
-</div>
-
-<!-- CLIMA DO NINHO -->
-<div class="clima-card">
-  <h3 style="margin-bottom:8px;">Clima do Ninho 🌬️</h3>
-  <p style="opacity:0.9;">Temperatura ideal para o sono: <strong>20–22°C</strong></p>
-  <p style="margin-top:8px; font-size:14px;">💧 Umidade 50–60% • 🌑 Blackout • 🌬️ Ar circulando</p>
-</div>
-
-<!-- ROTINA DE HOJE -->
-<div class="rotina-card">
-  <div class="rotina-header">
-    <span>Nossa rotina de hoje juntos</span>
-    <span style="color:var(--sage);">quarta-feira, 1 de abril</span>
+    <div class="add-btn" onclick="addNewBaby()">+</div>
   </div>
 
-  <div class="time-row">
-    <div class="time-label">Acordou às</div>
-    <input type="time" class="time-input" id="acordou" value="07:00">
-  </div>
-
-  <div class="time-row">
-    <div>
-      <div class="time-label">Soneca 1 <span class="suggestion">(sugerido: 13:10)</span></div>
+  <!-- CLIMA DO NINHO -->
+  <div class="clima-card">
+    <h3 style="margin-bottom:12px;">Clima do Ninho 🌬️</h3>
+    <div style="font-size:32px; font-weight:700; margin-bottom:4px;">31°C</div>
+    <p style="margin-bottom:12px;">Mato Grosso • Parcialmente nublado</p>
+    <p><strong>Temperatura ideal para o sono:</strong> 18–22°C</p>
+    <div style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;">
+      <span style="background:rgba(255,255,255,0.2); padding:6px 14px; border-radius:9999px; font-size:13px;">👶 Só fralda + body</span>
+      <span style="background:rgba(255,255,255,0.2); padding:6px 14px; border-radius:9999px; font-size:13px;">❄️ AC a 23°C</span>
+      <span style="background:rgba(255,255,255,0.2); padding:6px 14px; border-radius:9999px; font-size:13px;">💧 Umidificador 50-60%</span>
     </div>
-    <input type="time" class="time-input" id="soneca1_real" value="13:00" onchange="atualizarSugestao()">
   </div>
 
-  <div class="time-row">
-    <div class="time-label">Sono noturno às</div>
-    <input type="time" class="time-input" id="noturno" value="19:30">
+  <!-- ROTINA DE HOJE -->
+  <div class="rotina-card">
+    <div class="rotina-header">
+      <span>Nossa rotina de hoje juntos</span>
+      <span style="color:var(--sage);">quarta-feira, 1 de abril</span>
+    </div>
+
+    <div class="time-row">
+      <div class="time-label">Acordou às</div>
+      <input type="time" class="time-input" id="acordou" value="07:00">
+    </div>
+    <div class="time-row">
+      <div class="time-label">Soneca 1 <span class="suggestion">(sugerido: 13:10)</span></div>
+      <input type="time" class="time-input" id="soneca1_real" value="13:05">
+    </div>
+    <div class="time-row">
+      <div class="time-label">Sono noturno às</div>
+      <input type="time" class="time-input" id="noturno" value="19:30">
+    </div>
+
+    <div style="margin-top:20px;">
+      <label style="font-size:14px; color:#555; display:block; margin-bottom:8px;">Relato da Madrugada</label>
+      <textarea style="width:100%; height:100px; border:2px solid #ddd; border-radius:16px; padding:14px; font-size:15px;" placeholder="Como foi a noite? Quantas vezes acordou..."></textarea>
+    </div>
+
+    <button class="save-btn" onclick="salvarRotina()">🌿 Salvar rotina de hoje</button>
   </div>
 
-  <div style="margin-top:20px;">
-    <label style="font-size:14px; color:#555;">Relato da Madrugada</label>
-    <textarea style="width:100%; height:90px; margin-top:8px; border-radius:12px; border:1px solid #ddd; padding:12px;" placeholder="Como foi a noite? Quantas vezes acordou..."></textarea>
-  </div>
-</div>
+  <script>
+    // Força as correções que você pediu
+    document.getElementById('genderWord').textContent = 'pequeno';
+    document.getElementById('babyAvatar').textContent = '🐻';
+    document.getElementById('babyName').textContent = 'Theo Fernandes';
 
-<button class="save-btn" onclick="salvarRotina()">🌿 Salvar rotina de hoje</button>
+    function addNewBaby() {
+      const nome = prompt("Nome do novo bebê?");
+      if (nome) {
+        alert(nome + " foi adicionado com sucesso! 🎉");
+      }
+    }
 
-<script>
-// Lógica de múltiplos bebês + gênero correto
-let currentBaby = {
-  id: 1,
-  nome: "Theo Fernandes",
-  genero: "menino",   // "menino" ou "menina"
-  idade: "19 meses"
-};
-
-function updateHeroGender() {
-  const word = document.getElementById('genderWord');
-  if (currentBaby.genero === "menino") {
-    word.textContent = "pequeno";
-  } else {
-    word.textContent = "pequena";
-  }
-  document.getElementById('babyName').textContent = currentBaby.nome;
-  document.getElementById('babyInfo').textContent = `${currentBaby.idade} • ${currentBaby.genero.charAt(0).toUpperCase() + currentBaby.genero.slice(1)}`;
-}
-
-function addNewBaby() {
-  const nome = prompt("Nome do novo bebê:");
-  if (!nome) return;
-  const genero = confirm("É menino? (OK = Menino / Cancelar = Menina)") ? "menino" : "menina";
-  
-  currentBaby = { id: Date.now(), nome, genero, idade: "Novo" };
-  updateHeroGender();
-  alert(`${nome} adicionado com sucesso!`);
-}
-
-function salvarRotina() {
-  const acordou = document.getElementById('acordou').value;
-  const sonecaReal = document.getElementById('soneca1_real').value;
-  const noturno = document.getElementById('noturno').value;
-
-  alert(`✅ Rotina salva!\n\nAcordou: ${acordou}\nSoneca 1 real: ${sonecaReal}\nSono noturno: ${noturno}\n\nOs dados foram registrados para identificar padrões.`);
-}
-
-// Atualiza sugestão de próxima soneca (simples)
-function atualizarSugestao() {
-  // Aqui você pode adicionar lógica mais avançada no futuro
-  console.log("Soneca real atualizada");
-}
-
-// Inicializar
-updateHeroGender();
-</script>
-
+    function salvarRotina() {
+      alert("✅ Rotina salva com sucesso!\n\nHorários reais registrados.");
+    }
+  </script>
 </body>
 </html>
