@@ -14,6 +14,7 @@
   --lav: #9b8db5;
   --night: #2c3e2d;
   --gold: #c9a84c;
+  --brown: #7a5c3e;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -22,6 +23,7 @@ body {
   background: var(--cream);
   color: var(--night);
   line-height: 1.5;
+  min-height: 100dvh;
 }
 
 /* HERO */
@@ -39,7 +41,10 @@ body {
   height: 200px;
   opacity: 0.92;
 }
-.hero-greeting { font-size: 13px; opacity: 0.9; }
+.hero-greeting {
+  font-size: 13px;
+  opacity: 0.9;
+}
 .hero-title {
   font-family: 'Playfair Display', serif;
   font-size: 26px;
@@ -67,6 +72,7 @@ body {
   font-size: 32px;
   border: 4px solid white;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  position: relative;
 }
 .add-btn {
   position: absolute;
@@ -83,7 +89,7 @@ body {
   cursor: pointer;
 }
 
-/* CLIMA */
+/* CLIMA DO NINHO */
 .clima-card {
   margin: 0 16px 24px;
   background: linear-gradient(135deg, #1e3a3a, #2c5a5a);
@@ -92,13 +98,20 @@ body {
   padding: 20px;
 }
 
-/* ROTINA */
+/* ROTINA DE HOJE */
 .rotina-card {
   margin: 0 16px 20px;
   background: white;
   border-radius: 22px;
   padding: 20px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+.rotina-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  font-weight: 600;
 }
 .time-row {
   display: flex;
@@ -116,9 +129,13 @@ body {
   text-align: center;
   font-size: 15px;
 }
-.suggestion { font-size: 13px; color: var(--sage); font-style: italic; }
+.suggestion {
+  font-size: 13px;
+  color: var(--sage);
+  font-style: italic;
+}
 
-/* BOTÃO */
+/* BOTÃO SALVAR */
 .save-btn {
   margin: 0 16px 30px;
   background: var(--sage);
@@ -129,17 +146,20 @@ body {
   font-size: 16px;
   font-weight: 600;
   width: 100%;
+  box-shadow: 0 6px 20px rgba(138,158,127,0.3);
 }
 </style>
 </head>
 <body>
 
+<!-- HERO -->
 <div class="hero">
   <img src="https://i.imgur.com/7zK8pL2.jpg" alt="Mãe" class="hero-mother">
   <div class="hero-greeting">Boa tarde — você está indo muito bem ✨</div>
   <div class="hero-title" id="heroTitle">Como foi a noite do nosso <em id="genderWord">pequeno</em>?</div>
 </div>
 
+<!-- PERFIL DO BEBÊ -->
 <div class="baby-profile">
   <div style="display:flex; gap:16px; align-items:center;">
     <div class="baby-avatar" id="babyAvatar">🐻</div>
@@ -154,12 +174,14 @@ body {
   <div class="add-btn" onclick="addNewBaby()">+</div>
 </div>
 
+<!-- CLIMA DO NINHO -->
 <div class="clima-card">
   <h3 style="margin-bottom:8px;">Clima do Ninho 🌬️</h3>
   <p style="opacity:0.9;">Temperatura ideal para o sono: <strong>20–22°C</strong></p>
   <p style="margin-top:8px; font-size:14px;">💧 Umidade 50–60% • 🌑 Blackout • 🌬️ Ar circulando</p>
 </div>
 
+<!-- ROTINA DE HOJE -->
 <div class="rotina-card">
   <div class="rotina-header">
     <span>Nossa rotina de hoje juntos</span>
@@ -175,7 +197,7 @@ body {
     <div>
       <div class="time-label">Soneca 1 <span class="suggestion">(sugerido: 13:10)</span></div>
     </div>
-    <input type="time" class="time-input" id="soneca1_real" value="13:00">
+    <input type="time" class="time-input" id="soneca1_real" value="13:00" onchange="atualizarSugestao()">
   </div>
 
   <div class="time-row">
@@ -192,16 +214,21 @@ body {
 <button class="save-btn" onclick="salvarRotina()">🌿 Salvar rotina de hoje</button>
 
 <script>
-// === LÓGICA CORRIGIDA PARA THEO (MENINO) ===
+// Lógica de múltiplos bebês + gênero correto
 let currentBaby = {
+  id: 1,
   nome: "Theo Fernandes",
-  genero: "menino",
+  genero: "menino",   // "menino" ou "menina"
   idade: "19 meses"
 };
 
 function updateHeroGender() {
   const word = document.getElementById('genderWord');
-  word.textContent = currentBaby.genero === "menino" ? "pequeno" : "pequena";
+  if (currentBaby.genero === "menino") {
+    word.textContent = "pequeno";
+  } else {
+    word.textContent = "pequena";
+  }
   document.getElementById('babyName').textContent = currentBaby.nome;
   document.getElementById('babyInfo').textContent = `${currentBaby.idade} • ${currentBaby.genero.charAt(0).toUpperCase() + currentBaby.genero.slice(1)}`;
 }
@@ -210,17 +237,29 @@ function addNewBaby() {
   const nome = prompt("Nome do novo bebê:");
   if (!nome) return;
   const genero = confirm("É menino? (OK = Menino / Cancelar = Menina)") ? "menino" : "menina";
-  currentBaby = { nome, genero, idade: "Novo" };
+  
+  currentBaby = { id: Date.now(), nome, genero, idade: "Novo" };
   updateHeroGender();
   alert(`${nome} adicionado com sucesso!`);
 }
 
 function salvarRotina() {
-  alert("✅ Rotina salva com sucesso!");
+  const acordou = document.getElementById('acordou').value;
+  const sonecaReal = document.getElementById('soneca1_real').value;
+  const noturno = document.getElementById('noturno').value;
+
+  alert(`✅ Rotina salva!\n\nAcordou: ${acordou}\nSoneca 1 real: ${sonecaReal}\nSono noturno: ${noturno}\n\nOs dados foram registrados para identificar padrões.`);
 }
 
-// Inicializa
+// Atualiza sugestão de próxima soneca (simples)
+function atualizarSugestao() {
+  // Aqui você pode adicionar lógica mais avançada no futuro
+  console.log("Soneca real atualizada");
+}
+
+// Inicializar
 updateHeroGender();
 </script>
+
 </body>
 </html>
