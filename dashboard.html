@@ -14,6 +14,7 @@
   --lav: #9b8db5;
   --night: #2c3e2d;
   --gold: #c9a84c;
+  --brown: #7a5c3e;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -22,6 +23,7 @@ body {
   background: var(--cream);
   color: var(--night);
   line-height: 1.5;
+  min-height: 100dvh;
 }
 
 /* HERO */
@@ -30,14 +32,14 @@ body {
   color: white;
   padding: 24px 20px 30px;
   position: relative;
-  min-height: 220px;
+  min-height: 240px;
 }
 .hero-mother {
   position: absolute;
   bottom: 0;
   right: 20px;
-  height: 180px;
-  opacity: 0.95;
+  height: 200px;
+  opacity: 0.92;
 }
 .hero-greeting {
   font-size: 13px;
@@ -51,7 +53,7 @@ body {
 }
 .hero-title em { color: var(--gold); font-style: italic; }
 
-/* PERFIL BEBÊ */
+/* PERFIL DO BEBÊ */
 .baby-profile {
   margin: -30px 16px 20px;
   background: white;
@@ -72,7 +74,7 @@ body {
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   position: relative;
 }
-.add-gender-btn {
+.add-btn {
   position: absolute;
   bottom: -6px; right: -6px;
   width: 28px; height: 28px;
@@ -84,6 +86,7 @@ body {
   justify-content: center;
   font-size: 16px;
   box-shadow: 0 3px 10px rgba(196,122,82,0.4);
+  cursor: pointer;
 }
 
 /* CLIMA DO NINHO */
@@ -95,7 +98,7 @@ body {
   padding: 20px;
 }
 
-/* ROTINA */
+/* ROTINA DE HOJE */
 .rotina-card {
   margin: 0 16px 20px;
   background: white;
@@ -153,7 +156,7 @@ body {
 <div class="hero">
   <img src="https://i.imgur.com/7zK8pL2.jpg" alt="Mãe" class="hero-mother">
   <div class="hero-greeting">Boa tarde — você está indo muito bem ✨</div>
-  <div class="hero-title" id="heroTitle">Como foi a noite da nossa <em id="genderWord">pequena</em>?</div>
+  <div class="hero-title" id="heroTitle">Como foi a noite do nosso <em id="genderWord">pequeno</em>?</div>
 </div>
 
 <!-- PERFIL DO BEBÊ -->
@@ -168,7 +171,7 @@ body {
       </div>
     </div>
   </div>
-  <div class="add-gender-btn" onclick="addNewBaby()">+</div>
+  <div class="add-btn" onclick="addNewBaby()">+</div>
 </div>
 
 <!-- CLIMA DO NINHO -->
@@ -194,7 +197,7 @@ body {
     <div>
       <div class="time-label">Soneca 1 <span class="suggestion">(sugerido: 13:10)</span></div>
     </div>
-    <input type="time" class="time-input" id="soneca1_real" value="13:00">
+    <input type="time" class="time-input" id="soneca1_real" value="13:00" onchange="atualizarSugestao()">
   </div>
 
   <div class="time-row">
@@ -211,11 +214,11 @@ body {
 <button class="save-btn" onclick="salvarRotina()">🌿 Salvar rotina de hoje</button>
 
 <script>
-// Lógica simples de múltiplos bebês + gênero
+// Lógica de múltiplos bebês + gênero correto
 let currentBaby = {
   id: 1,
   nome: "Theo Fernandes",
-  genero: "menino",
+  genero: "menino",   // "menino" ou "menina"
   idade: "19 meses"
 };
 
@@ -241,8 +244,17 @@ function addNewBaby() {
 }
 
 function salvarRotina() {
-  alert("✅ Rotina salva com sucesso!\nOs horários foram registrados para identificar padrões.");
-  // Aqui você pode adicionar lógica para salvar no Supabase depois
+  const acordou = document.getElementById('acordou').value;
+  const sonecaReal = document.getElementById('soneca1_real').value;
+  const noturno = document.getElementById('noturno').value;
+
+  alert(`✅ Rotina salva!\n\nAcordou: ${acordou}\nSoneca 1 real: ${sonecaReal}\nSono noturno: ${noturno}\n\nOs dados foram registrados para identificar padrões.`);
+}
+
+// Atualiza sugestão de próxima soneca (simples)
+function atualizarSugestao() {
+  // Aqui você pode adicionar lógica mais avançada no futuro
+  console.log("Soneca real atualizada");
 }
 
 // Inicializar
