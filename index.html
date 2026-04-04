@@ -417,6 +417,105 @@ body {
   border:1px solid rgba(255,255,255,.22); border-radius:11px;
   padding:6px 11px; font-size:12px; color:#fff; font-weight:500;
 }
+/* Ilustração botânica no card de clima */
+.cl-botanical {
+  position:absolute; right:-8px; bottom:-12px;
+  width:110px; height:110px; pointer-events:none; z-index:0;
+  opacity:.22;
+}
+
+/* Badge de salto clicável */
+.bc-status-badge {
+  cursor:pointer;
+  transition:opacity .18s, transform .18s;
+}
+.bc-status-badge:hover  { opacity:.85; }
+.bc-status-badge:active { transform:scale(.95); }
+.bc-status-badge::after {
+  content:'›';
+  margin-left:5px; font-size:11px;
+  opacity:.7;
+}
+
+/* Modal de linha do tempo de saltos */
+#saltos-overlay {
+  display:none; position:fixed; inset:0; z-index:9992;
+  background:rgba(28,42,28,.65);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  align-items:center; justify-content:center; padding:20px;
+}
+#saltos-overlay.open { display:flex; }
+#saltos-modal {
+  width:100%; max-width:480px; max-height:88dvh;
+  background:var(--bg); border-radius:26px; overflow:hidden;
+  display:flex; flex-direction:column;
+  box-shadow:0 24px 64px rgba(28,42,28,.35);
+}
+.sm-hdr {
+  padding:20px 22px 14px;
+  background:linear-gradient(135deg, var(--night) 0%, #2a4a2a 100%);
+  position:relative;
+}
+.sm-hdr-title {
+  font-family:'Playfair Display',serif;
+  font-size:20px; font-weight:700; color:#fff; line-height:1.25;
+}
+.sm-hdr-sub {
+  font-family:'Lora',serif; font-style:italic;
+  font-size:12px; color:rgba(255,255,255,.6); margin-top:4px;
+}
+.sm-close {
+  position:absolute; top:16px; right:18px;
+  background:rgba(255,255,255,.12); border:none; color:#fff;
+  width:30px; height:30px; border-radius:50%; font-size:15px;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.sm-body { overflow-y:auto; padding:18px 20px 24px; flex:1; }
+.sm-body::-webkit-scrollbar { display:none; }
+
+.salto-timeline { position:relative; padding-left:24px; }
+.salto-timeline::before {
+  content:''; position:absolute; left:9px; top:8px; bottom:8px;
+  width:2px; background:var(--border-d); border-radius:2px;
+}
+.st-item {
+  position:relative; margin-bottom:16px;
+  padding:12px 14px; border-radius:14px;
+  border:1.5px solid var(--border);
+  background:var(--bg-card);
+}
+.st-item::before {
+  content:''; position:absolute;
+  left:-19px; top:50%; transform:translateY(-50%);
+  width:12px; height:12px; border-radius:50%;
+  border:2px solid var(--border-d);
+  background:var(--bg);
+  z-index:1;
+}
+.st-item.done {
+  border-color:var(--sage-l);
+  background:var(--sage-p);
+}
+.st-item.done::before { background:var(--sage); border-color:var(--sage-d); }
+.st-item.current {
+  border-color:var(--gold);
+  background:var(--gold-p);
+  box-shadow:0 3px 14px rgba(201,168,76,.18);
+}
+.st-item.current::before { background:var(--gold); border-color:#a07820; }
+.st-name {
+  font-size:13px; font-weight:600; color:var(--text);
+  font-family:'DM Sans',sans-serif;
+}
+.st-weeks { font-size:11px; color:var(--text-sub); margin-top:2px; font-family:'Lora',serif; font-style:italic; }
+.st-tag {
+  display:inline-block; margin-top:6px;
+  font-size:9px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  padding:2px 8px; border-radius:10px;
+}
+.st-tag.done    { background:var(--sage-l); color:var(--sage-d); }
+.st-tag.current { background:var(--gold-l); color:#6a5000; }
+.st-tag.future  { background:var(--linen); color:var(--text-sub); }
 
 .ms-card {
   background:var(--bg-card); border:1px solid var(--border); border-radius:18px; padding:16px;
@@ -2220,6 +2319,25 @@ body {
             </div>
             <div class="cl-ideal" id="cl-ideal">Temperatura ideal para o sono: <strong>18–22°C</strong></div>
             <div class="cl-tips"  id="cl-tips"></div>
+            <!-- Ilustração botânica minimalista -->
+            <svg class="cl-botanical" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <!-- caule principal -->
+              <path d="M55 100 C55 80 52 60 50 40" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+              <!-- folha esquerda grande -->
+              <path d="M50 68 C38 58 28 48 32 34 C38 48 46 56 50 68Z" fill="#fff"/>
+              <!-- folha direita grande -->
+              <path d="M50 52 C62 42 74 36 70 22 C62 36 54 44 50 52Z" fill="#fff"/>
+              <!-- folhinha esquerda pequena -->
+              <path d="M50 82 C42 76 36 68 38 58 C42 66 46 74 50 82Z" fill="#fff" opacity=".7"/>
+              <!-- raminho topo -->
+              <path d="M50 40 C46 30 44 22 48 14" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/>
+              <!-- folhinha topo esq -->
+              <path d="M48 30 C42 24 40 16 44 10 C44 18 46 24 48 30Z" fill="#fff" opacity=".6"/>
+              <!-- folhinha topo dir -->
+              <path d="M48 26 C54 20 58 14 54 8 C52 16 50 22 48 26Z" fill="#fff" opacity=".6"/>
+              <!-- raiz/terra estilizada -->
+              <path d="M42 102 C46 98 55 96 64 99 C58 99 52 100 42 102Z" fill="#fff" opacity=".4"/>
+            </svg>
           </div>
         </div>
 
@@ -2239,9 +2357,9 @@ body {
               <div class="bc-info">
                 <div class="bc-name-big" id="bc-name-display">Sofia</div>
                 <div class="bc-age" id="bc-age-display">4 meses e 12 dias</div>
-                <div class="bc-status-badge" id="bc-status">
+                <button class="bc-status-badge" id="bc-status" onclick="openSaltosModal()" type="button" title="Ver linha do tempo de saltos">
                   🌱 Salto de Desenvolvimento
-                </div>
+                </button>
                 <div class="bc-measures">
                   <div class="bc-measure">
                     <div class="bc-measure-val" id="bc-peso">6,2 kg</div>
@@ -2270,14 +2388,6 @@ body {
               <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
             </div>
           </div>
-        </div>
-
-        <div class="sec-hdr fu d3" id="dica-sec-hdr" style="display:none;">
-          <div class="sec-title">✨ Dica do dia para você</div>
-          <div style="font-size:11px;color:var(--text-sub);font-family:'Lora',serif;font-style:italic;">personalizada para a fase do seu bebê</div>
-        </div>
-        <div class="px fu d3" id="dica-outer" style="display:none;">
-          <div class="dica-card" id="dica-do-dia-container" style="display:none;"></div>
         </div>
 
         <div class="sec-hdr fu d4">
@@ -2330,15 +2440,12 @@ body {
           </div>
         </div>
 
-        <div class="sec-hdr fu d5"><div class="sec-title">Vi um sinal de sono agora</div></div>
-        <div class="px fu d5">
-          <div class="chips-scroll">
-            <div class="s-chip" onclick="this.classList.toggle('on')"><span class="s-chip-icon">👁️</span><span class="s-chip-text">Olhar distante</span></div>
-            <div class="s-chip" onclick="this.classList.toggle('on')"><span class="s-chip-icon">😮</span><span class="s-chip-text">Bocejou</span></div>
-            <div class="s-chip" onclick="this.classList.toggle('on')"><span class="s-chip-icon">🐢</span><span class="s-chip-text">Desacelerou</span></div>
-            <div class="s-chip" onclick="this.classList.toggle('on')"><span class="s-chip-icon">👋</span><span class="s-chip-text">Esfregou olho</span></div>
-            <div class="s-chip" onclick="this.classList.toggle('on')"><span class="s-chip-icon">🔴</span><span class="s-chip-text">Olhos vermelhos</span></div>
-          </div>
+        <div class="sec-hdr fu d5" id="dica-sec-hdr" style="display:none;">
+          <div class="sec-title">✨ Dica do dia para você</div>
+          <div style="font-size:11px;color:var(--text-sub);font-family:'Lora',serif;font-style:italic;">personalizada para a fase do seu bebê</div>
+        </div>
+        <div class="px fu d5" id="dica-outer" style="display:none;">
+          <div class="dica-card" id="dica-do-dia-container" style="display:none;"></div>
         </div>
 
         <div class="sec-hdr fu d6"><div class="sec-title">Preciso de um colo emocional agora</div></div>
@@ -3340,7 +3447,79 @@ body {
   </div>
 </div>
 
+<!-- ══ WELCOME OVERLAY ══ -->
+<div id="welcome-overlay" onclick="if(event.target===this)skipWelcome()">
+  <div id="welcome-modal">
+    <div class="wm-header">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:20px;">🌿</span>
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#fff;">Vamos se conhecer?</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.6);font-family:'Lora',serif;font-style:italic;">Para o Guia do Sono te ajudar melhor</div>
+        </div>
+      </div>
+      <div class="wm-progress-bar"><div class="wm-progress-fill" id="wm-prog" style="width:0%"></div></div>
+    </div>
+    <div class="wm-body" id="wm-body"></div>
+    <div class="wm-footer">
+      <span class="wm-step-lbl" id="wm-step-lbl">Etapa 1 de 3</span>
+      <button class="wm-btn-next" id="wm-next" onclick="wmNext()">Próxima →</button>
+    </div>
+    <button class="wm-skip" onclick="skipWelcome()">Pular por agora</button>
+  </div>
+</div>
 
+<!-- ══ GUIDE OVERLAY ══ -->
+<div id="guide-overlay" onclick="if(event.target===this)closeGuideModal()">
+  <div id="guide-modal">
+    <div class="gm-header">
+      <div style="display:flex;align-items:flex-start;gap:14px;">
+        <div class="gm-icon">🌙</div>
+        <div>
+          <div class="gm-title">O Segredo da 1ª Janela de Sono</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5);font-family:'Lora',serif;font-style:italic;margin-top:3px;">Guia rápido · 6 min de leitura</div>
+        </div>
+      </div>
+      <button class="gm-close" onclick="closeGuideModal()">✕</button>
+    </div>
+    <div class="gm-body">
+      <div class="gm-section">
+        <div class="gm-section-title">🌅 O que é a janela de sono?</div>
+        <p style="font-size:13px;color:var(--text-sub);line-height:1.7;font-family:'Lora',serif;font-style:italic;">A janela de sono é o período ideal de vigília para cada faixa etária — o tempo entre um sono e outro em que o bebê está acordado sem ficar exausto demais.</p>
+      </div>
+      <div class="gm-section">
+        <div class="gm-section-title">⏱️ Por que é tão importante?</div>
+        <p style="font-size:13px;color:var(--text);line-height:1.7;">Um bebê colocado <strong>antes do tempo</strong> não consegue adormecer e chora. Colocado <strong>depois da janela</strong>, fica hiperativo e o sono fica agitado. Acertar a janela é a chave das noites tranquilas.</p>
+      </div>
+      <div class="gm-section">
+        <div class="gm-section-title">📊 Tabela de referência</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+            <div style="background:var(--sage-p);border-radius:10px;padding:10px 12px;font-size:11px;"><strong>0–2 meses</strong><br><span style="color:var(--text-sub);">45–90 min</span></div>
+            <div style="background:var(--sage-p);border-radius:10px;padding:10px 12px;font-size:11px;"><strong>3–4 meses</strong><br><span style="color:var(--text-sub);">75–120 min</span></div>
+            <div style="background:var(--sage-p);border-radius:10px;padding:10px 12px;font-size:11px;"><strong>5–7 meses</strong><br><span style="color:var(--text-sub);">2–3 horas</span></div>
+            <div style="background:var(--sage-p);border-radius:10px;padding:10px 12px;font-size:11px;"><strong>8–12 meses</strong><br><span style="color:var(--text-sub);">3–4 horas</span></div>
+          </div>
+        </div>
+      </div>
+      <button style="width:100%;padding:13px;background:linear-gradient(135deg,var(--sage),var(--sage-d));color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:8px;" onclick="closeGuideModal()">Entendi! Vou observar hoje 🌿</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SALTOS OVERLAY ══ -->
+<div id="saltos-overlay" onclick="if(event.target===this)closeSaltosModal()">
+  <div id="saltos-modal">
+    <div class="sm-hdr">
+      <div class="sm-hdr-title">🧠 Linha do Tempo de Saltos</div>
+      <div class="sm-hdr-sub">Desenvolvimento mental e regressões de sono esperadas</div>
+      <button class="sm-close" onclick="closeSaltosModal()">✕</button>
+    </div>
+    <div class="sm-body" id="saltos-body">
+      <!-- preenchido por openSaltosModal() -->
+    </div>
+  </div>
+</div>
 
 <script>
 'use strict';
@@ -4538,6 +4717,54 @@ function skipWelcome() {
 function openGuideModal() { document.getElementById('guide-overlay').classList.add('open'); }
 function closeGuideModal() { document.getElementById('guide-overlay').classList.remove('open'); }
 
+function openSaltosModal() {
+  const cache = getPerfilCache();
+  const body  = document.getElementById('saltos-body');
+  if (!body) return;
+
+  const SALTOS = [
+    { semMin:4,  semMax:5,  nome:'Salto 1',  desc:'Sensações',     detalhe:'O bebê começa a perceber o mundo de forma mais intensa.' },
+    { semMin:7,  semMax:9,  nome:'Salto 2',  desc:'Padrões',       detalhe:'Reconhece padrões visuais e rotinas básicas.' },
+    { semMin:11, semMax:12, nome:'Salto 3',  desc:'Transições',    detalhe:'Percebe que as coisas mudam — isso pode causar insegurança.' },
+    { semMin:14, semMax:17, nome:'Salto 4',  desc:'Eventos · Regressão dos 4 meses', detalhe:'A arquitetura do sono muda permanentemente. Maior salto dos primeiros meses.' },
+    { semMin:22, semMax:26, nome:'Salto 5',  desc:'Relacionamentos',detalhe:'Começa a entender relações entre pessoas e objetos.' },
+    { semMin:33, semMax:37, nome:'Salto 6',  desc:'Categorias',    detalhe:'Agrupa coisas em categorias (animais, cores, sons).' },
+    { semMin:41, semMax:46, nome:'Salto 7',  desc:'Sequências',    detalhe:'Entende que ações têm ordem — base para rotinas.' },
+    { semMin:51, semMax:54, nome:'Salto 8',  desc:'Programas',     detalhe:'Planeja ações com objetivo. Birras aumentam.' },
+    { semMin:59, semMax:64, nome:'Salto 9',  desc:'Princípios',    detalhe:'Entende regras e causa-efeito. Testa limites.' },
+    { semMin:70, semMax:76, nome:'Salto 10', desc:'Sistemas',      detalhe:'Pensa em sistemas complexos. Alta autonomia.' },
+  ];
+
+  let totalSemanas = -1;
+  if (cache.data_nascimento) {
+    const nasc = new Date(cache.data_nascimento + 'T00:00:00');
+    totalSemanas = Math.floor((new Date() - nasc) / (7 * 24 * 3600 * 1000));
+  }
+
+  const saltoAtual = SALTOS.find(s => totalSemanas >= s.semMin && totalSemanas <= s.semMax);
+
+  let html = '<div class="salto-timeline">';
+  SALTOS.forEach(s => {
+    const done    = totalSemanas > s.semMax;
+    const current = saltoAtual === s;
+    const future  = !done && !current;
+    const cls = done ? 'done' : current ? 'current' : '';
+    const tagLabel = done ? '✓ Passou' : current ? '⚡ Agora' : `~${s.semMin}ª sem.`;
+    const tagCls   = done ? 'done' : current ? 'current' : 'future';
+    html += `
+      <div class="st-item ${cls}">
+        <div class="st-name">${s.nome} — ${s.desc}</div>
+        <div class="st-weeks">Semanas ${s.semMin}–${s.semMax} de vida · ${Math.round(s.semMin/4.3)}–${Math.round(s.semMax/4.3)} meses</div>
+        <div style="font-size:11px;color:var(--text-sub);margin-top:4px;line-height:1.5;">${s.detalhe}</div>
+        <span class="st-tag ${tagCls}">${tagLabel}</span>
+      </div>`;
+  });
+  html += '</div>';
+  body.innerHTML = html;
+  document.getElementById('saltos-overlay').classList.add('open');
+}
+function closeSaltosModal() { document.getElementById('saltos-overlay').classList.remove('open'); }
+
 const PF_KEY = 'gds_perfil_mae';
 
 /* ── Pronomes e concordância de gênero ─────────────────────────
@@ -4916,12 +5143,82 @@ function buildSonecasGrid() {
   }
   let html=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;"><span style="font-size:11px;font-weight:600;color:var(--text-sub);">☀️ Sonecas (${maxSon})</span><span style="font-size:9px;color:var(--sage-d);background:var(--sage-p);border-radius:8px;padding:2px 8px;font-weight:600;letter-spacing:.04em;">✦ Auto preenchido</span></div><div class="soneca-grid"><div class="soneca-row"><div class="soneca-num"></div><div class="soneca-col-label">Início (Esp.)</div><div class="soneca-col-label">Real</div></div>`;
   for (let i=1;i<=maxSon;i++) {
-    html+=`<div class="soneca-row"><div class="soneca-num">${i}</div><input class="rotina-input" id="rt-s${i}-esp" type="time" oninput="this.dataset.auto='0';this.style.color='';this.style.borderColor='';this.style.background=''"><input class="rotina-input" id="rt-s${i}-real" type="time" oninput="this.dataset.auto='0';this.style.color='';this.style.borderColor='';this.style.background=''"></div>`;
+    /* oninput do campo "real": limpa flag auto E dispara recálculo em cascata */
+    html+=`<div class="soneca-row"><div class="soneca-num">${i}</div>`
+         +`<input class="rotina-input" id="rt-s${i}-esp" type="time" oninput="this.dataset.auto='0';this.style.color='';this.style.borderColor='';this.style.background='';calcJanelasFromReal(${i})">`
+         +`<input class="rotina-input" id="rt-s${i}-real" type="time" oninput="this.dataset.auto='0';this.style.color='';this.style.borderColor='';this.style.background='';calcJanelasFromReal(${i})">`
+         +`</div>`;
   }
   html+='</div>';
   container.innerHTML=html;
   const despertar=document.getElementById('rt-despertar');
   if (despertar&&despertar.value) calcJanelas();
+}
+
+/* ── Recálculo em cascata a partir de uma soneca editada manualmente ──
+   Quando a mãe edita o horário real (rt-sN-real) de uma soneca,
+   recalcula automaticamente todas as sonecas seguintes e o noturno,
+   mantendo a janela de vigília recomendada para a idade.
+──────────────────────────────────────────────────────────────────── */
+function calcJanelasFromReal(editedIdx) {
+  /* Precisamos do campo "real" da soneca editada como novo cursor */
+  const realEl = document.getElementById('rt-s' + editedIdx + '-real');
+  if (!realEl || !realEl.value) return;
+
+  const FAIXAS = [
+    { maxMes:1,  aw:52,  nap:45  },
+    { maxMes:2,  aw:75,  nap:55  },
+    { maxMes:4,  aw:97,  nap:60  },
+    { maxMes:6,  aw:135, nap:75  },
+    { maxMes:9,  aw:165, nap:90  },
+    { maxMes:12, aw:195, nap:90  },
+    { maxMes:18, aw:240, nap:90  },
+    { maxMes:24, aw:330, nap:120 },
+    { maxMes:999,aw:315, nap:90  },
+  ];
+  const cache = getPerfilCache ? getPerfilCache() : {};
+  let totalMeses = 6;
+  if (cache.data_nascimento) {
+    const nasc = new Date(cache.data_nascimento + 'T00:00:00');
+    const hoje = new Date();
+    totalMeses = Math.max(0, (hoje.getFullYear()-nasc.getFullYear())*12 + (hoje.getMonth()-nasc.getMonth()) + (hoje.getDate()<nasc.getDate()?-1:0));
+  }
+  const faixa = FAIXAS.find(f => totalMeses <= f.maxMes) || FAIXAS[FAIXAS.length-1];
+  const aw = faixa.aw, nap = faixa.nap;
+
+  function toMin(hhmm) { const [h,m]=hhmm.split(':').map(Number); return h*60+m; }
+  function addMin(base,delta) { const t=Math.round(base+delta)%(24*60); return String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0'); }
+  function setSuggested(el,val) {
+    if (!el) return;
+    /* só sobrescreve se ainda for sugerido ou estiver vazio */
+    if (!el.value || el.dataset.auto==='1') {
+      el.value=val; el.dataset.auto='1';
+      el.style.color='var(--sage-d)'; el.style.borderColor='var(--sage-l)'; el.style.background='var(--sage-p)';
+    }
+  }
+
+  /* Determina quantas sonecas existem */
+  const rawSon = cache.sonecas_por_dia||'';
+  let maxSon=1;
+  if(rawSon==='0')maxSon=0; else if(rawSon==='1')maxSon=1; else if(rawSon==='2')maxSon=2;
+  else if(rawSon==='3-4')maxSon=3; else if(rawSon==='5-6')maxSon=5;
+
+  /* Cursor começa no fim da soneca editada */
+  let cursor = toMin(realEl.value);
+
+  /* Recalcula apenas as sonecas SEGUINTES à editada */
+  for (let i = editedIdx + 1; i <= maxSon; i++) {
+    const inicio = addMin(cursor, aw);
+    const fim    = addMin(cursor, aw + nap);
+    setSuggested(document.getElementById('rt-s'+i+'-esp'),  inicio);
+    setSuggested(document.getElementById('rt-s'+i+'-real'), fim);
+    cursor = (cursor + aw + nap) % (24*60);
+  }
+
+  /* Recalcula o noturno */
+  const noturnoCalcMin = cursor + aw;
+  const noturnoMin = Math.min(Math.max(noturnoCalcMin, 19*60), 21*60);
+  setSuggested(document.getElementById('rt-noturno'), addMin(0, noturnoMin));
 }
 
 function initUserRole() {
