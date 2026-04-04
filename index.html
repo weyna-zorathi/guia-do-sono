@@ -1217,6 +1217,19 @@ body {
 }
 .wm-done-btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(90,112,80,.4); }
 
+/* ── Gênero do bebê ── */
+.wm-genero-row { display:flex; gap:10px; margin-top:4px; }
+.wm-genero-btn {
+  flex:1; padding:10px 6px; border-radius:12px;
+  border:1.5px solid var(--border-d); background:var(--bg-card);
+  color:var(--text); font-family:'DM Sans',sans-serif;
+  font-size:14px; font-weight:500; cursor:pointer;
+  transition:all .18s; text-align:center;
+}
+.wm-genero-btn:hover  { border-color:var(--sage); background:var(--sage-p); }
+.wm-genero-btn.sel    { background:var(--sage-p); border-color:var(--sage); color:var(--sage-d); font-weight:700; }
+.wm-genero-btn:active { transform:scale(.97); }
+
 .wm-field { margin-bottom:14px; }
 .wm-field-label {
   display:block; font-size:11px; font-weight:600; color:var(--text-sub);
@@ -2036,6 +2049,41 @@ body {
   border-color: var(--border) !important;
 }
 
+/* ══ Separação visual: Para o Quarto do Bebê ══ */
+.vitrine-quarto-wrapper {
+  background: linear-gradient(160deg, #fdf8f0 0%, #f5ede0 100%);
+  border: 1.5px solid var(--tc-l);
+  border-radius: 22px;
+  padding: 20px 16px 18px;
+  position: relative;
+  overflow: hidden;
+}
+.vitrine-quarto-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 130px; height: 130px;
+  background: radial-gradient(circle, rgba(196,122,82,.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.vitrine-quarto-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--tc); color: #fff;
+  font-size: 10px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; padding: 4px 12px;
+  border-radius: 20px; margin-bottom: 10px;
+}
+.vitrine-quarto-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px; font-weight: 700;
+  color: var(--night); margin-bottom: 4px; line-height: 1.3;
+}
+.vitrine-quarto-sub {
+  font-family: 'Lora', serif; font-style: italic;
+  font-size: 12px; color: var(--text-sub);
+  margin-bottom: 16px; line-height: 1.55;
+}
+
 /* Chips de filtro: estado active mais premium */
 .vt-tab.active, .f-chip.active {
   box-shadow: 0 2px 12px rgba(30,42,30,.2) !important;
@@ -2149,7 +2197,7 @@ body {
         <div class="page-hdr fu d1">
           <div>
             <div class="hdr-greeting" id="greeting">Bom dia, mamãe ✦</div>
-            <div class="hdr-title">Como foi a noite da nossa <em>pequena?</em></div>
+            <div class="hdr-title" id="home-hdr-title">Como foi a noite da nossa <em>pequena?</em></div>
           </div>
           <div class="hdr-actions">
             <div class="icon-btn">🔔</div>
@@ -2312,22 +2360,21 @@ body {
         </div>
 
         <!-- ══ ESSENCIAIS PARA O QUARTO DO BEBÊ ══ -->
-        <div class="sec-hdr fu d7">
-          <div class="sec-title">🛒 Para o Quarto do seu Bebê</div>
-        </div>
         <div class="px fu d7" style="margin-bottom:6px;">
-          <div style="font-family:'Lora',serif;font-style:italic;font-size:12.5px;color:var(--text-sub);margin-bottom:14px;line-height:1.6;">
-            Uma seleção com muito carinho — cada produto aqui foi escolhido pensando no sono gentil do seu bebê e na sua paz, mamãe. 🌿
-          </div>
-          <div class="vitrine-tabs" id="home-vitrine-tabs" style="margin-bottom:14px;">
-            <div class="vt-tab active" onclick="filterHomeVitrine(this,'todos')">Todos</div>
-            <div class="vt-tab" onclick="filterHomeVitrine(this,'Higiene')">🛁 Higiene</div>
-            <div class="vt-tab" onclick="filterHomeVitrine(this,'Bem-estar')">🌿 Bem-estar</div>
-            <div class="vt-tab" onclick="filterHomeVitrine(this,'Alimentação')">🍼 Alimentação</div>
-            <div class="vt-tab" onclick="filterHomeVitrine(this,'Segurança')">🛡️ Segurança</div>
-          </div>
-          <div class="aff-grid" id="home-vitrine-grid" style="grid-template-columns:1fr 1fr;">
-            <!-- preenchido por renderHomeVitrine() -->
+          <div class="vitrine-quarto-wrapper">
+            <div class="vitrine-quarto-badge">🛒 Curadoria da Weyna</div>
+            <div class="vitrine-quarto-title">Para o Quarto do <em style="color:var(--tc);font-style:italic;">Bebê</em></div>
+            <div class="vitrine-quarto-sub">Cada produto aqui foi escolhido com carinho — pensando no sono gentil do seu bebê e na sua paz, mamãe. 🌿</div>
+            <div class="vitrine-tabs" id="home-vitrine-tabs" style="margin-bottom:14px;">
+              <div class="vt-tab active" onclick="filterHomeVitrine(this,'todos')">Todos</div>
+              <div class="vt-tab" onclick="filterHomeVitrine(this,'Higiene')">🛁 Higiene</div>
+              <div class="vt-tab" onclick="filterHomeVitrine(this,'Bem-estar')">🌿 Bem-estar</div>
+              <div class="vt-tab" onclick="filterHomeVitrine(this,'Alimentação')">🍼 Alimentação</div>
+              <div class="vt-tab" onclick="filterHomeVitrine(this,'Segurança')">🛡️ Segurança</div>
+            </div>
+            <div class="aff-grid" id="home-vitrine-grid" style="grid-template-columns:1fr 1fr;">
+              <!-- preenchido por renderHomeVitrine() -->
+            </div>
           </div>
         </div>
         <div class="sp"></div>
@@ -2723,6 +2770,17 @@ body {
                 <label class="pf-edit-label">Nascimento do bebê</label>
                 <input class="pf-edit-input" id="pf-bebe-nasc" type="date">
               </div>
+              <div>
+                <label class="pf-edit-label">Sexo do bebê</label>
+                <select class="pf-edit-input" id="pf-bebe-genero">
+                  <option value="">— selecione —</option>
+                  <option value="M">💙 Menino</option>
+                  <option value="F">🌸 Menina</option>
+                </select>
+              </div>
+            </div>
+            <div class="pf-edit-row">
+              <div style="display:none"></div>
               <div>
                 <label class="pf-edit-label">Sonecas por dia</label>
                 <select class="pf-edit-input" id="pf-bebe-sonecas">
@@ -3598,16 +3656,26 @@ function initApp() {
 }
 
 function setGreeting() {
-  const h = new Date().getHours();
-  const g = document.getElementById('greeting');
-  const cache = (function(){ try { return JSON.parse(localStorage.getItem('gds_perfil_mae') || '{}'); } catch { return {}; } })();
-  const nome = cache.mae_nome ? ', ' + cache.mae_nome.split(' ')[0] : '';
+  const h     = new Date().getHours();
+  const g     = document.getElementById('greeting');
+  const cache = getPerfilCache();
+  const p     = getBebePronome(cache);
+  const nomeMae = cache.mae_nome ? ', ' + cache.mae_nome.split(' ')[0] : '';
   let msg;
-  if (h < 5)       msg = 'Acordada na madrugada' + nome + '? Estou aqui 🌙';
-  else if (h < 12) msg = 'Bom dia' + nome + ' — que venha um dia leve ✦';
-  else if (h < 18) msg = 'Boa tarde' + nome + ' · você está indo muito bem ✦';
-  else             msg = 'Boa noite' + nome + ' — hora do ritual de sono 🌙';
+  if (h < 5)       msg = 'Acordada na madrugada' + nomeMae + '? Estou aqui 🌙';
+  else if (h < 12) msg = 'Bom dia' + nomeMae + ' — que venha um dia leve ✦';
+  else if (h < 18) msg = 'Boa tarde' + nomeMae + ' · você está indo muito bem ✦';
+  else             msg = 'Boa noite' + nomeMae + ' — hora do ritual de sono 🌙';
   if (g) g.textContent = msg;
+  /* Título dinâmico com concordância de gênero */
+  const title = document.getElementById('home-hdr-title');
+  if (title) {
+    if (cache.nome_bebe) {
+      title.innerHTML = `Como foi a noite d${p.artigo} <em>${cache.nome_bebe}?</em>`;
+    } else {
+      title.innerHTML = `Como foi a noite d${p.artigo} nossa <em>${p.pequeno}?</em>`;
+    }
+  }
 }
 
 function animProgress() {
@@ -3890,12 +3958,12 @@ function bootChat() {
   chatBooted = true;
   refreshChatUI();
   if (remaining() > 0) {
-    const cache = (function(){ try { return JSON.parse(localStorage.getItem('gds_perfil_mae') || '{}'); } catch { return {}; } })();
-    const nomeBebe = cache.nome_bebe || 'seu bebê';
+    const cache = getPerfilCache ? getPerfilCache() : (function(){ try { return JSON.parse(localStorage.getItem('gds_perfil_mae') || '{}'); } catch { return {}; } })();
+    const p = typeof getBebePronome === 'function' ? getBebePronome(cache) : { doNome: 'do seu bebê' };
     const wb = document.createElement('div'); wb.className='w-bubble';
     wb.innerHTML = `
       <span class="w-title">🌿 Olá, mamãe! Sou a Guia do Sono</span>
-      Estou aqui com você — sem julgamento, só acolhimento. Como está o sono d${nomeBebe === 'seu bebê' ? 'o seu bebê' : 'a ' + nomeBebe} hoje? Pode me contar tudo. 💚
+      Estou aqui com você — sem julgamento, só acolhimento. Como está o sono ${p.doNome} hoje? Pode me contar tudo. 💚
       <div class="q-chips">
         <div class="q-chip" onclick="prefill('Meu bebê não dorme de noite')">Não dorme à noite</div>
         <div class="q-chip" onclick="prefill('Como criar uma rotina gentil?')">Criar rotina</div>
@@ -4296,6 +4364,19 @@ function renderWmStep() {
             value="${wmAnswers['nome_bebe'] || ''}" oninput="wmAnswers['nome_bebe']=this.value">
         </div>
         <div class="wm-field">
+          <label class="wm-field-label">Sexo do bebê</label>
+          <div class="wm-genero-row">
+            <button type="button" class="wm-genero-btn ${wmAnswers['genero']==='M'?'sel':''}"
+              onclick="wmAnswers['genero']='M';this.parentElement.querySelectorAll('.wm-genero-btn').forEach(b=>b.classList.remove('sel'));this.classList.add('sel')">
+              💙 Menino
+            </button>
+            <button type="button" class="wm-genero-btn ${wmAnswers['genero']==='F'?'sel':''}"
+              onclick="wmAnswers['genero']='F';this.parentElement.querySelectorAll('.wm-genero-btn').forEach(b=>b.classList.remove('sel'));this.classList.add('sel')">
+              🌸 Menina
+            </button>
+          </div>
+        </div>
+        <div class="wm-field">
           <label class="wm-field-label">Data de nascimento (ou previsão)</label>
           <input class="wm-field-input" id="wm-nasc" type="date"
             value="${wmAnswers['data_nascimento'] || ''}" oninput="wmAnswers['data_nascimento']=this.value">
@@ -4424,6 +4505,7 @@ async function saveWelcomeProfile() {
     nome_bebe:wmAnswers['nome_bebe']||'', data_nascimento:wmAnswers['data_nascimento']||'',
     peso:wmAnswers['peso']||'', altura:wmAnswers['altura']||'',
     sonecas_por_dia:wmAnswers['sonecas_por_dia']||'', apoio:wmAnswers['apoio']||[],
+    genero:wmAnswers['genero']||'',
   };
   savePerfilCache(pfCache);
   applyPerfilCache(pfCache);
@@ -4458,6 +4540,30 @@ function closeGuideModal() { document.getElementById('guide-overlay').classList.
 
 const PF_KEY = 'gds_perfil_mae';
 
+/* ── Pronomes e concordância de gênero ─────────────────────────
+   Uso: const p = getBebePronome();
+   p.artigo   → 'o' | 'a'
+   p.pronome  → 'seu' | 'sua'
+   p.filho    → 'filho' | 'filha'
+   p.pequeno  → 'pequeno' | 'pequena'
+   p.oNome    → 'o Lucas' | 'a Sofia' | 'seu bebê' | 'sua bebê'
+   p.doNome   → 'do Lucas' | 'da Sofia' | 'do seu bebê'
+──────────────────────────────────────────────────────────────── */
+function getBebePronome(cache) {
+  cache = cache || getPerfilCache();
+  const g    = cache.genero || '';
+  const nome = (cache.nome_bebe || '').trim();
+  const f    = g === 'F';
+  return {
+    artigo:  f ? 'a'      : 'o',
+    pronome: f ? 'sua'    : 'seu',
+    filho:   f ? 'filha'  : 'filho',
+    pequeno: f ? 'pequena': 'pequeno',
+    oNome:   nome ? (f ? 'a ' : 'o ') + nome : (f ? 'sua bebê' : 'seu bebê'),
+    doNome:  nome ? (f ? 'da ' : 'do ') + nome : (f ? 'da sua bebê' : 'do seu bebê'),
+  };
+}
+
 function loadMaeAvatar(event) {
   const file = event.target.files[0]; if (!file) return;
   const r = new FileReader();
@@ -4475,13 +4581,14 @@ function savePerfilCache(obj) { localStorage.setItem(PF_KEY, JSON.stringify(obj)
 
 async function savePerfilMae() {
   const nome      = (document.getElementById('pf-mae-nome')?.value    || '').trim();
-  const bebeNome  = (document.getElementById('pf-bebe-nome')?.value   || '').trim();
-  const bebeNasc  = document.getElementById('pf-bebe-nasc')?.value    || '';
-  const sonecas   = document.getElementById('pf-bebe-sonecas')?.value || '';
-  const peso      = (document.getElementById('pf-bebe-peso')?.value   || '').trim();
-  const altura    = (document.getElementById('pf-bebe-altura')?.value || '').trim();
+  const bebeNome  = (document.getElementById('pf-bebe-nome')?.value    || '').trim();
+  const bebeNasc  = document.getElementById('pf-bebe-nasc')?.value     || '';
+  const genero    = document.getElementById('pf-bebe-genero')?.value   || '';
+  const sonecas   = document.getElementById('pf-bebe-sonecas')?.value  || '';
+  const peso      = (document.getElementById('pf-bebe-peso')?.value    || '').trim();
+  const altura    = (document.getElementById('pf-bebe-altura')?.value  || '').trim();
   const cache = getPerfilCache();
-  Object.assign(cache, { mae_nome:nome, nome_bebe:bebeNome, data_nascimento:bebeNasc, sonecas_por_dia:sonecas, peso, altura });
+  Object.assign(cache, { mae_nome:nome, nome_bebe:bebeNome, data_nascimento:bebeNasc, genero, sonecas_por_dia:sonecas, peso, altura });
   savePerfilCache(cache);
   applyPerfilCache(cache);
   if (currentUser && !modoTeste) {
@@ -4511,9 +4618,12 @@ function applyPerfilCache(cache) {
   if (cache.mae_nome)  { const el=document.getElementById('pf-mae-nome');      if(el) el.value=cache.mae_nome; }
   if (cache.nome_bebe) { const el=document.getElementById('pf-bebe-nome');     if(el) el.value=cache.nome_bebe; }
   if (cache.data_nascimento) { const el=document.getElementById('pf-bebe-nasc'); if(el) el.value=cache.data_nascimento; }
+  if (cache.genero) { const el=document.getElementById('pf-bebe-genero'); if(el) el.value=cache.genero; }
   if (cache.sonecas_por_dia) { const el=document.getElementById('pf-bebe-sonecas'); if(el) el.value=cache.sonecas_por_dia; }
   if (cache.peso)   { const el=document.getElementById('pf-bebe-peso');   if(el) el.value=cache.peso; }
   if (cache.altura) { const el=document.getElementById('pf-bebe-altura'); if(el) el.value=cache.altura; }
+  /* Atualiza título home e chat bubble com concordância de gênero */
+  setGreeting && setGreeting();
   if (cache.mae_foto) {
     const el=document.getElementById('p-av');
     if(el) el.innerHTML=`<img src="${cache.mae_foto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
@@ -4696,30 +4806,89 @@ function switchRotinaDay(offset) {
 function getRotinaDate(offset) { const d=new Date(); d.setDate(d.getDate()+offset); return d.toISOString().split('T')[0]; }
 
 function calcJanelas() {
-  const despertar=document.getElementById('rt-despertar')?.value;
-  const hint=document.getElementById('janela-hint');
-  if (!despertar||!hint) return;
-  const [h,m]=despertar.split(':').map(Number);
-  const baseMin=h*60+m;
-  function addMin(base,delta) { const total=Math.round(base+delta)%(24*60); const th=Math.floor(total/60),tm=total%60; return String(th).padStart(2,'0')+':'+String(tm).padStart(2,'0'); }
-  function toMin(hhmm) { const [hh,mm]=hhmm.split(':').map(Number); return hh*60+mm; }
-  const s1Inicio=addMin(baseMin,270), s1Fim=addMin(baseMin,360);
-  const noturnoCalcMin=toMin(s1Fim)+240;
-  const noturnoMin=Math.min(Math.max(noturnoCalcMin,19*60+30),20*60+21);
-  const noturno=addMin(0,noturnoMin);
-  hint.innerHTML='<span style="font-size:13px;">🌅</span> <strong>Soneca 1:</strong> '+s1Inicio+' → '+s1Fim+' &nbsp;&nbsp; <strong>🌙 Noturno:</strong> '+noturno;
-  hint.classList.add('visible');
-  function setSuggested(el,value) {
+  const despertar = document.getElementById('rt-despertar')?.value;
+  const hint      = document.getElementById('janela-hint');
+  if (!despertar || !hint) return;
+
+  const [h, m] = despertar.split(':').map(Number);
+  const baseMin = h * 60 + m;
+
+  function addMin(base, delta) {
+    const total = Math.round(base + delta) % (24 * 60);
+    return String(Math.floor(total / 60)).padStart(2, '0') + ':' + String(total % 60).padStart(2, '0');
+  }
+  function setSuggested(el, value) {
     if (!el) return;
-    if (!el.value||el.dataset.auto==='1') {
-      el.value=value; el.dataset.auto='1';
-      el.style.color='var(--sage-d)'; el.style.borderColor='var(--sage-l)'; el.style.background='var(--sage-p)';
+    if (!el.value || el.dataset.auto === '1') {
+      el.value = value; el.dataset.auto = '1';
+      el.style.color = 'var(--sage-d)';
+      el.style.borderColor = 'var(--sage-l)';
+      el.style.background  = 'var(--sage-p)';
     }
   }
-  setSuggested(document.getElementById('rt-s1-esp'),s1Inicio);
-  setSuggested(document.getElementById('rt-noturno'),noturno);
-  setSuggested(document.getElementById('rt-s1-real'),s1Fim);
-  const progTime=document.querySelector('.prog-time'); if(progTime) progTime.textContent='~'+s1Inicio;
+
+  /* Tabela: janela de vigília (aw) e duração média da soneca (nap) por faixa etária */
+  const FAIXAS = [
+    { maxMes:1,  aw:52,  nap:45  },
+    { maxMes:2,  aw:75,  nap:55  },
+    { maxMes:4,  aw:97,  nap:60  },
+    { maxMes:6,  aw:135, nap:75  },
+    { maxMes:9,  aw:165, nap:90  },
+    { maxMes:12, aw:195, nap:90  },
+    { maxMes:18, aw:240, nap:90  },
+    { maxMes:24, aw:330, nap:120 },
+    { maxMes:999,aw:315, nap:90  },
+  ];
+
+  const cache = getPerfilCache ? getPerfilCache() : {};
+  let totalMeses = 6;
+  if (cache.data_nascimento) {
+    const nasc  = new Date(cache.data_nascimento + 'T00:00:00');
+    const hoje  = new Date();
+    totalMeses  = (hoje.getFullYear() - nasc.getFullYear()) * 12
+                + (hoje.getMonth()   - nasc.getMonth());
+    if (hoje.getDate() < nasc.getDate()) totalMeses--;
+    totalMeses  = Math.max(0, totalMeses);
+  }
+  const faixa = FAIXAS.find(f => totalMeses <= f.maxMes) || FAIXAS[FAIXAS.length - 1];
+  const aw = faixa.aw;
+  const nap = faixa.nap;
+
+  /* Número de sonecas do perfil */
+  const rawSon = cache.sonecas_por_dia || '';
+  let maxSon = 1;
+  if      (rawSon === '0')   maxSon = 0;
+  else if (rawSon === '1')   maxSon = 1;
+  else if (rawSon === '2')   maxSon = 2;
+  else if (rawSon === '3-4') maxSon = 3;
+  else if (rawSon === '5-6') maxSon = 4;
+
+  /* Calcula e preenche cada janela de soneca */
+  let hintParts = [];
+  let cursor    = baseMin;
+
+  for (let i = 1; i <= maxSon; i++) {
+    const inicio = addMin(0, cursor + aw);
+    const fim    = addMin(0, cursor + aw + nap);
+    hintParts.push(`<strong>☀️ S${i}:</strong> ${inicio}–${fim}`);
+    setSuggested(document.getElementById(`rt-s${i}-esp`), inicio);
+    setSuggested(document.getElementById(`rt-s${i}-real`), fim);
+    cursor = (cursor + aw + nap) % (24 * 60);
+  }
+
+  /* Sono noturno: última janela de vigília após última soneca, fixado entre 19h e 21h */
+  const noturnoCalcMin = cursor + aw;
+  const noturnoMin     = Math.min(Math.max(noturnoCalcMin, 19 * 60), 21 * 60);
+  const noturno        = addMin(0, noturnoMin);
+  hintParts.push(`<strong>🌙 Noturno:</strong> ${noturno}`);
+  setSuggested(document.getElementById('rt-noturno'), noturno);
+
+  /* Barra de progresso aponta para 1ª soneca */
+  const progTime = document.querySelector('.prog-time');
+  if (progTime) progTime.textContent = '~' + addMin(0, baseMin + aw);
+
+  hint.innerHTML = '<span style="font-size:13px;">🌅</span> ' + hintParts.join(' &nbsp;&nbsp; ');
+  hint.classList.add('visible');
 }
 
 document.addEventListener('DOMContentLoaded', function() {
