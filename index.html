@@ -1915,6 +1915,197 @@ body {
   border: 1px solid rgba(201,168,76,.3);
 }
 
+/* ══ Ritual do Som – Refactor: animações, dual panel, player spotify, modo bebê ══ */
+@keyframes rsFadeSlideUp {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.rs-col-item { animation: rsFadeSlideUp .38s cubic-bezier(.2,.8,.4,1) both; }
+.rs-col-item:nth-child(1){animation-delay:.04s;}
+.rs-col-item:nth-child(2){animation-delay:.10s;}
+.rs-col-item:nth-child(3){animation-delay:.16s;}
+.rs-col-item:nth-child(4){animation-delay:.22s;}
+.rs-col-item:nth-child(5){animation-delay:.28s;}
+.rs-col-item:nth-child(6){animation-delay:.34s;}
+
+/* ── Dual panel (Sons | Histórias, ambas visíveis) ── */
+.rs-dual-panel {
+  display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px;
+}
+.rs-col { display:flex; flex-direction:column; gap:8px; }
+.rs-col-hdr {
+  font-family:'DM Sans',sans-serif; font-size:11px; font-weight:700;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--text-sub);
+  padding:4px 2px; margin-bottom:2px;
+  display:flex; align-items:center; gap:6px;
+}
+.rs-col-hdr::after { content:''; flex:1; height:1px; background:var(--border); }
+.rs-col-items { display:flex; flex-direction:column; gap:8px; }
+
+/* ── Chip horizontal (coluna Sons) ── */
+.rs-chip-h {
+  display:flex; align-items:center; gap:9px;
+  padding:10px 11px; border-radius:18px;
+  border:1.5px solid var(--border); background:var(--bg-card);
+  cursor:pointer; transition:all .2s cubic-bezier(.34,1.56,.64,1);
+  font-family:'DM Sans',sans-serif;
+  box-shadow:0 2px 8px var(--shadow);
+  position:relative; overflow:hidden; width:100%;
+}
+.rs-chip-h:hover  { border-color:var(--sage-l); transform:translateY(-2px); box-shadow:0 6px 18px var(--shadow-md); }
+.rs-chip-h.active {
+  background:linear-gradient(150deg,#0d1c0e,#1a3020);
+  border-color:var(--sage);
+  box-shadow:0 6px 20px rgba(0,0,0,.28),0 0 0 3px rgba(138,158,127,.18);
+}
+.rs-chip-h:active { transform:scale(.96); }
+.rs-chip-h-icon {
+  width:38px; height:38px; border-radius:11px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:18px;
+  box-shadow:0 3px 10px rgba(0,0,0,.14);
+  transition:transform .2s;
+}
+.rs-chip-h:hover .rs-chip-h-icon { transform:scale(1.08); }
+.rs-chip-h.active .rs-chip-h-icon { transform:scale(1.04); }
+.rs-chip-h-lbl {
+  font-size:11px; font-weight:700; color:var(--text);
+  line-height:1.2; flex:1; min-width:0; text-align:left;
+}
+.rs-chip-h.active .rs-chip-h-lbl { color:rgba(255,255,255,.9); }
+
+/* ── Card história compacto (coluna Histórias) ── */
+.rs-story-compact {
+  display:flex; flex-direction:column; gap:6px;
+  padding:11px; border-radius:18px;
+  border:1.5px solid var(--border); background:var(--bg-card);
+  box-shadow:0 2px 8px var(--shadow);
+  transition:border-color .2s, transform .2s;
+  position:relative; overflow:hidden;
+}
+.rs-story-compact:hover { border-color:var(--sage-l); transform:translateY(-2px); box-shadow:0 6px 18px var(--shadow-md); }
+.rs-story-compact-art {
+  width:100%; aspect-ratio:1; border-radius:12px;
+  display:flex; align-items:center; justify-content:center; font-size:28px;
+  box-shadow:0 3px 10px rgba(0,0,0,.18);
+}
+.rs-story-compact-title {
+  font-family:'Playfair Display',serif;
+  font-size:11px; font-weight:700; color:var(--text);
+  line-height:1.3; text-align:center;
+}
+.rs-story-compact-meta {
+  display:flex; align-items:center; justify-content:center; gap:5px; flex-wrap:wrap;
+}
+.rs-story-compact-btn {
+  margin-top:4px; padding:8px 6px; border-radius:12px; border:none;
+  background:var(--sage-d); color:#fff;
+  font-family:'DM Sans',sans-serif; font-size:11px; font-weight:700;
+  cursor:pointer; width:100%;
+  box-shadow:0 3px 10px rgba(90,112,80,.3);
+  transition:transform .2s, box-shadow .2s, background .2s;
+}
+.rs-story-compact-btn:hover  { background:var(--sage); transform:translateY(-1px); }
+.rs-story-compact-btn:active { transform:scale(.95); }
+.rs-story-compact-btn.pausing { background:var(--tc); }
+
+/* ── Player estilo Spotify (art + info + scrubber + controles + timer inline) ── */
+.rs-pl-art-wrap {
+  display:flex; align-items:center; gap:14px; position:relative; z-index:1;
+}
+.rs-pl-art {
+  width:60px; height:60px; border-radius:14px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:28px;
+  background:linear-gradient(135deg,rgba(138,158,127,.28),rgba(201,168,76,.18));
+  border:1.5px solid rgba(255,255,255,.12);
+  box-shadow:0 4px 16px rgba(0,0,0,.32);
+  transition:background .35s;
+}
+.rs-pl-controls {
+  display:flex; align-items:center; justify-content:space-between;
+  gap:10px; margin-top:15px; position:relative; z-index:1;
+}
+.rs-pl-vol-wrap {
+  display:flex; align-items:center; gap:6px; flex:1;
+}
+.rs-pl-vol-icon { font-size:14px; flex-shrink:0; }
+.rs-pl-vol-wrap input[type=range] { flex:1; accent-color:#8aae7f; }
+.rs-pl-timer-compact {
+  display:flex; align-items:center; gap:4px; flex-shrink:0;
+}
+.rs-timer-pill {
+  padding:5px 9px; border-radius:20px;
+  border:1.5px solid var(--border);
+  background:transparent; font-family:'DM Sans',sans-serif;
+  font-size:10px; font-weight:700; color:var(--text-sub); cursor:pointer;
+  transition:all .18s; line-height:1;
+}
+.rs-timer-pill.active { border-color:var(--sage-d); background:var(--sage-p); color:var(--sage-d); }
+.rs-timer-pill:active { transform:scale(.92); }
+.rs-countdown-pl {
+  text-align:center; margin-top:10px;
+  font-family:'Lora',serif; font-style:italic;
+  font-size:12px; color:rgba(255,255,255,.42); min-height:16px;
+  position:relative; z-index:1;
+}
+
+/* ── Botão Modo Bebê (dentro do player) ── */
+.bm-activate-btn {
+  display:flex; align-items:center; gap:12px;
+  padding:12px 14px; border-radius:16px; margin-top:14px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(0,0,0,.3);
+  cursor:pointer; width:100%;
+  transition:opacity .18s, transform .18s;
+  font-family:'DM Sans',sans-serif; text-align:left;
+  position:relative; z-index:1;
+}
+.bm-activate-btn:hover { opacity:.82; transform:translateY(-1px); }
+.bm-activate-btn:active { transform:scale(.97); }
+.bm-act-icon {
+  width:38px; height:38px; border-radius:11px;
+  background:rgba(138,158,127,.14);
+  display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0;
+}
+.bm-act-body { flex:1; }
+.bm-act-title { font-size:12px; font-weight:700; color:rgba(255,255,255,.8); margin-bottom:2px; }
+.bm-act-sub   { font-size:10px; color:rgba(255,255,255,.32); font-family:'Lora',serif; font-style:italic; }
+.bm-act-arr   { font-size:18px; color:rgba(138,158,127,.45); flex-shrink:0; }
+
+/* ── Modo Bebê overlay ── */
+#bebe-mode-overlay {
+  display:none; position:fixed; inset:0; z-index:9998;
+  background:#010503;
+  flex-direction:column; align-items:center; justify-content:flex-end;
+  padding-bottom:max(env(safe-area-inset-bottom,0px),32px);
+}
+#bebe-mode-overlay.open { display:flex; }
+.bm-inner {
+  width:100%; max-width:340px;
+  display:flex; flex-direction:column; align-items:center; gap:20px; padding:0 28px;
+}
+.bm-moon { font-size:52px; opacity:.15; margin-bottom:4px; }
+.bm-now-playing {
+  font-family:'Lora',serif; font-style:italic;
+  font-size:14px; color:rgba(138,158,127,.5); text-align:center; line-height:1.5;
+}
+.bm-vol-row { display:flex; align-items:center; gap:10px; width:100%; }
+.bm-vol-icon { font-size:16px; color:rgba(138,158,127,.4); }
+.bm-vol-row input[type=range] {
+  flex:1; accent-color:#8a9e7f;
+  -webkit-appearance:none; appearance:none;
+  height:4px; background:rgba(138,158,127,.18); border-radius:4px;
+}
+.bm-stop-btn {
+  padding:14px 36px; border-radius:100px;
+  border:1.5px solid rgba(138,158,127,.3);
+  background:transparent; color:rgba(138,158,127,.75);
+  font-family:'DM Sans',sans-serif; font-size:13px; font-weight:700;
+  cursor:pointer; letter-spacing:.04em;
+  transition:border-color .2s, background .2s;
+}
+.bm-stop-btn:hover { border-color:rgba(138,158,127,.55); background:rgba(138,158,127,.08); }
+.bm-stop-btn:active { transform:scale(.96); }
+
 /* ── Histórias ── */
 .rs-story-list { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
 .rs-story-card {
@@ -3116,33 +3307,57 @@ body {
           </div>
         </div>
 
-        <!-- ── Player compacto ── -->
+        <!-- ── Player estilo Spotify ── -->
         <div class="px fu d2" style="margin-top:14px;">
           <div class="rs-player-card">
-            <div class="rs-player-top">
-              <div class="rs-player-info">
+
+            <!-- Arte + info -->
+            <div class="rs-pl-art-wrap">
+              <div class="rs-pl-art" id="rs-pl-art">🌙</div>
+              <div class="rs-player-info" style="flex:1;min-width:0;">
                 <div class="rs-player-name" id="rs-name">Selecione um som ou história</div>
                 <div class="rs-player-status" id="rs-status">
                   <span class="rs-status-dot" id="rs-dot"></span>
                   <span id="rs-status-txt">Pronto para começar 🌙</span>
                 </div>
               </div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
-                <span style="font-size:9px;color:rgba(255,255,255,.32);text-transform:uppercase;letter-spacing:.08em;font-family:'DM Sans',sans-serif;">Vol</span>
-                <input type="range" id="rs-vol" min="0" max="1" step="0.05" value="0.75"
-                  oninput="rsSetVolume(this.value)"
-                  style="width:58px;accent-color:#8aae7f;">
-              </div>
             </div>
-            <div class="rs-progress-wrap" id="rs-progress-wrap" style="display:none;">
+
+            <!-- Barra de progresso -->
+            <div class="rs-progress-wrap" id="rs-progress-wrap" style="margin-top:14px;display:flex;">
               <div class="rs-progress-bar"><div class="rs-progress-fill" id="rs-progress-fill"></div></div>
-              <div class="rs-progress-time" id="rs-progress-time">0:00</div>
+              <div class="rs-progress-time" id="rs-progress-time">–:––</div>
             </div>
-            <div style="display:flex;justify-content:center;margin-top:18px;position:relative;z-index:1;">
-              <button id="rs-play-btn" class="rs-play-btn" onclick="rsTogglePlay()" title="Reproduzir / Pausar">
+
+            <!-- Controles: vol + play + timer -->
+            <div class="rs-pl-controls">
+              <div class="rs-pl-vol-wrap">
+                <span class="rs-pl-vol-icon">🔈</span>
+                <input type="range" id="rs-vol" min="0" max="1" step="0.05" value="0.75" oninput="rsSetVolume(this.value)">
+              </div>
+              <button id="rs-play-btn" class="rs-play-btn" onclick="rsTogglePlay()" title="Reproduzir / Pausar" style="width:52px;height:52px;font-size:20px;">
                 <span id="rs-play-icon">&#9654;</span>
               </button>
+              <div class="rs-pl-timer-compact">
+                <button class="rs-timer-pill active" id="rst-30" onclick="rsSelectTimer(this,30,'free')" title="30 min">30'</button>
+                <button class="rs-timer-pill" id="rst-120" onclick="rsSelectTimer(this,120,'plus')" title="2 horas">2h</button>
+                <button class="rs-timer-pill" id="rst-0" onclick="rsSelectTimer(this,0,'master')" title="Sem parar">∞</button>
+              </div>
             </div>
+
+            <!-- Countdown inline -->
+            <div class="rs-countdown-pl" id="rs-countdown"></div>
+
+            <!-- Modo Bebê (dentro do player) -->
+            <button class="bm-activate-btn" onclick="activateBabyMode()" type="button">
+              <div class="bm-act-icon">🌑</div>
+              <div class="bm-act-body">
+                <div class="bm-act-title">Modo Bebê</div>
+                <div class="bm-act-sub">Tela escura · só o som suave · sem estímulos</div>
+              </div>
+              <span class="bm-act-arr">›</span>
+            </button>
+
           </div>
         </div>
 
@@ -3226,176 +3441,98 @@ body {
           </div>
         </div>
 
-        <!-- ── Abas Sons / Histórias ── -->
-        <div class="px fu d3" style="margin-top:18px;">
-          <div class="rs-tabs">
-            <button class="rs-tab active" id="rs-tab-sons"      onclick="rsSwitchTab('sons')">&#127925; Sons da Natureza</button>
-            <button class="rs-tab"        id="rs-tab-historias" onclick="rsSwitchTab('historias')">&#128214; Histórias para Sonhar</button>
-          </div>
-        </div>
+        <!-- ══ Dual Panel Sons | Histórias ══ -->
+        <div class="px fu d3">
+          <div class="rs-dual-panel">
 
-        <!-- ══ Painel Sons ══ -->
-        <div id="rs-panel-sons" class="px fu d4" style="margin-top:14px;">
+            <!-- Coluna Sons -->
+            <div class="rs-col">
+              <div class="rs-col-hdr">🎵 Sons</div>
+              <div class="rs-col-items">
 
-          <div class="rs-sound-grid">
+                <button class="rs-chip-h rs-col-item" onclick="rsSelectSound(this,'Chuva Suave','boons_freak-rain-sound-188158 (1).mp3',true,'🌧️')" data-key="chuva">
+                  <div class="rs-chip-h-icon rs2-icon-chuva">🌧️</div>
+                  <span class="rs-chip-h-lbl">Chuva Suave</span>
+                </button>
 
-            <button class="rs-sound-chip" onclick="rsSelectSound(this,'Chuva Suave','boons_freak-rain-sound-188158 (1).mp3',true)" data-key="chuva">
-              <div class="rs2-chip-icon-wrap rs2-icon-chuva">
-                <span class="rs-chip-emoji">&#127783;&#65039;</span>
-              </div>
-              <span class="rs-chip-label">Chuva Suave</span>
-              <span class="rs2-chip-preview">▶ 15s grátis</span>
-            </button>
+                <button class="rs-chip-h rs-col-item" onclick="rsSelectSound(this,'Ruído Branco','themediaguy-soft-soothing-deep-white-noise-378857.mp3',true,'☁️')" data-key="branco">
+                  <div class="rs-chip-h-icon rs2-icon-branco">☁️</div>
+                  <span class="rs-chip-h-lbl">Ruído Branco</span>
+                </button>
 
-            <button class="rs-sound-chip" onclick="rsSelectSound(this,'Ruído Branco','themediaguy-soft-soothing-deep-white-noise-378857.mp3',true)" data-key="branco">
-              <div class="rs2-chip-icon-wrap rs2-icon-branco">
-                <span class="rs-chip-emoji">&#9729;&#65039;</span>
-              </div>
-              <span class="rs-chip-label">Ruído Branco</span>
-              <span class="rs2-chip-preview">▶ 15s grátis</span>
-            </button>
+                <button class="rs-chip-h rs-col-item" onclick="rsSelectSound(this,'Ondas do Mar','kokoreli777-sea-waves-169411.mp3',true,'🌊')" data-key="ondas">
+                  <div class="rs-chip-h-icon rs2-icon-ondas">🌊</div>
+                  <span class="rs-chip-h-lbl">Ondas do Mar</span>
+                </button>
 
-            <button class="rs-sound-chip" onclick="rsSelectSound(this,'Ondas do Mar','kokoreli777-sea-waves-169411.mp3',true)" data-key="ondas">
-              <div class="rs2-chip-icon-wrap rs2-icon-ondas">
-                <span class="rs-chip-emoji">&#127754;</span>
-              </div>
-              <span class="rs-chip-label">Ondas do Mar</span>
-              <span class="rs2-chip-preview">▶ 15s grátis</span>
-            </button>
+                <button class="rs-chip-h rs-col-item" onclick="rsSelectSound(this,'Vento nas Folhas','freesound_community-wind-in-trees-autumn-leaves-rustle-weird-howls-med-77mel-191122-17549.mp3',true,'🍃')" data-key="vento">
+                  <div class="rs-chip-h-icon rs2-icon-vento">🍃</div>
+                  <span class="rs-chip-h-lbl">Vento nas Folhas</span>
+                </button>
 
-            <button class="rs-sound-chip" onclick="rsSelectSound(this,'Vento nas Folhas','freesound_community-wind-in-trees-autumn-leaves-rustle-weird-howls-med-77mel-191122-17549.mp3',true)" data-key="vento">
-              <div class="rs2-chip-icon-wrap rs2-icon-vento">
-                <span class="rs-chip-emoji">&#127811;</span>
-              </div>
-              <span class="rs-chip-label">Vento nas Folhas</span>
-              <span class="rs2-chip-preview">▶ 15s grátis</span>
-            </button>
+                <button class="rs-chip-h rs-col-item" onclick="rsSelectSound(this,'Ruído Rosa','https://assets.mixkit.co/sfx/preview/mixkit-soft-static-noise-loop-1736.mp3',true,'🌸')" data-key="rosa">
+                  <div class="rs-chip-h-icon" style="background:linear-gradient(135deg,#f5c0d0,#e890a0);">🌸</div>
+                  <span class="rs-chip-h-lbl">Ruído Rosa</span>
+                </button>
 
-            <!-- Ruído Rosa – sons graves suaves, especialmente calmantes para bebês -->
-            <button class="rs-sound-chip" onclick="rsSelectSound(this,'Ruído Rosa','https://assets.mixkit.co/sfx/preview/mixkit-soft-static-noise-loop-1736.mp3',true)" data-key="rosa">
-              <div class="rs2-chip-icon-wrap" style="background:linear-gradient(135deg,#f5c0d0,#e890a0);">
-                <span class="rs-chip-emoji">🌸</span>
-              </div>
-              <span class="rs-chip-label">Ruído Rosa</span>
-              <span class="rs2-chip-preview">▶ grátis</span>
-            </button>
+                <button class="rs-chip-h rs-col-item" onclick="rsSelectSound(this,'Batimentos','https://assets.mixkit.co/sfx/preview/mixkit-relaxed-heartbeat-loop-589.mp3',true,'❤️')" data-key="coracao">
+                  <div class="rs-chip-h-icon" style="background:linear-gradient(135deg,#fce0e0,#f0a0a0);">❤️</div>
+                  <span class="rs-chip-h-lbl">Batimentos</span>
+                </button>
 
-            <!-- Batimentos Cardíacos – reproduz o som do útero, ideal para RN -->
-            <button class="rs-sound-chip" onclick="rsSelectSound(this,'Batimentos Cardíacos','https://assets.mixkit.co/sfx/preview/mixkit-relaxed-heartbeat-loop-589.mp3',true)" data-key="coracao">
-              <div class="rs2-chip-icon-wrap" style="background:linear-gradient(135deg,#fce0e0,#f0a0a0);">
-                <span class="rs-chip-emoji">❤️</span>
-              </div>
-              <span class="rs-chip-label">Batimentos Cardíacos</span>
-              <span class="rs2-chip-preview">▶ grátis</span>
-            </button>
-
-          </div>
-
-          <!-- Timer -->
-          <div class="rs-timer-section">
-            <div class="rs-section-label">&#9201; Timer de sono</div>
-            <div class="rs-timer-grid">
-              <button class="rs-timer-btn active" id="rst-30" onclick="rsSelectTimer(this,30,'free')">
-                <span class="rs-timer-min">30 min</span>
-                <span class="rs-timer-badge rs-badge-free">Grátis</span>
-              </button>
-              <button class="rs-timer-btn" id="rst-120" onclick="rsSelectTimer(this,120,'plus')">
-                <span class="rs-timer-min">2 horas</span>
-                <span class="rs-timer-badge rs-badge-plus">Plus</span>
-              </button>
-              <button class="rs-timer-btn" id="rst-0" onclick="rsSelectTimer(this,0,'master')">
-                <span class="rs-timer-min">Sem parar</span>
-                <span class="rs-timer-badge rs-badge-master">Mestre</span>
-              </button>
-            </div>
-            <div class="rs-countdown" id="rs-countdown"></div>
-          </div>
-
-          <!-- Modo Bebê -->
-          <div class="rs2-baby-mode" onclick="showToast('Modo Bebê em breve — tela escura só com som 🌙')">
-            <div class="rs2-baby-left">
-              <div class="rs2-baby-icon">🌑</div>
-              <div>
-                <div class="rs2-baby-title">Modo Bebê</div>
-                <div class="rs2-baby-sub">Tela escura · só o som suave · sem estímulos</div>
               </div>
             </div>
-            <span class="rs2-baby-tag">Em breve</span>
-          </div>
 
-        </div><!-- /panel-sons -->
+            <!-- Coluna Histórias -->
+            <div class="rs-col">
+              <div class="rs-col-hdr">📖 Histórias</div>
+              <div class="rs-col-items">
 
-        <!-- ══ Painel Histórias ══ -->
-        <div id="rs-panel-historias" class="px fu d4" style="display:none;margin-top:14px;">
-
-          <div class="rs-story-list">
-
-            <div class="rs-story-card">
-              <div class="rs-story-left">
-                <div class="rs-story-emoji rs2-story-icon-0">&#128048;</div>
-                <div class="rs-story-info">
-                  <div class="rs-story-title">A Lua e o Coelhinho Sonolento</div>
-                  <div class="rs-story-meta">
+                <div class="rs-story-compact rs-col-item">
+                  <div class="rs-story-compact-art rs2-story-icon-0">🐰</div>
+                  <div class="rs-story-compact-title">A Lua e o Coelhinho</div>
+                  <div class="rs-story-compact-meta">
                     <span class="rs-story-dur">~3 min</span>
                     <span class="rs-story-badge rs-badge-free">Grátis</span>
                   </div>
+                  <button class="rs-story-compact-btn" onclick="rsStartStory(0)" id="rs-story-btn-0">▶ Ouvir</button>
                 </div>
-              </div>
-              <button class="rs-story-btn" onclick="rsStartStory(0)" id="rs-story-btn-0">
-                &#9654; Ouvir
-              </button>
-            </div>
 
-            <div class="rs-story-card">
-              <div class="rs-story-left">
-                <div class="rs-story-emoji rs2-story-icon-1">&#11088;</div>
-                <div class="rs-story-info">
-                  <div class="rs-story-title">O Jardim das Estrelas</div>
-                  <div class="rs-story-meta">
+                <div class="rs-story-compact rs-col-item">
+                  <div class="rs-story-compact-art rs2-story-icon-1">⭐</div>
+                  <div class="rs-story-compact-title">O Jardim das Estrelas</div>
+                  <div class="rs-story-compact-meta">
                     <span class="rs-story-dur">~5 min</span>
                     <span class="rs-story-badge rs-badge-plus">Plus</span>
                   </div>
+                  <button class="rs-story-compact-btn" onclick="rsStartStory(1)" id="rs-story-btn-1">▶ Ouvir</button>
                 </div>
-              </div>
-              <button class="rs-story-btn" onclick="rsStartStory(1)" id="rs-story-btn-1">
-                &#9654; Ouvir
-              </button>
-            </div>
 
-            <div class="rs-story-card">
-              <div class="rs-story-left">
-                <div class="rs-story-emoji rs2-story-icon-2">&#127794;</div>
-                <div class="rs-story-info">
-                  <div class="rs-story-title">A Floresta que Cantava de Mansinho</div>
-                  <div class="rs-story-meta">
+                <div class="rs-story-compact rs-col-item">
+                  <div class="rs-story-compact-art rs2-story-icon-2">🌿</div>
+                  <div class="rs-story-compact-title">A Floresta que Cantava</div>
+                  <div class="rs-story-compact-meta">
                     <span class="rs-story-dur">~8 min</span>
                     <span class="rs-story-badge rs-badge-premium">Premium</span>
                   </div>
+                  <button class="rs-story-compact-btn" onclick="rsStartStory(2)" id="rs-story-btn-2">▶ Ouvir</button>
                 </div>
-              </div>
-              <button class="rs-story-btn" onclick="rsStartStory(2)" id="rs-story-btn-2">
-                &#9654; Ouvir
-              </button>
-            </div>
 
-            <div class="rs-story-card">
-              <div class="rs-story-left">
-                <div class="rs-story-emoji rs2-story-icon-3" style="background:linear-gradient(135deg,#0a2a3a,#0e4a6a);">&#127754;</div>
-                <div class="rs-story-info">
-                  <div class="rs-story-title">O Rio que Levava os Sonhos</div>
-                  <div class="rs-story-meta">
+                <div class="rs-story-compact rs-col-item">
+                  <div class="rs-story-compact-art" style="background:linear-gradient(135deg,#0a2a3a,#0e4a6a);">🌊</div>
+                  <div class="rs-story-compact-title">O Rio dos Sonhos</div>
+                  <div class="rs-story-compact-meta">
                     <span class="rs-story-dur">~9 min</span>
                     <span class="rs-story-badge rs-badge-premium">Premium</span>
                   </div>
+                  <button class="rs-story-compact-btn" onclick="rsStartStory(3)" id="rs-story-btn-3">▶ Ouvir</button>
                 </div>
+
               </div>
-              <button class="rs-story-btn" onclick="rsStartStory(3)" id="rs-story-btn-3">
-                &#9654; Ouvir
-              </button>
             </div>
 
           </div>
-        </div><!-- /panel-historias -->
+        </div><!-- /dual-panel -->
 
         <div class="sp"></div>
       </div>
@@ -3504,6 +3641,21 @@ body {
       </div>
       <button style="width:100%;padding:13px;background:linear-gradient(135deg,var(--sage),var(--sage-d));color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;margin-top:8px;" onclick="closeGuideModal()">Entendi! Vou observar hoje 🌿</button>
     </div>
+  </div>
+</div>
+
+<!-- ══ MODO BEBÊ OVERLAY ══ -->
+<div id="bebe-mode-overlay">
+  <div class="bm-inner">
+    <div class="bm-moon">🌙</div>
+    <div class="bm-now-playing" id="bm-now-playing">Nenhum áudio selecionado</div>
+    <div class="bm-vol-row">
+      <span class="bm-vol-icon">🔈</span>
+      <input type="range" min="0" max="1" step="0.05" value="0.75"
+        oninput="rsSetVolume(this.value);document.getElementById('rs-vol').value=this.value">
+      <span class="bm-vol-icon">🔊</span>
+    </div>
+    <button class="bm-stop-btn" onclick="deactivateBabyMode()">■ &nbsp;Encerrar Modo Bebê</button>
   </div>
 </div>
 
@@ -5393,13 +5545,18 @@ function guideToddlerContent() { return '<div class="gm-section"><div class="gm-
   function rsSetName(name) { var el=rsEl('rs-name'); if(el) el.textContent=name; }
   function rsSetPlayBtn(playing) { var btn=rsEl('rs-play-btn'),icon=rsEl('rs-play-icon'); if(!btn||!icon) return; if(playing){btn.classList.add('playing');icon.textContent='⏸';}else{btn.classList.remove('playing');icon.textContent='▶';} }
 
+  function rsSetArt(emoji){var el=rsEl('rs-pl-art');if(el)el.textContent=emoji||'🌙';}
+  function rsBmNowPlaying(name){var el=rsEl('bm-now-playing');if(el)el.textContent=name||'Nenhum áudio selecionado';}
   window.rsSetVolume=function(v){rsAudio.volume=parseFloat(v);};
-  window.rsSwitchTab=function(tab){rsEl('rs-panel-sons').style.display=(tab==='sons')?'block':'none';rsEl('rs-panel-historias').style.display=(tab==='historias')?'block':'none';rsEl('rs-tab-sons').classList.toggle('active',tab==='sons');rsEl('rs-tab-historias').classList.toggle('active',tab==='historias');};
-  window.rsSelectSound=function(btn,name,url,loop){
+  window.rsSwitchTab=function(tab){/* dual panel — no-op, kept for category shortcuts */};
+  window.rsSelectSound=function(btn,name,url,loop,art){
     rsStopStory();
+    document.querySelectorAll('.rs-chip-h').forEach(function(c){c.classList.remove('active');});
     document.querySelectorAll('.rs-sound-chip').forEach(function(c){c.classList.remove('active');});
-    btn.classList.add('active'); rsAudio.src=url; rsAudio.loop=!!loop; rsSetName(name); rsSetStatus('Som selecionado — pressione ▶',false);
-    var pw=rsEl('rs-progress-wrap'); if(pw) pw.style.display='none'; rs.isStory=false;
+    btn.classList.add('active'); rsAudio.src=url; rsAudio.loop=!!loop;
+    rsSetName(name); rsSetArt(art||'🎵'); rsBmNowPlaying(name);
+    rsSetStatus('Som selecionado — pressione ▶',false);
+    rs.isStory=false;
     rsAudio.play().then(function(){rs.playing=true;rsSetPlayBtn(true);rsSetStatus('Tocando…',true);rsStartTimer();}).catch(function(e){rsSetStatus('Toque ▶ para começar',false);});
   };
   window.rsTogglePlay=function(){
@@ -5421,10 +5578,13 @@ function guideToddlerContent() { return '<div class="gm-section"><div class="gm-
     document.querySelectorAll('.rs-sound-chip').forEach(function(c){c.classList.remove('active');});
     if(rs.storyIdx===idx&&rs.storyUtter&&speechSynthesis.speaking){rsToggleStory();return;}
     rsStopStory(); rs.isStory=true; rs.storyIdx=idx;
+    var STORY_ARTS=['🐰','⭐','🌿','🌊'];
+    rsSetArt(STORY_ARTS[idx]||'📖'); rsBmNowPlaying(story.title);
     var pw=rsEl('rs-progress-wrap'); if(pw) pw.style.display='flex';
     rsSetName(story.title); rsSetStatus('Narrando…',true); rsSetPlayBtn(true);
+    document.querySelectorAll('.rs-story-compact-btn').forEach(function(b){b.classList.remove('pausing');});
     document.querySelectorAll('.rs-story-btn').forEach(function(b){b.classList.remove('pausing');});
-    var sbtn=rsEl('rs-story-btn-'+idx); if(sbtn){sbtn.innerHTML='<span>⏸</span> Pausar';sbtn.classList.add('pausing');}
+    var sbtn=rsEl('rs-story-btn-'+idx); if(sbtn){sbtn.textContent='⏸ Pausar';sbtn.classList.add('pausing');}
     var words=story.text.split(/\s+/).length; rs.storyLen=(words/130)*60; rs.storyStart=Date.now();
     rs.progHandle=setInterval(function(){var elapsed=(Date.now()-rs.storyStart)/1000;var pct=Math.min((elapsed/rs.storyLen)*100,100);var fill=rsEl('rs-progress-fill');if(fill)fill.style.width=pct+'%';var timeEl=rsEl('rs-progress-time');if(timeEl){var rem=Math.max(0,Math.round(rs.storyLen-elapsed));timeEl.textContent=Math.floor(rem/60)+':'+String(rem%60).padStart(2,'0');}},500);
     var utter=new SpeechSynthesisUtterance(story.text); utter.lang='pt-BR'; utter.rate=0.88; utter.pitch=1.05; utter.volume=1;
@@ -5436,11 +5596,22 @@ function guideToddlerContent() { return '<div class="gm-section"><div class="gm-
     rs.storyUtter=utter; speechSynthesis.speak(utter);
   };
 
-  function rsToggleStory(){if(!rs.storyUtter)return;if(speechSynthesis.paused){speechSynthesis.resume();rsSetPlayBtn(true);rsSetStatus('Narrando…',true);var idx=rs.storyIdx;var sbtn=rsEl('rs-story-btn-'+idx);if(sbtn){sbtn.innerHTML='<span>⏸</span> Pausar';sbtn.classList.add('pausing');}}else{speechSynthesis.pause();rsSetPlayBtn(false);rsSetStatus('Pausado',false);var idx2=rs.storyIdx;var sbtn2=rsEl('rs-story-btn-'+idx2);if(sbtn2){sbtn2.innerHTML='<span>▶</span> Continuar';sbtn2.classList.remove('pausing');}}}
+  function rsToggleStory(){if(!rs.storyUtter)return;var idx=rs.storyIdx;var sbtn=rsEl('rs-story-btn-'+idx);if(speechSynthesis.paused){speechSynthesis.resume();rsSetPlayBtn(true);rsSetStatus('Narrando…',true);if(sbtn){sbtn.textContent='⏸ Pausar';sbtn.classList.add('pausing');}}else{speechSynthesis.pause();rsSetPlayBtn(false);rsSetStatus('Pausado',false);if(sbtn){sbtn.textContent='▶ Continuar';sbtn.classList.remove('pausing');}}}
 
-  function rsStopStory(){if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.cancel();if(rs.progHandle){clearInterval(rs.progHandle);rs.progHandle=null;}rs.storyUtter=null;rs.storyIdx=-1;rs.isStory=false;document.querySelectorAll('.rs-story-btn').forEach(function(b){b.classList.remove('pausing');var idx=parseInt(b.id.replace('rs-story-btn-',''));if(!isNaN(idx))b.innerHTML='<span>▶</span> Ouvir';});var pw=rsEl('rs-progress-wrap');if(pw)pw.style.display='none';var fill=rsEl('rs-progress-fill');if(fill)fill.style.width='0%';}
+  function rsStopStory(){if(speechSynthesis.speaking||speechSynthesis.pending)speechSynthesis.cancel();if(rs.progHandle){clearInterval(rs.progHandle);rs.progHandle=null;}rs.storyUtter=null;rs.storyIdx=-1;rs.isStory=false;document.querySelectorAll('.rs-story-compact-btn').forEach(function(b){b.classList.remove('pausing');b.textContent='▶ Ouvir';});document.querySelectorAll('.rs-story-btn').forEach(function(b){b.classList.remove('pausing');b.textContent='▶ Ouvir';});var pw=rsEl('rs-progress-wrap');if(pw)pw.style.display='flex';var fill=rsEl('rs-progress-fill');if(fill)fill.style.width='0%';}
 
   if(typeof speechSynthesis!=='undefined'&&speechSynthesis.onvoiceschanged!==undefined){speechSynthesis.onvoiceschanged=function(){speechSynthesis.getVoices();};}
+
+  window.activateBabyMode=function(){
+    var ov=rsEl('bebe-mode-overlay'); if(!ov) return;
+    ov.classList.add('open');
+    // keep screen on if supported
+    if(navigator.wakeLock){navigator.wakeLock.request('screen').then(function(wl){rs._wakeLock=wl;}).catch(function(){});}
+  };
+  window.deactivateBabyMode=function(){
+    var ov=rsEl('bebe-mode-overlay'); if(ov) ov.classList.remove('open');
+    if(rs._wakeLock){rs._wakeLock.release().catch(function(){});rs._wakeLock=null;}
+  };
 })();
 
 /* ═══════════════════════════════════════
