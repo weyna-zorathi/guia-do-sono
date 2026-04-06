@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Ritual de Som · Guia do Sono</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,24 +19,29 @@
   --night:#2c3e2d; --gold:#c9a84c; --gold-l:#f0d98c; --gold-p:#faf3df;
   --text:#2d3a2d; --text-sub:#8a9070;
   --border:#e8e0d5; --border-d:#d0c8bc;
-  --shadow:rgba(45,58,45,.06); --shadow-md:rgba(45,58,45,.13);
+  --shadow:rgba(45,58,45,.06); --shadow-md:rgba(45,58,45,.14);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;
-  min-height:100vh;-webkit-font-smoothing:antialiased;overscroll-behavior:none;}
-body{padding-bottom:220px;}
+html,body{
+  background:var(--bg);color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;-webkit-font-smoothing:antialiased;overscroll-behavior:none;
+}
+body{padding-bottom:230px;}
 
-/* ── HERO ── */
+/* ═══ HERO ═══ */
 .rsh-hero{
   position:relative;overflow:hidden;
   background:linear-gradient(160deg,#1a2e1a 0%,#2d4a2d 55%,#3d5a3a 100%);
-  min-height:200px;display:flex;flex-direction:column;justify-content:flex-end;
+  min-height:190px;display:flex;flex-direction:column;justify-content:flex-end;
 }
 .rsh-hero-sky{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
-.rsh-star{position:absolute;background:#fff;border-radius:50%;
-  animation:rsh-twinkle var(--d,3s) ease-in-out infinite var(--delay,0s);opacity:0;}
+.rsh-star{
+  position:absolute;background:#fff;border-radius:50%;
+  animation:rsh-twinkle var(--d,3s) ease-in-out infinite var(--delay,0s);opacity:0;
+}
 @keyframes rsh-twinkle{0%,100%{opacity:0;}50%{opacity:var(--op,.7);}}
-.rsh-hero-trees{position:absolute;bottom:0;left:0;right:0;height:72px;pointer-events:none;}
+.rsh-hero-trees{position:absolute;bottom:0;left:0;right:0;height:64px;pointer-events:none;}
 .rsh-hero-hdr{
   position:absolute;top:0;left:0;right:0;z-index:10;
   display:flex;align-items:center;justify-content:space-between;
@@ -41,282 +49,178 @@ body{padding-bottom:220px;}
 }
 .rsh-back{
   width:40px;height:40px;border-radius:50%;
-  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);
-  color:#fdfbf7;font-size:18px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;transition:all .18s;
-  flex-shrink:0;
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.22);
+  color:#fdfbf7;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .18s,transform .18s;flex-shrink:0;
 }
-.rsh-back:active{background:rgba(255,255,255,.26);transform:scale(.92);}
+.rsh-back:active{background:rgba(255,255,255,.28);transform:scale(.9);}
 .rsh-hdr-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#fdfbf7;}
 .rsh-hdr-title em{color:var(--gold);font-style:italic;}
-.rsh-hero-body{position:relative;z-index:2;padding:64px 20px 70px;}
-.rsh-hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
-  color:rgba(253,251,247,.45);margin-bottom:6px;}
-.rsh-hero-h1{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;
-  color:#fdfbf7;line-height:1.2;margin-bottom:6px;}
+.rsh-hero-body{position:relative;z-index:2;padding:60px 20px 66px;}
+.rsh-hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(253,251,247,.45);margin-bottom:6px;}
+.rsh-hero-h1{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:#fdfbf7;line-height:1.2;margin-bottom:6px;}
 .rsh-hero-h1 em{color:var(--gold);font-style:italic;}
-.rsh-hero-sub{font-family:'Lora',serif;font-style:italic;font-size:13px;color:rgba(253,251,247,.52);}
+.rsh-hero-sub{font-family:'Lora',serif;font-style:italic;font-size:13px;color:rgba(253,251,247,.5);}
 
-/* ── TABS ── */
+/* ═══ TABS ═══ */
 .rsh-tabs-outer{
   background:var(--bg);border-radius:24px 24px 0 0;
   margin-top:-22px;position:sticky;top:0;z-index:50;
-  padding:14px 14px 0;
-  box-shadow:0 -6px 20px rgba(0,0,0,.06);
+  padding:14px 12px 0;box-shadow:0 -6px 20px rgba(0,0,0,.06);
 }
 .rsh-tabs{
   display:flex;gap:6px;background:#ede8df;border-radius:18px;padding:5px;
-  box-shadow:inset 0 2px 6px rgba(45,58,45,.08);
+  box-shadow:inset 0 2px 8px rgba(45,58,45,.09);
 }
 .rsh-tab{
-  flex:1;padding:12px 6px;border:none;border-radius:14px;
-  background:transparent;color:var(--text-sub);
-  font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:700;
-  cursor:pointer;transition:all .22s cubic-bezier(.34,1.56,.64,1);
+  flex:1;padding:11px 4px 10px;border:none;border-radius:14px;
+  background:transparent;color:var(--text-sub);font-family:'DM Sans',sans-serif;cursor:pointer;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:4px;line-height:1.2;letter-spacing:.01em;
+  gap:4px;transition:all .22s cubic-bezier(.34,1.56,.64,1);
 }
-.rsh-tab-icon{font-size:20px;display:block;transition:transform .22s;}
-.rsh-tab-label{display:block;white-space:nowrap;}
-.rsh-tab.active{
-  background:var(--night);color:#fdfbf7;
-  box-shadow:0 4px 14px rgba(26,46,26,.32);
-  transform:translateY(-1px);
-}
-.rsh-tab.active .rsh-tab-icon{transform:scale(1.12);}
-.rsh-tab:active{transform:scale(.95);}
+.rsh-tab-icon{font-size:22px;line-height:1;display:block;transition:transform .22s;}
+.rsh-tab-label{display:block;font-size:11px;font-weight:700;white-space:nowrap;line-height:1;letter-spacing:.01em;}
+.rsh-tab.active{background:var(--night);color:#fdfbf7;box-shadow:0 4px 16px rgba(26,46,26,.35);transform:translateY(-1px);}
+.rsh-tab.active .rsh-tab-icon{transform:scale(1.14);}
+.rsh-tab:not(.active):hover{background:rgba(45,58,45,.06);}
+.rsh-tab:active{transform:scale(.94)!important;}
 
-/* ── PANELS ── */
+/* ═══ PANELS ═══ */
 .rsh-panel{display:none;padding:16px 14px 8px;}
 .rsh-panel.active{display:block;}
-.rsh-sec-lbl{
-  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--sage-d);margin-bottom:14px;
-  display:flex;align-items:center;gap:8px;
-}
+.rsh-sec-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--sage-d);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
 .rsh-sec-lbl::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--sage-l),transparent);}
 
-/* ── CARDS GRID ── */
+/* ═══ SOUND/MUSIC CARDS GRID ═══ */
 .rsh-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
 .rsh-card{
   position:relative;display:flex;flex-direction:column;align-items:center;
-  gap:0;padding:22px 12px 16px;
-  background:var(--bg-card);border-radius:24px;border:1.5px solid var(--border);
+  padding:22px 12px 16px;background:var(--bg-card);border-radius:24px;border:1.5px solid var(--border);
   cursor:pointer;transition:all .22s cubic-bezier(.34,1.56,.64,1);
   box-shadow:0 2px 10px var(--shadow);overflow:hidden;text-align:center;
 }
-.rsh-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;
-  background:var(--cc,var(--sage));opacity:0;transition:opacity .22s;border-radius:24px 24px 0 0;}
-.rsh-card.active{border-color:var(--cc,var(--sage));background:var(--cb,var(--sage-p));
-  box-shadow:0 8px 24px var(--shadow-md);transform:translateY(-3px);}
+.rsh-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--cc,var(--sage));opacity:0;transition:opacity .22s;border-radius:24px 24px 0 0;}
+.rsh-card.active{border-color:var(--cc,var(--sage));background:var(--cb,var(--sage-p));box-shadow:0 8px 28px var(--shadow-md);transform:translateY(-3px);}
 .rsh-card.active::before{opacity:1;}
-.rsh-card:active{transform:scale(.96);}
+.rsh-card:active{transform:scale(.95)!important;}
 .rsh-card-art{
-  width:82px;height:82px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;font-size:38px;
-  background:var(--cb,var(--sage-p));
-  box-shadow:0 6px 18px rgba(0,0,0,.12);
-  transition:transform .22s, box-shadow .22s;
-  margin-bottom:12px;
+  width:84px;height:84px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:40px;
+  background:var(--cb,var(--sage-p));box-shadow:0 6px 20px rgba(0,0,0,.11);
+  transition:transform .22s,box-shadow .22s;margin-bottom:12px;flex-shrink:0;
 }
-.rsh-card.active .rsh-card-art{transform:scale(1.1);box-shadow:0 8px 24px rgba(0,0,0,.18);}
+.rsh-card.active .rsh-card-art{transform:scale(1.1);box-shadow:0 8px 28px rgba(0,0,0,.18);}
 .rsh-card-title{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:4px;}
 .rsh-card.active .rsh-card-title{color:var(--cc,var(--sage-d));}
-.rsh-card-desc{font-family:'Lora',serif;font-style:italic;font-size:11px;color:var(--text-sub);line-height:1.3;margin-bottom:8px;}
-.rsh-card-dur{
-  font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;
-  padding:3px 10px;border-radius:20px;
-  background:rgba(138,158,127,.14);color:var(--sage-d);
-  letter-spacing:.03em;
-}
-.rsh-card.active .rsh-card-dur{background:rgba(255,255,255,.5);}
+.rsh-card-desc{font-family:'Lora',serif;font-style:italic;font-size:11px;color:var(--text-sub);line-height:1.3;margin-bottom:9px;}
+.rsh-card-dur{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;padding:3px 11px;border-radius:20px;background:rgba(138,158,127,.13);color:var(--sage-d);letter-spacing:.03em;}
+.rsh-card.active .rsh-card-dur{background:rgba(255,255,255,.55);}
 
-/* ── STORY CARDS ── */
+/* ═══ STORY CARDS GRID ═══ */
 .rsh-story-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
 .rsh-story-card{
   position:relative;display:flex;flex-direction:column;align-items:center;
-  gap:0;padding:20px 12px 16px;
-  background:var(--bg-card);border-radius:24px;border:1.5px solid var(--border);
+  padding:20px 12px 16px;background:var(--bg-card);border-radius:24px;border:1.5px solid var(--border);
   cursor:pointer;transition:all .22s cubic-bezier(.34,1.56,.64,1);
-  box-shadow:0 2px 10px var(--shadow);overflow:hidden;text-align:center;
+  box-shadow:0 2px 10px var(--shadow);overflow:hidden;text-align:center;min-height:190px;
 }
-.rsh-story-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;
-  background:var(--lav);opacity:0;transition:opacity .22s;border-radius:24px 24px 0 0;}
-.rsh-story-card.active{border-color:var(--lav);background:var(--lav-p);
-  box-shadow:0 8px 24px var(--shadow-md);transform:translateY(-3px);}
+.rsh-story-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--lav);opacity:0;transition:opacity .22s;border-radius:24px 24px 0 0;}
+.rsh-story-card.active{border-color:var(--lav);background:var(--lav-p);box-shadow:0 8px 28px var(--shadow-md);transform:translateY(-3px);}
 .rsh-story-card.active::before{opacity:1;}
 .rsh-story-card.locked{opacity:.62;cursor:default;}
-.rsh-story-card:not(.locked):active{transform:scale(.96);}
+.rsh-story-card:not(.locked):active{transform:scale(.95)!important;}
 .rsh-story-card-art{
-  width:74px;height:74px;border-radius:20px;
+  width:72px;height:72px;border-radius:18px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;font-size:34px;
-  box-shadow:0 6px 18px rgba(0,0,0,.14);
-  transition:transform .22s;
-  margin-bottom:11px;flex-shrink:0;
+  box-shadow:0 6px 18px rgba(0,0,0,.14);transition:transform .22s;margin-bottom:11px;
 }
 .rsh-story-card.active .rsh-story-card-art{transform:scale(1.08);}
 .rsh-story-card-title{
-  font-family:'Playfair Display',serif;font-size:12px;font-weight:700;color:var(--text);
-  line-height:1.35;margin-bottom:6px;
-  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+  font-family:'Playfair Display',serif;font-size:12px;font-weight:700;
+  color:var(--text);line-height:1.4;margin-bottom:auto;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;padding-bottom:8px;
 }
-.rsh-story-card.active .rsh-story-card-title{color:#5a4a8a;}
-.rsh-story-card-meta{display:flex;flex-direction:column;align-items:center;gap:5px;margin-top:auto;}
+.rsh-story-card.active .rsh-story-card-title{color:#5a4a90;}
+.rsh-story-card-meta{display:flex;flex-direction:column;align-items:center;gap:5px;padding-top:8px;border-top:1px solid rgba(0,0,0,.06);width:100%;}
 .rsh-story-card-dur{font-family:'Lora',serif;font-style:italic;font-size:11px;color:var(--text-sub);}
 .rsh-badge{font-size:9px;font-weight:700;padding:3px 9px;border-radius:20px;font-family:'DM Sans',sans-serif;letter-spacing:.04em;}
 .rsh-badge-free{background:var(--sage-p);color:var(--sage-d);}
 .rsh-badge-plus{background:var(--gold-p);color:#7a6010;}
 .rsh-badge-premium{background:var(--lav-p);color:var(--lav);}
-.rsh-story-lock-overlay{
-  position:absolute;bottom:12px;right:12px;
-  font-size:18px;opacity:.5;
-}
+.rsh-story-lock{position:absolute;top:10px;right:12px;font-size:16px;opacity:.45;}
 
-/* ── TIMER SECTION ── */
+/* ═══ TIMER SECTION ═══ */
 .rsh-timer-sec{margin-top:20px;padding-top:18px;border-top:1px solid var(--border);}
 .rsh-timer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;}
-.rsh-timer-opt{
-  display:flex;flex-direction:column;align-items:center;gap:4px;
-  padding:13px 8px;border-radius:16px;border:1.5px solid var(--border);
-  background:var(--bg-card);cursor:pointer;transition:all .2s;
-  box-shadow:0 2px 6px var(--shadow);font-family:'DM Sans',sans-serif;
-}
+.rsh-timer-opt{display:flex;flex-direction:column;align-items:center;gap:4px;padding:13px 8px;border-radius:16px;border:1.5px solid var(--border);background:var(--bg-card);cursor:pointer;transition:all .2s;box-shadow:0 2px 6px var(--shadow);font-family:'DM Sans',sans-serif;}
 .rsh-timer-opt:active{transform:scale(.95);}
 .rsh-timer-opt.active{border-color:var(--sage-d);background:var(--sage-p);box-shadow:0 0 0 4px rgba(90,112,80,.12);}
 .rsh-timer-opt .lbl{font-size:13px;font-weight:700;color:var(--text);}
 .rsh-timer-opt.active .lbl{color:var(--sage-d);}
-.rsh-timer-opt .sub{font-size:9px;font-weight:700;font-family:'DM Sans',sans-serif;}
-.rsh-timer-opt.locked-opt{opacity:.55;cursor:default;}
+.rsh-timer-opt .sub{font-size:9px;font-weight:700;}
+.rsh-timer-opt.locked-opt{opacity:.52;cursor:default;}
 
-/* ── FIXED PLAYER (Spotify style) ── */
+/* ═══ PLAYER FIXO ═══ */
 .rsh-player{
   position:fixed;bottom:0;left:0;right:0;z-index:200;
-  background:linear-gradient(170deg,#0d1c0f 0%,#162a1a 60%,#1e3828 100%);
-  border-radius:20px 20px 0 0;
-  padding:8px 16px calc(12px + env(safe-area-inset-bottom,0px));
-  box-shadow:0 -10px 48px rgba(0,0,0,.38),0 0 0 1px rgba(138,158,127,.12);
-  transform:translateY(110%);
-  transition:transform .38s cubic-bezier(.2,.8,.4,1);
-  max-height:80vh;overflow:hidden;display:flex;flex-direction:column;
+  background:linear-gradient(170deg,#0d1c0f 0%,#162819 55%,#1d3525 100%);
+  border-radius:22px 22px 0 0;
+  padding:8px 16px calc(14px + env(safe-area-inset-bottom,0px));
+  box-shadow:0 -12px 50px rgba(0,0,0,.42),0 0 0 1px rgba(138,158,127,.1);
+  transform:translateY(110%);transition:transform .4s cubic-bezier(.2,.8,.4,1);
+  display:flex;flex-direction:column;max-height:82vh;overflow:hidden;
 }
 .rsh-player.visible{transform:translateY(0);}
-.rsh-player-handle{
-  width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,.15);
-  margin:0 auto 12px;flex-shrink:0;cursor:pointer;
-}
-
-/* Main row: art + info + controls */
+.rsh-player-handle{width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,.14);margin:0 auto 12px;flex-shrink:0;cursor:pointer;}
 .rsh-player-main{display:flex;align-items:center;gap:14px;flex-shrink:0;}
 .rsh-player-art{
-  width:64px;height:64px;border-radius:16px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;font-size:30px;
-  background:linear-gradient(135deg,rgba(138,158,127,.3),rgba(201,168,76,.2));
-  border:1.5px solid rgba(255,255,255,.1);
-  box-shadow:0 6px 20px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.06);
-  transition:all .3s;
+  width:66px;height:66px;border-radius:16px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:32px;
+  background:linear-gradient(135deg,rgba(138,158,127,.28),rgba(201,168,76,.18));
+  border:1.5px solid rgba(255,255,255,.09);
+  box-shadow:0 6px 22px rgba(0,0,0,.45);transition:box-shadow .3s;
 }
-.rsh-player-art.playing{
-  box-shadow:0 6px 28px rgba(106,170,96,.35),0 0 0 3px rgba(106,170,96,.15);
+.rsh-player-art.pulsing{animation:art-pulse 2s ease-in-out infinite;}
+@keyframes art-pulse{
+  0%,100%{box-shadow:0 6px 22px rgba(0,0,0,.45),0 0 0 0 rgba(106,170,96,.0);}
+  50%{box-shadow:0 6px 22px rgba(0,0,0,.45),0 0 0 8px rgba(106,170,96,.15);}
 }
 .rsh-player-info{flex:1;min-width:0;}
-.rsh-player-title{
-  font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#fdfbf7;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;
-}
-.rsh-player-sub{font-family:'Lora',serif;font-style:italic;font-size:11.5px;color:rgba(255,255,255,.42);}
+.rsh-player-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:#fdfbf7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;}
+.rsh-player-sub{font-family:'Lora',serif;font-style:italic;font-size:11.5px;color:rgba(255,255,255,.4);}
 .rsh-player-btns{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.rsh-stop-btn{
-  width:38px;height:38px;border-radius:50%;border:none;
-  background:rgba(255,255,255,.08);color:rgba(255,255,255,.55);font-size:13px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;transition:all .18s;
-  border:1px solid rgba(255,255,255,.1);
-}
+.rsh-stop-btn{width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:rgba(255,255,255,.55);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .18s;}
 .rsh-stop-btn:active{background:rgba(255,255,255,.18);transform:scale(.9);}
-.rsh-play-btn{
-  width:52px;height:52px;border-radius:50%;border:none;
-  background:linear-gradient(135deg,#6aaa60,var(--sage-d));
-  color:#fff;font-size:20px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 20px rgba(90,112,80,.55);
-  transition:transform .18s,box-shadow .18s;
-}
+.rsh-play-btn{width:54px;height:54px;border-radius:50%;border:none;background:linear-gradient(135deg,#6aaa60,var(--sage-d));color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 22px rgba(90,112,80,.6);transition:transform .18s,box-shadow .18s;}
 .rsh-play-btn:active{transform:scale(.88);}
-.rsh-play-btn.playing{
-  background:linear-gradient(135deg,var(--tc),#a05038);
-  box-shadow:0 4px 20px rgba(196,122,82,.5);
-}
-
-/* Progress bar */
+.rsh-play-btn.playing{background:linear-gradient(135deg,var(--tc),#a05038);box-shadow:0 4px 22px rgba(196,122,82,.55);}
 .rsh-progress-row{display:flex;align-items:center;gap:8px;margin-top:12px;flex-shrink:0;}
-.rsh-prog-time-left{font-size:10px;color:rgba(255,255,255,.35);font-family:'DM Sans',sans-serif;flex-shrink:0;min-width:32px;}
-.rsh-prog-track{
-  flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:4px;
-  cursor:pointer;position:relative;
-}
-.rsh-prog-fill{
-  height:100%;width:0%;border-radius:4px;pointer-events:none;
-  background:linear-gradient(90deg,var(--sage-l),var(--gold-l));
-  transition:width .5s linear;
-}
-.rsh-prog-time{font-size:10px;color:rgba(255,255,255,.35);font-family:'DM Sans',sans-serif;flex-shrink:0;min-width:32px;text-align:right;}
-
-/* Extra row: volume + timer pills */
+.rsh-prog-elapsed{font-size:10px;color:rgba(255,255,255,.32);font-family:'DM Sans',sans-serif;flex-shrink:0;min-width:30px;}
+.rsh-prog-track{flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:4px;cursor:pointer;position:relative;overflow:hidden;}
+.rsh-prog-fill{height:100%;width:0%;border-radius:4px;pointer-events:none;background:linear-gradient(90deg,var(--sage-l),var(--gold-l));transition:width .5s linear;}
+.rsh-prog-remain{font-size:10px;color:rgba(255,255,255,.32);font-family:'DM Sans',sans-serif;flex-shrink:0;min-width:30px;text-align:right;}
 .rsh-player-extra{display:flex;align-items:center;gap:10px;margin-top:10px;flex-shrink:0;}
 .rsh-vol-icon{font-size:14px;flex-shrink:0;}
-.rsh-vol-slider{
-  flex:1;-webkit-appearance:none;appearance:none;height:3px;
-  background:rgba(255,255,255,.12);border-radius:3px;cursor:pointer;outline:none;
-}
-.rsh-vol-slider::-webkit-slider-thumb{
-  -webkit-appearance:none;width:14px;height:14px;border-radius:50%;
-  background:var(--sage-l);box-shadow:0 0 6px rgba(181,201,168,.5);cursor:pointer;
-}
+.rsh-vol-slider{flex:1;-webkit-appearance:none;appearance:none;height:3px;background:rgba(255,255,255,.12);border-radius:3px;cursor:pointer;outline:none;}
+.rsh-vol-slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--sage-l);box-shadow:0 0 6px rgba(181,201,168,.5);cursor:pointer;}
 .rsh-timer-pills{display:flex;gap:5px;flex-shrink:0;}
-.rsh-tpill{
-  padding:5px 10px;border-radius:20px;border:1.5px solid rgba(255,255,255,.15);
-  background:transparent;color:rgba(255,255,255,.42);
-  font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;cursor:pointer;
-  transition:all .18s;line-height:1;
-}
-.rsh-tpill.active{
-  border-color:var(--sage-l);
-  background:rgba(138,158,127,.22);
-  color:var(--sage-l);
-}
+.rsh-tpill{padding:5px 10px;border-radius:20px;border:1.5px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.4);font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;cursor:pointer;transition:all .18s;line-height:1;}
+.rsh-tpill.active{border-color:var(--sage-l);background:rgba(138,158,127,.2);color:var(--sage-l);}
 .rsh-tpill:active{transform:scale(.9);}
-
-/* Countdown */
-.rsh-countdown{
-  text-align:center;margin-top:7px;font-family:'Lora',serif;font-style:italic;
-  font-size:11px;color:rgba(255,255,255,.35);min-height:14px;flex-shrink:0;
-}
-
-/* Story text panel */
-.rsh-story-text-panel{display:none;flex-direction:column;overflow:hidden;flex:1;min-height:0;margin-top:10px;}
+.rsh-countdown{text-align:center;margin-top:6px;flex-shrink:0;font-family:'Lora',serif;font-style:italic;font-size:11px;color:rgba(255,255,255,.32);min-height:14px;}
+.rsh-story-text-panel{display:none;flex-direction:column;overflow:hidden;flex:1;min-height:0;margin-top:8px;}
 .rsh-story-text-panel.visible{display:flex;}
-.rsh-story-text-toggle{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:8px 2px;border:none;background:transparent;
-  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;
-  color:rgba(255,255,255,.38);cursor:pointer;
-  border-top:1px solid rgba(255,255,255,.07);flex-shrink:0;width:100%;
-}
-.rsh-story-text-toggle span:first-child{display:flex;align-items:center;gap:6px;}
-.rsh-story-text-scroll{
-  overflow-y:auto;flex:1;padding:10px 2px 4px;
-  -webkit-overflow-scrolling:touch;scrollbar-width:none;
-  max-height:140px;
-}
+.rsh-story-text-toggle{display:flex;align-items:center;justify-content:space-between;padding:9px 2px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.36);cursor:pointer;border-top:1px solid rgba(255,255,255,.07);flex-shrink:0;width:100%;}
+.rsh-story-text-toggle:active{color:rgba(255,255,255,.55);}
+.rsh-story-toggle-left{display:flex;align-items:center;gap:6px;}
+.rsh-story-text-scroll{overflow-y:auto;flex:1;padding:8px 2px 4px;-webkit-overflow-scrolling:touch;scrollbar-width:none;max-height:160px;}
 .rsh-story-text-scroll::-webkit-scrollbar{display:none;}
-.rsh-story-text-content{
-  font-family:'Lora',serif;font-style:italic;
-  font-size:12.5px;line-height:1.9;color:rgba(255,255,255,.52);white-space:pre-wrap;
-}
+.rsh-story-text-content{font-family:'Lora',serif;font-style:italic;font-size:13px;line-height:1.9;color:rgba(255,255,255,.5);white-space:pre-wrap;}
 </style>
 </head>
 <body>
 
-<!-- HERO + HEADER -->
 <div class="rsh-hero">
   <div class="rsh-hero-sky" id="rsh-stars"></div>
   <div class="rsh-hero-trees" id="rsh-trees"></div>
@@ -334,25 +238,20 @@ body{padding-bottom:220px;}
   </div>
 </div>
 
-<!-- TABS -->
 <div class="rsh-tabs-outer">
   <div class="rsh-tabs" role="tablist">
-    <button class="rsh-tab active" onclick="switchTab(this,'noise')" role="tab">
-      <span class="rsh-tab-icon">🌿</span>
-      <span class="rsh-tab-label">Ruído Branco</span>
+    <button class="rsh-tab active" onclick="switchTab(this,'noise')" role="tab" aria-selected="true">
+      <span class="rsh-tab-icon">🌿</span><span class="rsh-tab-label">Ruído Branco</span>
     </button>
-    <button class="rsh-tab" onclick="switchTab(this,'music')" role="tab">
-      <span class="rsh-tab-icon">🎵</span>
-      <span class="rsh-tab-label">Músicas</span>
+    <button class="rsh-tab" onclick="switchTab(this,'music')" role="tab" aria-selected="false">
+      <span class="rsh-tab-icon">🎵</span><span class="rsh-tab-label">Músicas</span>
     </button>
-    <button class="rsh-tab" onclick="switchTab(this,'stories')" role="tab">
-      <span class="rsh-tab-icon">📖</span>
-      <span class="rsh-tab-label">Histórias</span>
+    <button class="rsh-tab" onclick="switchTab(this,'stories')" role="tab" aria-selected="false">
+      <span class="rsh-tab-icon">📖</span><span class="rsh-tab-label">Histórias</span>
     </button>
   </div>
 </div>
 
-<!-- Panel Ruído Branco -->
 <div class="rsh-panel active" id="panel-noise">
   <div class="rsh-sec-lbl">Ambiente sonoro</div>
   <div class="rsh-grid" id="grid-noise"></div>
@@ -362,7 +261,6 @@ body{padding-bottom:220px;}
   </div>
 </div>
 
-<!-- Panel Músicas -->
 <div class="rsh-panel" id="panel-music">
   <div class="rsh-sec-lbl">Músicas para acalmar</div>
   <div class="rsh-grid" id="grid-music"></div>
@@ -372,14 +270,12 @@ body{padding-bottom:220px;}
   </div>
 </div>
 
-<!-- Panel Histórias -->
 <div class="rsh-panel" id="panel-stories">
   <div class="rsh-sec-lbl">Histórias para dormir</div>
   <div class="rsh-story-grid" id="grid-stories"></div>
 </div>
 
-<!-- FIXED PLAYER (Spotify style) -->
-<div class="rsh-player" id="rsh-player">
+<div class="rsh-player" id="rsh-player" role="region" aria-label="Player de áudio">
   <div class="rsh-player-handle" onclick="toggleExpand()"></div>
   <div class="rsh-player-main">
     <div class="rsh-player-art" id="pl-art">🌙</div>
@@ -397,25 +293,26 @@ body{padding-bottom:220px;}
     </div>
   </div>
   <div class="rsh-progress-row">
-    <div class="rsh-prog-time-left" id="pl-time-left">0:00</div>
+    <div class="rsh-prog-elapsed" id="pl-elapsed">0:00</div>
     <div class="rsh-prog-track" id="pl-prog-track" onclick="playerSeek(event)">
       <div class="rsh-prog-fill" id="pl-prog-fill"></div>
     </div>
-    <div class="rsh-prog-time" id="pl-time">–:––</div>
+    <div class="rsh-prog-remain" id="pl-remain">–:––</div>
   </div>
   <div class="rsh-player-extra">
     <span class="rsh-vol-icon">🔈</span>
-    <input type="range" class="rsh-vol-slider" id="pl-vol" min="0" max="1" step="0.05" value="0.75" oninput="setVolume(this.value)">
+    <input type="range" class="rsh-vol-slider" id="pl-vol" min="0" max="1" step="0.05" value="0.75" oninput="setVolume(this.value)" aria-label="Volume">
     <div class="rsh-timer-pills">
-      <button class="rsh-tpill active" onclick="selectTimer(this,30)" data-mins="30">30'</button>
-      <button class="rsh-tpill" onclick="selectTimer(this,120)" data-mins="120">2h</button>
-      <button class="rsh-tpill" onclick="selectTimer(this,0)" data-mins="0">∞</button>
+      <button class="rsh-tpill active" onclick="selectTimer(this,30)">30'</button>
+      <button class="rsh-tpill" onclick="selectTimer(this,120)">2h</button>
+      <button class="rsh-tpill" onclick="selectTimer(this,0)">∞</button>
     </div>
   </div>
   <div class="rsh-countdown" id="pl-countdown"></div>
   <div class="rsh-story-text-panel" id="pl-story-panel">
-    <button class="rsh-story-text-toggle" id="pl-story-toggle" onclick="toggleStoryText()">
-      <span><span>📜</span> Ver a história</span><span id="pl-story-arrow">▾</span>
+    <button class="rsh-story-text-toggle" onclick="toggleStoryText()">
+      <span class="rsh-story-toggle-left">📜 <span>Letra da história</span></span>
+      <span id="pl-story-arrow">▾</span>
     </button>
     <div class="rsh-story-text-scroll" id="pl-story-scroll" style="display:none">
       <div class="rsh-story-text-content" id="pl-story-text"></div>
@@ -425,661 +322,339 @@ body{padding-bottom:220px;}
 
 <script>
 'use strict';
-
-/* ═══════════════════════════════════
-   DATA
-═══════════════════════════════════ */
-const SOUNDS = [
-  { id:'chuva',   label:'Chuva Suave',       emoji:'🌧️', desc:'Gotas que acalmam',     duration:'∞ Loop', cc:'#5a8fa3', cb:'#daeaf2', type:'file', src:'boons_freak-rain-sound-188158 (1).mp3' },
-  { id:'branco',  label:'Ruído Branco',       emoji:'☁️',  desc:'Véu de silêncio',       duration:'∞ Loop', cc:'#8a9e7f', cb:'#e3ede0', type:'noise', freq:'white' },
-  { id:'mar',     label:'Ondas do Mar',       emoji:'🌊', desc:'Ritmo das marés',        duration:'∞ Loop', cc:'#4a7fa3', cb:'#d5e8f5', type:'noise', freq:'ocean' },
-  { id:'folhas',  label:'Vento nas Folhas',   emoji:'🍃', desc:'Brisa do campo',         duration:'∞ Loop', cc:'#6b8f5a', cb:'#ddecd6', type:'file', src:'freesound_community-wind-in-trees-autumn-leaves-rustle-weird-howls-med-77mel-191122-17549.mp3' },
-  { id:'rosa',    label:'Ruído Rosa',         emoji:'🌸', desc:'Graves acolhedores',     duration:'∞ Loop', cc:'#c47a8a', cb:'#f5dde5', type:'noise', freq:'pink' },
-  { id:'coracao', label:'Batimentos',         emoji:'❤️', desc:'Pulso do útero',         duration:'∞ Loop', cc:'#c47a52', cb:'#f5e3d8', type:'noise', freq:'heartbeat' }
+var SOUNDS=[
+  {id:'chuva',label:'Chuva Suave',emoji:'🌧️',desc:'Gotas que acalmam',duration:'∞ Loop',cc:'#5a8fa3',cb:'#daeaf2',type:'file',src:'boons_freak-rain-sound-188158 (1).mp3'},
+  {id:'branco',label:'Ruído Branco',emoji:'☁️',desc:'Véu de silêncio',duration:'∞ Loop',cc:'#8a9e7f',cb:'#e3ede0',type:'noise',freq:'white'},
+  {id:'mar',label:'Ondas do Mar',emoji:'🌊',desc:'Ritmo das marés',duration:'∞ Loop',cc:'#4a7fa3',cb:'#d5e8f5',type:'noise',freq:'ocean'},
+  {id:'folhas',label:'Vento nas Folhas',emoji:'🍃',desc:'Brisa do campo',duration:'∞ Loop',cc:'#6b8f5a',cb:'#ddecd6',type:'file',src:'freesound_community-wind-in-trees-autumn-leaves-rustle-weird-howls-med-77mel-191122-17549.mp3'},
+  {id:'rosa',label:'Ruído Rosa',emoji:'🌸',desc:'Graves acolhedores',duration:'∞ Loop',cc:'#c47a8a',cb:'#f5dde5',type:'noise',freq:'pink'},
+  {id:'coracao',label:'Batimentos',emoji:'❤️',desc:'Pulso do útero',duration:'∞ Loop',cc:'#c47a52',cb:'#f5e3d8',type:'noise',freq:'heartbeat'}
+];
+var MUSIC=[
+  {id:'ninar',label:'Canção de Ninar',emoji:'🎶',desc:'432 Hz · suave',duration:'∞ Loop',cc:'#9b8ec4',cb:'#eeeaf8',type:'osc',freq:432,wave:'sine'},
+  {id:'sinos',label:'Sinos de Cristal',emoji:'🔔',desc:'528 Hz · harmônicos',duration:'∞ Loop',cc:'#c9a84c',cb:'#faf3df',type:'osc',freq:528,wave:'crystal'},
+  {id:'serena',label:'Melodia Serena',emoji:'🌿',desc:'Pentatônica suave',duration:'∞ Loop',cc:'#8a9e7f',cb:'#e3ede0',type:'osc',freq:396,wave:'pentatonic'},
+  {id:'binaural',label:'Sons Binaurais',emoji:'🧠',desc:'Ondas delta · sono',duration:'∞ Loop',cc:'#5a7090',cb:'#d5dff0',type:'osc',freq:440,wave:'binaural'}
+];
+var STORIES=[
+  {id:'coelho',label:'A Lua e o Coelhinho Sonolento',emoji:'🐰',artBg:'linear-gradient(135deg,#c9a84c,#e8c96a)',duration:'~3 min',plan:'free',planLabel:'Grátis',
+   text:'Era uma vez, numa clareira cheia de capim macio e orvalho, um coelhinho chamado Lua. Ele tinha orelhas grandes demais para o seu corpo miúdo, e olhos cor de mel que piscavam devagar quando o sono chegava.\n\nToda noite, quando as estrelas acendiam uma por uma no céu de veludo azul, Lua saía da sua toca quentinha e subia num morrinho de terra fofa. De lá, ele podia ver a grande Lua cheia refletida no lago tranquilo.\n\n— Boa noite, amiga Lua — ele sussurrava, e a Lua parecia sorrir de volta, fazendo a água tremer de brilho.\n\nO vento passava mansinho entre as árvores, e as folhas cantavam: fruuu, fruuu, fruuu. Os grilos tocavam sua música de todas as noites, e os vaga-lumes dançavam feito estrelinhas que caíram do céu e não quiseram ir embora.\n\nO coelhinho bocejou. Depois bocejou de novo. Suas pálpebras ficaram pesadas como pedrinhas de rio. Ele deitou a cabecinha no capim e sentiu o cheiro de terra boa, de flores fechadas, de noite bonita.\n\nA Lua lá em cima colocou uma nuvem de algodão sobre ele, feito um cobertor de luz. E o coelhinho Lua fechou os olhos, sabendo que quando eles abrissem de novo, seria um dia novo, cheio de brincar e pular e sentir o sol quentinho.\n\nDorme, pequenininho. Você está seguro. Você está amado. A noite toda vai cuidar de você.'},
+  {id:'estrelas',label:'O Jardim das Estrelas',emoji:'⭐',artBg:'linear-gradient(135deg,#5b7fd4,#3a5ab8)',duration:'~5 min',plan:'plus',planLabel:'Plus',
+   text:'No alto de uma montanha onde o ar era limpo e o céu tocava a terra, existia um jardim diferente de todos os outros. Em vez de flores e frutos, nele cresciam estrelas.\n\nA jardineira se chamava Noemi. Toda noite ela saía com seu regador de lua cheia — feito de prata e de sonho — e molhava cada estrelinha com cuidado. Algumas eram tímidas e piscavam apenas uma vez. Outras eram curiosas e ficavam olhando para baixo, tentando ver as crianças que dormiam.\n\nUma noite, enquanto Noemi trabalhava, uma estrelinha pequena caiu no seu ombro.\n\n— Eu estou com medo de apagar — ela disse com voz de sino.\n\nNoemi sorriu com ternura.\n\n— Você não apaga nunca. Só descansa. De manhã você vai se esconder atrás do sol, mas à noite você volta, sempre. Porque a luz verdadeira nunca some.\n\nA estrelinha ficou quietinha. Depois brilhou mais forte do que nunca.\n\nOlha pro alto agora, pequenininho. Aquela que brilhou um pouquinho mais forte? Era só pra você. Dorme com a luz das estrelas te cobrindo. Tudo bem, tudo calmo, tudo amor.'},
+  {id:'floresta',label:'A Floresta que Cantava',emoji:'🌲',artBg:'linear-gradient(135deg,#5a7050,#3a5038)',duration:'~7 min',plan:'premium',planLabel:'Premium',
+   text:'Havia uma floresta que ninguém havia plantado. Ela simplesmente cresceu, devagar, ao longo de muitos e muitos anos, como tudo que é verdadeiro e bom.\n\nNessa floresta, cada árvore tinha uma voz. Não voz de gente — voz de árvore: o farfalhar das folhas, o estalo dos galhos, o sussurro da seiva subindo pelo tronco na madrugada. E quando a noite chegava e o vento soprava manso, todas as vozes se juntavam numa canção sem palavras que fazia dormir qualquer criatura.\n\nUma menina chamada Bela vivia na beira dessa floresta com sua mãe. Toda noite, antes de dormir, elas abriam a janela e ouviam.\n\n— Mãe, o que elas cantam? — perguntava Bela.\n\n— Elas cantam que você está segura — a mãe respondia. — Elas cantam que a noite é amiga, que os sonhos são bons, que de manhã tudo vai estar aqui.\n\nBela fechava os olhos e sentia a música entrar pela pele, passar pelos cabelos, pousar nos ombros como borboletas gentis.\n\nA floresta cantava: frrr, frrr, frrr.\nAs folhas dançavam: tique, tique, tique.\nO riacho no fundo murmurava: lá, lá, lá.\n\nVocê também tem uma floresta assim. Pode ser a chuva na janela, o ventilador girando, a voz da sua mãe cantando baixinho. É o mundo dizendo: pode descansar. Você está amado. Você está em casa.\n\nDorme, meu bem. A floresta canta só pra você esta noite.'}
+];
+var TIMER_OPTS=[
+  {label:'30 min',mins:30,planLabel:'Grátis',planColor:'#8a9e7f',plan:'free'},
+  {label:'2 horas',mins:120,planLabel:'Plus',planColor:'#c9a84c',plan:'plus'},
+  {label:'Sem parar',mins:0,planLabel:'Mestre',planColor:'#c47a52',plan:'premium'}
 ];
 
-const MUSIC = [
-  { id:'ninar',    label:'Canção de Ninar',  emoji:'🎶', desc:'432 Hz · suave',      duration:'∞ Loop', cc:'#9b8ec4', cb:'#eeeaf8', type:'osc', freq:432,  wave:'sine' },
-  { id:'sinos',    label:'Sinos de Cristal', emoji:'🔔', desc:'528 Hz · harmônicos', duration:'∞ Loop', cc:'#c9a84c', cb:'#faf3df', type:'osc', freq:528,  wave:'crystal' },
-  { id:'serena',   label:'Melodia Serena',   emoji:'🌿', desc:'Pentatônica suave',   duration:'∞ Loop', cc:'#8a9e7f', cb:'#e3ede0', type:'osc', freq:396,  wave:'pentatonic' },
-  { id:'binaural', label:'Sons Binaurais',   emoji:'🧠', desc:'Ondas delta · sono',  duration:'∞ Loop', cc:'#5a7090', cb:'#d5dff0', type:'osc', freq:440,  wave:'binaural' }
-];
-
-const STORIES = [
-  {
-    id:'coelho', label:'A Lua e o Coelhinho Sonolento', emoji:'🐰',
-    artBg:'linear-gradient(135deg,#c9a84c,#e8c96a)', duration:'~3 min',
-    plan:'free', planLabel:'Grátis',
-    text:`Era uma vez, numa clareira cheia de capim macio e orvalho, um coelhinho chamado Lua. Ele tinha orelhas grandes demais para o seu corpo miúdo, e olhos cor de mel que piscavam devagar quando o sono chegava.
-
-Toda noite, quando as estrelas acendiam uma por uma no céu de veludo azul, Lua saía da sua toca quentinha e subia num morrinho de terra fofa. De lá, ele podia ver a grande Lua cheia refletida no lago tranquilo.
-
-— Boa noite, amiga Lua — ele sussurrava, e a Lua parecia sorrir de volta, fazendo a água tremer de brilho.
-
-O vento passava mansinho entre as árvores, e as folhas cantavam: fruuu, fruuu, fruuu. Os grilos tocavam sua música de todas as noites, e os vaga-lumes dançavam feito estrelinhas que caíram do céu e não quiseram ir embora.
-
-O coelhinho bocejou. Depois bocejou de novo. Suas pálpebras ficaram pesadas como pedrinhas de rio. Ele deitou a cabecinha no capim e sentiu o cheiro de terra boa, de flores fechadas, de noite bonita.
-
-A Lua lá em cima colocou uma nuvem de algodão sobre ele, feito um cobertor de luz. E o coelhinho Lua fechou os olhos, sabendo que quando eles abrissem de novo, seria um dia novo, cheio de brincar e pular e sentir o sol quentinho.
-
-Dorme, pequenininho. Você está seguro. Você está amado. A noite toda vai cuidar de você.`
-  },
-  {
-    id:'estrelas', label:'O Jardim das Estrelas', emoji:'⭐',
-    artBg:'linear-gradient(135deg,#5b7fd4,#3a5ab8)', duration:'~5 min',
-    plan:'plus', planLabel:'Plus',
-    text:`No alto de uma montanha onde o ar era limpo e o céu tocava a terra, existia um jardim diferente de todos os outros. Em vez de flores e frutos, nele cresciam estrelas.
-
-A jardineira se chamava Noemi. Toda noite ela saía com seu regador de lua cheia — feito de prata e de sonho — e molhava cada estrelinha com cuidado. Algumas eram tímidas e piscavam apenas uma vez. Outras eram curiosas e ficavam olhando para baixo, tentando ver as crianças que dormiam.
-
-Uma noite, enquanto Noemi trabalhava, uma estrelinha pequena caiu no seu ombro.
-
-— Eu estou com medo de apagar — ela disse com voz de sino.
-
-Noemi sorriu com ternura.
-
-— Você não apaga nunca. Só descansa. De manhã você vai se esconder atrás do sol, mas à noite você volta, sempre. Porque a luz verdadeira nunca some.
-
-A estrelinha ficou quietinha. Depois brilhou mais forte do que nunca.
-
-E assim Noemi regava seu jardim, e as estrelas cuidavam dos sonhos das crianças, e cada uma que você vê no céu carrega um nome, um sonho, uma noite de sono seguro.
-
-Olha pro alto agora, pequenininho. Aquela que brilhou um pouquinho mais forte? Era só pra você. Dorme com a luz das estrelas te cobrindo. Tudo bem, tudo calmo, tudo amor.`
-  },
-  {
-    id:'floresta', label:'A Floresta que Cantava de Mansinho', emoji:'🌲',
-    artBg:'linear-gradient(135deg,#5a7050,#3a5038)', duration:'~7 min',
-    plan:'premium', planLabel:'Premium',
-    text:`Havia uma floresta que ninguém havia plantado. Ela simplesmente cresceu, devagar, ao longo de muitos e muitos anos, como tudo que é verdadeiro e bom.
-
-Nessa floresta, cada árvore tinha uma voz. Não voz de gente — voz de árvore: o farfalhar das folhas, o estalo dos galhos, o sussurro da seiva subindo pelo tronco na madrugada. E quando a noite chegava e o vento soprava manso, todas as vozes se juntavam numa canção sem palavras que fazia dormir qualquer criatura.
-
-Uma menina chamada Bela vivia na beira dessa floresta com sua mãe. Toda noite, antes de dormir, elas abriam a janela e ouviam.
-
-— Mãe, o que elas cantam? — perguntava Bela.
-
-— Elas cantam que você está segura — a mãe respondia, apertando-a com carinho. — Elas cantam que a noite é amiga, que os sonhos são bons, que de manhã tudo vai estar aqui.
-
-Bela fechava os olhos e sentia a música entrar pela pele, passar pelos cabelos, pousar nos ombros como borboletas gentis.
-
-A floresta cantava: frrr, frrr, frrr.
-As folhas dançavam: tique, tique, tique.
-O riacho no fundo murmurava: lá, lá, lá.
-
-E Bela dormia, e sua mãe ficava olhando para ela com aquele amor que não cabe em palavras, mas que toda mãe conhece de cor.
-
-Você também tem uma floresta assim. Pode ser a chuva na janela, o ventilador girando, a voz da sua mãe cantando baixinho. É o mundo dizendo: pode descansar. Você está amado. Você está em casa.
-
-Dorme, meu bem. A floresta canta só pra você esta noite.`
-  }
-];
-
-const TIMER_OPTS = [
-  { label:'30 min', mins:30,  planLabel:'Grátis', planColor:'#8a9e7f', plan:'free' },
-  { label:'2 horas', mins:120, planLabel:'Plus',   planColor:'#c9a84c', plan:'plus' },
-  { label:'Sem parar', mins:0, planLabel:'Mestre', planColor:'#c47a52', plan:'premium' }
-];
-
-/* ═══════════════════════════════════
-   PLAN CHECK
-═══════════════════════════════════ */
-function getUserPlan() {
-  try {
-    const p = JSON.parse(localStorage.getItem('gds_persist')||'{}');
-    if (p.modoTeste && Date.now() < p.expiry) return 'premium';
-    const s = JSON.parse(localStorage.getItem('gds_session_v2')||'{}');
-    if (Date.now() < s.expiry) return s.plan || 'free';
-  } catch(e) {}
+function getUserPlan(){
+  try{
+    var p=JSON.parse(localStorage.getItem('gds_persist')||'{}');
+    if(p.modoTeste&&Date.now()<p.expiry) return 'premium';
+    var s=JSON.parse(localStorage.getItem('gds_session_v2')||'{}');
+    if(Date.now()<s.expiry) return s.plan||'free';
+  }catch(e){}
   return 'free';
 }
-function canAccess(plan) {
-  const u = getUserPlan();
-  if (u === 'premium') return true;
-  if (u === 'plus' && plan !== 'premium') return true;
-  return plan === 'free';
+function canAccess(plan){
+  var u=getUserPlan();
+  if(u==='premium') return true;
+  if(u==='plus'&&plan!=='premium') return true;
+  return plan==='free';
 }
 
-/* ═══════════════════════════════════
-   WEB AUDIO ENGINE
-═══════════════════════════════════ */
-let audioCtx = null;
-let noiseNode = null, gainNode = null;
-let oscNodes = [];
-let fileAudio = null;
-let synthUtter = null;
-let storyProgHandle = null;
-let storyLen = 0, storyStart = 0;
+var audioCtx=null,noiseNode=null,gainNode=null,oscNodes=[],fileAudio=null;
+var synthUtter=null,storyProgHandle=null,storyLen=0,storyStart=0;
 
-function getCtx() {
-  if (!audioCtx || audioCtx.state === 'closed')
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function getCtx(){
+  if(!audioCtx||audioCtx.state==='closed') audioCtx=new(window.AudioContext||window.webkitAudioContext)();
   return audioCtx;
 }
-
-function stopAll() {
-  if (fileAudio) { try { fileAudio.pause(); fileAudio.currentTime = 0; } catch(e){} fileAudio = null; }
-  if (noiseNode) { try { noiseNode.disconnect(); } catch(e){} noiseNode = null; }
-  if (gainNode)  { try { gainNode.disconnect();  } catch(e){} gainNode = null; }
-  oscNodes.forEach(function(n){ try { n.stop(); n.disconnect(); } catch(e){} });
-  oscNodes = [];
-  if (synthUtter || (window.speechSynthesis && window.speechSynthesis.speaking)) {
-    window.speechSynthesis.cancel(); synthUtter = null;
-  }
-  if (storyProgHandle) { clearInterval(storyProgHandle); storyProgHandle = null; }
-  clearTimer();
-  isPlaying = false;
+function stopAll(){
+  if(fileAudio){try{fileAudio.pause();fileAudio.currentTime=0;}catch(e){} fileAudio=null;}
+  if(noiseNode){try{noiseNode.disconnect();}catch(e){} noiseNode=null;}
+  if(gainNode){try{gainNode.disconnect();}catch(e){} gainNode=null;}
+  oscNodes.forEach(function(n){try{n.stop();n.disconnect();}catch(e){}});oscNodes=[];
+  if(synthUtter||(window.speechSynthesis&&window.speechSynthesis.speaking)){window.speechSynthesis.cancel();synthUtter=null;}
+  if(storyProgHandle){clearInterval(storyProgHandle);storyProgHandle=null;}
+  clearTimer();isPlaying=false;
 }
-
-/* noise generators */
-function mkWhite(ctx, g) {
-  const buf = 4096;
-  const n = ctx.createScriptProcessor(buf,1,1);
-  n.onaudioprocess = function(e){ const o=e.outputBuffer.getChannelData(0); for(let i=0;i<buf;i++) o[i]=Math.random()*2-1; };
-  n.connect(g);
-  return n;
+function mkWhite(ctx,g){
+  var buf=4096,n=ctx.createScriptProcessor(buf,1,1);
+  n.onaudioprocess=function(e){var o=e.outputBuffer.getChannelData(0);for(var i=0;i<buf;i++)o[i]=Math.random()*2-1;};
+  n.connect(g);return n;
 }
-function mkOcean(ctx, g) {
-  const buf = 4096; let last=0;
-  const n = ctx.createScriptProcessor(buf,1,1);
-  n.onaudioprocess = function(e){ const o=e.outputBuffer.getChannelData(0); for(let i=0;i<buf;i++){ const w=Math.random()*2-1; o[i]=(last+(0.02*w))/1.02; last=o[i]; o[i]*=3.5; } };
-  n.connect(g); return n;
+function mkOcean(ctx,g){
+  var buf=4096,last=0,n=ctx.createScriptProcessor(buf,1,1);
+  n.onaudioprocess=function(e){var o=e.outputBuffer.getChannelData(0);for(var i=0;i<buf;i++){var w=Math.random()*2-1;o[i]=(last+(0.02*w))/1.02;last=o[i];o[i]*=3.5;}};
+  n.connect(g);return n;
 }
-function mkWind(ctx, g) {
-  const buf = 4096; let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
-  const n = ctx.createScriptProcessor(buf,1,1);
-  n.onaudioprocess = function(e){ const o=e.outputBuffer.getChannelData(0); for(let i=0;i<buf;i++){ const w=Math.random()*2-1; b0=0.99886*b0+w*0.0555179; b1=0.99332*b1+w*0.0750759; b2=0.96900*b2+w*0.1538520; b3=0.86650*b3+w*0.3104856; b4=0.55000*b4+w*0.5329522; b5=-0.7616*b5-w*0.0168980; o[i]=(b0+b1+b2+b3+b4+b5+b6+w*0.5362)*0.11; b6=w*0.115926; } };
-  n.connect(g); return n;
+function mkPink(ctx,g){
+  var buf=4096,b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0,n=ctx.createScriptProcessor(buf,1,1);
+  n.onaudioprocess=function(e){var o=e.outputBuffer.getChannelData(0);for(var i=0;i<buf;i++){var w=Math.random()*2-1;b0=0.99886*b0+w*0.0555179;b1=0.99332*b1+w*0.0750759;b2=0.96900*b2+w*0.1538520;b3=0.86650*b3+w*0.3104856;b4=0.55000*b4+w*0.5329522;b5=-0.7616*b5-w*0.0168980;o[i]=(b0+b1+b2+b3+b4+b5+b6+w*0.5362)*0.13;b6=w*0.115926;}};
+  n.connect(g);return n;
 }
-function mkPink(ctx, g) {
-  const buf = 4096; let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
-  const n = ctx.createScriptProcessor(buf,1,1);
-  n.onaudioprocess = function(e){ const o=e.outputBuffer.getChannelData(0); for(let i=0;i<buf;i++){ const w=Math.random()*2-1; b0=0.99886*b0+w*0.0555179; b1=0.99332*b1+w*0.0750759; b2=0.96900*b2+w*0.1538520; b3=0.86650*b3+w*0.3104856; b4=0.55000*b4+w*0.5329522; b5=-0.7616*b5-w*0.0168980; o[i]=(b0+b1+b2+b3+b4+b5+b6+w*0.5362)*0.13; b6=w*0.115926; } };
-  n.connect(g); return n;
+function mkHeartbeat(ctx,g){
+  function beat(){
+    if(!isPlaying)return;
+    try{
+      var now=ctx.currentTime,o1=ctx.createOscillator(),e1=ctx.createGain();
+      o1.type='sine';o1.frequency.setValueAtTime(60,now);
+      e1.gain.setValueAtTime(0,now);e1.gain.linearRampToValueAtTime(0.6,now+0.05);e1.gain.linearRampToValueAtTime(0,now+0.18);
+      o1.connect(e1);e1.connect(g);o1.start(now);o1.stop(now+0.2);
+      o1.onended=function(){try{o1.disconnect();e1.disconnect();}catch(e){}};
+      var o2=ctx.createOscillator(),e2=ctx.createGain();
+      o2.type='sine';o2.frequency.setValueAtTime(55,now+0.22);
+      e2.gain.setValueAtTime(0,now+0.22);e2.gain.linearRampToValueAtTime(0.4,now+0.27);e2.gain.linearRampToValueAtTime(0,now+0.38);
+      o2.connect(e2);e2.connect(g);o2.start(now+0.22);o2.stop(now+0.4);
+      o2.onended=function(){try{o2.disconnect();e2.disconnect();}catch(e){}};
+      setTimeout(beat,900);
+    }catch(e){}
+  }beat();
 }
-function mkHeartbeat(ctx, g) {
-  function beat() {
-    if (!isPlaying) return;
-    try {
-      const now = ctx.currentTime;
-      const osc = ctx.createOscillator();
-      const env = ctx.createGain();
-      osc.type = 'sine'; osc.frequency.setValueAtTime(60, now);
-      env.gain.setValueAtTime(0, now);
-      env.gain.linearRampToValueAtTime(0.6, now + 0.05);
-      env.gain.linearRampToValueAtTime(0, now + 0.18);
-      osc.connect(env); env.connect(g);
-      osc.start(now); osc.stop(now + 0.2);
-      osc.onended = function(){ try{osc.disconnect();env.disconnect();}catch(e){} };
-      const osc2 = ctx.createOscillator();
-      const env2 = ctx.createGain();
-      osc2.type = 'sine'; osc2.frequency.setValueAtTime(55, now + 0.22);
-      env2.gain.setValueAtTime(0, now + 0.22);
-      env2.gain.linearRampToValueAtTime(0.4, now + 0.27);
-      env2.gain.linearRampToValueAtTime(0, now + 0.38);
-      osc2.connect(env2); env2.connect(g);
-      osc2.start(now + 0.22); osc2.stop(now + 0.4);
-      osc2.onended = function(){ try{osc2.disconnect();env2.disconnect();}catch(e){} };
-      setTimeout(beat, 900);
-    } catch(e) {}
-  }
-  beat();
-  return null;
+function mkSine(ctx,g,freq){
+  var osc=ctx.createOscillator(),lfo=ctx.createOscillator(),lg=ctx.createGain();
+  osc.type='sine';osc.frequency.value=freq;lfo.type='sine';lfo.frequency.value=0.12;lg.gain.value=0.08;
+  lfo.connect(lg);lg.connect(g.gain||g);osc.connect(g);lfo.start();osc.start();oscNodes.push(osc,lfo);
 }
-
-/* music generators */
-function mkSine(ctx, g, freq) {
-  const osc = ctx.createOscillator();
-  const lfo = ctx.createOscillator();
-  const lfoGain = ctx.createGain();
-  osc.type = 'sine'; osc.frequency.value = freq;
-  lfo.type = 'sine'; lfo.frequency.value = 0.12;
-  lfoGain.gain.value = 0.08;
-  lfo.connect(lfoGain); lfoGain.connect(g.gain||g);
-  osc.connect(g); lfo.start(); osc.start();
-  oscNodes.push(osc, lfo);
-}
-function mkCrystal(ctx, g, freq) {
-  [freq, freq*2, freq*3, freq*4].forEach(function(f, i) {
-    const osc = ctx.createOscillator();
-    const env = ctx.createGain();
-    osc.type = 'sine'; osc.frequency.value = f;
-    env.gain.value = 0.25 / (i+1);
-    osc.connect(env); env.connect(g); osc.start();
-    oscNodes.push(osc);
+function mkCrystal(ctx,g,freq){
+  [freq,freq*2,freq*3,freq*4].forEach(function(f,i){
+    var osc=ctx.createOscillator(),env=ctx.createGain();
+    osc.type='sine';osc.frequency.value=f;env.gain.value=0.25/(i+1);
+    osc.connect(env);env.connect(g);osc.start();oscNodes.push(osc);
   });
 }
-function mkPentatonic(ctx, g) {
-  const notes = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25];
-  let idx = 0;
-  function playNote() {
-    if (!isPlaying) return;
-    try {
-      const now = ctx.currentTime;
-      const osc = ctx.createOscillator();
-      const env = ctx.createGain();
-      osc.type = 'triangle'; osc.frequency.value = notes[idx % notes.length];
-      env.gain.setValueAtTime(0, now);
-      env.gain.linearRampToValueAtTime(0.18, now + 0.12);
-      env.gain.linearRampToValueAtTime(0, now + 0.9);
-      osc.connect(env); env.connect(g); osc.start(now); osc.stop(now + 1);
-      osc.onended = function(){ try{osc.disconnect();env.disconnect();}catch(e){} };
-      idx++;
-      setTimeout(playNote, 1400);
-    } catch(e) {}
-  }
-  playNote();
+function mkPentatonic(ctx,g){
+  var notes=[261.63,293.66,329.63,392.00,440.00,523.25],idx=0;
+  function playNote(){
+    if(!isPlaying)return;
+    try{
+      var now=ctx.currentTime,osc=ctx.createOscillator(),env=ctx.createGain();
+      osc.type='triangle';osc.frequency.value=notes[idx%notes.length];
+      env.gain.setValueAtTime(0,now);env.gain.linearRampToValueAtTime(0.18,now+0.12);env.gain.linearRampToValueAtTime(0,now+0.9);
+      osc.connect(env);env.connect(g);osc.start(now);osc.stop(now+1);
+      osc.onended=function(){try{osc.disconnect();env.disconnect();}catch(e){}};
+      idx++;setTimeout(playNote,1400);
+    }catch(e){}
+  }playNote();
 }
-function mkBinaural(ctx, g, freq) {
-  const beat = 4;
-  const chL = ctx.createStereoPanner ? ctx.createStereoPanner() : ctx.createChannelMerger(2);
-  const chR = ctx.createStereoPanner ? ctx.createStereoPanner() : ctx.createChannelMerger(2);
-  const oscL = ctx.createOscillator();
-  const oscR = ctx.createOscillator();
-  oscL.type = 'sine'; oscL.frequency.value = freq;
-  oscR.type = 'sine'; oscR.frequency.value = freq + beat;
-  if (ctx.createStereoPanner) {
-    chL.pan.value = -1; chR.pan.value = 1;
-    oscL.connect(chL); chL.connect(g);
-    oscR.connect(chR); chR.connect(g);
-  } else {
-    oscL.connect(g); oscR.connect(g);
-  }
-  oscL.start(); oscR.start();
-  oscNodes.push(oscL, oscR);
+function mkBinaural(ctx,g,freq){
+  var chL=ctx.createStereoPanner?ctx.createStereoPanner():null,chR=ctx.createStereoPanner?ctx.createStereoPanner():null;
+  var oL=ctx.createOscillator(),oR=ctx.createOscillator();
+  oL.type='sine';oL.frequency.value=freq;oR.type='sine';oR.frequency.value=freq+4;
+  if(chL){chL.pan.value=-1;chR.pan.value=1;oL.connect(chL);chL.connect(g);oR.connect(chR);chR.connect(g);}
+  else{oL.connect(g);oR.connect(g);}
+  oL.start();oR.start();oscNodes.push(oL,oR);
+}
+function playNoise(sound,vol){
+  var ctx=getCtx();gainNode=ctx.createGain();gainNode.gain.value=vol;gainNode.connect(ctx.destination);
+  if(sound.freq==='white')noiseNode=mkWhite(ctx,gainNode);
+  else if(sound.freq==='ocean')noiseNode=mkOcean(ctx,gainNode);
+  else if(sound.freq==='pink')noiseNode=mkPink(ctx,gainNode);
+  else if(sound.freq==='heartbeat')mkHeartbeat(ctx,gainNode);
+}
+function playMusic(music,vol){
+  var ctx=getCtx();gainNode=ctx.createGain();gainNode.gain.value=vol;gainNode.connect(ctx.destination);
+  if(music.wave==='sine')mkSine(ctx,gainNode,music.freq);
+  else if(music.wave==='crystal')mkCrystal(ctx,gainNode,music.freq);
+  else if(music.wave==='pentatonic')mkPentatonic(ctx,gainNode);
+  else if(music.wave==='binaural')mkBinaural(ctx,gainNode,music.freq);
 }
 
-function playNoise(sound, vol) {
-  const ctx = getCtx();
-  gainNode = ctx.createGain();
-  gainNode.gain.value = vol;
-  gainNode.connect(ctx.destination);
-  if (sound.freq === 'white')     { noiseNode = mkWhite(ctx, gainNode); }
-  else if (sound.freq === 'ocean'){ noiseNode = mkOcean(ctx, gainNode); }
-  else if (sound.freq === 'wind') { noiseNode = mkWind(ctx, gainNode); }
-  else if (sound.freq === 'pink') { noiseNode = mkPink(ctx, gainNode); }
-  else if (sound.freq === 'heartbeat') { mkHeartbeat(ctx, gainNode); }
-}
+var currentItem=null,isPlaying=false,timerMins=30,timerHandle=null,timerEndHandle=null,expanded=false,storyTextOpen=false;
 
-function playMusic(music, vol) {
-  const ctx = getCtx();
-  gainNode = ctx.createGain();
-  gainNode.gain.value = vol;
-  gainNode.connect(ctx.destination);
-  if (music.wave === 'sine')        mkSine(ctx, gainNode, music.freq);
-  else if (music.wave === 'crystal')mkCrystal(ctx, gainNode, music.freq);
-  else if (music.wave === 'pentatonic') mkPentatonic(ctx, gainNode);
-  else if (music.wave === 'binaural')   mkBinaural(ctx, gainNode, music.freq);
+function getVol(){return parseFloat(document.getElementById('pl-vol').value);}
+function setVolume(v){
+  v=parseFloat(v);
+  if(gainNode)gainNode.gain.setValueAtTime(v,(audioCtx||{}).currentTime||0);
+  if(fileAudio)fileAudio.volume=v;
 }
-
-/* ═══════════════════════════════════
-   STATE
-═══════════════════════════════════ */
-let currentItem = null;
-let isPlaying = false;
-let timerMins = 30;
-let timerHandle = null;
-let timerEndHandle = null;
-let expanded = false;
-let storyTextOpen = false;
-
-/* ═══════════════════════════════════
-   PLAYER CORE
-═══════════════════════════════════ */
-function getVol() { return parseFloat(document.getElementById('pl-vol').value); }
-
-function setVolume(v) {
-  v = parseFloat(v);
-  if (gainNode) gainNode.gain.setValueAtTime(v, (audioCtx||{}).currentTime||0);
-  if (fileAudio) fileAudio.volume = v;
-}
-
-function showPlayer() {
-  document.getElementById('rsh-player').classList.add('visible');
-}
-function hidePlayer() {
-  document.getElementById('rsh-player').classList.remove('visible');
-}
-function toggleExpand() {
-  expanded = !expanded;
-  const p = document.getElementById('rsh-player');
-  p.style.maxHeight = expanded ? '80vh' : '';
-}
-
-function setPlayBtnState(playing) {
-  const btn = document.getElementById('pl-play-btn');
-  const icon = document.getElementById('pl-play-icon');
-  const art = document.getElementById('pl-art');
-  if (!btn || !icon) return;
-  if (playing) {
+function showPlayer(){document.getElementById('rsh-player').classList.add('visible');}
+function hidePlayer(){document.getElementById('rsh-player').classList.remove('visible');}
+function toggleExpand(){expanded=!expanded;document.getElementById('rsh-player').style.maxHeight=expanded?'82vh':'';}
+function setPlayBtnState(playing){
+  var btn=document.getElementById('pl-play-btn'),icon=document.getElementById('pl-play-icon'),art=document.getElementById('pl-art');
+  if(!btn||!icon)return;
+  if(playing){
     btn.classList.add('playing');
-    icon.innerHTML = '<rect x="6" y="4" width="4" height="16" rx="2"/><rect x="14" y="4" width="4" height="16" rx="2"/>';
-    if (art) art.classList.add('playing');
-  } else {
+    icon.innerHTML='<rect x="6" y="4" width="4" height="16" rx="2"/><rect x="14" y="4" width="4" height="16" rx="2"/>';
+    if(art)art.classList.add('pulsing');
+  }else{
     btn.classList.remove('playing');
-    icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
-    if (art) art.classList.remove('playing');
+    icon.innerHTML='<path d="M8 5v14l11-7z"/>';
+    if(art)art.classList.remove('pulsing');
   }
 }
-
-function updatePlayerInfo(item) {
-  const artEl = document.getElementById('pl-art');
-  artEl.textContent = item.emoji;
-  artEl.style.background = item.artBg || ('linear-gradient(135deg,'+item.cc+'55,'+item.cb+')');
-  document.getElementById('pl-title').textContent = item.label;
-  document.getElementById('pl-sub').textContent = item.desc || item.duration || '';
-  const storyPanel = document.getElementById('pl-story-panel');
-  if (item.text) {
-    storyPanel.classList.add('visible');
-    document.getElementById('pl-story-text').textContent = item.text;
-  } else {
-    storyPanel.classList.remove('visible');
-  }
+function updatePlayerInfo(item){
+  var artEl=document.getElementById('pl-art');
+  artEl.textContent=item.emoji;
+  artEl.style.background=item.artBg||('linear-gradient(135deg,'+item.cc+'55,'+item.cb+')');
+  document.getElementById('pl-title').textContent=item.label;
+  document.getElementById('pl-sub').textContent=item.desc||item.duration||'';
+  var sp=document.getElementById('pl-story-panel');
+  if(item.text){sp.classList.add('visible');document.getElementById('pl-story-text').textContent=item.text;}
+  else{sp.classList.remove('visible');document.getElementById('pl-story-scroll').style.display='none';document.getElementById('pl-story-arrow').textContent='▾';storyTextOpen=false;}
 }
-
-function playerStop() {
-  stopAll();
-  isPlaying = false;
-  setPlayBtnState(false);
-  setProg(0);
-  document.getElementById('pl-time').textContent = '–:––';
-  document.getElementById('pl-time-left').textContent = '0:00';
-  document.getElementById('pl-countdown').textContent = '';
-  currentItem = null;
-  document.querySelectorAll('.rsh-card.active').forEach(function(c){ c.classList.remove('active'); });
-  document.querySelectorAll('.rsh-story-card.active').forEach(function(c){ c.classList.remove('active'); });
+function playerStop(){
+  stopAll();setPlayBtnState(false);setProg(0);
+  document.getElementById('pl-elapsed').textContent='0:00';
+  document.getElementById('pl-remain').textContent='–:––';
+  document.getElementById('pl-countdown').textContent='';
+  currentItem=null;
+  document.querySelectorAll('.rsh-card.active').forEach(function(c){c.classList.remove('active');});
+  document.querySelectorAll('.rsh-story-card.active').forEach(function(c){c.classList.remove('active');});
   hidePlayer();
 }
-
-function playerToggle() {
-  if (!currentItem) return;
-  if (isPlaying) {
-    if (fileAudio) fileAudio.pause();
-    if (gainNode) gainNode.gain.setValueAtTime(0, (audioCtx||{}).currentTime||0);
-    if (window.speechSynthesis) window.speechSynthesis.pause();
-    isPlaying = false; setPlayBtnState(false);
-  } else {
-    if (fileAudio) fileAudio.play().catch(function(){});
-    if (gainNode) gainNode.gain.setValueAtTime(getVol(), (audioCtx||{}).currentTime||0);
-    if (synthUtter && window.speechSynthesis) window.speechSynthesis.resume();
-    isPlaying = true; setPlayBtnState(true);
-    applyTimer();
+function playerToggle(){
+  if(!currentItem)return;
+  if(isPlaying){
+    if(fileAudio)fileAudio.pause();
+    if(gainNode)gainNode.gain.setValueAtTime(0,(audioCtx||{}).currentTime||0);
+    if(window.speechSynthesis)window.speechSynthesis.pause();
+    isPlaying=false;setPlayBtnState(false);
+  }else{
+    if(fileAudio)fileAudio.play().catch(function(){});
+    if(gainNode)gainNode.gain.setValueAtTime(getVol(),(audioCtx||{}).currentTime||0);
+    if(synthUtter&&window.speechSynthesis)window.speechSynthesis.resume();
+    isPlaying=true;setPlayBtnState(true);applyTimer();
   }
 }
-
-function playerSeek(e) {
-  if (!storyLen) return;
-  const track = document.getElementById('pl-prog-track');
-  const pct = e.offsetX / track.offsetWidth;
-  const t = pct * storyLen;
-  storyStart = Date.now() - t * 1000;
-  setProg(pct * 100);
+function playerSeek(e){
+  if(!storyLen)return;
+  var track=document.getElementById('pl-prog-track');
+  var pct=Math.max(0,Math.min(1,e.offsetX/track.offsetWidth));
+  storyStart=Date.now()-pct*storyLen*1000;setProg(pct*100);
 }
-
-function setProg(pct) {
-  document.getElementById('pl-prog-fill').style.width = pct + '%';
+function setProg(pct){document.getElementById('pl-prog-fill').style.width=pct+'%';}
+function clearTimer(){
+  if(timerHandle){clearInterval(timerHandle);timerHandle=null;}
+  if(timerEndHandle){clearTimeout(timerEndHandle);timerEndHandle=null;}
 }
-
-/* ═══════════════════════════════════
-   TIMER
-═══════════════════════════════════ */
-function clearTimer() {
-  if (timerHandle) { clearInterval(timerHandle); timerHandle = null; }
-  if (timerEndHandle) { clearTimeout(timerEndHandle); timerEndHandle = null; }
-}
-
-function applyTimer() {
+function applyTimer(){
   clearTimer();
-  const cd = document.getElementById('pl-countdown');
-  if (timerMins === 0) { if (cd) cd.textContent = '∞ Tocando sem parar'; return; }
-  const ms = timerMins * 60 * 1000;
-  const end = Date.now() + ms;
-  timerEndHandle = setTimeout(function(){
-    stopAll(); setPlayBtnState(false); hidePlayer(); currentItem = null;
-  }, ms);
-  timerHandle = setInterval(function(){
-    const rem = end - Date.now();
-    if (rem <= 0) { clearTimer(); return; }
-    const m = Math.floor(rem/60000), s = Math.floor((rem%60000)/1000);
-    if (cd) cd.textContent = '⏱ ' + m + ':' + (s<10?'0':'') + s;
-  }, 1000);
+  var cd=document.getElementById('pl-countdown');
+  if(timerMins===0){if(cd)cd.textContent='∞ Tocando sem parar';return;}
+  var ms=timerMins*60*1000,end=Date.now()+ms;
+  timerEndHandle=setTimeout(function(){stopAll();setPlayBtnState(false);hidePlayer();currentItem=null;},ms);
+  timerHandle=setInterval(function(){
+    var rem=end-Date.now();if(rem<=0){clearTimer();return;}
+    var m=Math.floor(rem/60000),s=Math.floor((rem%60000)/1000);
+    if(cd)cd.textContent='⏱ '+m+':'+(s<10?'0':'')+s;
+  },1000);
 }
-
-function selectTimer(btn, mins) {
-  timerMins = mins;
-  document.querySelectorAll('.rsh-tpill').forEach(function(b){ b.classList.remove('active'); });
-  btn.classList.add('active');
-  if (isPlaying) applyTimer();
+function selectTimer(btn,mins){
+  timerMins=mins;
+  document.querySelectorAll('.rsh-tpill').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');if(isPlaying)applyTimer();
 }
-
-/* ═══════════════════════════════════
-   SELECT SOUND
-═══════════════════════════════════ */
-function selectSound(sound) {
-  stopAll();
-  currentItem = sound;
-  const vol = getVol();
-  if (sound.type === 'file') {
-    fileAudio = new Audio(sound.src); fileAudio.loop = true; fileAudio.volume = vol;
-    fileAudio.play().catch(function(){});
-  } else {
-    playNoise(sound, vol);
-  }
-  isPlaying = true;
-  setPlayBtnState(true);
-  updatePlayerInfo(sound);
-  showPlayer();
-  applyTimer();
-  document.querySelectorAll('#grid-noise .rsh-card, #grid-music .rsh-card').forEach(function(c){ c.classList.remove('active'); });
-  const card = document.getElementById('card-'+sound.id);
-  if (card) card.classList.add('active');
+function selectSound(sound){
+  stopAll();currentItem=sound;var vol=getVol();
+  if(sound.type==='file'){fileAudio=new Audio(sound.src);fileAudio.loop=true;fileAudio.volume=vol;fileAudio.play().catch(function(){});}
+  else{playNoise(sound,vol);}
+  isPlaying=true;setPlayBtnState(true);updatePlayerInfo(sound);showPlayer();applyTimer();
+  document.querySelectorAll('#grid-noise .rsh-card,#grid-music .rsh-card').forEach(function(c){c.classList.remove('active');});
+  var card=document.getElementById('card-'+sound.id);if(card)card.classList.add('active');
 }
-
-/* ═══════════════════════════════════
-   SELECT MUSIC
-═══════════════════════════════════ */
-function selectMusicItem(music) {
-  stopAll();
-  currentItem = music;
-  playMusic(music, getVol());
-  isPlaying = true;
-  setPlayBtnState(true);
-  updatePlayerInfo(music);
-  showPlayer();
-  applyTimer();
-  document.querySelectorAll('#grid-music .rsh-card').forEach(function(c){ c.classList.remove('active'); });
-  const card = document.getElementById('card-'+music.id);
-  if (card) card.classList.add('active');
+function selectMusicItem(music){
+  stopAll();currentItem=music;playMusic(music,getVol());
+  isPlaying=true;setPlayBtnState(true);updatePlayerInfo(music);showPlayer();applyTimer();
+  document.querySelectorAll('#grid-music .rsh-card').forEach(function(c){c.classList.remove('active');});
+  var card=document.getElementById('card-'+music.id);if(card)card.classList.add('active');
 }
-
-/* ═══════════════════════════════════
-   SELECT STORY
-═══════════════════════════════════ */
-function selectStory(story) {
-  if (!canAccess(story.plan)) return;
-  stopAll();
-  currentItem = story;
-  const vol = getVol();
-  isPlaying = true;
-  setPlayBtnState(true);
-  updatePlayerInfo(story);
-  showPlayer();
-  document.querySelectorAll('.rsh-story-card').forEach(function(el){ el.classList.remove('active'); });
-  const item = document.getElementById('story-'+story.id);
-  if (item) item.classList.add('active');
-  // speech synthesis
-  const utter = new SpeechSynthesisUtterance(story.text);
-  utter.lang = 'pt-BR'; utter.rate = 0.82; utter.pitch = 0.95; utter.volume = vol;
-  const voices = window.speechSynthesis.getVoices();
-  const ptV = voices.find(function(v){ return v.lang.startsWith('pt') && /feminin|female|mulher/i.test(v.name); })
-           || voices.find(function(v){ return v.lang.startsWith('pt'); });
-  if (ptV) utter.voice = ptV;
-  synthUtter = utter;
-  utter.onend = function() {
-    isPlaying = false; setPlayBtnState(false); setProg(100);
-    clearInterval(storyProgHandle);
-  };
-  utter.onerror = function() { isPlaying = false; setPlayBtnState(false); };
-  const words = story.text.split(/\s+/).length;
-  storyLen = (words / 130) * 60;
-  storyStart = Date.now();
-  setProg(0);
-  document.getElementById('pl-prog-fill').style.transition = 'none';
-  storyProgHandle = setInterval(function() {
-    if (!isPlaying) return;
-    const elapsed = (Date.now() - storyStart) / 1000;
-    const pct = Math.min((elapsed / storyLen) * 100, 100);
-    setProg(pct);
-    const rem = Math.max(0, Math.round(storyLen - elapsed));
-    const elapsedSec = Math.round(elapsed);
-    document.getElementById('pl-time').textContent =
-      Math.floor(rem/60) + ':' + String(rem%60).padStart(2,'0');
-    document.getElementById('pl-time-left').textContent =
-      Math.floor(elapsedSec/60) + ':' + String(elapsedSec%60).padStart(2,'0');
-  }, 500);
-  window.speechSynthesis.speak(utter);
-  applyTimer();
+function selectStory(story){
+  if(!canAccess(story.plan))return;
+  stopAll();currentItem=story;
+  isPlaying=true;setPlayBtnState(true);updatePlayerInfo(story);showPlayer();
+  storyTextOpen=true;
+  document.getElementById('pl-story-scroll').style.display='block';
+  document.getElementById('pl-story-arrow').textContent='▴';
+  document.querySelectorAll('.rsh-story-card').forEach(function(el){el.classList.remove('active');});
+  var card=document.getElementById('story-'+story.id);if(card)card.classList.add('active');
+  var vol=getVol(),utter=new SpeechSynthesisUtterance(story.text);
+  utter.lang='pt-BR';utter.rate=0.82;utter.pitch=0.95;utter.volume=vol;
+  var voices=window.speechSynthesis.getVoices();
+  var ptV=voices.find(function(v){return v.lang.startsWith('pt')&&/feminin|female|mulher/i.test(v.name);})||voices.find(function(v){return v.lang.startsWith('pt');});
+  if(ptV)utter.voice=ptV;
+  synthUtter=utter;
+  utter.onend=function(){isPlaying=false;setPlayBtnState(false);setProg(100);clearInterval(storyProgHandle);};
+  utter.onerror=function(){isPlaying=false;setPlayBtnState(false);};
+  var words=story.text.split(/\s+/).length;storyLen=(words/130)*60;storyStart=Date.now();setProg(0);
+  document.getElementById('pl-prog-fill').style.transition='none';
+  storyProgHandle=setInterval(function(){
+    if(!isPlaying)return;
+    var elapsed=(Date.now()-storyStart)/1000,pct=Math.min((elapsed/storyLen)*100,100);setProg(pct);
+    var rem=Math.max(0,Math.round(storyLen-elapsed)),el=Math.round(elapsed);
+    document.getElementById('pl-remain').textContent=Math.floor(rem/60)+':'+(rem%60<10?'0':'')+(rem%60);
+    document.getElementById('pl-elapsed').textContent=Math.floor(el/60)+':'+(el%60<10?'0':'')+(el%60);
+  },500);
+  window.speechSynthesis.speak(utter);applyTimer();
 }
-
-function toggleStoryText() {
-  storyTextOpen = !storyTextOpen;
-  const scroll = document.getElementById('pl-story-scroll');
-  const arrow  = document.getElementById('pl-story-arrow');
-  scroll.style.display = storyTextOpen ? 'block' : 'none';
-  arrow.textContent    = storyTextOpen ? '▴' : '▾';
+function toggleStoryText(){
+  storyTextOpen=!storyTextOpen;
+  document.getElementById('pl-story-scroll').style.display=storyTextOpen?'block':'none';
+  document.getElementById('pl-story-arrow').textContent=storyTextOpen?'▴':'▾';
 }
-
-/* ═══════════════════════════════════
-   TABS
-═══════════════════════════════════ */
-function switchTab(btn, panelId) {
-  document.querySelectorAll('.rsh-tab').forEach(function(t){ t.classList.remove('active'); });
-  btn.classList.add('active');
-  document.querySelectorAll('.rsh-panel').forEach(function(p){ p.classList.remove('active'); });
+function switchTab(btn,panelId){
+  document.querySelectorAll('.rsh-tab').forEach(function(t){t.classList.remove('active');t.setAttribute('aria-selected','false');});
+  btn.classList.add('active');btn.setAttribute('aria-selected','true');
+  document.querySelectorAll('.rsh-panel').forEach(function(p){p.classList.remove('active');});
   document.getElementById('panel-'+panelId).classList.add('active');
 }
-
-/* ═══════════════════════════════════
-   RENDER
-═══════════════════════════════════ */
-function renderTimers(containerId) {
-  const c = document.getElementById(containerId);
-  if (!c) return;
-  c.innerHTML = '';
-  TIMER_OPTS.forEach(function(opt) {
-    const ok = canAccess(opt.plan);
-    const el = document.createElement('div');
-    el.className = 'rsh-timer-opt' + (opt.mins===30?' active':'') + (!ok?' locked-opt':'');
-    el.innerHTML =
-      '<span class="lbl">' + opt.label + '</span>' +
-      '<span class="sub" style="color:' + opt.planColor + '">' + opt.planLabel + '</span>';
-    if (ok) el.onclick = function() {
-      document.querySelectorAll('.rsh-timer-opt').forEach(function(b){ b.classList.remove('active'); });
-      el.classList.add('active');
-      timerMins = opt.mins;
-      if (isPlaying) applyTimer();
-    };
+function renderTimers(containerId){
+  var c=document.getElementById(containerId);if(!c)return;c.innerHTML='';
+  TIMER_OPTS.forEach(function(opt){
+    var ok=canAccess(opt.plan),el=document.createElement('div');
+    el.className='rsh-timer-opt'+(opt.mins===30?' active':'')+(!ok?' locked-opt':'');
+    el.innerHTML='<span class="lbl">'+opt.label+'</span><span class="sub" style="color:'+opt.planColor+'">'+opt.planLabel+'</span>';
+    if(ok)el.onclick=function(){document.querySelectorAll('.rsh-timer-opt').forEach(function(b){b.classList.remove('active');});el.classList.add('active');timerMins=opt.mins;if(isPlaying)applyTimer();};
     c.appendChild(el);
   });
 }
-
-function renderNoise() {
-  const g = document.getElementById('grid-noise');
-  SOUNDS.forEach(function(s) {
-    const el = document.createElement('div');
-    el.className = 'rsh-card'; el.id = 'card-'+s.id;
-    el.style.cssText = '--cc:'+s.cc+';--cb:'+s.cb;
-    el.innerHTML =
-      '<div class="rsh-card-art">' + s.emoji + '</div>' +
-      '<div class="rsh-card-title">' + s.label + '</div>' +
-      '<div class="rsh-card-desc">' + s.desc + '</div>' +
-      '<div class="rsh-card-dur">' + s.duration + '</div>';
-    el.onclick = function() { selectSound(s); };
-    g.appendChild(el);
-  });
-  renderTimers('timers-noise');
+function renderNoise(){
+  var g=document.getElementById('grid-noise');
+  SOUNDS.forEach(function(s){
+    var el=document.createElement('div');el.className='rsh-card';el.id='card-'+s.id;el.style.cssText='--cc:'+s.cc+';--cb:'+s.cb;
+    el.innerHTML='<div class="rsh-card-art">'+s.emoji+'</div><div class="rsh-card-title">'+s.label+'</div><div class="rsh-card-desc">'+s.desc+'</div><div class="rsh-card-dur">'+s.duration+'</div>';
+    el.onclick=function(){selectSound(s);};g.appendChild(el);
+  });renderTimers('timers-noise');
 }
-
-function renderMusic() {
-  const g = document.getElementById('grid-music');
-  MUSIC.forEach(function(m) {
-    const el = document.createElement('div');
-    el.className = 'rsh-card'; el.id = 'card-'+m.id;
-    el.style.cssText = '--cc:'+m.cc+';--cb:'+m.cb;
-    el.innerHTML =
-      '<div class="rsh-card-art">' + m.emoji + '</div>' +
-      '<div class="rsh-card-title">' + m.label + '</div>' +
-      '<div class="rsh-card-desc">' + m.desc + '</div>' +
-      '<div class="rsh-card-dur">' + m.duration + '</div>';
-    el.onclick = function() { selectMusicItem(m); };
-    g.appendChild(el);
-  });
-  renderTimers('timers-music');
+function renderMusic(){
+  var g=document.getElementById('grid-music');
+  MUSIC.forEach(function(m){
+    var el=document.createElement('div');el.className='rsh-card';el.id='card-'+m.id;el.style.cssText='--cc:'+m.cc+';--cb:'+m.cb;
+    el.innerHTML='<div class="rsh-card-art">'+m.emoji+'</div><div class="rsh-card-title">'+m.label+'</div><div class="rsh-card-desc">'+m.desc+'</div><div class="rsh-card-dur">'+m.duration+'</div>';
+    el.onclick=function(){selectMusicItem(m);};g.appendChild(el);
+  });renderTimers('timers-music');
 }
-
-function renderStories() {
-  const g = document.getElementById('grid-stories');
-  STORIES.forEach(function(story) {
-    const ok = canAccess(story.plan);
-    const el = document.createElement('div');
-    el.className = 'rsh-story-card' + (!ok?' locked':''); el.id = 'story-'+story.id;
-    el.innerHTML =
-      '<div class="rsh-story-card-art" style="background:' + story.artBg + '">' + story.emoji + '</div>' +
-      '<div class="rsh-story-card-title">' + story.label + '</div>' +
-      '<div class="rsh-story-card-meta">' +
-        '<div class="rsh-story-card-dur">' + story.duration + '</div>' +
-        '<span class="rsh-badge rsh-badge-' + story.plan + '">' + story.planLabel + '</span>' +
-      '</div>' +
-      (!ok ? '<div class="rsh-story-lock-overlay">🔒</div>' : '');
-    if (ok) {
-      el.onclick = function() { selectStory(story); };
-    }
+function renderStories(){
+  var g=document.getElementById('grid-stories');
+  STORIES.forEach(function(story){
+    var ok=canAccess(story.plan),el=document.createElement('div');
+    el.className='rsh-story-card'+(!ok?' locked':'');el.id='story-'+story.id;
+    el.innerHTML='<div class="rsh-story-card-art" style="background:'+story.artBg+'">'+story.emoji+'</div>'+
+      '<div class="rsh-story-card-title">'+story.label+'</div>'+
+      '<div class="rsh-story-card-meta"><div class="rsh-story-card-dur">'+story.duration+'</div>'+
+      '<span class="rsh-badge rsh-badge-'+story.plan+'">'+story.planLabel+'</span></div>'+
+      (!ok?'<div class="rsh-story-lock">🔒</div>':'');
+    if(ok)el.onclick=function(){selectStory(story);};
     g.appendChild(el);
   });
 }
-
-/* ═══════════════════════════════════
-   HERO DECORATION
-═══════════════════════════════════ */
-function buildStars() {
-  const c = document.getElementById('rsh-stars'); if (!c) return;
-  const configs = [{n:18,sz:1.5,op:[.5,.9],d:[2,4]},{n:10,sz:2.5,op:[.6,1],d:[3,5]},{n:6,sz:1,op:[.3,.6],d:[1.5,3]}];
-  let html = '';
-  configs.forEach(function(cfg){
-    for (let i=0;i<cfg.n;i++){
-      const x=(Math.random()*100).toFixed(1), y=(Math.random()*75).toFixed(1);
-      const op=(cfg.op[0]+Math.random()*(cfg.op[1]-cfg.op[0])).toFixed(2);
-      const d=(cfg.d[0]+Math.random()*(cfg.d[1]-cfg.d[0])).toFixed(1);
-      const dl=(Math.random()*-4).toFixed(1);
-      html+='<div class="rsh-star" style="left:'+x+'%;top:'+y+'%;width:'+cfg.sz+'px;height:'+cfg.sz+'px;--op:'+op+';--d:'+d+'s;--delay:'+dl+'s"></div>';
-    }
-  });
-  c.innerHTML = html;
+function buildStars(){
+  var c=document.getElementById('rsh-stars');if(!c)return;
+  var cfgs=[{n:18,sz:1.5,op:[.5,.9],d:[2,4]},{n:10,sz:2.5,op:[.6,1],d:[3,5]},{n:6,sz:1,op:[.3,.6],d:[1.5,3]}],html='';
+  cfgs.forEach(function(cfg){for(var i=0;i<cfg.n;i++){var x=(Math.random()*100).toFixed(1),y=(Math.random()*75).toFixed(1),op=(cfg.op[0]+Math.random()*(cfg.op[1]-cfg.op[0])).toFixed(2),d=(cfg.d[0]+Math.random()*(cfg.d[1]-cfg.d[0])).toFixed(1),dl=(Math.random()*-4).toFixed(1);html+='<div class="rsh-star" style="left:'+x+'%;top:'+y+'%;width:'+cfg.sz+'px;height:'+cfg.sz+'px;--op:'+op+';--d:'+d+'s;--delay:'+dl+'s"></div>';}});
+  c.innerHTML=html;
 }
-
-function buildTrees() {
-  const c = document.getElementById('rsh-trees'); if (!c) return;
-  c.innerHTML = '<svg viewBox="0 0 375 72" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:72px;display:block">' +
-    '<polygon points="0,72 18,30 36,72" fill="#0a1a0c"/><polygon points="4,72 18,42 32,72" fill="#0e2010"/><rect x="16" y="70" width="4" height="8" fill="#0a1a0c"/>' +
-    '<polygon points="40,72 55,24 70,72" fill="#0a1a0c"/><polygon points="44,72 55,36 66,72" fill="#0e2010"/><rect x="53" y="70" width="4" height="8" fill="#0a1a0c"/>' +
-    '<polygon points="280,72 295,26 310,72" fill="#0a1a0c"/><polygon points="284,72 295,38 306,72" fill="#0e2010"/><rect x="293" y="70" width="4" height="8" fill="#0a1a0c"/>' +
-    '<polygon points="318,72 336,20 354,72" fill="#0a1a0c"/><polygon points="322,72 336,34 350,72" fill="#0e2010"/><rect x="334" y="70" width="4" height="8" fill="#0a1a0c"/>' +
-    '<polygon points="355,72 368,30 375,50 375,72" fill="#0d1f0d"/>' +
-    '<rect x="0" y="66" width="375" height="8" fill="#0a1a0a" opacity="0.6"/>' +
-  '</svg>';
+function buildTrees(){
+  var c=document.getElementById('rsh-trees');if(!c)return;
+  c.innerHTML='<svg viewBox="0 0 375 64" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:64px;display:block"><polygon points="0,64 18,24 36,64" fill="#0a1a0c"/><polygon points="4,64 18,36 32,64" fill="#0e2010"/><rect x="16" y="62" width="4" height="8" fill="#0a1a0c"/><polygon points="40,64 55,18 70,64" fill="#0a1a0c"/><polygon points="44,64 55,30 66,64" fill="#0e2010"/><rect x="53" y="62" width="4" height="8" fill="#0a1a0c"/><polygon points="280,64 295,20 310,64" fill="#0a1a0c"/><polygon points="284,64 295,32 306,64" fill="#0e2010"/><rect x="293" y="62" width="4" height="8" fill="#0a1a0c"/><polygon points="318,64 336,14 354,64" fill="#0a1a0c"/><polygon points="322,64 336,28 350,64" fill="#0e2010"/><rect x="334" y="62" width="4" height="8" fill="#0a1a0c"/><polygon points="355,64 368,24 375,44 375,64" fill="#0d1f0d"/><rect x="0" y="58" width="375" height="8" fill="#0a1a0a" opacity="0.6"/></svg>';
 }
-
-/* ═══════════════════════════════════
-   INIT
-═══════════════════════════════════ */
-buildStars();
-buildTrees();
-renderNoise();
-renderMusic();
-renderStories();
-
-if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
-  speechSynthesis.onvoiceschanged = function() { speechSynthesis.getVoices(); };
-}
+buildStars();buildTrees();renderNoise();renderMusic();renderStories();
+if(typeof speechSynthesis!=='undefined'&&speechSynthesis.onvoiceschanged!==undefined){speechSynthesis.onvoiceschanged=function(){speechSynthesis.getVoices();};}
 </script>
 </body>
 </html>
